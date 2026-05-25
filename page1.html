@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The STOP Skill | What To Do! with Terri Kern</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#F7F4ED; --navy:#182047; --teal:#4F5DAD; --teal-lt:#8BA4DC;
+  --teal-bg:#edf1f8; --pink:#BD3A59; --pink-lt:#f7e0e6;
+  --gold:#B4DACD; --gold-lt:#eaf4f0; --text:#1e1e1e; --muted:#6b7280;
+  --border:#e0ddd6; --white:#ffffff; --radius:12px;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+html { font-size: 16px; }
+body { font-family:'Source Sans 3','Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; align-items:center; }
+.site-header { width:100%; background:linear-gradient(135deg,var(--navy) 0%,#1e2d6e 60%,var(--navy) 100%); color:white; padding:16px 24px 20px; text-align:center; }
+.site-header .eyebrow { font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:5px; font-weight:600; }
+.site-header h1 { font-size:clamp(1.3rem,4vw,1.75rem); font-weight:800; line-height:1.2; }
+.site-header h1 span { color:var(--gold); }
+.site-header .subtitle { font-size:0.85rem; color:rgba(255,255,255,0.65); margin-top:5px; }
+.screen { display:none; width:100%; max-width:620px; padding:24px 16px 80px; animation:fadeIn .4s ease; }
+.screen.active { display:flex; flex-direction:column; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.intro-card { background:var(--white); border-radius:var(--radius); padding:28px 24px; box-shadow:var(--shadow); margin-bottom:20px; }
+.intro-card h2 { font-size:1.25rem; font-weight:800; color:var(--navy); margin-bottom:10px; }
+.intro-card p { font-size:0.93rem; color:var(--muted); line-height:1.7; margin-bottom:10px; }
+.intro-card p:last-child { margin-bottom:0; }
+.when-to-use { background:var(--gold-lt); border-left:4px solid var(--gold); border-radius:8px; padding:14px 16px; font-size:0.88rem; color:var(--text); line-height:1.65; margin-bottom:24px; }
+.when-to-use strong { display:block; color:var(--navy); margin-bottom:4px; font-weight:700; }
+.stop-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.stop-letter-card { background:var(--white); border-radius:var(--radius); padding:20px 18px; box-shadow:var(--shadow); cursor:pointer; border:2px solid transparent; transition:border-color .2s,transform .15s; text-align:center; }
+.stop-letter-card:hover { border-color:var(--teal-lt); transform:translateY(-2px); }
+.stop-letter-card.active { border-color:var(--teal); background:var(--teal-bg); }
+.stop-letter-card.done { border-color:var(--gold); background:var(--gold-lt); }
+.big-letter { font-size:3rem; font-weight:800; color:var(--navy); line-height:1; margin-bottom:4px; }
+.stop-letter-card.active .big-letter { color:var(--teal); }
+.stop-letter-card.done .big-letter { color:#3a8a6a; }
+.letter-word { font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.letter-desc { font-size:0.78rem; color:var(--muted); line-height:1.4; }
+.step-detail { background:var(--white); border-radius:var(--radius); padding:24px 22px; box-shadow:var(--shadow); animation:fadeIn .3s ease; margin-bottom:16px; border-top:4px solid var(--teal); }
+.step-detail.hidden { display:none; }
+.step-letter { font-size:3.5rem; font-weight:800; color:var(--teal); line-height:1; }
+.step-word { font-size:1.3rem; font-weight:800; color:var(--navy); margin:4px 0 12px; }
+.step-instruction { font-size:0.93rem; color:var(--text); line-height:1.7; margin-bottom:16px; }
+.step-prompt { background:var(--teal-bg); border-radius:8px; padding:14px 16px; font-size:0.88rem; color:var(--navy); font-weight:600; line-height:1.6; margin-bottom:16px; }
+.step-prompt::before { content:"Try this: "; color:var(--teal); }
+.journal-area { width:100%; min-height:80px; border:1.5px solid var(--border); border-radius:8px; padding:12px 14px; font-family:inherit; font-size:0.9rem; color:var(--text); background:#fdfcf9; resize:vertical; line-height:1.6; margin-bottom:14px; transition:border-color .2s; }
+.journal-area:focus { outline:none; border-color:var(--teal); }
+.journal-area::placeholder { color:var(--muted); }
+.mini-timer { display:flex; align-items:center; justify-content:center; gap:16px; margin:12px 0; }
+.timer-display { font-size:2.4rem; font-weight:300; color:var(--teal); min-width:70px; text-align:center; }
+.timer-label { font-size:0.82rem; color:var(--muted); text-align:center; margin-top:2px; }
+.check-btn { background:none; border:2px solid var(--border); border-radius:8px; padding:10px 18px; font-family:inherit; font-size:0.88rem; font-weight:600; color:var(--muted); cursor:pointer; display:flex; align-items:center; gap:8px; transition:all .2s; width:100%; justify-content:center; margin-bottom:8px; }
+.check-btn:hover,.check-btn.checked { border-color:var(--gold); color:#3a8a6a; background:var(--gold-lt); }
+.btn { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:8px; border:none; cursor:pointer; font-family:inherit; font-size:0.92rem; font-weight:700; transition:transform .15s,box-shadow .2s,opacity .2s; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,0.12); }
+.btn-primary { background:var(--navy); color:#fff; }
+.btn-secondary { background:var(--teal-bg); color:var(--teal); border:1.5px solid var(--teal-lt); }
+.btn-success { background:var(--gold-lt); color:#2a7a5a; border:1.5px solid var(--gold); }
+.btn-row { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+.btn-full { width:100%; justify-content:center; }
+.back-btn { background:none; border:none; cursor:pointer; color:var(--muted); font-family:inherit; font-size:0.88rem; display:inline-flex; align-items:center; gap:6px; padding:0; margin-bottom:20px; transition:color .2s; }
+.back-btn:hover { color:var(--teal); }
+.progress-dots { display:flex; gap:8px; justify-content:center; margin-bottom:20px; }
+.p-dot { width:10px; height:10px; border-radius:50%; background:var(--border); transition:background .3s; }
+.p-dot.done { background:var(--gold); }
+.p-dot.active { background:var(--teal); }
+.complete-card { background:linear-gradient(135deg,var(--navy),#1e2d6e); color:white; border-radius:var(--radius); padding:36px 28px; text-align:center; box-shadow:var(--shadow); margin-bottom:20px; }
+.complete-icon { font-size:3rem; margin-bottom:12px; }
+.complete-card h2 { font-size:1.4rem; font-weight:800; margin-bottom:10px; }
+.complete-card p { font-size:0.93rem; opacity:0.8; line-height:1.7; }
+.insight-card { background:var(--white); border-radius:var(--radius); padding:22px 20px; box-shadow:var(--shadow); margin-bottom:16px; }
+.insight-card h3 { font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:10px; }
+.practice-tip { background:var(--teal-bg); border-left:4px solid var(--teal); border-radius:8px; padding:14px 16px; font-size:0.87rem; color:var(--text); line-height:1.65; }
+.practice-tip strong { color:var(--teal); }
+.category-chip { display:inline-block; background:var(--teal-bg); color:var(--teal); font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">What To Do! · Skills Hub</div>
+  <h1>The <span>STOP</span> Skill</h1>
+  <p class="subtitle">Distress Tolerance · A DBT Crisis Survival Tool</p>
+</header>
+
+<div class="screen active" id="screen-home">
+  <div class="intro-card">
+    <span class="category-chip">Distress Tolerance</span>
+    <h2>What is the STOP Skill?</h2>
+    <p>When your emotions are running the show, your thinking brain goes offline. The STOP skill is a four-step pause that interrupts automatic reactions — before you do something you'll regret or say something you can't take back.</p>
+    <p>It takes about 30 seconds. It works in arguments, spirals, panic, overwhelm, and those moments when you can feel yourself about to snap.</p>
+  </div>
+  <div class="when-to-use">
+    <strong>Use this when you notice:</strong>
+    Heart pounding · Urge to send a message you'll regret · Starting to shut down · Voice getting louder · Thoughts racing · You're about to react instead of respond
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:0.88rem;margin-bottom:16px;">Tap each letter to work through the skill</p>
+  <div class="stop-grid">
+    <div class="stop-letter-card" id="card-s" onclick="openStep('s')"><div class="big-letter">S</div><div class="letter-word">Stop</div><div class="letter-desc">Freeze. Don't act yet.</div></div>
+    <div class="stop-letter-card" id="card-t" onclick="openStep('t')"><div class="big-letter">T</div><div class="letter-word">Take a step back</div><div class="letter-desc">Create space. Breathe.</div></div>
+    <div class="stop-letter-card" id="card-o" onclick="openStep('o')"><div class="big-letter">O</div><div class="letter-word">Observe</div><div class="letter-desc">Notice what's happening.</div></div>
+    <div class="stop-letter-card" id="card-p" onclick="openStep('p')"><div class="big-letter">P</div><div class="letter-word">Proceed mindfully</div><div class="letter-desc">Act from clarity, not impulse.</div></div>
+  </div>
+  <div class="step-detail hidden" id="detail-s">
+    <div class="step-letter">S</div><div class="step-word">Stop</div>
+    <div class="step-instruction">The moment you notice you're reactive — <strong>freeze</strong>. Don't text. Don't speak. Don't walk away yet. Just stop moving. Your body wants to act. Don't let it. Not yet.</div>
+    <div class="step-prompt">Say to yourself: "I notice I'm activated. I'm going to stop."</div>
+    <button class="check-btn" id="check-s" onclick="markDone('s')"><span id="check-s-icon">○</span> I stopped</button>
+  </div>
+  <div class="step-detail hidden" id="detail-t">
+    <div class="step-letter">T</div><div class="step-word">Take a Step Back</div>
+    <div class="step-instruction">Physically or mentally create distance. Step away if you can. If not, lean back, feet flat on the floor, and take one slow breath.</div>
+    <div class="step-prompt">Take one breath: breathe in for 4 counts, out for 6. Do it once.</div>
+    <div class="mini-timer">
+      <div><div class="timer-display" id="breath-timer">4</div><div class="timer-label" id="breath-label">Breathe in</div></div>
+      <button class="btn btn-secondary" onclick="startBreath()" id="breath-btn">Start</button>
+    </div>
+    <button class="check-btn" id="check-t" onclick="markDone('t')"><span id="check-t-icon">○</span> I stepped back</button>
+  </div>
+  <div class="step-detail hidden" id="detail-o">
+    <div class="step-letter">O</div><div class="step-word">Observe</div>
+    <div class="step-instruction">Look at the situation from a slight distance. Notice what you're feeling, what triggered it, and what's actually happening — without judging it.</div>
+    <div class="step-prompt">Ask yourself three things:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+      <div style="background:var(--teal-bg);border-radius:8px;padding:10px 14px;font-size:0.88rem;">What am I feeling right now?</div>
+      <div style="background:var(--teal-bg);border-radius:8px;padding:10px 14px;font-size:0.88rem;">What triggered this?</div>
+      <div style="background:var(--teal-bg);border-radius:8px;padding:10px 14px;font-size:0.88rem;">What do I actually want to happen here?</div>
+    </div>
+    <textarea class="journal-area" placeholder="Optional: jot down what you're noticing..."></textarea>
+    <button class="check-btn" id="check-o" onclick="markDone('o')"><span id="check-o-icon">○</span> I observed</button>
+  </div>
+  <div class="step-detail hidden" id="detail-p">
+    <div class="step-letter">P</div><div class="step-word">Proceed Mindfully</div>
+    <div class="step-instruction">Now move — but from a considered place. What is the most effective action right now? Not the most satisfying. The most effective.</div>
+    <div class="step-prompt">Ask: "What would work best here — for me and for the situation?"</div>
+    <textarea class="journal-area" placeholder="What are you going to do next?"></textarea>
+    <button class="check-btn" id="check-p" onclick="markDone('p')"><span id="check-p-icon">○</span> I have a plan</button>
+  </div>
+  <div id="all-done-section" style="display:none;text-align:center;margin-top:8px;">
+    <div style="background:var(--gold-lt);border:1.5px solid var(--gold);border-radius:12px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:1.8rem;margin-bottom:6px;">✓</div>
+      <div style="font-weight:700;color:var(--navy);font-size:1rem;">You completed the STOP skill.</div>
+      <div style="color:var(--muted);font-size:0.88rem;margin-top:4px;">That pause you just took — that's the skill.</div>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="showScreen('screen-reflect')">Reflect on what happened →</button>
+  </div>
+  <div class="btn-row" style="margin-top:24px;">
+    <button class="btn btn-primary btn-full" onclick="showScreen('screen-practice')">Walk me through it step by step →</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-practice">
+  <button class="back-btn" onclick="showScreen('screen-home')">← Back</button>
+  <div class="progress-dots">
+    <div class="p-dot active" id="dot-1"></div><div class="p-dot" id="dot-2"></div>
+    <div class="p-dot" id="dot-3"></div><div class="p-dot" id="dot-4"></div>
+  </div>
+  <div id="guided-s" class="guided-step">
+    <div style="text-align:center;margin-bottom:20px;"><div style="font-size:5rem;font-weight:800;color:var(--navy);line-height:1;">S</div><div style="font-size:1.4rem;font-weight:800;color:var(--navy);">Stop</div><div style="color:var(--muted);font-size:0.88rem;margin-top:6px;">Step 1 of 4</div></div>
+    <div class="intro-card" style="margin-bottom:16px;"><p>Freeze right now. Don't respond to anything. Just stop.</p><p style="margin-top:10px;">The goal is to stop the automatic reaction from taking over.</p></div>
+    <div class="step-prompt" style="margin-bottom:20px;">Say it: <em>"I'm stopping. I'm not reacting yet."</em></div>
+    <button class="btn btn-primary btn-full" onclick="guidedNext('t')">I stopped → Next</button>
+  </div>
+  <div id="guided-t" class="guided-step" style="display:none;">
+    <div style="text-align:center;margin-bottom:20px;"><div style="font-size:5rem;font-weight:800;color:var(--teal);line-height:1;">T</div><div style="font-size:1.4rem;font-weight:800;color:var(--navy);">Take a Step Back</div><div style="color:var(--muted);font-size:0.88rem;margin-top:6px;">Step 2 of 4</div></div>
+    <div class="intro-card" style="margin-bottom:16px;"><p>Create distance. Step out if you can. If not, lean back, unclench your hands, feet flat on the floor.</p></div>
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="position:relative;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;">
+        <div id="guided-breath-circle" style="width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 40% 40%,var(--teal-lt),var(--teal));transition:transform 1s cubic-bezier(.4,0,.2,1);transform:scale(1);"></div>
+        <div id="guided-breath-num" style="position:absolute;font-size:2rem;font-weight:300;color:white;">–</div>
+      </div>
+      <div id="guided-breath-cue" style="font-size:1.1rem;font-weight:700;color:var(--navy);min-height:30px;">Press start to begin</div>
+      <button class="btn btn-secondary" style="margin:12px auto 0;display:block;" onclick="startGuidedBreath()" id="guided-breath-btn">Start breathing</button>
+    </div>
+    <button class="btn btn-primary btn-full" id="guided-t-next" onclick="guidedNext('o')" style="opacity:0.4;pointer-events:none;">I stepped back → Next</button>
+  </div>
+  <div id="guided-o" class="guided-step" style="display:none;">
+    <div style="text-align:center;margin-bottom:20px;"><div style="font-size:5rem;font-weight:800;color:var(--navy);line-height:1;">O</div><div style="font-size:1.4rem;font-weight:800;color:var(--navy);">Observe</div><div style="color:var(--muted);font-size:0.88rem;margin-top:6px;">Step 3 of 4</div></div>
+    <div class="intro-card" style="margin-bottom:16px;"><p>Without judging, observe what's actually happening.</p></div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+      <div><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;">What am I feeling?</label><textarea class="journal-area" placeholder="Name it precisely..." style="min-height:60px;"></textarea></div>
+      <div><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;">What triggered this?</label><textarea class="journal-area" placeholder="What happened just before?" style="min-height:60px;"></textarea></div>
+      <div><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;">What do I actually want here?</label><textarea class="journal-area" placeholder="Not what feels satisfying — what do you want?" style="min-height:60px;"></textarea></div>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="guidedNext('p')">I observed → Next</button>
+  </div>
+  <div id="guided-p" class="guided-step" style="display:none;">
+    <div style="text-align:center;margin-bottom:20px;"><div style="font-size:5rem;font-weight:800;color:var(--navy);line-height:1;">P</div><div style="font-size:1.4rem;font-weight:800;color:var(--navy);">Proceed Mindfully</div><div style="color:var(--muted);font-size:0.88rem;margin-top:6px;">Step 4 of 4</div></div>
+    <div class="intro-card" style="margin-bottom:16px;"><p>Move with intention. What is the most effective action — not the most satisfying, the most effective?</p></div>
+    <div style="margin-bottom:20px;"><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:6px;">My next move:</label><textarea class="journal-area" placeholder="Be specific."></textarea></div>
+    <div class="practice-tip" style="margin-bottom:20px;"><strong>Remember:</strong> Sometimes waiting is the most effective choice.</div>
+    <button class="btn btn-success btn-full" onclick="showScreen('screen-reflect')">Complete the STOP skill →</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-reflect">
+  <div class="complete-card">
+    <div class="complete-icon">✓</div>
+    <h2>You used the STOP skill.</h2>
+    <p>That pause — between trigger and response — is the whole skill. The more you do it, the shorter the gap gets between activation and clarity.</p>
+  </div>
+  <div class="insight-card">
+    <h3>What just happened in your brain</h3>
+    <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;">When triggered, your amygdala fires before your prefrontal cortex can process what's happening. The STOP skill gives your thinking brain time to come online. That's neuroscience working for you.</p>
+  </div>
+  <div class="insight-card">
+    <h3>What to do next time</h3>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;"><span style="color:var(--teal);font-weight:800;min-width:24px;">S</span><span>Freeze. Don't act yet.</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;"><span style="color:var(--teal);font-weight:800;min-width:24px;">T</span><span>Step back. One breath.</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;"><span style="color:var(--teal);font-weight:800;min-width:24px;">O</span><span>Observe without judging.</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;"><span style="color:var(--teal);font-weight:800;min-width:24px;">P</span><span>Proceed with what works.</span></div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" style="flex:1;" onclick="showScreen('screen-home')">Use it again</button>
+    <button class="btn btn-primary" style="flex:1;" onclick="showScreen('screen-home')">Back to start</button>
+  </div>
+</div>
+
+<script>
+const steps=['s','t','o','p'];
+const done={s:false,t:false,o:false,p:false};
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function openStep(l){steps.forEach(x=>{document.getElementById('detail-'+x).classList.add('hidden');document.getElementById('card-'+x).classList.remove('active');});document.getElementById('detail-'+l).classList.remove('hidden');document.getElementById('card-'+l).classList.add('active');if(done[l])document.getElementById('card-'+l).classList.add('done');setTimeout(()=>document.getElementById('detail-'+l).scrollIntoView({behavior:'smooth',block:'nearest'}),50);}
+function markDone(l){done[l]=true;document.getElementById('check-'+l).classList.add('checked');document.getElementById('check-'+l+'-icon').textContent='✓';document.getElementById('card-'+l).classList.add('done');if(steps.every(x=>done[x])){document.getElementById('all-done-section').style.display='block';setTimeout(()=>document.getElementById('all-done-section').scrollIntoView({behavior:'smooth'}),100);}}
+let bInt=null;
+function startBreath(){const d=document.getElementById('breath-timer'),lb=document.getElementById('breath-label'),btn=document.getElementById('breath-btn');btn.disabled=true;btn.textContent='...';let c=4,ph='in';d.textContent=c;lb.textContent='Breathe in';bInt=setInterval(()=>{c--;if(c<=0){if(ph==='in'){ph='out';c=6;lb.textContent='Breathe out';}else{clearInterval(bInt);d.textContent='✓';lb.textContent='Done';btn.disabled=false;btn.textContent='Again';return;}}d.textContent=c;},1000);}
+let gBT=null;
+function startGuidedBreath(){const circ=document.getElementById('guided-breath-circle'),num=document.getElementById('guided-breath-num'),cue=document.getElementById('guided-breath-cue'),btn=document.getElementById('guided-breath-btn');btn.disabled=true;btn.textContent='...';let c=4,ph='in';cue.textContent='Breathe in...';circ.style.transform='scale(1.4)';num.textContent=c;gBT=setInterval(()=>{c--;if(c<=0){if(ph==='in'){ph='out';c=6;cue.textContent='Breathe out...';circ.style.transform='scale(1.0)';}else{clearInterval(gBT);cue.textContent='Good. Notice how that feels.';circ.style.transform='scale(1.0)';num.textContent='✓';btn.textContent='Again';btn.disabled=false;btn.onclick=startGuidedBreath;const nb=document.getElementById('guided-t-next');nb.style.opacity='1';nb.style.pointerEvents='auto';return;}}else{num.textContent=c;}},1000);}
+function guidedNext(step){const map={s:1,t:2,o:3,p:4};for(let i=1;i<=4;i++){const dot=document.getElementById('dot-'+i);dot.className=i<map[step]?'p-dot done':i===map[step]?'p-dot active':'p-dot';}document.querySelectorAll('.guided-step').forEach(s=>s.style.display='none');document.getElementById('guided-'+step).style.display='block';window.scrollTo(0,0);}
+</script>
+</body>
+</html>

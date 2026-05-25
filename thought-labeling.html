@@ -1,0 +1,892 @@
+Shortform Logo
+
+Intro Image
+Get an instant summary of this page
+Along with context, alternative points of view, and links to learn more
+
+
+Get summary
+You have early access to a new product. Give us feedback on how to make it better: extension@shortform.com
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thought Labeling Practice — What To Do!</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F7F4ED;color:#2D3748;min-height:100vh}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(135deg,#12233E 0%,#1A3A5C 100%);padding:44px 24px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px;position:relative}
+.hero h1{font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.15;position:relative}
+.hero h1 span{color:#B4DACD}
+.hero p{margin-top:10px;color:rgba(255,255,255,.7);font-size:.95rem;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.65;position:relative}
+.hero-badges{display:flex;justify-content:center;gap:8px;margin-top:18px;flex-wrap:wrap;position:relative}
+.hero-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:4px 13px;font-size:.75rem;color:rgba(255,255,255,.85)}
+
+/* ── Nav Tabs ── */
+.tab-bar{background:#fff;border-bottom:1px solid #E2E8F0;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:20}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:14px 20px;font-size:.82rem;font-weight:700;color:#8FA8B8;border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;transition:all .18s;white-space:nowrap;font-family:inherit}
+.tab-btn:hover{color:#2D3748}
+.tab-btn.active{color:#12233E;border-bottom-color:#3d8b76}
+
+/* ── Container ── */
+.container{max-width:760px;margin:0 auto;padding:28px 20px 80px}
+
+/* ── Section ── */
+.section{display:none}
+.section.active{display:block}
+
+/* ── Cards ── */
+.card{background:#fff;border-radius:14px;padding:22px 24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-title{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;margin-bottom:12px}
+.card p{font-size:.9rem;color:#5D7A8A;line-height:1.75;margin-bottom:10px}
+.card p:last-child{margin-bottom:0}
+
+/* ── Key Concept Box ── */
+.key-concept{background:linear-gradient(135deg,#12233E,#1A3A5C);border-radius:14px;padding:22px 24px;margin-bottom:20px}
+.key-concept-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+.key-concept p{font-size:.95rem;color:#fff;line-height:1.7;font-weight:500}
+.key-concept p em{color:#B4DACD;font-style:normal;font-weight:700}
+
+/* ── Thought Type Cards ── */
+.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:0}
+.type-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid;cursor:pointer;transition:transform .15s,box-shadow .2s}
+.type-card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.1)}
+.type-card.expanded .type-examples{display:block}
+.type-label{font-size:.88rem;font-weight:800;margin-bottom:4px}
+.type-desc{font-size:.75rem;color:#5D7A8A;line-height:1.5;margin-bottom:0}
+.type-examples{display:none;margin-top:10px;border-top:1px solid #F0EDE6;padding-top:10px}
+.type-example{font-size:.76rem;color:#7A99A8;font-style:italic;margin-bottom:5px;padding-left:8px;border-left:2px solid #DDE6ED}
+.type-example:last-child{margin-bottom:0}
+.type-chevron{float:right;font-size:.7rem;color:#A0B4C0;margin-top:2px;transition:transform .2s}
+.type-card.expanded .type-chevron{transform:rotate(180deg)}
+
+/* ── Quiz ── */
+.quiz-progress-bar-wrap{background:#E2E8F0;border-radius:99px;height:6px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-bar{height:6px;border-radius:99px;background:linear-gradient(90deg,#3d8b76,#B4DACD);transition:width .4s ease}
+.quiz-counter{font-size:.72rem;color:#A0B4C0;text-align:right;margin-bottom:6px}
+.quiz-thought{background:#12233E;border-radius:12px;padding:20px 22px;margin-bottom:18px}
+.quiz-thought-label{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.quiz-thought-text{font-size:1rem;color:#fff;font-style:italic;line-height:1.6;font-weight:500}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0}
+.quiz-opt{background:#F7F4ED;border:2px solid #DDE6ED;border-radius:10px;padding:11px 14px;font-size:.82rem;font-weight:700;color:#4A6274;cursor:pointer;transition:all .18s;text-align:left;font-family:inherit}
+.quiz-opt:hover:not(:disabled){background:#E8E4DC;border-color:#B4DACD;color:#2a6357}
+.quiz-opt.correct{background:#B4DACD;border-color:#3d8b76;color:#2a6357}
+.quiz-opt.wrong{background:#f7e0e6;border-color:#BD3A59;color:#8a1a35}
+.quiz-opt.reveal{background:#B4DACD;border-color:#3d8b76;color:#2a6357;opacity:.7}
+.quiz-opt:disabled{cursor:default}
+.quiz-feedback{border-radius:10px;padding:14px 16px;margin-top:14px;font-size:.85rem;line-height:1.65;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct{background:#B4DACD;color:#2a6357;border-left:4px solid #3d8b76}
+.quiz-feedback.wrong{background:#f7e0e6;color:#8a1a35;border-left:4px solid #BD3A59}
+.quiz-feedback-title{font-weight:800;margin-bottom:4px;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.quiz-next{display:none;margin-top:14px;background:#12233E;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .18s;width:100%}
+.quiz-next:hover{background:#1A3A5C}
+.quiz-next.show{display:block}
+.quiz-score-card{text-align:center;padding:32px 20px}
+.quiz-score-num{font-size:3.5rem;font-weight:800;color:#12233E;line-height:1}
+.quiz-score-label{font-size:.85rem;color:#8FA8B8;margin-top:6px;margin-bottom:20px}
+.quiz-score-msg{font-size:.9rem;color:#5D7A8A;line-height:1.65;margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto}
+.quiz-restart{background:#3d8b76;color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .18s}
+.quiz-restart:hover{background:#2a6357}
+
+/* ── Distancing Practice ── */
+.distance-card{background:#fff;border-radius:14px;padding:22px 24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.distance-step{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#A0B4C0;font-weight:700;margin-bottom:8px}
+.distance-fused{background:#f7e0e6;border-left:4px solid #BD3A59;border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:16px}
+.distance-fused-label{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#BD3A59;font-weight:700;margin-bottom:5px}
+.distance-fused-text{font-size:.95rem;color:#8a1a35;font-weight:600;font-style:italic}
+.distance-templates{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.distance-tpl{background:#F7F4ED;border:2px solid #DDE6ED;border-radius:10px;padding:12px 14px;font-size:.85rem;color:#4A6274;cursor:pointer;transition:all .18s;font-family:inherit;text-align:left}
+.distance-tpl:hover:not(:disabled){border-color:#3d8b76;background:#B4DACD;color:#2a6357}
+.distance-tpl.selected-correct{border-color:#3d8b76;background:#B4DACD;color:#2a6357;font-weight:700}
+.distance-tpl.selected-wrong{border-color:#BD3A59;background:#f7e0e6;color:#8a1a35}
+.distance-tpl.reveal-correct{border-color:#3d8b76;background:#B4DACD;color:#2a6357;opacity:.7}
+.distance-tpl:disabled{cursor:default}
+.distance-result{border-radius:10px;padding:14px 16px;font-size:.85rem;line-height:1.65;display:none;margin-top:4px}
+.distance-result.show{display:block}
+.distance-result.correct{background:#B4DACD;color:#2a6357;border-left:4px solid #3d8b76}
+.distance-result.wrong{background:#f7e0e6;color:#8a1a35;border-left:4px solid #BD3A59}
+.distance-nav{display:flex;gap:10px;margin-top:14px}
+.distance-nav button{flex:1;padding:11px;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;border:none;transition:background .18s}
+.distance-prev{background:#F7F4ED;color:#5D7A8A}
+.distance-prev:hover{background:#E8E4DC}
+.distance-next-btn{background:#12233E;color:#fff}
+.distance-next-btn:hover{background:#1A3A5C}
+.distance-next-btn:disabled{opacity:.4;cursor:default}
+.distance-prog{font-size:.72rem;color:#A0B4C0;text-align:center;margin-bottom:12px}
+
+/* ── Willingness Check ── */
+.will-intro{font-size:.88rem;color:#5D7A8A;line-height:1.75;margin-bottom:20px}
+.will-choice-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.will-choice{background:#fff;border-radius:14px;padding:20px;text-align:center;cursor:pointer;border:2px solid #DDE6ED;transition:all .2s;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.will-choice:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.1)}
+.will-choice.selected-willing{border-color:#3d8b76;background:#B4DACD}
+.will-choice.selected-willful{border-color:#BD3A59;background:#f7e0e6}
+.will-choice-icon{font-size:2rem;margin-bottom:8px}
+.will-choice-name{font-size:.95rem;font-weight:800;margin-bottom:4px}
+.will-choice-desc{font-size:.75rem;color:#7A99A8;line-height:1.5}
+.will-response{display:none;border-radius:12px;padding:20px 22px;margin-bottom:20px}
+.will-response.show{display:block}
+.will-response.willing{background:linear-gradient(135deg,#B4DACD,#d4ece4);border-left:4px solid #3d8b76}
+.will-response.willful{background:linear-gradient(135deg,#f7e0e6,#fceef2);border-left:4px solid #BD3A59}
+.will-response-title{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.will-response.willing .will-response-title{color:#2a6357}
+.will-response.willful .will-response-title{color:#8a1a35}
+.will-response p{font-size:.88rem;line-height:1.75}
+.will-response.willing p{color:#2a6357}
+.will-response.willful p{color:#8a1a35}
+.will-label-practice{background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px}
+.will-label-practice-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#A0B4C0;margin-bottom:10px}
+.will-label-btn{display:block;width:100%;background:#F7F4ED;border:2px solid #DDE6ED;border-radius:9px;padding:11px 14px;font-size:.85rem;font-weight:600;color:#4A6274;cursor:pointer;margin-bottom:7px;text-align:left;font-family:inherit;transition:all .18s}
+.will-label-btn:last-child{margin-bottom:0}
+.will-label-btn:hover{background:#B4DACD;border-color:#3d8b76;color:#2a6357}
+.will-label-btn.selected{background:#B4DACD;border-color:#3d8b76;color:#2a6357;font-weight:700}
+.will-reset{background:#F7F4ED;color:#5D7A8A;border:none;border-radius:9px;padding:10px 20px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;margin-top:12px;display:none}
+.will-reset.show{display:block}
+
+/* ── Own Thought ── */
+.own-step{margin-bottom:24px}
+.own-step-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#12233E;color:#fff;font-size:.78rem;font-weight:800;margin-bottom:10px;flex-shrink:0}
+.own-step-title{font-size:.9rem;font-weight:700;color:#12233E;margin-bottom:6px}
+.own-textarea{width:100%;border:2px solid #DDE6ED;border-radius:10px;padding:14px;font-size:.9rem;font-family:inherit;color:#2D3748;background:#fff;resize:vertical;min-height:80px;transition:border-color .18s;line-height:1.6}
+.own-textarea:focus{outline:none;border-color:#3d8b76}
+.own-type-select{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:0}
+.own-type-btn{background:#F7F4ED;border:2px solid #DDE6ED;border-radius:9px;padding:9px 12px;font-size:.78rem;font-weight:700;color:#5D7A8A;cursor:pointer;font-family:inherit;transition:all .18s;text-align:left}
+.own-type-btn:hover{border-color:#3d8b76;color:#2a6357;background:#B4DACD}
+.own-type-btn.selected{border-color:#3d8b76;background:#B4DACD;color:#2a6357}
+.own-distance-row{display:flex;flex-direction:column;gap:8px;margin-top:0}
+.own-distance-btn{background:#F7F4ED;border:2px solid #DDE6ED;border-radius:9px;padding:11px 14px;font-size:.83rem;color:#4A6274;cursor:pointer;font-family:inherit;transition:all .18s;text-align:left}
+.own-distance-btn:hover{border-color:#4F5DAD;background:#e8eaf8;color:#2d3880}
+.own-distance-btn.selected{border-color:#4F5DAD;background:#e8eaf8;color:#2d3880;font-weight:700}
+.own-reframed{background:#e8eaf8;border-left:4px solid #4F5DAD;border-radius:0 10px 10px 0;padding:14px 16px;font-size:.9rem;color:#2d3880;line-height:1.65;font-weight:500;display:none;margin-top:10px}
+.own-reframed.show{display:block}
+.own-reframed strong{font-weight:800}
+.own-final{background:linear-gradient(135deg,#B4DACD,#d4ece4);border-radius:12px;padding:18px 20px;display:none}
+.own-final.show{display:block}
+.own-final-title{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#2a6357;margin-bottom:8px}
+.own-final p{font-size:.88rem;color:#2a6357;line-height:1.75}
+.own-action-btn{background:#12233E;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .18s;margin-top:14px;display:block;width:100%}
+.own-action-btn:hover{background:#1A3A5C}
+.own-action-btn:disabled{opacity:.35;cursor:default}
+.own-clear{background:none;border:none;color:#A0B4C0;font-size:.75rem;cursor:pointer;padding:0;font-family:inherit;margin-top:8px;display:block}
+.own-clear:hover{color:#BD3A59}
+
+/* ── Mobile ── */
+@media(max-width:600px){
+  .hero h1{font-size:1.75rem}
+  .type-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}
+  .will-choice-row{grid-template-columns:1fr}
+  .own-type-select{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-eyebrow">What To Do! · Skills Practice</div>
+  <h1>Thought <span>Labeling</span></h1>
+  <p>Learn to observe your thoughts from a distance — not as facts, but as mental events that come and go.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">🧠 DBT Skill</span>
+    <span class="hero-badge">🎯 Distress Tolerance</span>
+    <span class="hero-badge">4 Exercises</span>
+  </div>
+</div>
+
+<!-- ── Tabs ── -->
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="switchTab('learn',this)">📖 The Skill</button>
+  <button class="tab-btn" onclick="switchTab('quiz',this)">🎯 Label Practice</button>
+  <button class="tab-btn" onclick="switchTab('distance',this)">🌿 Create Distance</button>
+  <button class="tab-btn" onclick="switchTab('willing',this)">🌊 Willingness</button>
+  <button class="tab-btn" onclick="switchTab('own',this)">✍️ Your Thought</button>
+</div>
+
+<!-- ── MAIN CONTAINER ── -->
+<div class="container">
+
+  <!-- ─────────────────── TAB 1: LEARN ─────────────────── -->
+  <div class="section active" id="tab-learn">
+
+    <div class="key-concept">
+      <div class="key-concept-label">The Core Idea</div>
+      <p>A thought is a <em>mental event</em> — not a fact, not reality, and not you. When you notice a thought and name it, you create space between yourself and the thought. That space is where choice lives.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#3d8b76">Why Thoughts Feel True</div>
+      <p>Your brain is constantly generating thoughts — predictions, judgments, memories, worries. Most of them arrive automatically, without invitation. The problem isn't the thoughts themselves. The problem is when we treat them as facts.</p>
+      <p>When you believe "I'm going to fail," you're not observing a thought — you're living inside it. Thought labeling teaches you to step back and notice: <em>"My mind is having a 'failure' thought right now."</em></p>
+      <p>That shift is small. The effect is not.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#4F5DAD">The 8 Thought Types</div>
+      <p style="margin-bottom:16px">Tap any type to see examples. Learning these categories is the first step in labeling.</p>
+      <div class="type-grid" id="typeGrid"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#BD3A59">Thoughts Are Not Facts</div>
+      <p>Just because your mind produces a thought doesn't make it true. Thoughts can be helpful, unhelpful, accurate, or completely distorted. The goal isn't to fight them — it's to <em>observe</em> them.</p>
+      <p>Think of your mind like a sky. Thoughts are clouds. They pass through. You don't have to become the cloud to notice it's there.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#FF6903">How to Label a Thought</div>
+      <p>When you notice a distressing thought, try one of these:</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+        <div style="background:#B4DACD;border-radius:9px;padding:11px 14px;font-size:.85rem;color:#2a6357;font-weight:600">💭 "I'm having the thought that ___."</div>
+        <div style="background:#e8eaf8;border-radius:9px;padding:11px 14px;font-size:.85rem;color:#2d3880;font-weight:600">🧠 "My mind is telling me ___."</div>
+        <div style="background:#fff0e6;border-radius:9px;padding:11px 14px;font-size:.85rem;color:#cc4a00;font-weight:600">👁 "I notice I'm thinking ___."</div>
+        <div style="background:#f7e0e6;border-radius:9px;padding:11px 14px;font-size:.85rem;color:#8a1a35;font-weight:600">🏷 "That's a [judgment / worry / should-rule] showing up."</div>
+      </div>
+    </div>
+
+    <button class="own-action-btn" onclick="switchTabByName('quiz')" style="margin-top:4px">Start Label Practice →</button>
+
+  </div>
+
+  <!-- ─────────────────── TAB 2: QUIZ ─────────────────── -->
+  <div class="section" id="tab-quiz">
+    <div id="quizContainer"></div>
+  </div>
+
+  <!-- ─────────────────── TAB 3: DISTANCE ─────────────────── -->
+  <div class="section" id="tab-distance">
+
+    <div class="key-concept">
+      <div class="key-concept-label">Creating Distance from a Thought</div>
+      <p>The goal is to go from <em>fused</em> ("I'm a failure") to <em>observing</em> ("I'm having the thought that I'm a failure"). Below are scenarios — choose the phrase that creates the most helpful distance.</p>
+    </div>
+
+    <div id="distanceContainer"></div>
+
+  </div>
+
+  <!-- ─────────────────── TAB 4: WILLINGNESS ─────────────────── -->
+  <div class="section" id="tab-willing">
+
+    <div class="key-concept">
+      <div class="key-concept-label">Willingness vs. Willfulness</div>
+      <p>Willingness means <em>doing what works</em> — staying open, responsive, and effective. Willfulness means refusing to do what's needed, or trying to control what can't be controlled. The first step is simply <em>noticing which one is here.</em></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#12233E">What's present in you right now?</div>
+      <p class="will-intro">Read each description and notice which one fits your current state most closely. There's no right answer — this is practice in labeling what's actually here.</p>
+      <div class="will-choice-row">
+        <div class="will-choice" id="willChoice-w" onclick="selectWill('willing')">
+          <div class="will-choice-icon">🌊</div>
+          <div class="will-choice-name" style="color:#3d8b76">Willingness</div>
+          <div class="will-choice-desc">Open. Responding to the situation. Doing what works even when it's hard. Participating fully.</div>
+        </div>
+        <div class="will-choice" id="willChoice-f" onclick="selectWill('willful')">
+          <div class="will-choice-icon">🪨</div>
+          <div class="will-choice-name" style="color:#BD3A59">Willfulness</div>
+          <div class="will-choice-desc">Shut down. Refusing. Trying to control what I can't. Doing the opposite of what I know works.</div>
+        </div>
+      </div>
+
+      <div class="will-response" id="willResponse-willing">
+        <div class="will-response-title">✓ Willingness is here</div>
+        <p>You've just labeled your state of mind — and that matters. Noticing willingness helps you stay in it. Take a breath and acknowledge: your mind is open and your body is ready to participate. That's not nothing. That's skill.</p>
+        <div class="will-label-practice">
+          <div class="will-label-practice-title">Say it out loud (or in your mind)</div>
+          <button class="will-label-btn" onclick="selectLabel(this,'willing')">💬 "Willingness is here right now."</button>
+          <button class="will-label-btn" onclick="selectLabel(this,'willing')">💬 "I'm showing up for this."</button>
+          <button class="will-label-btn" onclick="selectLabel(this,'willing')">💬 "My mind is open and I'm doing what works."</button>
+        </div>
+      </div>
+
+      <div class="will-response" id="willResponse-willful">
+        <div class="will-response-title">Willfulness has shown up</div>
+        <p>Labeling it — right now, out loud or to yourself — is the skill. You're not bad for being willful. You're noticing it. That's exactly what this practice asks you to do. Now ask: <strong>is there one small step toward willingness?</strong> Not the whole thing. Just one step.</p>
+        <div class="will-label-practice">
+          <div class="will-label-practice-title">Try labeling it — choose one</div>
+          <button class="will-label-btn" onclick="selectLabel(this,'willful')">💬 "Willfulness has shown up."</button>
+          <button class="will-label-btn" onclick="selectLabel(this,'willful')">💬 "My mind is refusing right now, and I notice that."</button>
+          <button class="will-label-btn" onclick="selectLabel(this,'willful')">💬 "I'm being willful. What is one small thing I can do?"</button>
+        </div>
+      </div>
+
+      <button class="will-reset" id="willReset" onclick="resetWill()">↩ Choose again</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#4F5DAD">Common Willfulness Thoughts</div>
+      <p style="margin-bottom:14px">These are thoughts that often show up alongside willfulness. If you recognize any of them, try labeling them:</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:#f7e0e6;border-radius:9px;padding:11px 14px;font-size:.83rem;color:#8a1a35;border-left:3px solid #BD3A59">"I shouldn't have to deal with this."</div>
+        <div style="background:#f7e0e6;border-radius:9px;padding:11px 14px;font-size:.83rem;color:#8a1a35;border-left:3px solid #BD3A59">"This isn't fair and I refuse to accept it."</div>
+        <div style="background:#f7e0e6;border-radius:9px;padding:11px 14px;font-size:.83rem;color:#8a1a35;border-left:3px solid #BD3A59">"There's nothing I can do, so why try."</div>
+        <div style="background:#f7e0e6;border-radius:9px;padding:11px 14px;font-size:.83rem;color:#8a1a35;border-left:3px solid #BD3A59">"If they won't change, I'm not changing either."</div>
+        <div style="background:#f7e0e6;border-radius:9px;padding:11px 14px;font-size:.83rem;color:#8a1a35;border-left:3px solid #BD3A59">"I'm done. I give up."</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────── TAB 5: YOUR THOUGHT ─────────────────── -->
+  <div class="section" id="tab-own">
+
+    <div class="key-concept">
+      <div class="key-concept-label">Bring Your Own Thought</div>
+      <p>Use this tool to work through a real thought that's been weighing on you. Walk through each step — labeling, distancing, and letting it be <em>just a thought.</em></p>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="card own-step" id="ownStep1">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div class="own-step-num">1</div>
+        <div class="own-step-title">Write the thought exactly as it sounds in your head</div>
+      </div>
+      <textarea class="own-textarea" id="ownThoughtInput" placeholder="e.g. &quot;I'm always messing everything up.&quot;" oninput="updateOwnThought()"></textarea>
+      <button class="own-clear" id="ownClearBtn" onclick="clearOwnThought()" style="display:none">✕ Clear</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="card own-step" id="ownStep2" style="opacity:.4;pointer-events:none">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div class="own-step-num">2</div>
+        <div class="own-step-title">What type of thought is this?</div>
+      </div>
+      <div class="own-type-select" id="ownTypeSelect"></div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="card own-step" id="ownStep3" style="opacity:.4;pointer-events:none">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div class="own-step-num">3</div>
+        <div class="own-step-title">Add distance — choose how to observe it</div>
+      </div>
+      <div class="own-distance-row" id="ownDistanceRow">
+        <button class="own-distance-btn" onclick="selectOwnDistance(this, `I'm having the thought that`)">💭 "I'm having the thought that ___."</button>
+        <button class="own-distance-btn" onclick="selectOwnDistance(this, `My mind is telling me`)">🧠 "My mind is telling me ___."</button>
+        <button class="own-distance-btn" onclick="selectOwnDistance(this, `I notice I'm thinking`)">👁 "I notice I'm thinking ___."</button>
+        <button class="own-distance-btn" onclick="selectOwnDistance(this, `I'm noticing a`)">🏷 "I'm noticing a [type] thought: ___."</button>
+      </div>
+      <div class="own-reframed" id="ownReframed"></div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="card own-step" id="ownStep4" style="opacity:.4;pointer-events:none">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div class="own-step-num">4</div>
+        <div class="own-step-title">Let it be just a thought</div>
+      </div>
+      <div class="own-final" id="ownFinal">
+        <div class="own-final-title">✓ You've labeled this thought</div>
+        <p id="ownFinalText"></p>
+        <p style="margin-top:10px">Now take one slow breath and let the thought pass — like a cloud through the sky. You don't have to make it leave. You don't have to believe it or argue with it. Just notice it, name it, and breathe.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /container -->
+
+<script>
+
+// ── THOUGHT TYPES ─────────────────────────────────────────────────────────────
+const THOUGHT_TYPES = [
+  {
+    label: 'Judgment',
+    color: '#BD3A59', bg: '#f7e0e6',
+    desc: 'Evaluating something as good/bad, right/wrong, or worthless.',
+    examples: ['"That was stupid."', '"She\'s a terrible person."', '"I\'m so pathetic."']
+  },
+  {
+    label: 'Worry / Prediction',
+    color: '#FF6903', bg: '#fff0e6',
+    desc: 'Imagining a negative outcome in the future before it happens.',
+    examples: ['"This is going to go wrong."', '"I\'ll definitely fail."', '"Something bad is about to happen."']
+  },
+  {
+    label: '"Should" Rule',
+    color: '#4F5DAD', bg: '#e8eaf8',
+    desc: 'An internal demand about how you or others must behave.',
+    examples: ['"I should be better by now."', '"They shouldn\'t have done that."', '"I should just get over it."']
+  },
+  {
+    label: 'Interpretation',
+    color: '#3d8b76', bg: '#B4DACD',
+    desc: 'Assigning meaning to someone else\'s actions or words.',
+    examples: ['"She didn\'t smile — she must hate me."', '"He left early because he was bored."', '"That means they don\'t respect me."']
+  },
+  {
+    label: 'Memory / Story',
+    color: '#8a6a1a', bg: '#fdf3d8',
+    desc: 'A thought rooted in past events, often replaying what happened.',
+    examples: ['"Last time I tried this it blew up."', '"I always end up alone."', '"Things have never worked out for me."']
+  },
+  {
+    label: 'Belief about Self',
+    color: '#5D3A8A', bg: '#f0eaf8',
+    desc: 'A deep conclusion about who you are or what you deserve.',
+    examples: ['"I\'m not good enough."', '"I\'m broken."', '"No one could love the real me."']
+  },
+  {
+    label: 'Catastrophizing',
+    color: '#8a1a35', bg: '#fce8ec',
+    desc: 'Imagining the absolute worst possible outcome.',
+    examples: ['"Everything will fall apart."', '"My life is ruined."', '"This will never get better."']
+  },
+  {
+    label: 'Assumption',
+    color: '#2d5a8a', bg: '#e4eef8',
+    desc: 'Believing you know what someone else is thinking or feeling.',
+    examples: ['"They probably think I\'m incompetent."', '"Everyone noticed."', '"She must be laughing at me."']
+  }
+];
+
+// ── QUIZ DATA ─────────────────────────────────────────────────────────────────
+const QUIZ_ITEMS = [
+  { thought: '"She didn\'t text back. She must be angry with me."',       answer: 'Interpretation',     feedback: 'You\'re assigning meaning to someone\'s behavior without proof. Their silence could mean dozens of things — Interpretation is when we decide which one it means.' },
+  { thought: '"I should have handled that so much better."',               answer: '"Should" Rule',       feedback: '"Should" rules are internal demands we place on ourselves. They often carry shame and self-criticism, and they assume there was one right way to respond.' },
+  { thought: '"I\'m going to fail this, I just know it."',                answer: 'Worry / Prediction',  feedback: 'This is a prediction — imagining a negative future before it happens. Your nervous system responds to predicted threats almost the same as real ones.' },
+  { thought: '"That person is completely selfish and inconsiderate."',     answer: 'Judgment',           feedback: 'This is a judgment — evaluating someone\'s entire character based on behavior. Judgments feel certain, but they\'re still thoughts, not facts.' },
+  { thought: '"If I mess this up, everything is going to fall apart."',   answer: 'Catastrophizing',    feedback: 'Catastrophizing jumps to the worst possible outcome. Notice how absolute it feels — "everything" is a signal word for this thought type.' },
+  { thought: '"Last time I tried something like this, it blew up."',      answer: 'Memory / Story',     feedback: 'This thought uses the past to predict the future. Memory thoughts can be informative, but when they become the whole story, they limit what feels possible.' },
+  { thought: '"They probably think I\'m completely incompetent."',        answer: 'Assumption',         feedback: 'You\'re assuming you know what someone else thinks. We often assume the worst about others\' perceptions of us — and we\'re usually wrong.' },
+  { thought: '"I\'m just not a person who can handle stress."',           answer: 'Belief about Self',  feedback: 'This is a core belief — a fixed conclusion about who you are. Beliefs feel like identity, not thoughts. Labeling them as thoughts is the first step to loosening their grip.' },
+  { thought: '"I should be over this by now."',                           answer: '"Should" Rule',       feedback: 'Another "should" rule — this one targeting your healing timeline. Grief and recovery don\'t follow schedules. This thought creates shame around a completely normal process.' },
+  { thought: '"That was a really stupid thing to do."',                   answer: 'Judgment',           feedback: 'Self-judgment. Evaluating an action as "stupid" isn\'t the same as learning from it. Notice how different "that didn\'t work" feels from "that was stupid."' },
+  { thought: '"I know they didn\'t really want me there."',               answer: 'Assumption',         feedback: 'You\'re deciding what someone else was feeling or wanting. Unless they told you, this is an assumption — and assumptions usually reflect our own fears more than others\' reality.' },
+  { thought: '"This is going to be a complete disaster."',                answer: 'Catastrophizing',    feedback: 'Catastrophizing makes the worst outcome feel inevitable. The mind does this to prepare — but preparation and prophecy are very different things.' },
+  { thought: '"I\'m not good enough for this."',                         answer: 'Belief about Self',  feedback: '"Not enough" is one of the most common self-beliefs. It feels true because it\'s familiar — but familiarity isn\'t accuracy. This is a thought, not a fact about you.' },
+  { thought: '"Things always go wrong for me. Nothing ever works out."',  answer: 'Catastrophizing',    feedback: '"Always" and "never" are catastrophizing signals. They collapse all of history into one story and make the future feel predetermined.' },
+  { thought: '"She left the room — she\'s definitely annoyed with me."',  answer: 'Interpretation',     feedback: 'One action, one meaning assigned — that\'s Interpretation. She may be tired, needed water, or had nothing to do with you at all.' }
+];
+
+// ── DISTANCING EXERCISES ──────────────────────────────────────────────────────
+const DISTANCE_ITEMS = [
+  {
+    fused: "I'm a failure.",
+    correct: "I'm having the thought that I'm a failure.",
+    options: [
+      "I'm having the thought that I'm a failure.",
+      "I am definitely a failure.",
+      "I need to stop being such a failure.",
+      "Failure is just part of life for some people."
+    ],
+    feedback: 'Adding "I\'m having the thought that" creates a small but powerful gap between you and the belief. You\'re observing it, not being it.'
+  },
+  {
+    fused: "Nobody really likes me.",
+    correct: "My mind is telling me nobody really likes me.",
+    options: [
+      "My mind is telling me nobody really likes me.",
+      "I need more friends.",
+      "It\'s true — nobody really gets me.",
+      "I should just accept that I\'m not likeable."
+    ],
+    feedback: '"My mind is telling me..." reminds you that this is your mind\'s narrative — not confirmed reality. It\'s a voice, not a verdict.'
+  },
+  {
+    fused: "This is never going to get better.",
+    correct: "I notice I'm thinking this will never get better.",
+    options: [
+      "I should try to be more positive.",
+      "I notice I'm thinking this will never get better.",
+      "Things might eventually improve, maybe.",
+      "This situation is genuinely hopeless."
+    ],
+    feedback: '"I notice I\'m thinking..." positions you as an observer of the thought rather than a believer in it. You can notice a thought and not act on it.'
+  },
+  {
+    fused: "I always ruin everything.",
+    correct: "There's a 'ruining everything' story showing up in my mind.",
+    options: [
+      "I should try harder next time.",
+      "Everyone makes mistakes sometimes.",
+      "There's a 'ruining everything' story showing up in my mind.",
+      "I just need to be more careful."
+    ],
+    feedback: 'Calling it a "story" or "narrative" gives you even more distance — it acknowledges that your mind constructs interpretations of events, not just records them.'
+  },
+  {
+    fused: "They think I'm incompetent.",
+    correct: "I'm having the thought that they think I'm incompetent.",
+    options: [
+      "I'm having the thought that they think I'm incompetent.",
+      "I need to prove myself to them.",
+      "That\'s probably true — I should work harder.",
+      "People always underestimate me."
+    ],
+    feedback: 'The assumption about others\' perceptions becomes much less powerful when labeled as a thought. You don\'t know what they think — you know what your mind is generating.'
+  },
+  {
+    fused: "I can't do anything right.",
+    correct: "My mind is offering me a 'can't do anything right' thought.",
+    options: [
+      "I should just give up then.",
+      "That's not completely true — sometimes I do things right.",
+      "My mind is offering me a 'can't do anything right' thought.",
+      "I need to lower my expectations."
+    ],
+    feedback: '"My mind is offering me..." treats the thought almost like an unwanted gift. You can receive it, notice it, and choose whether to accept it.'
+  }
+];
+
+// ── TAB SWITCHING ─────────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+function switchTabByName(name) {
+  const btns = document.querySelectorAll('.tab-btn');
+  const names = ['learn','quiz','distance','willing','own'];
+  const idx = names.indexOf(name);
+  if (idx >= 0) switchTab(name, btns[idx]);
+}
+
+// ── BUILD THOUGHT TYPE CARDS ──────────────────────────────────────────────────
+function buildTypeCards() {
+  const grid = document.getElementById('typeGrid');
+  THOUGHT_TYPES.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'type-card';
+    card.style.borderLeftColor = t.color;
+    card.innerHTML = `
+      <div class="type-label" style="color:${t.color}">${t.label} <span class="type-chevron">▾</span></div>
+      <div class="type-desc">${t.desc}</div>
+      <div class="type-examples">
+        ${t.examples.map(e => `<div class="type-example">${e}</div>`).join('')}
+      </div>`;
+    card.addEventListener('click', () => {
+      card.classList.toggle('expanded');
+    });
+    grid.appendChild(card);
+  });
+}
+
+// ── BUILD QUIZ ────────────────────────────────────────────────────────────────
+let quizState = { idx: 0, score: 0, answered: false, items: [] };
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildQuiz() {
+  quizState.items = shuffleArray(QUIZ_ITEMS).slice(0, 10);
+  quizState.idx = 0;
+  quizState.score = 0;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const container = document.getElementById('quizContainer');
+  const total = quizState.items.length;
+  const idx = quizState.idx;
+
+  if (idx >= total) {
+    renderQuizScore(container);
+    return;
+  }
+
+  const item = quizState.items[idx];
+  quizState.answered = false;
+
+  // Build 4 options: correct + 3 random wrong
+  const wrongPool = THOUGHT_TYPES.map(t => t.label).filter(l => l !== item.answer);
+  const wrongs = shuffleArray(wrongPool).slice(0, 3);
+  const options = shuffleArray([item.answer, ...wrongs]);
+
+  const pct = Math.round((idx / total) * 100);
+
+  container.innerHTML = `
+    <div class="quiz-counter">${idx + 1} of ${total}</div>
+    <div class="quiz-progress-bar-wrap"><div class="quiz-progress-bar" style="width:${pct}%"></div></div>
+    <div class="quiz-thought">
+      <div class="quiz-thought-label">The Thought</div>
+      <div class="quiz-thought-text">${item.thought}</div>
+    </div>
+    <div class="quiz-options" id="quizOptions">
+      ${options.map(o => `<button class="quiz-opt">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-next" id="quizNext" onclick="nextQuizQuestion()">
+      ${idx + 1 < total ? 'Next Thought →' : 'See My Score →'}
+    </button>`;
+
+  // Attach click handlers via JS — avoids quote-escaping issues in onclick attributes
+  document.querySelectorAll('.quiz-opt').forEach((btn, i) => {
+    btn.addEventListener('click', () => answerQuiz(btn, options[i], item.answer));
+  });
+}
+
+function answerQuiz(btn, chosen, answer) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const correct = (chosen === answer);
+  if (correct) quizState.score++;
+
+  document.querySelectorAll('.quiz-opt').forEach(b => {
+    b.disabled = true;
+    if (b.textContent.trim() === answer && !correct) b.classList.add('reveal');
+  });
+  btn.classList.add(correct ? 'correct' : 'wrong');
+
+  const fb = document.getElementById('quizFeedback');
+  const item = quizState.items[quizState.idx];
+  fb.className = 'quiz-feedback show ' + (correct ? 'correct' : 'wrong');
+  fb.innerHTML = `<div class="quiz-feedback-title">${correct ? '✓ That\'s right' : '✗ Not quite — it\'s ' + answer}</div>${item.feedback}`;
+
+  document.getElementById('quizNext').classList.add('show');
+}
+
+function nextQuizQuestion() {
+  quizState.idx++;
+  renderQuizQuestion();
+}
+
+function renderQuizScore(container) {
+  const score = quizState.score;
+  const total = quizState.items.length;
+  const pct = Math.round((score / total) * 100);
+  let msg = '';
+  if (pct >= 90)      msg = "Excellent! You have a strong grasp of thought types. The more quickly you can label a thought, the faster you can create distance from it.";
+  else if (pct >= 70) msg = "Good work. A few thought types may still feel similar — that's normal. The more you practice in real moments, the sharper your labeling becomes.";
+  else if (pct >= 50) msg = "You're getting familiar with the categories. Try reviewing the types on the Skill tab, then come back and try again.";
+  else                msg = "This skill takes time to develop. Review the 8 thought types and try the quiz again — each attempt builds the pattern recognition you need.";
+
+  container.innerHTML = `
+    <div class="card quiz-score-card">
+      <div class="quiz-score-num">${score}/${total}</div>
+      <div class="quiz-score-label">${pct}% correct</div>
+      <div class="quiz-score-msg">${msg}</div>
+      <button class="quiz-restart" onclick="buildQuiz()">Try Again</button>
+      <button class="quiz-restart" onclick="switchTabByName('distance')" style="margin-left:10px;background:#4F5DAD">Next: Create Distance →</button>
+    </div>`;
+}
+
+// ── BUILD DISTANCING PRACTICE ─────────────────────────────────────────────────
+let distState = { idx: 0, answered: false };
+
+function buildDistance() {
+  distState.idx = 0;
+  distState.answered = false;
+  renderDistanceItem();
+}
+
+function renderDistanceItem() {
+  const container = document.getElementById('distanceContainer');
+  const total = DISTANCE_ITEMS.length;
+  const idx = distState.idx;
+  const item = DISTANCE_ITEMS[idx];
+  distState.answered = false;
+
+  const shuffled = shuffleArray(item.options);
+  distState._shuffled = shuffled;
+
+  container.innerHTML = `
+    <div class="distance-prog">${idx + 1} of ${total}</div>
+    <div class="distance-card">
+      <div class="distance-step">Fused Thought</div>
+      <div class="distance-fused">
+        <div class="distance-fused-label">⚠ Stated as fact</div>
+        <div class="distance-fused-text">"${item.fused}"</div>
+      </div>
+      <div class="distance-step">Which of these creates the most helpful distance?</div>
+      <div class="distance-templates" id="distTemplates">
+        ${shuffled.map(o => `<button class="distance-tpl">"${o}"</button>`).join('')}
+      </div>
+      <div class="distance-result" id="distResult"></div>
+      <div class="distance-nav">
+        <button class="distance-nav distance-prev" onclick="changeDistance(-1)" ${idx === 0 ? 'disabled style="opacity:.3"':''}>← Back</button>
+        <button class="distance-nav distance-next-btn" id="distNext" onclick="changeDistance(1)" disabled>${idx + 1 < total ? 'Next →' : 'Finish'}</button>
+      </div>
+    </div>`;
+
+  // Attach click handlers via JS to avoid quote-escaping issues
+  document.querySelectorAll('.distance-tpl').forEach((btn, i) => {
+    btn.addEventListener('click', () => answerDistance(btn, shuffled[i], item.correct));
+  });
+}
+
+function answerDistance(btn, chosen, correct) {
+  if (distState.answered) return;
+  distState.answered = true;
+  const isCorrect = (chosen === correct);
+
+  document.querySelectorAll('.distance-tpl').forEach(b => {
+    b.disabled = true;
+  });
+  // Reveal correct answer if wrong
+  if (!isCorrect) {
+    document.querySelectorAll('.distance-tpl').forEach((b, i) => {
+      if (distState._shuffled && distState._shuffled[i] === correct) b.classList.add('reveal-correct');
+    });
+  }
+  btn.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
+
+  const item = DISTANCE_ITEMS[distState.idx];
+  const res = document.getElementById('distResult');
+  res.className = 'distance-result show ' + (isCorrect ? 'correct' : 'wrong');
+  res.innerHTML = `<strong>${isCorrect ? '✓ Yes' : '✗ Not quite'}:</strong> ${item.feedback}`;
+
+  document.getElementById('distNext').disabled = false;
+}
+
+function changeDistance(dir) {
+  const next = distState.idx + dir;
+  if (next < 0 || next >= DISTANCE_ITEMS.length) return;
+  distState.idx = next;
+  renderDistanceItem();
+}
+
+// ── WILLINGNESS ───────────────────────────────────────────────────────────────
+function selectWill(which) {
+  document.getElementById('willChoice-w').classList.remove('selected-willing','selected-willful');
+  document.getElementById('willChoice-f').classList.remove('selected-willing','selected-willful');
+  document.getElementById('willResponse-willing').classList.remove('show');
+  document.getElementById('willResponse-willful').classList.remove('show');
+  document.querySelectorAll('.will-label-btn').forEach(b => b.classList.remove('selected'));
+
+  if (which === 'willing') {
+    document.getElementById('willChoice-w').classList.add('selected-willing');
+    document.getElementById('willResponse-willing').classList.add('show');
+  } else {
+    document.getElementById('willChoice-f').classList.add('selected-willful');
+    document.getElementById('willResponse-willful').classList.add('show');
+  }
+  document.getElementById('willReset').classList.add('show');
+}
+
+function selectLabel(btn, which) {
+  btn.closest('.will-label-practice').querySelectorAll('.will-label-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function resetWill() {
+  document.getElementById('willChoice-w').classList.remove('selected-willing','selected-willful');
+  document.getElementById('willChoice-f').classList.remove('selected-willing','selected-willful');
+  document.getElementById('willResponse-willing').classList.remove('show');
+  document.getElementById('willResponse-willful').classList.remove('show');
+  document.getElementById('willReset').classList.remove('show');
+  document.querySelectorAll('.will-label-btn').forEach(b => b.classList.remove('selected'));
+}
+
+// ── YOUR OWN THOUGHT ──────────────────────────────────────────────────────────
+let ownThought = '', ownType = '', ownDistanceTemplate = '';
+
+function buildOwnTypeSelect() {
+  const sel = document.getElementById('ownTypeSelect');
+  sel.innerHTML = '';
+  THOUGHT_TYPES.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'own-type-btn';
+    btn.textContent = t.label;
+    btn.style.borderColor = t.color;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.own-type-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      btn.style.background = t.bg;
+      btn.style.color = t.color;
+      ownType = t.label;
+      activateOwnStep(3);
+      updateOwnReframed();
+    });
+    sel.appendChild(btn);
+  });
+}
+
+function updateOwnThought() {
+  const val = document.getElementById('ownThoughtInput').value.trim();
+  ownThought = val;
+  document.getElementById('ownClearBtn').style.display = val ? 'block' : 'none';
+  if (val.length > 3) {
+    activateOwnStep(2);
+  } else {
+    deactivateOwnSteps(2);
+  }
+  updateOwnReframed();
+}
+
+function clearOwnThought() {
+  document.getElementById('ownThoughtInput').value = '';
+  ownThought = '';
+  ownType = '';
+  ownDistanceTemplate = '';
+  document.getElementById('ownClearBtn').style.display = 'none';
+  document.querySelectorAll('.own-type-btn').forEach(b => { b.classList.remove('selected'); b.style.background=''; b.style.color=''; });
+  document.querySelectorAll('.own-distance-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('ownReframed').classList.remove('show');
+  document.getElementById('ownFinal').classList.remove('show');
+  deactivateOwnSteps(2);
+}
+
+function activateOwnStep(num) {
+  const el = document.getElementById('ownStep' + num);
+  if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
+}
+function deactivateOwnSteps(fromNum) {
+  for (let i = fromNum; i <= 4; i++) {
+    const el = document.getElementById('ownStep' + i);
+    if (el) { el.style.opacity = '.4'; el.style.pointerEvents = 'none'; }
+  }
+}
+
+function selectOwnDistance(btn, template) {
+  document.querySelectorAll('.own-distance-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  ownDistanceTemplate = template;
+  updateOwnReframed();
+  activateOwnStep(4);
+}
+
+function updateOwnReframed() {
+  const reframed = document.getElementById('ownReframed');
+  const final    = document.getElementById('ownFinal');
+  const finalTxt = document.getElementById('ownFinalText');
+
+  if (!ownThought || !ownDistanceTemplate) {
+    reframed.classList.remove('show');
+    final.classList.remove('show');
+    return;
+  }
+
+  const thought = ownThought.replace(/^["']|["']$/g,'');
+  let text = '';
+  if (ownDistanceTemplate === "I'm noticing a") {
+    const typeStr = ownType ? ownType.toLowerCase() + ' ' : '';
+    text = `I'm noticing a ${typeStr}thought: "${thought}"`;
+  } else {
+    text = `${ownDistanceTemplate} "${thought}"`;
+  }
+
+  reframed.innerHTML = `<strong>Reframed:</strong> ${text}`;
+  reframed.classList.add('show');
+
+  const typeMsg = ownType ? ` This is a <strong>${ownType}</strong> thought.` : '';
+  finalTxt.innerHTML = `You've observed this thought from a distance.${typeMsg} You don't have to believe it, fight it, or fix it right now. You just have to let it pass.`;
+  final.classList.add('show');
+  activateOwnStep(4);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildTypeCards();
+buildQuiz();
+buildDistance();
+buildOwnTypeSelect();
+
+</script>
+</body>
+</html>

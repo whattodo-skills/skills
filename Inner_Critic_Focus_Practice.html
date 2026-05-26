@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inner Critic Focus Practice | What To Do!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#F7F4ED; --navy:#182047; --blue:#4F5DAD; --blue-lt:#8BA4DC; --blue-bg:#edf1f8;
+  --mint:#B4DACD; --mint-bg:#eaf4f0; --mint-dark:#3d8b76; --pink:#BD3A59; --pink-lt:#f7e0e6;
+  --text:#1e1e1e; --muted:#6b7280; --border:#e0ddd6; --white:#fff; --radius:12px;
+  --shadow:0 2px 12px rgba(0,0,0,.08);
+}
+html { font-size:16px; }
+body { font-family:'Source Sans 3','Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; align-items:center; }
+.site-header { width:100%; background:#182047; color:white; padding:20px 24px; text-align:center; border-bottom:4px solid #B4DACD; }
+.site-header .eyebrow { font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mint); margin-bottom:5px; font-weight:600; }
+.site-header h1 { font-size:clamp(1.3rem,4vw,1.75rem); font-weight:800; line-height:1.2; }
+.screen { display:none; width:100%; max-width:680px; padding:24px 16px 80px; animation:fadeIn .35s ease; }
+.screen.active { display:flex; flex-direction:column; }
+@keyframes fadeIn { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)} }
+.progress-wrap { display:flex; align-items:center; justify-content:center; gap:0; margin:0 0 18px; }
+.pdot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:.3s; }
+.pdot.active { background:var(--blue); transform:scale(1.35); }
+.pdot.done { background:var(--mint); }
+.pline { width:22px; height:2px; background:var(--border); }
+.pline.done { background:var(--mint); }
+.card { background:var(--white); border-radius:var(--radius); padding:24px 22px; box-shadow:var(--shadow); margin-bottom:16px; }
+.card h2, .card h3 { color:var(--navy); font-weight:800; line-height:1.25; margin-bottom:10px; }
+.card h2 { font-size:1.28rem; }
+.card h3 { font-size:1.05rem; }
+.card p { color:var(--muted); line-height:1.7; font-size:.94rem; margin-bottom:10px; }
+.card p:last-child { margin-bottom:0; }
+.notice-box { background:var(--mint-bg); border-left:4px solid var(--mint); border-radius:8px; padding:14px 16px; color:var(--text); font-size:.9rem; line-height:1.65; margin-bottom:16px; }
+.caution-box { background:var(--pink-lt); border-left:4px solid var(--pink); border-radius:8px; padding:14px 16px; color:var(--text); font-size:.9rem; line-height:1.65; margin-bottom:16px; }
+.btn-row { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 22px; border-radius:8px; border:none; cursor:pointer; font-family:inherit; font-size:.94rem; font-weight:700; transition:transform .15s, box-shadow .2s, opacity .2s; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,.12); }
+.btn:disabled { opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+.btn-primary { background:var(--navy); color:white; }
+.btn-secondary { background:var(--blue-bg); color:var(--blue); border:1.5px solid var(--blue-lt); }
+.btn-full { width:100%; }
+.back-btn { background:none; border:none; cursor:pointer; color:var(--muted); font-family:inherit; font-size:.88rem; display:inline-flex; align-items:center; gap:6px; padding:0; margin-bottom:18px; }
+.small-label { color:var(--muted); font-size:.8rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin:12px 0 7px; }
+.choice-list, .check-list { display:flex; flex-direction:column; gap:8px; margin:12px 0; }
+.choice, .check-chip { background:white; border:2px solid var(--border); border-radius:var(--radius); padding:13px 16px; cursor:pointer; font-family:inherit; font-size:.92rem; color:var(--text); text-align:left; display:flex; align-items:flex-start; gap:12px; line-height:1.45; transition:border-color .2s, background .2s; }
+.choice:hover, .check-chip:hover { border-color:var(--blue-lt); }
+.choice.selected, .check-chip.selected { border-color:var(--blue); background:var(--blue-bg); color:var(--navy); }
+.dot, .cbox { width:18px; height:18px; border:2px solid var(--border); flex-shrink:0; margin-top:2px; }
+.dot { border-radius:50%; }
+.cbox { border-radius:4px; display:flex; align-items:center; justify-content:center; }
+.choice.selected .dot, .check-chip.selected .cbox { background:var(--blue); border-color:var(--blue); }
+.check-chip.selected .cbox::after { content:'✓'; color:white; font-size:.75rem; font-weight:800; }
+input, textarea, select { width:100%; border:1.5px solid var(--border); border-radius:8px; padding:11px 13px; font-family:inherit; font-size:.94rem; line-height:1.55; color:var(--text); background:white; }
+textarea { min-height:82px; resize:vertical; }
+input:focus, textarea:focus, select:focus { outline:none; border-color:var(--blue); }
+.split { display:grid; grid-template-columns:1fr; gap:12px; }
+.reframe-card { background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; border-top:4px solid var(--blue); margin-bottom:16px; }
+.reframe-card h3 { color:var(--navy); font-size:1rem; font-weight:800; margin-bottom:8px; }
+.preview-box { background:var(--blue-bg); border-left:4px solid var(--blue); border-radius:8px; padding:14px 16px; color:var(--navy); line-height:1.7; margin-top:12px; }
+.script-card { background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:22px; border-top:4px solid var(--mint); margin-bottom:16px; }
+.script-line { border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:12px; color:var(--navy); line-height:1.7; font-size:1rem; }
+.script-line:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.script-line span { display:block; font-size:.7rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:3px; }
+.complete-card { background:linear-gradient(135deg,var(--navy),#1e2d6e); color:white; border-radius:var(--radius); padding:34px 26px; box-shadow:var(--shadow); text-align:center; margin-bottom:16px; }
+.complete-card h2 { font-size:1.4rem; margin-bottom:10px; }
+.complete-card p { color:rgba(255,255,255,.78); line-height:1.7; }
+.footer-note { text-align:center; color:var(--muted); font-size:.75rem; line-height:1.6; padding:0 16px 24px; }
+@media(max-width:520px){ .btn{width:100%;} }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="eyebrow">Focus</div>
+  <h1>Inner Critic Practice</h1>
+</header>
+
+<div class="screen active" id="screen-home">
+  <div class="progress-wrap"><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
+  <div class="card">
+    <h2>The inner critic is a thought pattern, not the truth.</h2>
+    <p>It often shows up as harsh judgments, self-blame, shame, painful assumptions, or a story your mind tells when emotions are loud.</p>
+    <p>This practice helps you notice the critic, separate facts from judgments, validate the feeling underneath, and choose a next action that actually helps.</p>
+  </div>
+  <div class="notice-box"><strong>The aim:</strong> stop treating the harsh thought as fact. Notice it, name it, check it, and move toward what works.</div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goTo('screen-catch')">Catch the critic →</button></div>
+</div>
+
+<div class="screen" id="screen-catch">
+  <button class="back-btn" onclick="goTo('screen-home')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
+  <div class="card">
+    <h2>What is the critic saying?</h2>
+    <p>Write the harsh thought exactly as it shows up. We are going to look at it, not believe it automatically.</p>
+    <div class="small-label">The critical thought</div>
+    <textarea id="critic" oninput="updatePreview()" placeholder="Example: I’m a failure. / I always mess things up. / They probably think I’m ridiculous."></textarea>
+  </div>
+  <div class="small-label">What kind of critic is this?</div>
+  <div class="choice-list" id="critic-type-list">
+    <button class="choice" onclick="selectCriticType(this,'judgment')"><span class="dot"></span>Harsh judgment</button>
+    <button class="choice" onclick="selectCriticType(this,'shame')"><span class="dot"></span>Shame story</button>
+    <button class="choice" onclick="selectCriticType(this,'mindreading')"><span class="dot"></span>Assuming what others think</button>
+    <button class="choice" onclick="selectCriticType(this,'allornothing')"><span class="dot"></span>All-or-nothing thinking</button>
+    <button class="choice" onclick="selectCriticType(this,'fear')"><span class="dot"></span>Fear dressed up as certainty</button>
+  </div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" id="catch-next" onclick="goTo('screen-observe')" disabled>Step back from it →</button></div>
+</div>
+
+<div class="screen" id="screen-observe">
+  <button class="back-btn" onclick="goTo('screen-catch')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
+  <div class="card">
+    <h2>Observe what is happening.</h2>
+    <p>Instead of “this is true,” try “I’m noticing…” This creates space between you and the thought.</p>
+    <div class="small-label">What feeling is underneath?</div>
+    <select id="feeling" onchange="updatePreview()">
+      <option value="shame">shame</option>
+      <option value="embarrassment">embarrassment</option>
+      <option value="fear">fear</option>
+      <option value="guilt">guilt</option>
+      <option value="sadness">sadness</option>
+      <option value="anger">anger</option>
+      <option value="hurt">hurt</option>
+      <option value="pressure">pressure</option>
+    </select>
+    <div class="small-label">What do you notice in your body?</div>
+    <textarea id="body" oninput="updatePreview()" placeholder="Example: tight chest, hot face, stomach drop, clenched jaw, urge to hide"></textarea>
+    <div class="preview-box" id="observe-preview">Your observing statement will appear here.</div>
+  </div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goTo('screen-facts')">Check what is true →</button></div>
+</div>
+
+<div class="screen" id="screen-facts">
+  <button class="back-btn" onclick="goTo('screen-observe')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div></div>
+  <div class="card">
+    <h2>Separate facts from the critic’s story.</h2>
+    <p>The critic often exaggerates, predicts, assumes, or turns one moment into a whole identity.</p>
+    <div class="small-label">What actually happened?</div>
+    <textarea id="facts" oninput="updatePreview()" placeholder="Example: I forgot one deadline. / I stumbled over my words. / They didn’t text back yet."></textarea>
+    <div class="small-label">What am I assuming?</div>
+    <textarea id="assumption" oninput="updatePreview()" placeholder="Example: That means I’m incompetent. / They must be mad. / Everyone noticed."></textarea>
+    <div class="small-label">What is another possible explanation?</div>
+    <textarea id="alternate" oninput="updatePreview()" placeholder="Example: I was overloaded. / They may be busy. / One mistake does not define me."></textarea>
+  </div>
+  <div class="notice-box"><strong>Useful question:</strong> What is true here, and what response would help me move forward?</div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goTo('screen-reframe')">Build a fairer thought →</button></div>
+</div>
+
+<div class="screen" id="screen-reframe">
+  <button class="back-btn" onclick="goTo('screen-facts')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div></div>
+  <div class="card">
+    <h2>Replace the attack with a fair statement.</h2>
+    <p>You are not trying to pretend everything is fine. You are replacing punishment with truth and usefulness.</p>
+  </div>
+  <div class="reframe-card">
+    <h3>Try this structure</h3>
+    <p>I’m having the thought that _____. I feel _____. The facts are _____. A fairer response is _____.</p>
+  </div>
+  <div class="card">
+    <div class="small-label">Fairer response</div>
+    <textarea id="fair" oninput="updatePreview()" placeholder="Example: I made a mistake, and I can repair it. I don’t need to attack myself to do better."></textarea>
+    <div class="small-label">Next useful action</div>
+    <textarea id="action" oninput="updatePreview()" placeholder="Example: apologize, ask a clarifying question, take a break, finish one small step, stay engaged"></textarea>
+    <div class="preview-box" id="final-preview">Your replacement statement will appear here.</div>
+  </div>
+  <div class="caution-box"><strong>If shame tells you to hide:</strong> choose one small action that keeps you engaged instead of disappearing, attacking yourself, or giving up.</div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="buildFinal(); goTo('screen-final')">Show my reset script →</button></div>
+</div>
+
+<div class="screen" id="screen-final">
+  <button class="back-btn" onclick="goTo('screen-reframe')">← Back</button>
+  <div class="card"><h2>Your inner critic reset</h2><p>Read this slowly when the critic gets loud.</p></div>
+  <div class="script-card">
+    <div class="script-line"><span>Notice</span><div id="final-notice"></div></div>
+    <div class="script-line"><span>Name</span><div id="final-name"></div></div>
+    <div class="script-line"><span>Check</span><div id="final-check"></div></div>
+    <div class="script-line"><span>Validate</span><div id="final-validate"></div></div>
+    <div class="script-line"><span>Choose</span><div id="final-action"></div></div>
+  </div>
+  <div class="notice-box"><strong>Remember:</strong> You do not have to argue with the critic all day. Name it, check it, and move toward the next useful action.</div>
+  <div class="btn-row"><button class="btn btn-primary" id="copy-btn" onclick="copyScript()">Copy reset</button><button class="btn btn-secondary" onclick="goTo('screen-reframe')">Edit</button><button class="btn btn-primary" onclick="goTo('screen-complete')">Finish</button></div>
+</div>
+
+<div class="screen" id="screen-complete">
+  <div class="complete-card">
+    <h2>You separated yourself from the critic.</h2>
+    <p>The harsh thought may still visit. But now you have a way to notice it without letting it define you or decide your next move.</p>
+  </div>
+  <div class="notice-box"><strong>Use this cue:</strong> “That is a judgment, not a fact. What is true, and what helps?”</div>
+  <div class="btn-row"><button class="btn btn-secondary" onclick="startOver()">Practice again</button><button class="btn btn-primary" onclick="goTo('screen-final')">See reset again</button></div>
+</div>
+
+<div class="footer-note">What To Do! skill-building practice · Self-guided focus exercise</div>
+
+<script>
+let criticType = '';
+let finalText = '';
+function goTo(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function selectCriticType(btn,type){ criticType=type; document.querySelectorAll('#critic-type-list .choice').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); document.getElementById('catch-next').disabled=false; updatePreview(); }
+function val(id,fallback){ return document.getElementById(id).value.trim() || fallback; }
+function updatePreview(){
+  const critic=val('critic','[critical thought]');
+  const feeling=document.getElementById('feeling') ? document.getElementById('feeling').value : 'shame';
+  const body=document.getElementById('body') ? val('body','[body sensations]') : '[body sensations]';
+  if(document.getElementById('observe-preview')) document.getElementById('observe-preview').textContent = `I’m noticing the thought: “${critic}.” I feel ${feeling}, and I notice ${body}.`;
+  if(document.getElementById('final-preview')){
+    const facts=val('facts','[what actually happened]'); const assumption=val('assumption','[what I am assuming]'); const alternate=val('alternate','[another possible explanation]'); const fair=val('fair','[a fairer response]'); const action=val('action','[one useful next action]');
+    document.getElementById('final-preview').textContent = `The critic says: “${critic}.” The facts are: ${facts}. I may be assuming: ${assumption}. Another possibility is: ${alternate}. A fairer response is: ${fair}. My next useful action is: ${action}.`;
+  }
+}
+function buildFinal(){
+  const critic=val('critic','I am not good enough'); const feeling=document.getElementById('feeling').value; const body=val('body','tension in my body'); const facts=val('facts','something hard happened'); const alternate=val('alternate','there may be more to the story'); const fair=val('fair','I can be honest without attacking myself'); const action=val('action','take one useful next step');
+  document.getElementById('final-notice').textContent = `I’m noticing the thought: “${critic}.”`;
+  document.getElementById('final-name').textContent = `This is ${criticType ? criticType.replace('allornothing','all-or-nothing thinking') : 'a judgmental thought pattern'}, not a fact.`;
+  document.getElementById('final-check').textContent = `The facts are: ${facts}. Another possible explanation is: ${alternate}.`;
+  document.getElementById('final-validate').textContent = `It makes sense that I feel ${feeling}. My body is showing it as ${body}. That does not mean the critic is right.`;
+  document.getElementById('final-action').textContent = `A fairer response is: ${fair}. My next useful action is: ${action}.`;
+  finalText = `${document.getElementById('final-notice').textContent}\n\n${document.getElementById('final-name').textContent}\n\n${document.getElementById('final-check').textContent}\n\n${document.getElementById('final-validate').textContent}\n\n${document.getElementById('final-action').textContent}`;
+}
+function copyScript(){ if(!finalText) buildFinal(); const done=()=>{ const b=document.getElementById('copy-btn'); b.textContent='Copied!'; setTimeout(()=>b.textContent='Copy reset',2200); }; if(navigator.clipboard) navigator.clipboard.writeText(finalText).then(done); else done(); }
+function startOver(){ criticType=''; finalText=''; ['critic','body','facts','assumption','alternate','fair','action'].forEach(id=>{ if(document.getElementById(id)) document.getElementById(id).value=''; }); document.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected')); document.getElementById('catch-next').disabled=true; updatePreview(); goTo('screen-home'); }
+updatePreview();
+</script>
+</body>
+</html>

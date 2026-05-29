@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stone Focus Practice | What To Do!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#F7F4ED;
+  --navy:#182047;
+  --blue:#4F5DAD;
+  --blue-lt:#8BA4DC;
+  --blue-bg:#edf1f8;
+  --mint:#B4DACD;
+  --mint-bg:#eaf4f0;
+  --mint-dark:#3d8b76;
+  --pink:#BD3A59;
+  --pink-lt:#f7e0e6;
+  --gold:#eaf4f0;
+  --text:#1e1e1e;
+  --muted:#6b7280;
+  --border:#e0ddd6;
+  --white:#ffffff;
+  --radius:12px;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+html { font-size:16px; }
+body {
+  font-family:'Source Sans 3','Segoe UI',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.site-header {
+  width:100%;
+  background:#182047;
+  color:white;
+  padding:20px 24px;
+  text-align:center;
+}
+.site-header .eyebrow {
+  font-size:0.72rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--mint);
+  margin-bottom:5px;
+  font-weight:600;
+}
+.site-header h1 {
+  font-size:clamp(1.3rem,4vw,1.75rem);
+  font-weight:800;
+  line-height:1.2;
+}
+.screen {
+  display:none;
+  width:100%;
+  max-width:640px;
+  padding:24px 16px 80px;
+  animation:fadeIn .35s ease;
+}
+.screen.active { display:flex; flex-direction:column; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.card {
+  background:var(--white);
+  border-radius:var(--radius);
+  padding:24px 22px;
+  box-shadow:var(--shadow);
+  margin-bottom:16px;
+}
+.card h2, .card h3 {
+  color:var(--navy);
+  font-weight:800;
+  line-height:1.25;
+  margin-bottom:10px;
+}
+.card h2 { font-size:1.28rem; }
+.card h3 { font-size:1.05rem; }
+.card p {
+  color:var(--muted);
+  line-height:1.7;
+  font-size:0.94rem;
+  margin-bottom:10px;
+}
+.card p:last-child { margin-bottom:0; }
+.prompt-box {
+  background:var(--blue-bg);
+  border-left:4px solid var(--blue);
+  border-radius:8px;
+  padding:14px 16px;
+  color:var(--navy);
+  font-size:0.9rem;
+  line-height:1.65;
+  margin-bottom:16px;
+}
+.notice-box {
+  background:var(--mint-bg);
+  border-left:4px solid var(--mint);
+  border-radius:8px;
+  padding:14px 16px;
+  color:var(--text);
+  font-size:0.88rem;
+  line-height:1.65;
+  margin-bottom:16px;
+}
+.btn-row {
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 22px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:0.94rem;
+  font-weight:700;
+  transition:transform .15s, box-shadow .2s, opacity .2s;
+}
+.btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,0.12); }
+.btn-primary { background:var(--navy); color:#fff; }
+.btn-secondary { background:var(--blue-bg); color:var(--blue); border:1.5px solid var(--blue-lt); }
+.btn-full { width:100%; }
+.back-btn {
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--muted);
+  font-family:inherit;
+  font-size:0.88rem;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:0;
+  margin-bottom:18px;
+}
+.progress-wrap { display:flex; justify-content:center; align-items:center; gap:0; margin:0 0 18px; }
+.pdot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:.3s; }
+.pdot.active { background:var(--blue); transform:scale(1.35); }
+.pdot.done { background:var(--mint); }
+.pline { width:28px; height:2px; background:var(--border); }
+.pline.done { background:var(--mint); }
+.focus-scene {
+  position:relative;
+  height:360px;
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#dff3ff 0%,#9cc8df 35%,#416f8b 72%,#1d3d56 100%);
+  box-shadow:inset 0 0 36px rgba(255,255,255,0.35), var(--shadow);
+  margin-bottom:16px;
+}
+.water-line {
+  position:absolute;
+  top:24px;
+  left:0;
+  width:200%;
+  height:20px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,0.45) 0 28px,rgba(255,255,255,0.12) 28px 56px);
+  opacity:.8;
+  border-radius:50%;
+  animation:drift 8s linear infinite;
+}
+@keyframes drift { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.bubble {
+  position:absolute;
+  bottom:-30px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.45);
+  animation:bubble 7s infinite ease-in;
+}
+.bubble:nth-child(2){left:18%; animation-delay:.5s; width:6px; height:6px;}
+.bubble:nth-child(3){left:72%; animation-delay:1.4s; width:10px; height:10px;}
+.bubble:nth-child(4){left:45%; animation-delay:2.2s; width:5px; height:5px;}
+@keyframes bubble { to{ transform:translateY(-410px); opacity:0; } }
+.stone {
+  position:absolute;
+  top:52px;
+  left:50%;
+  width:42px;
+  height:28px;
+  border-radius:48% 52% 45% 55%;
+  background:linear-gradient(135deg,#6b7280,#374151);
+  transform:translateX(-50%);
+  box-shadow:0 8px 18px rgba(0,0,0,0.25);
+  transition:top 60s linear, transform 60s linear;
+}
+.stone.settle { top:290px; transform:translateX(-50%) rotate(16deg); }
+.lake-bottom {
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:54px;
+  background:linear-gradient(180deg,rgba(31,41,55,.15),rgba(31,41,55,.45));
+}
+.scene-text {
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:72px;
+  color:white;
+  text-align:center;
+  font-size:1rem;
+  line-height:1.55;
+  text-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.timer-card {
+  background:var(--white);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  text-align:center;
+  margin-bottom:16px;
+}
+.timer {
+  font-size:3rem;
+  color:var(--navy);
+  font-weight:300;
+  line-height:1;
+  margin-bottom:6px;
+}
+.timer-label { color:var(--muted); font-size:.88rem; }
+.check-list { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+.check-chip {
+  background:var(--white);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:13px 16px;
+  cursor:pointer;
+  font-size:0.92rem;
+  font-family:inherit;
+  color:var(--text);
+  text-align:left;
+  transition:border-color .2s, background .2s;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  line-height:1.45;
+}
+.check-chip.selected { border-color:var(--blue); background:var(--blue-bg); color:var(--navy); }
+.cbox {
+  width:18px;
+  height:18px;
+  border-radius:4px;
+  border:2px solid var(--border);
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.check-chip.selected .cbox { background:var(--blue); border-color:var(--blue); }
+.check-chip.selected .cbox::after { content:'✓'; color:white; font-size:.75rem; font-weight:800; }
+textarea {
+  width:100%;
+  min-height:92px;
+  resize:vertical;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  padding:12px 14px;
+  font-family:inherit;
+  font-size:.94rem;
+  line-height:1.55;
+  color:var(--text);
+  background:#fff;
+}
+textarea:focus { outline:none; border-color:var(--blue); }
+.small-label {
+  color:var(--muted);
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.complete-card {
+  background:linear-gradient(135deg,var(--navy),#1e2d6e);
+  color:white;
+  border-radius:var(--radius);
+  padding:34px 26px;
+  box-shadow:var(--shadow);
+  text-align:center;
+  margin-bottom:16px;
+}
+.complete-card h2 { font-size:1.4rem; margin-bottom:10px; }
+.complete-card p { color:rgba(255,255,255,.78); line-height:1.7; }
+.footer-note {
+  text-align:center;
+  color:var(--muted);
+  font-size:.75rem;
+  line-height:1.6;
+  padding:0 16px 24px;
+}
+@media (max-width:520px){
+  .focus-scene { height:330px; }
+  .stone.settle { top:260px; }
+  .btn { width:100%; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">Focus</div>
+  <h1>Stone Focus Practice</h1>
+</header>
+
+<div class="screen active" id="screen-home">
+  <div class="progress-wrap" aria-hidden="true">
+    <div class="pdot active"></div><div class="pline"></div>
+    <div class="pdot"></div><div class="pline"></div>
+    <div class="pdot"></div><div class="pline"></div>
+    <div class="pdot"></div>
+  </div>
+
+  <div class="card">
+    <h2>Give your attention somewhere steadier.</h2>
+    <p>When your mind keeps circling the same thought, your attention can start to feel hijacked. This practice gives your mind one simple job: follow a small stone as it slowly sinks through clear water.</p>
+    <p>The point is not to force every thought away. The point is to notice when your focus wanders, then gently place it back on the image.</p>
+  </div>
+
+  <div class="notice-box">
+    <strong>Use this when:</strong> you catch yourself scrolling without meaning to, replaying a conversation, checking headlines over and over, or feeding a thought that is not helping you.
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary btn-full" onclick="goTo('screen-choose')">Begin the practice →</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-choose">
+  <button class="back-btn" onclick="goTo('screen-home')">← Back</button>
+  <div class="progress-wrap" aria-hidden="true">
+    <div class="pdot done"></div><div class="pline done"></div>
+    <div class="pdot active"></div><div class="pline"></div>
+    <div class="pdot"></div><div class="pline"></div>
+    <div class="pdot"></div>
+  </div>
+
+  <div class="card">
+    <h2>First, name what keeps pulling you.</h2>
+    <p>Pick the closest option. This is not about judging yourself. It is just a way to notice where your attention has been going.</p>
+  </div>
+
+  <div class="check-list" id="pull-list">
+    <button class="check-chip" onclick="selectPull(this, 'scrolling')"><span class="cbox"></span>Scrolling when I meant to stop</button>
+    <button class="check-chip" onclick="selectPull(this, 'worry')"><span class="cbox"></span>Replaying a worry or what-if</button>
+    <button class="check-chip" onclick="selectPull(this, 'conversation')"><span class="cbox"></span>Going over a conversation in my head</button>
+    <button class="check-chip" onclick="selectPull(this, 'headlines')"><span class="cbox"></span>Getting pulled into upsetting headlines or posts</button>
+    <button class="check-chip" onclick="selectPull(this, 'other')"><span class="cbox"></span>Something else that is not useful right now</button>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary btn-full" id="choose-next" onclick="goTo('screen-practice')" disabled>Practice shifting focus →</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-practice">
+  <button class="back-btn" onclick="goTo('screen-choose')">← Back</button>
+  <div class="progress-wrap" aria-hidden="true">
+    <div class="pdot done"></div><div class="pline done"></div>
+    <div class="pdot done"></div><div class="pline done"></div>
+    <div class="pdot active"></div><div class="pline"></div>
+    <div class="pdot"></div>
+  </div>
+
+  <div class="prompt-box" id="practice-prompt">
+    Your only job: follow the stone. When your mind wanders, notice it and return to the stone.
+  </div>
+
+  <div class="focus-scene" aria-label="Animated stone sinking through water">
+    <div class="water-line"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="stone" id="stone"></div>
+    <div class="scene-text" id="scene-text">Picture a small stone at the surface of a quiet lake.</div>
+    <div class="lake-bottom"></div>
+  </div>
+
+  <div class="timer-card">
+    <div class="timer" id="timer">60</div>
+    <div class="timer-label" id="timer-label">seconds of steady focus</div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" id="start-btn" onclick="startPractice()">Start</button>
+    <button class="btn btn-secondary" onclick="resetPractice()">Reset</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-reflect">
+  <button class="back-btn" onclick="goTo('screen-practice')">← Practice again</button>
+  <div class="progress-wrap" aria-hidden="true">
+    <div class="pdot done"></div><div class="pline done"></div>
+    <div class="pdot done"></div><div class="pline done"></div>
+    <div class="pdot done"></div><div class="pline done"></div>
+    <div class="pdot active"></div>
+  </div>
+
+  <div class="card">
+    <h2>You practiced moving your focus.</h2>
+    <p>That is the whole skill: notice where your attention went, then place it somewhere you choose.</p>
+  </div>
+
+  <div class="card">
+    <div class="small-label">Quick reflection</div>
+    <h3>Where could you use this today?</h3>
+    <textarea id="reflection" placeholder="Example: When I start scrolling before bed, I can pause, picture the stone sinking, and shift my focus to getting ready for sleep."></textarea>
+  </div>
+
+  <div class="notice-box">
+    <strong>Try this later:</strong> When you catch your attention stuck somewhere unhelpful, quietly say: “Stone in the lake.” Then picture the stone sinking, and choose the next meaningful thing to place your focus on.
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary btn-full" onclick="goTo('screen-complete')">Finish →</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-complete">
+  <div class="complete-card">
+    <h2>Nice work.</h2>
+    <p>You did not just read about focus. You practiced redirecting it. That is the part that makes this useful in real life.</p>
+  </div>
+
+  <div class="card">
+    <h3>Your focus cue</h3>
+    <p><strong>Stone in the lake.</strong> Let the thought pass by like water. Let your attention sink toward something steadier.</p>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="startOver()">Practice again</button>
+    <button class="btn btn-primary" onclick="goTo('screen-home')">Back to start</button>
+  </div>
+</div>
+
+<div class="footer-note">What To Do! skill-building practice · Self-guided focus exercise</div>
+
+<script>
+let pullChoice = '';
+let timer = null;
+let seconds = 60;
+const practiceLines = [
+  {time:60, text:'Picture a small stone at the surface of a quiet lake.'},
+  {time:50, text:'The stone begins to sink. Slowly. No rush. Your attention follows it down.'},
+  {time:40, text:'If a thought pulls you away, simply notice it. Then return to the stone.'},
+  {time:30, text:'Clear water above. Quiet water below. Let the stone keep sinking.'},
+  {time:20, text:'Your focus has one simple place to land: the stone, moving downward.'},
+  {time:10, text:'The stone settles at the quiet bottom. Let your attention settle with it.'},
+  {time:0, text:'The stone is resting at the bottom of a quiet lake. You practiced choosing where your focus goes.'}
+];
+
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function selectPull(button, choice){
+  pullChoice = choice;
+  document.querySelectorAll('#pull-list .check-chip').forEach(b => b.classList.remove('selected'));
+  button.classList.add('selected');
+  document.getElementById('choose-next').disabled = false;
+  const promptMap = {
+    scrolling:'When the urge to scroll shows up, practice placing your attention on the stone instead.',
+    worry:'When a worry loop shows up, practice placing your attention on the stone instead.',
+    conversation:'When the replay starts, practice placing your attention on the stone instead.',
+    headlines:'When upsetting posts or headlines pull at you, practice placing your attention on the stone instead.',
+    other:'When your attention gets pulled somewhere unhelpful, practice placing it on the stone instead.'
+  };
+  document.getElementById('practice-prompt').textContent = promptMap[choice];
+}
+
+function startPractice(){
+  clearInterval(timer);
+  seconds = 60;
+  document.getElementById('timer').textContent = seconds;
+  document.getElementById('start-btn').disabled = true;
+  document.getElementById('start-btn').textContent = 'Practicing...';
+  document.getElementById('stone').classList.add('settle');
+  updateSceneText();
+  timer = setInterval(() => {
+    seconds--;
+    document.getElementById('timer').textContent = seconds;
+    updateSceneText();
+    if(seconds <= 0){
+      clearInterval(timer);
+      document.getElementById('start-btn').disabled = false;
+      document.getElementById('start-btn').textContent = 'Practice again';
+      setTimeout(() => goTo('screen-reflect'), 900);
+    }
+  }, 1000);
+}
+
+function updateSceneText(){
+  const line = practiceLines.find(item => seconds <= item.time) || practiceLines[0];
+  document.getElementById('scene-text').textContent = line.text;
+}
+
+function resetPractice(){
+  clearInterval(timer);
+  seconds = 60;
+  document.getElementById('timer').textContent = seconds;
+  document.getElementById('timer-label').textContent = 'seconds of steady focus';
+  document.getElementById('start-btn').disabled = false;
+  document.getElementById('start-btn').textContent = 'Start';
+  const stone = document.getElementById('stone');
+  stone.style.transition = 'none';
+  stone.classList.remove('settle');
+  stone.offsetHeight;
+  stone.style.transition = 'top 60s linear, transform 60s linear';
+  document.getElementById('scene-text').textContent = 'Picture a small stone at the surface of a quiet lake.';
+}
+
+function startOver(){
+  resetPractice();
+  pullChoice = '';
+  document.querySelectorAll('.check-chip').forEach(b => b.classList.remove('selected'));
+  document.getElementById('choose-next').disabled = true;
+  document.getElementById('reflection').value = '';
+  goTo('screen-home');
+}
+</script>
+</body>
+</html>

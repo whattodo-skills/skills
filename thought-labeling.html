@@ -386,6 +386,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F7F4ED;color:#2D374
 </div><!-- /container -->
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Thought Labeling',
+    skillSlug: 'thought-labeling',
+    completionType
+  }, '*');
+}
+
 
 // ── THOUGHT TYPES ─────────────────────────────────────────────────────────────
 const THOUGHT_TYPES = [
@@ -835,6 +846,7 @@ function deactivateOwnSteps(fromNum) {
 }
 
 function selectOwnDistance(btn, template) {
+  recordSkillComplete('label-selected');
   document.querySelectorAll('.own-distance-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   ownDistanceTemplate = template;

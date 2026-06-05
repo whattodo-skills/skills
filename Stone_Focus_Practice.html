@@ -449,6 +449,17 @@ textarea:focus { outline:none; border-color:var(--blue); }
 <div class="footer-note">What To Do! skill-building practice · Self-guided focus exercise</div>
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Stone Focus Practice',
+    skillSlug: 'stone-focus-practice',
+    completionType
+  }, '*');
+}
+
 let pullChoice = '';
 let timer = null;
 let seconds = 60;
@@ -463,6 +474,7 @@ const practiceLines = [
 ];
 
 function goTo(id){
+  if (id === 'screen-complete') recordSkillComplete('finish');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);

@@ -213,6 +213,17 @@ textarea:focus, input:focus { outline:none; border-color:var(--blue); }
 <div class="footer-note">What To Do! skill-building practice · Self-guided coping exercise</div>
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Ride the Wave',
+    skillSlug: 'ride-the-wave',
+    completionType
+  }, '*');
+}
+
 let urge = '';
 let worseChoice = '';
 let nextMove = '';
@@ -320,6 +331,7 @@ function selectNext(btn, value){
 }
 
 function finishPractice(){
+  recordSkillComplete('finish');
   document.getElementById('final-plan').textContent = `When I notice the urge to ${urge || 'react'}, I can ride the wave and choose: ${nextMove}.`;
   goTo('screen-complete');
 }

@@ -38,6 +38,17 @@
 </main>
 <div class="footer">What To Do! — self-guided skill building for everyday life.</div>
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Check The Story',
+    skillSlug: 'check-the-story',
+    completionType
+  }, '*');
+}
+
 let selectedUrge='';
 function $(id){return document.getElementById(id)}
 function showScreen(id,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='balanced')renderSummary();window.scrollTo({top:0,behavior:'smooth'})}
@@ -48,7 +59,7 @@ function saveState(){let data={selectedUrge};['situation','feeling','before','fi
 function loadState(){try{let data=JSON.parse(localStorage.getItem('wtd_check_story')||'{}');selectedUrge=data.selectedUrge||'';Object.keys(data).forEach(id=>{if($(id))$(id).value=data[id]});document.querySelectorAll('.choice').forEach(b=>{if(b.textContent.includes(selectedUrge.split(' ')[0]))b.classList.add('selected')})}catch(e){}}
 function v(id,fallback='Not written yet.'){return $(id)?.value||fallback}
 function renderSummary(){let before=+v('before',0),after=+v('after',0);let shift=before-after;$('summaryBox').innerHTML=`<strong>Situation</strong>${v('situation')}<strong>Feeling</strong>${v('feeling')} — before ${before}/10, after ${after}/10<strong>First story</strong>${v('firstStory')}<strong>Assumption</strong>${v('assumption')}<strong>Urge noticed</strong>${selectedUrge||v('otherUrge')}<strong>Facts I know</strong>${v('knownFacts')}<strong>What I do not know</strong>${v('unknowns')}<strong>Other possible explanations</strong>${v('alternatives')}<strong>Balanced story</strong>${v('balancedStory')}<strong>Helpful next action</strong>${v('nextAction')}<strong>Shift</strong>${shift>0?'The feeling dropped by '+shift+'.':shift===0?'The intensity stayed about the same.':'The intensity increased; slow down and choose the gentlest next step.'}`}
-function copySummary(){navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
+function copySummary(){recordSkillComplete('copy-summary');navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
 function resetAll(){if(confirm('Clear this practice?')){localStorage.removeItem('wtd_check_story');location.reload()}}
 loadState();updateMeter('before');updateMeter('after');renderSummary();
 </script>

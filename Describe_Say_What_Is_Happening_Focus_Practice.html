@@ -38,6 +38,17 @@
 </main>
 <div class="footer">What To Do! — self-guided skill building for everyday life.</div>
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Describe What Is Happening',
+    skillSlug: 'describe-what-is-happening',
+    completionType
+  }, '*');
+}
+
 let selectedUrge='';
 function $(id){return document.getElementById(id)}
 function showScreen(id,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='summary')renderSummary();window.scrollTo({top:0,behavior:'smooth'})}
@@ -48,7 +59,7 @@ function saveState(){let data={selectedUrge};['whatHappened','seeHear','story','
 function loadState(){try{let data=JSON.parse(localStorage.getItem('wtd_describe_practice')||'{}');selectedUrge=data.selectedUrge||'';Object.keys(data).forEach(id=>{if($(id))$(id).value=data[id]});document.querySelectorAll('.choice').forEach(b=>{if(selectedUrge&&b.textContent.toLowerCase().includes(selectedUrge.split(' ')[0]))b.classList.add('selected')})}catch(e){}}
 function buildTranslation(){let facts=[val('whatHappened'),val('seeHear')].filter(Boolean).join(' ');let story=val('story');$('factTranslation').textContent=facts?`The facts I can describe are: ${facts}`:(story?`I notice this story: ${story}. Now I can look for the facts.`:'Write the facts and story to build a cleaner description.');let urge=selectedUrge||val('otherUrge');let parts=[];if(val('thought'))parts.push(val('thought').startsWith('I')?val('thought'):`I’m having the thought that ${val('thought')}`);if(val('feeling'))parts.push(val('feeling').startsWith('I')?val('feeling'):`I feel ${val('feeling')}`);if(val('sensation'))parts.push(val('sensation'));if(urge)parts.push(`I have an urge to ${urge}.`);$('insideTranslation').textContent=parts.length?parts.join(' '):'Choose or write an urge to build a describe phrase.';renderSummary()}
 function renderSummary(){if(!$('summaryBox'))return;$('summaryBox').innerHTML=`<strong>Facts</strong>${val('whatHappened','Not written yet.')} ${val('seeHear','')}<strong>Story my mind added</strong>${val('story','Not written yet.')}<strong>Thought</strong>${val('thought','Not written yet.')}<strong>Feeling</strong>${val('feeling','Not written yet.')}<strong>Body sensation</strong>${val('sensation','Not written yet.')}<strong>Urge</strong>${selectedUrge||val('otherUrge','Not written yet.')}<strong>Describe phrase</strong>${$('insideTranslation')?.textContent||'Not built yet.'}`}
-function copySummary(){navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
+function copySummary(){recordSkillComplete('copy-summary');navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
 function resetAll(){if(confirm('Clear this practice?')){localStorage.removeItem('wtd_describe_practice');location.reload()}}
 loadState();buildTranslation();
 </script>

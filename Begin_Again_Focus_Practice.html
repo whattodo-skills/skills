@@ -85,6 +85,17 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,-apple-system,sans-serif;b
 </div>
 <div class="footer-note">What To Do! — self-guided skill building for everyday life.</div>
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Begin Again Focus Practice',
+    skillSlug: 'begin-again-focus-practice',
+    completionType
+  }, '*');
+}
+
 const state={target:'',label:'',total:300,remaining:300,timer:null,running:false,returns:0};
 function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});updatePreview();if(id==='finish')renderSummary();}
 function selectTarget(el,val){state.target=val;document.querySelectorAll('#targetList .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');document.getElementById('customTarget').value='';document.getElementById('targetNext').disabled=false;updatePreview();}
@@ -98,7 +109,7 @@ function startTimer(){stopTimer();state.running=true;document.getElementById('pa
 function stopTimer(){if(state.timer)clearInterval(state.timer);state.timer=null;state.running=false;}
 function toggleTimer(){if(state.running){stopTimer();document.getElementById('pauseBtn').textContent='Resume'}else{startTimer();}}
 function countReturn(){state.returns++;document.getElementById('returns').textContent=state.returns;}
-function finish(){stopTimer();goTo('finish');}
+function finish(){recordSkillComplete('finish');stopTimer();goTo('finish');}
 function renderSummary(){document.getElementById('sumTarget').textContent=state.target||'My chosen focus target';document.getElementById('sumLabel').textContent=state.label||'thinking';document.getElementById('sumPhrase').textContent=`${state.label||'thinking'} — begin again — return to ${state.target||'the next right thing'}.`;document.getElementById('sumReturns').textContent=state.returns;}
 function resetAll(){stopTimer();state.target='';state.label='';state.returns=0;document.querySelectorAll('.selected').forEach(e=>e.classList.remove('selected'));document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('targetNext').disabled=true;document.getElementById('labelNext').disabled=true;goTo('home');}
 updatePreview();

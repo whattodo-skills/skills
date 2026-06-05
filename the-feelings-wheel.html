@@ -321,6 +321,17 @@
 </main>
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'The Feelings Wheel',
+    skillSlug: 'the-feelings-wheel',
+    completionType
+  }, '*');
+}
+
 (function () {
   'use strict';
 
@@ -602,6 +613,7 @@
   }
 
   function showFeeling(idx) {
+    recordSkillComplete('select-feeling');
     if (idx === activeIndex) return;
     activeIndex = idx;
 

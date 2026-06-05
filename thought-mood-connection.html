@@ -801,6 +801,17 @@ textarea.rf-input:focus{outline:none;border-color:var(--teal);background:#fff}
 </div><!-- /container -->
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'The Thought-Mood Connection',
+    skillSlug: 'the-thought-mood-connection',
+    completionType
+  }, '*');
+}
+
 /* ══════════════ TAB SWITCHING ══════════════ */
 function showTab(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -1073,6 +1084,7 @@ function showReframe() {
   const rf5 = document.getElementById('rf5').value.trim();
   const rf1 = document.getElementById('rf1').value.trim();
   if (!rf1) { alert("Please share the thought that's been affecting your mood (Step 1) to continue."); return; }
+  recordSkillComplete('reframe');
 
   const output = document.getElementById('rf-output');
   output.classList.add('show');

@@ -183,10 +183,21 @@ input:focus, textarea:focus, select:focus { outline:none; border-color:var(--blu
 <div class="footer-note">What To Do! skill-building practice · Self-guided connecting exercise</div>
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Saying No',
+    skillSlug: 'saying-no',
+    completionType
+  }, '*');
+}
+
 let pressure = 'the pressure to say yes automatically';
 let style = '';
 let finalText = '';
-function goTo(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function goTo(id){ if(id==='screen-complete') recordSkillComplete('finish'); document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
 function selectPressure(btn,key){
   const map={guilt:'guilt', shame:'shame', people:'people-pleasing', fear:'fear', habit:'the habit of saying yes too fast'};
   pressure=map[key]; document.querySelectorAll('#pressure-list .choice').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected');

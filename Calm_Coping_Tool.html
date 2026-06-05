@@ -690,6 +690,17 @@ footer {
 
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Calm Down',
+    skillSlug: 'calm-down',
+    completionType
+  }, '*');
+}
+
 // ── NAVIGATION ──────────────────────────────────
 function show(id) {
  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -698,6 +709,7 @@ function show(id) {
 }
 
 function showComplete(skill) {
+ recordSkillComplete(skill || 'finish');
  const msgs = {
  tipp: "Your nervous system just got a reset. Cold water is one of the fastest tools we have.",
  breath: "Five full cycles of calming breath. Your body knows how to find peace.",

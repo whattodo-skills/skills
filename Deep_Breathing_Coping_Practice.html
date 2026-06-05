@@ -37,6 +37,17 @@
 </main>
 <div class="footer">What To Do! — self-guided skill building for everyday life.</div>
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Deep Breathing Practice',
+    skillSlug: 'deep-breathing-practice',
+    completionType
+  }, '*');
+}
+
 const symptoms=['Tight chest','Pit in stomach','Shaky','Nauseous','Fast heartbeat','Restless','Tense shoulders','Hard to sit still'];
 let selectedSymptoms=[];let timer=null;let phaseTimer=null;let running=false;let secondsLeft=120;let cycle=0;let inhale=4;let hold=1;let exhale=6;let currentPhase='ready';let audioCtx=null;
 function $(id){return document.getElementById(id)}
@@ -57,7 +68,7 @@ function pausePractice(){running=false;clearInterval(timer);clearTimeout(phaseTi
 function resetPractice(){running=false;clearInterval(timer);clearTimeout(phaseTimer);secondsLeft=+$('duration').value;cycle=0;$('timeLeft').textContent=fmt(secondsLeft);$('cycleCount').textContent='0';$('startBtn').textContent='Start';$('breathCircle').className='breath-circle';$('breathText').textContent='Ready';$('breathSub').textContent='Press start';setPattern()}
 function finishPractice(){pausePractice();$('breathText').textContent='Done';$('breathSub').textContent='Notice your body';showById('reflect')}
 function renderSummary(){let before=+$('before').value,after=+$('after').value;let diff=before-after;let symptomText=[...selectedSymptoms, $('otherSymptom').value].filter(Boolean).join(', ')||'No symptoms selected';$('summaryBox').innerHTML=`<p><strong>Body signals noticed:</strong> ${symptomText}</p><p><strong>Before:</strong> ${before}/10 · <strong>After:</strong> ${after}/10</p><p><strong>Shift:</strong> ${diff>0?'Intensity went down by '+diff+'.':diff===0?'Intensity stayed about the same.':'Intensity went up. Next time, try a shorter or gentler breath pattern.'}</p><p><strong>What changed:</strong> ${$('changed').value||'Nothing written yet.'}</p>`}
-function copySummary(){navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
+function copySummary(){recordSkillComplete('copy-summary');navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
 loadState();renderSymptoms();updateRange('before');updateRange('after');resetPractice();renderSummary();
 </script>
 </body>

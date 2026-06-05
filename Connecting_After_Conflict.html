@@ -707,12 +707,24 @@ footer em { font-style: italic; }
 
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Connecting After Conflict',
+    skillSlug: 'connecting-after-conflict',
+    completionType
+  }, '*');
+}
+
 // ── STATE ──────────────────────────────────────────
 let readyChoice  = null;
 let truthCount   = 0;
 
 // ── NAVIGATION ────────────────────────────────────
 function goTo(id) {
+  if (id === 'screen-complete') recordSkillComplete('finish');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);

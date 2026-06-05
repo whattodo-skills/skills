@@ -208,6 +208,8 @@ const questions = {
   choice:'What choices do you see from here?'
 };
 function recordSkillComplete(completionType='finish'){
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
   window.parent.postMessage({
     type:'skillComplete',
     skillTitle:'Active Listening',

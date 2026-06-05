@@ -142,6 +142,17 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
 
 <div class="footer-note">What To Do! — self-guided skill building for everyday life.</div>
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Single Task Focus Practice',
+    skillSlug: 'single-task-focus-practice',
+    completionType
+  }, '*');
+}
+
 const state={moment:'',pulls:[],timer:null,total:60,remaining:60,running:false};
 function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='screen-plan')updatePlan();if(id==='screen-finish')renderSummary();}
 function selectOne(key,el,val){state[key]=val;document.querySelectorAll('#moment-list .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');document.getElementById('customMoment').value='';document.getElementById('moment-next').disabled=false;updatePlan();}
@@ -154,7 +165,7 @@ function drawTimer(){const t=state.remaining;const m=Math.floor(t/60);const s=St
 function startTimer(){stopTimer();state.running=true;document.getElementById('pauseBtn').textContent='Pause';state.timer=setInterval(()=>{state.remaining--;drawTimer();if(state.remaining<=0)finishPractice();},1000)}
 function stopTimer(){if(state.timer)clearInterval(state.timer);state.timer=null;state.running=false;}
 function toggleTimer(){if(state.running){stopTimer();document.getElementById('pauseBtn').textContent='Resume'}else{startTimer();}}
-function finishPractice(){stopTimer();goTo('screen-finish');}
+function finishPractice(){recordSkillComplete('finish');stopTimer();goTo('screen-finish');}
 function renderSummary(){const pulls=allPulls();const minutes=document.getElementById('minutes')?.value||'5';const boundary=document.getElementById('boundary')?.value||'put my phone away';document.getElementById('summaryMoment').textContent=state.moment||'A meaningful moment at home';document.getElementById('summaryPulls').textContent=pulls.length?pulls.join(', '):'phone, work thoughts, or habit';document.getElementById('summaryPlan').textContent=`For ${minutes} minutes, I will ${boundary} and return my attention when it drifts.`;}
 function resetAll(){stopTimer();state.moment='';state.pulls=[];state.remaining=60;document.querySelectorAll('.selected').forEach(e=>e.classList.remove('selected'));document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('moment-next').disabled=true;goTo('screen-home');}
 updatePlan();

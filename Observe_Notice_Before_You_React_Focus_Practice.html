@@ -47,6 +47,17 @@
 </main>
 <div class="footer">What To Do! — self-guided skill building for everyday life.</div>
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Observe Before You React',
+    skillSlug: 'observe-before-you-react',
+    completionType
+  }, '*');
+}
+
 let selectedFocus='Observe';let timer=null;let promptTimer=null;let running=false;let secondsLeft=120;let rounds=0;
 const prompts=['Notice what is here.','Let it come and go.','You do not have to fix this.','Watch without grabbing on.','Notice the urge without obeying it.','Return to what is happening now.','Inside and outside.','Name it silently: thinking, feeling, sensing, urging.'];
 function $(id){return document.getElementById(id)}
@@ -64,7 +75,7 @@ function pausePractice(){running=false;clearInterval(timer);clearTimeout(promptT
 function resetPractice(){running=false;clearInterval(timer);clearTimeout(promptTimer);secondsLeft=+$('duration').value;rounds=0;$('timeLeft').textContent=fmt(secondsLeft);$('roundCount').textContent='0';$('startBtn').textContent='Start';$('observeWord').textContent='Ready';$('observeSub').textContent='Press start'}
 function finishPractice(){pausePractice();$('observeWord').textContent='Done';$('observeSub').textContent='What did you notice?'}
 function renderSummary(){let trigger=$('trigger').value||'Not written';let reaction=$('reaction').value||'Not written';let inside=$('inside').value||'Not written';let outside=$('outside').value||'Not written';$('summaryBox').innerHTML=`<p><strong>Focus:</strong> ${selectedFocus}</p><p><strong>Trigger noticed:</strong> ${trigger}</p><p><strong>Usual reaction:</strong> ${reaction}</p><p><strong>Inside:</strong> ${inside}</p><p><strong>Outside:</strong> ${outside}</p><p><strong>Practice phrase:</strong> Notice before you react.</p>`}
-function copySummary(){navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
+function copySummary(){recordSkillComplete('copy-summary');navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
 loadState();resetPractice();preparePractice();renderSummary();
 </script>
 </body>

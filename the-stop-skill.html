@@ -224,9 +224,20 @@ body { font-family:'Source Sans 3','Segoe UI',system-ui,-apple-system,sans-serif
 </div>
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'The STOP Skill',
+    skillSlug: 'the-stop-skill',
+    completionType
+  }, '*');
+}
+
 const steps=['s','t','o','p'];
 const done={s:false,t:false,o:false,p:false};
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function showScreen(id){if(id==='screen-reflect')recordSkillComplete('reflect');document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 function openStep(l){steps.forEach(x=>{document.getElementById('detail-'+x).classList.add('hidden');document.getElementById('card-'+x).classList.remove('active');});document.getElementById('detail-'+l).classList.remove('hidden');document.getElementById('card-'+l).classList.add('active');if(done[l])document.getElementById('card-'+l).classList.add('done');setTimeout(()=>document.getElementById('detail-'+l).scrollIntoView({behavior:'smooth',block:'nearest'}),50);}
 function markDone(l){done[l]=true;document.getElementById('check-'+l).classList.add('checked');document.getElementById('check-'+l+'-icon').textContent='✓';document.getElementById('card-'+l).classList.add('done');if(steps.every(x=>done[x])){document.getElementById('all-done-section').style.display='block';setTimeout(()=>document.getElementById('all-done-section').scrollIntoView({behavior:'smooth'}),100);}}
 let bInt=null;

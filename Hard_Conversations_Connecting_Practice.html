@@ -187,10 +187,21 @@ input:focus, textarea:focus, select:focus { outline:none; border-color:var(--blu
 <div class="footer-note">What To Do! skill-building practice · Self-guided connecting exercise</div>
 
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Hard Conversations',
+    skillSlug: 'hard-conversations',
+    completionType
+  }, '*');
+}
+
 let goal = '';
 let intensity = 5;
 let finalText = '';
-function goTo(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function goTo(id){ if(id==='screen-complete') recordSkillComplete('finish'); document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
 function selectGoal(btn,value){ goal=value; document.querySelectorAll('#goal-list .choice').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); document.getElementById('goal-next').disabled=false; updateStanceNote(); }
 function updateStanceNote(){
   const text = goal === 'outcome' ? 'Your priority is getting clear about what you want or need.' : goal === 'relationship' ? 'Your priority is staying honest while protecting connection.' : goal === 'self' ? 'Your priority is staying true to yourself without over-apologizing or people-pleasing.' : 'Your earlier choice will shape your script, but all three parts matter.';

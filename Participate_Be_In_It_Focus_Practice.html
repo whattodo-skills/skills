@@ -39,6 +39,17 @@
 </main>
 <div class="footer">What To Do! — self-guided skill building for everyday life.</div>
 <script>
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  window.parent.postMessage({
+    type: 'skillComplete',
+    skillTitle: 'Participate and Be In It',
+    skillSlug: 'participate-and-be-in-it',
+    completionType
+  }, '*');
+}
+
 let activity='';let secondsLeft=120;let timer=null;let running=false;let returns=0;
 function $(id){return document.getElementById(id)}
 function showScreen(id,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='practice')renderPractice();if(id==='summary')renderSummary();window.scrollTo({top:0,behavior:'smooth'})}
@@ -56,7 +67,7 @@ function resetTimer(){running=false;clearInterval(timer);secondsLeft=+$('duratio
 function markReturn(){returns++;$('returnCount').textContent=returns;saveState()}
 function finishTimer(){pauseTimer();$('timerSub').textContent='Done. Notice what changed.'}
 function renderSummary(){$('summaryBox').innerHTML=`<strong>Activity</strong>${currentActivity()}<strong>What pulled me out</strong>${$('pull').value}<strong>Return phrase</strong>${$('returnPhrase').value||'Be in it.'}<strong>Times I came back</strong>${returns}<strong>What helped</strong>${$('helped').value||'Not written yet.'}<strong>What pulled me out</strong>${$('drifted').value||'Not written yet.'}<strong>Practice reminder</strong>Participate means being in it while I’m doing it.`}
-function copySummary(){navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
+function copySummary(){recordSkillComplete('copy-summary');navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
 loadState();renderPlan();resetTimer();renderPractice();renderSummary();
 </script>
 </body>

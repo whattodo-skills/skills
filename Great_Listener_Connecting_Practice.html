@@ -207,7 +207,15 @@ const questions = {
   need:'What do you need most right now?',
   choice:'What choices do you see from here?'
 };
-function goTo(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function recordSkillComplete(completionType='finish'){
+  window.parent.postMessage({
+    type:'skillComplete',
+    skillTitle:'Active Listening',
+    skillSlug:'active-listening',
+    completionType
+  }, '*');
+}
+function goTo(id){ if(id==='screen-complete') recordSkillComplete('finish'); document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
 function toggleCheck(btn){ btn.classList.toggle('selected'); }
 function selectTopic(btn,key){ chosenQuestion = questions[key]; document.querySelectorAll('#topic-list .choice').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); document.getElementById('chosen-question').textContent = chosenQuestion; document.getElementById('topic-next').disabled = false; }
 function startTimer(){ clearInterval(timer); seconds=60; document.getElementById('timer').textContent=seconds; document.getElementById('start-btn').disabled=true; document.getElementById('start-btn').textContent='Listening...'; timer=setInterval(()=>{ seconds--; document.getElementById('timer').textContent=seconds; if(seconds<=0){ clearInterval(timer); document.getElementById('start-btn').disabled=false; document.getElementById('start-btn').textContent='Practice again'; setTimeout(()=>goTo('screen-reflect'),700); } },1000); }

@@ -27,6 +27,32 @@
 <div class="drawer" id="drawer"><div class="practice-modal"><div class="modal-head"><div><div class="modal-title" id="modalTitle">Skill Practice</div><div class="modal-cat" id="modalCat"></div></div><div class="modal-actions"><a id="openNew" href="#" target="_blank">Open New Tab</a><button onclick="closePractice()">Close</button></div></div><iframe class="practice-frame" id="frame" title="Skill practice"></iframe></div></div>
 <script>
 const SKILL_BASE_URL='https://whattodo-skills.github.io/skills/';
+const WIX_ORIGIN='https://www.whattodo.coach';
+const LOCAL_STACKS_KEY='wtd-skills-hub-stacks';
+const WEBSITE_URLS={
+  'Connecting_After_Conflict.html':'https://www.whattodo.coach/skills-hub/connecting-after-conflict',
+  'Hard_Conversations_Connecting_Practice.html':'https://www.whattodo.coach/skills-hub/hard-conversations',
+  'Healthy_Boundaries_Connecting_Practice.html':'https://www.whattodo.coach/skills-hub/setting-boundaries',
+  'Great_Listener_Connecting_Practice.html':'https://www.whattodo.coach/skills-hub/active-listening',
+  'Say_No_Without_Guilt_Connecting_Practice.html':'https://www.whattodo.coach/skills-hub/saying-no',
+  'Inner_Critic_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/inner-critic',
+  'Ride_The_Wave_Coping_Practice.html':'https://www.whattodo.coach/skills-hub/ride-the-wave',
+  'the-stop-skill.html':'https://www.whattodo.coach/skills-hub/the-stop-skill',
+  'Calm_Coping_Tool.html':'https://www.whattodo.coach/skills-hub/calm-down',
+  'Deep_Breathing_Coping_Practice.html':'https://www.whattodo.coach/skills-hub/deep-breathing-practice',
+  'Check_The_Story_Feelings_Practice.html':'https://www.whattodo.coach/skills-hub/check-the-story',
+  'values-compass.html':'https://www.whattodo.coach/skills-hub/the-values-compass',
+  'thought-mood-connection.html':'https://www.whattodo.coach/skills-hub/the-thought-mood-connection',
+  'the-feelings-wheel.html':'https://www.whattodo.coach/skills-hub/the-feelings-wheel',
+  'Begin_Again_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/begin-again-focus-practice',
+  'Describe_Say_What_Is_Happening_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/describe-what-is-happening',
+  'Start_The_Task_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/start-the-task-focus-practice',
+  'Observe_Notice_Before_You_React_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/observe-before-you-react',
+  'thought-labeling.html':'https://www.whattodo.coach/skills-hub/thought-labeling',
+  'Stone_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/stone-focus-practice',
+  'Participate_Be_In_It_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/participate-and-be-in-it',
+  'Single_Task_Focus_Practice.html':'https://www.whattodo.coach/skills-hub/single-task-focus-practice'
+};
 const FALLBACK_SKILLS=[
 {id:'begin-again',name:'Begin Again',category:'Focus',htmlUrl:SKILL_BASE_URL+'Begin_Again_Focus_Practice.html',description:'Practice noticing when your attention wanders and gently returning to one focus target without self-criticism.',desiredOutcome:'Learn that distraction is not failure — the real skill is beginning again and coming back to what matters.',displayOrder:10},
 {id:'single-task',name:'Single-Task Focus Practice',category:'Focus',htmlUrl:SKILL_BASE_URL+'Single_Task_Focus_Practice.html',description:'Practice staying present with one meaningful moment instead of splitting attention between your phone, work, worry, and the people around you.',desiredOutcome:'Notice when your focus drifts and gently return your attention to what matters most.',displayOrder:20},
@@ -52,18 +78,24 @@ const FALLBACK_SKILLS=[
 ];
 let skills=FALLBACK_SKILLS.map(cleanSkill),activeCat='All';
 let currentUserTiers=['Free'];
-let stackedSkills=new Set();
+let stackedSkills=loadLocalStacks();
 let skippedSkills=new Set();
 let closedCards=new Set();
 function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function toast(msg){var t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
-function stackIt(id,name){if(stackedSkills.has(id))return;stackedSkills.add(id);window.parent&&window.parent.postMessage({type:'stackSkill',skillId:id,skillTitle:name,valueName:''},'*');document.querySelectorAll(`[data-skill-id="${id}"] .btn-stack`).forEach(btn=>{btn.textContent='Stacked ✓';btn.classList.add('stacked');btn.disabled=true;});toast('Stacked ✓')}
-function skipSkill(id){skippedSkills.add(id);render()}
+function loadLocalStacks(){try{return new Set(JSON.parse(localStorage.getItem(LOCAL_STACKS_KEY)||'[]'))}catch(e){return new Set()}}
+function saveLocalStacks(){try{localStorage.setItem(LOCAL_STACKS_KEY,JSON.stringify([...stackedSkills]))}catch(e){}}
+function postToWix(action,skill){try{window.parent&&window.parent.postMessage({source:'wtd-skills-hub',action,skill},WIX_ORIGIN)}catch(e){}}
+function skillPayload(id){const s=skills.find(item=>(item.id||item._id)===id);return s?{skillId:id,skillName:s.name||'',category:s.category||'',practiceUrl:getUrl(s)}:{skillId:id,skillName:'',category:'',practiceUrl:''}}
+function stackIt(id){if(stackedSkills.has(id))return;stackedSkills.add(id);saveLocalStacks();postToWix('stack',skillPayload(id));render();toast('Stacked ✓')}
+function skipSkill(id){stackedSkills.delete(id);saveLocalStacks();postToWix('skip',skillPayload(id));skippedSkills.add(id);render()}
 function closeCard(id){closedCards.add(id);const current=skills.find(s=>(s.id||s._id)===id);const currentCat=current?normalizeCat(current.category):'';const seen=new Set([...closedCards,...skippedSkills]);let pool=skills.filter(s=>{const sid=s.id||s._id;return sid!==id&&!seen.has(sid)&&normalizeCat(s.category)!==currentCat&&hasAccess(s)&&s.isPublished!==false;});if(!pool.length)pool=skills.filter(s=>{const sid=s.id||s._id;return sid!==id&&!seen.has(sid)&&hasAccess(s)&&s.isPublished!==false;});const replacement=pool.length?pool[Math.floor(Math.random()*Math.min(pool.length,8))]:null;const article=document.querySelector(`[data-skill-id="${id}"]`);if(article){if(replacement){article.insertAdjacentHTML('afterend',card(replacement));}article.remove();}}
 const UPGRADE_URL='https://www.whattodo.coach/pricing-plans#Subscription-Plans';
 const cats=['All','Focus','Coping','Feelings','Connecting'];
 function normalizeCat(c){return (c||'Focus').replace(/\s+/g,'')}
-function getUrl(s){return s.htmlUrl||s.url||s.googleFile||'#'}
+function fileOf(url){try{return String(url||'').split('?')[0].split('#')[0].split('/').pop()}catch(e){return''}}
+function getSourceUrl(s){return s.htmlUrl||s.url||s.googleFile||'#'}
+function getUrl(s){const source=getSourceUrl(s);return WEBSITE_URLS[fileOf(source)]||source}
 function cleanSkill(s,i){return{_id:s._id||s.id||`skill-${i}`,id:s.id||s._id||`skill-${i}`,name:s.name||'Untitled Skill',category:s.category||'Focus',description:s.description||'',desiredOutcome:s.desiredOutcome||s.outcome||'',htmlUrl:s.htmlUrl||s.url||s.googleFile||'',isPublished:s.isPublished!==false,displayOrder:s.displayOrder||999,timeEstimate:s.timeEstimate||'Practice',eligibleSubscriberTier:s.eligibleSubscriberTier||s.tier||s.requiredTier||['Free']}}
 function skillKey(s){return String(s.id||s._id||s.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function mergeSkills(incoming=[]){const map=new Map();FALLBACK_SKILLS.map(cleanSkill).forEach(s=>map.set(skillKey(s),s));incoming.map(cleanSkill).filter(s=>s.isPublished).forEach(s=>map.set(skillKey(s),{...(map.get(skillKey(s))||{}),...s}));return [...map.values()]}
@@ -87,13 +119,13 @@ function hasAccess(s){
   const allowed=tiersFor(s);
   return allowed.includes('Free') || allowed.some(t=>currentUserTiers.includes(t));
 }
-function card(s){const url=getUrl(s);const locked=!hasAccess(s);const tiers=tiersFor(s).join(', ');const sid=s.id||s._id;const isStacked=stackedSkills.has(sid);return `<article class="skill-card ${locked?'locked':''}" data-skill-id="${sid}"><div class="card-top"><span class="cat ${normalizeCat(s.category)}">${s.category}</span>${locked?'<span class="lock-badge">🔒 Upgrade</span>':`<span class="time">${s.timeEstimate||'Practice'}</span>`}</div><div class="card-body"><h2>${s.name}</h2><p class="desc">${s.description||''}</p><div class="outcome"><strong>Outcome:</strong> ${s.desiredOutcome||''}</div>${locked?`<div class="locked-note">This skill is included with: <strong>${tiers}</strong>.</div>`:''}</div><div class="card-actions">${locked?`<a class="btn btn-upgrade" href="${UPGRADE_URL}" target="_top">Upgrade to Access</a>`:`<a class="btn btn-primary" href="${url}" target="_blank">Practice It</a><button class="btn btn-stack${isStacked?' stacked':''}" onclick="stackIt('${sid}','${escapeHtml(s.name)}')" ${isStacked?'disabled':''}>${isStacked?'Stacked ✓':'Stack It'}</button><button class="btn btn-skip" onclick="skipSkill('${sid}')">Skip It</button><button class="btn btn-close-card" onclick="closeCard('${sid}')">Close It</button>`}</div></article>`}
+function card(s){const url=getUrl(s);const locked=!hasAccess(s);const tiers=tiersFor(s).join(', ');const sid=s.id||s._id;const isStacked=stackedSkills.has(sid);return `<article class="skill-card ${locked?'locked':''}" data-skill-id="${sid}"><div class="card-top"><span class="cat ${normalizeCat(s.category)}">${s.category}</span>${locked?'<span class="lock-badge">🔒 Upgrade</span>':`<span class="time">${s.timeEstimate||'Practice'}</span>`}</div><div class="card-body"><h2>${s.name}</h2><p class="desc">${s.description||''}</p><div class="outcome"><strong>Outcome:</strong> ${s.desiredOutcome||''}</div>${locked?`<div class="locked-note">This skill is included with: <strong>${tiers}</strong>.</div>`:''}</div><div class="card-actions">${locked?`<a class="btn btn-upgrade" href="${UPGRADE_URL}" target="_top">Upgrade to Access</a>`:`<a class="btn btn-primary" href="${url}" target="_blank" rel="noopener noreferrer">Practice It</a><button class="btn btn-stack${isStacked?' stacked':''}" onclick="stackIt('${sid}')" ${isStacked?'disabled':''}>${isStacked?'Stacked ✓':'Stack It'}</button><button class="btn btn-skip" onclick="skipSkill('${sid}')">Skip It</button><button class="btn btn-close-card" onclick="closeCard('${sid}')">Close It</button>`}</div></article>`}
 function render(){const q=(document.getElementById('search').value||'').toLowerCase().trim();let list=skills.filter(s=>s.isPublished!==false).sort((a,b)=>(a.displayOrder||999)-(b.displayOrder||999)||a.name.localeCompare(b.name)).filter(s=>{const sid=s.id||s._id;const catOk=activeCat==='All'||s.category===activeCat;const hay=[s.name,s.category,s.description,s.desiredOutcome].join(' ').toLowerCase();return catOk&&(!q||hay.includes(q))&&!skippedSkills.has(sid)&&!closedCards.has(sid)});document.getElementById('grid').innerHTML=list.map(card).join('');document.getElementById('empty').style.display=list.length?'none':'block';const hidden=skippedSkills.size+closedCards.size;document.getElementById('countLabel').textContent=`${list.length} skill${list.length===1?'':'s'}${hidden>0?` · <a href="#" onclick="resetHidden();return false" style="color:var(--blue);font-weight:800">${hidden} hidden — Reset</a>`:''}`;const source=document.getElementById('sourceLabel');if(source)source.textContent='Categories: Focus, Coping, Feelings, Connecting'}
 function resetHidden(){skippedSkills.clear();closedCards.clear();render()}
 function openPractice(id){const s=skills.find(x=>String(x._id)===String(id));if(!s)return;if(!hasAccess(s)){window.top.location.href=UPGRADE_URL;return}const url=getUrl(s);if(window.innerWidth<=1050){window.open(url,'_blank');return;}document.getElementById('modalTitle').textContent=s.name;document.getElementById('modalCat').textContent=s.category;document.getElementById('frame').src=url;document.getElementById('openNew').href=url;document.getElementById('drawer').classList.add('open')}
 function closePractice(){document.getElementById('drawer').classList.remove('open');document.getElementById('frame').src='about:blank'}
-window.addEventListener('message',e=>{const msg=e.data||{};if(msg.type==='skillsHubInit'){currentUserTiers=msg.currentUserTiers||msg.memberTiers||msg.tiers||currentUserTiers;skills=mergeSkills(Array.isArray(msg.skills)?msg.skills:[]);if(Array.isArray(msg.stackedSkills))msg.stackedSkills.forEach(id=>stackedSkills.add(id));render();document.getElementById('loading').classList.add('hidden')}});
-(function(){renderChips();render();window.parent&&window.parent.postMessage({type:'skillsHubReady'},'*');setTimeout(()=>document.getElementById('loading').classList.add('hidden'),1800)})();
+window.addEventListener('message',e=>{const msg=e.data||{};if(msg.type==='skillsHubInit'){currentUserTiers=msg.currentUserTiers||msg.memberTiers||msg.tiers||currentUserTiers;skills=mergeSkills(Array.isArray(msg.skills)?msg.skills:[]);if(Array.isArray(msg.stackedSkills)){stackedSkills=new Set(msg.stackedSkills);saveLocalStacks()}render();document.getElementById('loading').classList.add('hidden')}else if(msg.source==='wtd-wix'&&msg.action==='existingStacks'){stackedSkills=new Set((msg.stacks||[]).map(s=>s.skillId).filter(Boolean));saveLocalStacks();render()}});
+(function(){renderChips();render();window.parent&&window.parent.postMessage({type:'skillsHubReady'},'*');postToWix('requestStacks',{});setTimeout(()=>document.getElementById('loading').classList.add('hidden'),1800)})();
 </script>
 </body>
 </html>

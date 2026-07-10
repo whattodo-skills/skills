@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be Present: Single Task Focus | What To Do!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F7F4ED;--navy:#182047;--blue:#4F5DAD;--blue-lt:#8BA4DC;--blue-bg:#edf1f8;--mint:#B4DACD;--mint-bg:#eaf4f0;--pink:#BD3A59;--pink-lt:#f7e0e6;--text:#1e1e1e;--muted:#6b7280;--border:#e0ddd6;--white:#fff;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+body{font-family:'Source Sans 3','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center}.site-header{width:100%;background:#182047;color:white;padding:20px 24px;text-align:center;border-bottom:4px solid #B4DACD}.site-header .eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);margin-bottom:5px;font-weight:700}.site-header h1{font-size:clamp(1.35rem,4vw,1.9rem);font-weight:800;line-height:1.2}
+.screen{display:none;width:100%;max-width:720px;padding:24px 16px 80px;animation:fadeIn .3s ease}.screen.active{display:flex;flex-direction:column}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.progress-wrap{display:flex;align-items:center;justify-content:center;margin:0 0 18px}.pdot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:.25s}.pdot.active{background:var(--blue);transform:scale(1.35)}.pdot.done{background:var(--mint)}.pline{width:28px;height:2px;background:var(--border)}.pline.done{background:var(--mint)}
+.card{background:var(--white);border-radius:var(--radius);padding:24px 22px;box-shadow:var(--shadow);margin-bottom:16px}.card h2,.card h3{color:var(--navy);font-weight:800;line-height:1.25;margin-bottom:10px}.card h2{font-size:1.32rem}.card h3{font-size:1.08rem}.card p{color:var(--muted);line-height:1.7;font-size:.96rem;margin-bottom:10px}.card p:last-child{margin-bottom:0}.notice-box{background:var(--mint-bg);border-left:4px solid var(--mint);border-radius:8px;padding:14px 16px;color:var(--text);font-size:.94rem;line-height:1.65;margin-bottom:16px}.blue-box{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;color:var(--navy);font-size:.94rem;line-height:1.65;margin:12px 0}.small-label{color:var(--muted);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:12px 0 7px}
+.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;font-size:.95rem;font-weight:800;transition:transform .15s,box-shadow .2s,opacity .2s}.btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.12)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}.btn-primary{background:var(--navy);color:white}.btn-secondary{background:var(--blue-bg);color:var(--blue);border:1.5px solid var(--blue-lt)}.btn-full{width:100%}.back-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-family:inherit;font-size:.88rem;display:inline-flex;align-items:center;gap:6px;padding:0;margin-bottom:18px}
+.choice-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}.choice{background:white;border:2px solid var(--border);border-radius:var(--radius);padding:13px 16px;cursor:pointer;font-family:inherit;font-size:.94rem;color:var(--text);text-align:left;display:flex;align-items:flex-start;gap:12px;line-height:1.45;transition:border-color .2s,background .2s}.choice:hover{border-color:var(--blue-lt)}.choice.selected{border-color:var(--blue);background:var(--blue-bg);color:var(--navy)}.dot{width:18px;height:18px;border:2px solid var(--border);border-radius:50%;flex-shrink:0;margin-top:2px}.choice.selected .dot{background:var(--blue);border-color:var(--blue)}input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 13px;font-family:inherit;font-size:.95rem;line-height:1.55;color:var(--text);background:white}textarea{min-height:82px;resize:vertical}input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blue)}
+.prep-grid,.tag-row,.difficulty-row{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.prep-chip,.tag-chip,.difficulty-chip{border:2px solid var(--border);background:white;color:var(--navy);border-radius:999px;padding:10px 14px;font-family:inherit;font-size:.9rem;font-weight:800;line-height:1.3;cursor:pointer;min-height:44px;transition:border-color .2s,background .2s,transform .15s}.prep-chip:hover,.tag-chip:hover,.difficulty-chip:hover{border-color:var(--blue-lt);transform:translateY(-1px)}.prep-chip.selected,.tag-chip.selected,.difficulty-chip.selected{border-color:var(--blue);background:var(--blue-bg)}.prep-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.skip-btn{background:none;border:none;color:var(--muted);font-family:inherit;font-weight:800;cursor:pointer;padding:12px}.custom-prep{display:flex;gap:8px;align-items:center}.custom-prep input{flex:1}.tag-panel{display:none;margin:12px 0 4px;padding:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--bg);text-align:left}.tag-panel.active{display:block}.tag-panel-title{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--navy);font-size:.88rem;font-weight:800;margin-bottom:10px}.close-tag{border:none;background:transparent;color:var(--muted);font-size:1.2rem;line-height:1;cursor:pointer;padding:2px 6px}.timer-card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px;margin-bottom:16px;text-align:center}.timer-circle{width:170px;height:170px;border-radius:50%;margin:12px auto 16px;background:conic-gradient(var(--mint) 0deg,var(--blue-bg) 0deg);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 12px white;border:2px solid var(--border)}.timer-time{font-size:2.15rem;font-weight:800;color:var(--navy)}.begin-word{font-size:1.6rem;font-weight:800;color:var(--navy);margin:4px 0 10px}.counter{display:inline-flex;align-items:center;gap:7px;background:var(--mint-bg);color:var(--navy);border-radius:999px;padding:8px 14px;font-weight:800;margin:10px 0}.steps{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.step{background:var(--bg);border-radius:10px;padding:12px 14px;text-align:left;color:var(--navy);font-weight:700;line-height:1.45}.script-card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;border-top:4px solid var(--mint);margin-bottom:16px}.script-line{border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px;color:var(--navy);line-height:1.7;font-size:1rem}.script-line:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.script-line span{display:block;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:3px}.complete-card{background:linear-gradient(135deg,var(--navy),#1e2d6e);color:white;border-radius:var(--radius);padding:34px 26px;box-shadow:var(--shadow);text-align:center;margin-bottom:16px}.complete-card h2{font-size:1.42rem;margin-bottom:10px}.complete-card p{color:rgba(255,255,255,.8);line-height:1.7}.footer-note{text-align:center;color:var(--muted);font-size:.75rem;line-height:1.6;padding:0 16px 24px}@media(max-width:520px){.btn{width:100%}.prep-actions{display:block}.custom-prep{display:block}.custom-prep .btn{margin-top:8px}.timer-circle{width:145px;height:145px}.timer-time{font-size:1.85rem}.tag-chip,.prep-chip,.difficulty-chip{width:100%;border-radius:8px;text-align:left}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="eyebrow">Focus</div><h1>Be Present: Single Task Focus</h1></header>
+
+<div class="screen active" id="home">
+  <div class="progress-wrap"><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
+  <div class="card"><h2>Focus is built by returning.</h2><p>Your attention will wander. You may get distracted, pulled into thoughts, irritated with yourself, or emotionally hooked.</p><p>The skill is not perfect focus. The skill is noticing you left and coming back without turning it into a shame spiral.</p></div>
+  <div class="notice-box"><strong>Be Present means:</strong> every time you notice you are distracted, that moment becomes the practice.</div>
+  <div class="blue-box" id="historyLine" hidden></div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goTo('target')">Begin →</button></div>
+</div>
+
+<div class="screen" id="target">
+  <button class="back-btn" onclick="goTo('home')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
+  <div class="card"><h2>Pick one focus target.</h2><p>Choose one simple place to return your attention. Keep it small and concrete.</p>
+    <div class="choice-list" id="targetList">
+      <button class="choice" onclick="selectTarget(this,'my breath')"><span class="dot"></span>My breath</button>
+      <button class="choice" onclick="selectTarget(this,'reading one paragraph')"><span class="dot"></span>Reading one paragraph</button>
+      <button class="choice" onclick="selectTarget(this,'washing the dishes')"><span class="dot"></span>Washing the dishes</button>
+      <button class="choice" onclick="selectTarget(this,'walking and noticing my steps')"><span class="dot"></span>Walking and noticing my steps</button>
+      <button class="choice" onclick="selectTarget(this,'listening to one person')"><span class="dot"></span>Listening to one person</button>
+      <button class="choice" onclick="selectTarget(this,'writing one small section')"><span class="dot"></span>Writing one small section</button>
+    </div>
+    <div class="small-label">Or write your own</div><input id="customTarget" placeholder="Example: folding laundry" oninput="customTarget(this.value)">
+  </div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" id="targetNext" onclick="goTo('label')" disabled>Next →</button></div>
+</div>
+
+<div class="screen" id="label">
+  <button class="back-btn" onclick="goTo('target')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div></div>
+  <div class="card"><h2>Choose a simple label.</h2><p>When your mind wanders, name it lightly. No scolding. No speech. Just a label, then return.</p>
+    <div class="choice-list" id="labelList">
+      <button class="choice" onclick="selectLabel(this,'thinking')"><span class="dot"></span>thinking</button>
+      <button class="choice" onclick="selectLabel(this,'planning')"><span class="dot"></span>planning</button>
+      <button class="choice" onclick="selectLabel(this,'worrying')"><span class="dot"></span>worrying</button>
+      <button class="choice" onclick="selectLabel(this,'judging')"><span class="dot"></span>judging</button>
+      <button class="choice" onclick="selectLabel(this,'remembering')"><span class="dot"></span>remembering</button>
+      <button class="choice" onclick="selectLabel(this,'pulled away')"><span class="dot"></span>pulled away</button>
+    </div>
+  </div>
+  <div class="blue-box" id="preview">Your return phrase will appear here.</div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" id="labelNext" onclick="goTo('setup')" disabled>Set the timer →</button></div>
+</div>
+
+<div class="screen" id="setup">
+  <button class="back-btn" onclick="goTo('label')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div></div>
+  <div class="card"><h2>Set a short practice.</h2><p>You are not trying to win at focus. You are practicing the return.</p>
+    <div class="small-label">Practice length</div><select id="length" onchange="updatePreview()"><option value="60">1 minute (micro)</option><option value="120">2 minutes</option><option value="180">3 minutes</option><option value="300" selected>5 minutes</option></select>
+    <div class="blue-box" id="setupPreview"></div>
+  </div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goTo('clearField')">Start practice →</button></div>
+</div>
+
+<div class="screen" id="clearField">
+  <button class="back-btn" onclick="goTo('setup')">← Back</button>
+  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div></div>
+  <div class="card"><h2>Clear the field.</h2><p>Take 20 seconds to remove what usually pulls you away. Tap each one as you do it.</p>
+    <div class="prep-grid" id="prepGrid"></div>
+    <div class="small-label">Add your own</div>
+    <div class="custom-prep"><input id="customPrep" placeholder="Example: move laundry out of sight"><button class="btn btn-secondary" onclick="addCustomPrep()">Add</button></div>
+  </div>
+  <div class="prep-actions"><button class="btn btn-primary" onclick="startPractice()">I'm ready — start →</button><button class="skip-btn" onclick="skipClearField()">Skip</button></div>
+</div>
+
+<div class="screen" id="practice">
+  <button class="back-btn" onclick="stopTimer();goTo('setup')">← Back</button>
+  <div class="timer-card"><h2 style="color:var(--navy);margin-bottom:8px">Be Present: Single Task Focus</h2><div class="timer-circle" id="circle"><div class="timer-time" id="time">5:00</div></div><div class="begin-word">begin again</div><p style="color:var(--muted);line-height:1.65" id="practiceText"></p><div class="counter">Returns practiced: <span id="returns">0</span></div><div class="tag-panel" id="tagPanel"><div class="tag-panel-title"><span>What pulled you? <small style="color:var(--muted);font-weight:700">(optional)</small></span><button class="close-tag" onclick="dismissTagPanel()" aria-label="Close distraction tags">×</button></div><div class="tag-row" id="tagRow"></div></div><div class="steps"><div class="step">1. Notice your attention wandered.</div><div class="step" id="labelStep">2. Label it simply.</div><div class="step" id="returnStep">3. Come back to your focus target.</div></div><div class="btn-row"><button class="btn btn-secondary" onclick="countReturn()">I noticed and returned</button><button class="btn btn-secondary" id="pauseBtn" onclick="toggleTimer()">Pause</button><button class="btn btn-primary" onclick="finish()">Finish →</button></div></div>
+</div>
+
+<div class="screen" id="finish">
+  <div class="complete-card"><h2>You practiced beginning again.</h2><p>Distraction was not the problem. The return was the skill.</p></div>
+  <div class="script-card"><div class="script-line"><span>Focus target</span><div id="sumTarget"></div></div><div class="script-line"><span>Simple label</span><div id="sumLabel"></div></div><div class="script-line"><span>Return phrase</span><div id="sumPhrase"></div></div><div class="script-line"><span>Returns practiced</span><div id="sumReturns"></div></div><div class="script-line" id="topDistractionLine" hidden><span>Top distraction</span><div id="sumTopDistraction"></div></div><div class="script-line"><span>Field cleared</span><div id="sumFieldCleared"></div></div><div class="script-line"><span>That felt</span><div class="difficulty-row" id="difficultyRow"><button class="difficulty-chip" onclick="setDifficulty('easy',this)">Easy</button><button class="difficulty-chip" onclick="setDifficulty('okay',this)">Okay</button><button class="difficulty-chip" onclick="setDifficulty('hard',this)">Hard</button></div></div></div>
+  <div class="card"><h3>Use this anywhere</h3><p>When you lose focus during reading, listening, chores, work, or family time, quietly say “begin again” and return to the next right thing.</p></div>
+  <div class="btn-row"><a class="btn btn-primary btn-full" id="terriBotCta" href="https://www.whattodo.com/terribot" target="_blank" rel="noopener" onclick="trackEvent('terribot_cta_clicked')">Ask TerriBot to plan your next focus block</a></div>
+  <div class="btn-row"><button class="btn btn-secondary btn-full" onclick="resetAll()">Practice again</button></div>
+</div>
+<div class="footer-note">What To Do! — self-guided skill building for everyday life.</div>
+<script>
+const SKILL_SLUG='be-present-single-task-focus';
+const PREFS_KEY='bePresentSingleTaskFocusPrefs';
+const HISTORY_KEY='bePresentSingleTaskFocusHistory';
+const PREP_STEPS=[
+  {key:'phone-away',label:'Phone in another room, or face-down on silent'},
+  {key:'close-tabs',label:'Close extra tabs and apps'},
+  {key:'noise-handled',label:'Headphones on / noise handled'},
+  {key:'water-ready',label:'Water within reach'},
+  {key:'tell-someone',label:'Tell someone: I am focusing for [X] minutes'},
+  {key:'clear-space',label:'Clear one distracting thing off my space'}
+];
+const DISTRACTION_TAGS=[
+  {key:'phone',label:'Phone'},
+  {key:'thought',label:'A thought'},
+  {key:'noise',label:'Noise'},
+  {key:'person',label:'A person'},
+  {key:'urge',label:'An urge'},
+  {key:'something-else',label:'Something else'}
+];
+const state={target:'',label:'',total:300,remaining:300,timer:null,running:false,returns:0,fieldClearedSteps:[],customPrepSteps:[],distractionTags:[],tagReturnIndex:null,tagTimeout:null,startedAt:null,endedAt:null,difficulty:null,completed:false};
+
+function readJson(key,fallback){try{return JSON.parse(localStorage.getItem(key))||fallback}catch(e){return fallback}}
+function writeJson(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}}
+function trackEvent(eventName,detail={}){window.parent.postMessage({type:'skillAnalytics',skillSlug:SKILL_SLUG,eventName,detail},'*');}
+function plannedMinutes(){return Math.round(state.total/60)}
+function prepLabel(step){return step.label.replace('[X]',plannedMinutes())}
+function getTopDistraction(){
+  const tagged=state.distractionTags.filter(t=>t.cause&&t.cause!=='untagged');
+  if(!tagged.length)return null;
+  const counts=tagged.reduce((acc,t)=>{acc[t.cause]=(acc[t.cause]||0)+1;return acc},{});
+  const topKey=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
+  const meta=DISTRACTION_TAGS.find(t=>t.key===topKey);
+  return {key:topKey,label:meta?meta.label:topKey,count:counts[topKey],taggedTotal:tagged.length};
+}
+function buildSessionPayload(completionType='finish'){
+  const top=getTopDistraction();
+  return {
+    sessionId:state.sessionId,
+    memberId:null,
+    skillSlug:SKILL_SLUG,
+    startedAt:state.startedAt,
+    endedAt:state.endedAt,
+    plannedMinutes:plannedMinutes(),
+    focusTarget:state.target,
+    label:state.label,
+    fieldClearedSteps:state.fieldClearedSteps.slice(),
+    fieldClearedCount:state.fieldClearedSteps.length,
+    returnsCount:state.returns,
+    distractionTags:state.distractionTags.slice(),
+    topDistraction:top?top.key:null,
+    difficulty:state.difficulty,
+    completed:state.completed,
+    completionType
+  };
+}
+function recordSkillComplete(completionType='finish') {
+  if (window.__skillCompleteSent) return;
+  window.__skillCompleteSent = true;
+  const payload=buildSessionPayload(completionType);
+  window.parent.postMessage({
+    type:'skillComplete',
+    skillTitle:'Be Present: Single Task Focus',
+    skillSlug:SKILL_SLUG,
+    completionType,
+    payload
+  }, '*');
+  window.parent.postMessage({type:'focusLogSave',skillSlug:SKILL_SLUG,payload},'*');
+  trackEvent('practice_finished',{returnsCount:state.returns,topDistraction:payload.topDistraction,difficulty:state.difficulty,completed:state.completed});
+}
+function applyPrefs(){
+  const prefs=readJson(PREFS_KEY,{});
+  if(prefs.lastFocusTarget){state.target=prefs.lastFocusTarget;document.getElementById('customTarget').value=prefs.lastFocusTarget;document.getElementById('targetNext').disabled=false;}
+  if(prefs.lastLabel){const btn=[...document.querySelectorAll('#labelList .choice')].find(b=>b.textContent.trim()===prefs.lastLabel);if(btn)selectLabel(btn,prefs.lastLabel);}
+  if(prefs.lastPlannedMinutes){document.getElementById('length').value=String(Number(prefs.lastPlannedMinutes)*60);state.total=Number(document.getElementById('length').value);state.remaining=state.total;}
+  if(Array.isArray(prefs.lastFieldClearedSteps))state.fieldClearedSteps=prefs.lastFieldClearedSteps.slice();
+}
+function renderHistoryLine(){
+  const history=readJson(HISTORY_KEY,[]);
+  const sessions=history.length;
+  const returns=history.reduce((sum,item)=>sum+(Number(item.returnsCount)||0),0);
+  const el=document.getElementById('historyLine');
+  if(sessions&&returns){el.textContent=`You've practiced returning ${returns} times across ${sessions} session${sessions===1?'':'s'}.`;el.hidden=false;}
+}
+function savePrefs(){
+  writeJson(PREFS_KEY,{lastFocusTarget:state.target,lastLabel:state.label,lastPlannedMinutes:plannedMinutes(),lastFieldClearedSteps:state.fieldClearedSteps.slice()});
+}
+function saveHistory(){
+  const history=readJson(HISTORY_KEY,[]);
+  history.push(buildSessionPayload('finish'));
+  writeJson(HISTORY_KEY,history.slice(-20));
+}
+function renderPrep(){
+  const grid=document.getElementById('prepGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  [...PREP_STEPS,...state.customPrepSteps].forEach(step=>{
+    const btn=document.createElement('button');
+    btn.className='prep-chip'+(state.fieldClearedSteps.includes(step.key)?' selected':'');
+    btn.type='button';
+    btn.textContent=prepLabel(step);
+    btn.onclick=()=>togglePrep(step.key);
+    grid.appendChild(btn);
+  });
+}
+function renderTags(){
+  const row=document.getElementById('tagRow');
+  row.innerHTML='';
+  DISTRACTION_TAGS.forEach(tag=>{
+    const btn=document.createElement('button');
+    btn.className='tag-chip';
+    btn.type='button';
+    btn.textContent=tag.label;
+    btn.onclick=()=>tagDistraction(tag.key,btn);
+    row.appendChild(btn);
+  });
+}
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});updatePreview();if(id==='clearField')renderPrep();if(id==='finish')renderSummary();}
+function selectTarget(el,val){state.target=val;document.querySelectorAll('#targetList .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');document.getElementById('customTarget').value='';document.getElementById('targetNext').disabled=false;updatePreview();}
+function customTarget(val){state.target=val.trim();document.querySelectorAll('#targetList .choice').forEach(b=>b.classList.remove('selected'));document.getElementById('targetNext').disabled=!state.target;updatePreview();}
+function selectLabel(el,val){state.label=val;document.querySelectorAll('#labelList .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');document.getElementById('labelNext').disabled=false;updatePreview();}
+function updatePreview(){state.total=Number(document.getElementById('length')?.value||state.total);const target=state.target||'your focus target';const label=state.label||'thinking';const phrase=`Notice: "${label}." Say: "begin again." Return to ${target}.`;const p=document.getElementById('preview');if(p)p.textContent=phrase;const sp=document.getElementById('setupPreview');if(sp)sp.textContent=`For ${plannedMinutes()} minute${plannedMinutes()===1?'':'s'}, return to ${target}. Each time your attention wanders, label it "${label}," say "begin again," and come back.`;renderPrep();}
+function togglePrep(key){state.fieldClearedSteps=state.fieldClearedSteps.includes(key)?state.fieldClearedSteps.filter(k=>k!==key):[...state.fieldClearedSteps,key];trackEvent('field_cleared_step_toggled',{step:key});renderPrep();}
+function addCustomPrep(){const input=document.getElementById('customPrep');const label=input.value.trim();if(!label)return;const key=`custom-${Date.now()}`;state.customPrepSteps.push({key,label});state.fieldClearedSteps.push(key);input.value='';renderPrep();}
+function skipClearField(){state.fieldClearedSteps=[];startPractice();}
+function fmt(sec){return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`}
+function draw(){document.getElementById('time').textContent=fmt(state.remaining);const deg=((state.total-state.remaining)/state.total)*360;document.getElementById('circle').style.background=`conic-gradient(var(--mint) ${deg}deg,var(--blue-bg) ${deg}deg)`;}
+function startPractice(){window.__skillCompleteSent=false;state.total=Number(document.getElementById('length').value);state.remaining=state.total;state.returns=0;state.distractionTags=[];state.difficulty=null;state.completed=false;state.startedAt=new Date().toISOString();state.endedAt=null;state.sessionId=(typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID():`be-present-${Date.now()}`;document.getElementById('returns').textContent='0';document.getElementById('practiceText').textContent=`Return to ${state.target||'your focus target'}. When your mind wanders, label it "${state.label||'thinking'}," say "begin again," and come back.`;document.getElementById('labelStep').textContent=`2. Label it: "${state.label||'thinking'}."`;document.getElementById('returnStep').textContent=`3. Return to ${state.target||'your focus target'}.`;dismissTagPanel();savePrefs();trackEvent('be_present_started');trackEvent('practice_timer_started',{plannedMinutes:plannedMinutes(),fieldClearedCount:state.fieldClearedSteps.length});goTo('practice');draw();startTimer();}
+function startTimer(){stopTimer();state.running=true;document.getElementById('pauseBtn').textContent='Pause';state.timer=setInterval(()=>{state.remaining=Math.max(0,state.remaining-1);draw();if(state.remaining<=0){state.completed=true;finish();}},1000)}
+function stopTimer(){if(state.timer)clearInterval(state.timer);state.timer=null;state.running=false;}
+function toggleTimer(){if(state.running){stopTimer();document.getElementById('pauseBtn').textContent='Resume'}else{startTimer();}}
+function countReturn(){state.returns++;state.tagReturnIndex=state.returns;state.distractionTags.push({returnNumber:state.returns,cause:'untagged',atSecond:state.total-state.remaining});document.getElementById('returns').textContent=state.returns;trackEvent('return_logged',{cause:'untagged'});showTagPanel();}
+function showTagPanel(){clearTimeout(state.tagTimeout);document.querySelectorAll('#tagRow .tag-chip').forEach(btn=>btn.classList.remove('selected'));document.getElementById('tagPanel').classList.add('active');state.tagTimeout=setTimeout(dismissTagPanel,3000);}
+function dismissTagPanel(){clearTimeout(state.tagTimeout);state.tagTimeout=null;const panel=document.getElementById('tagPanel');if(panel)panel.classList.remove('active');}
+function tagDistraction(cause,btn){const entry=state.distractionTags.find(t=>t.returnNumber===state.tagReturnIndex);if(entry)entry.cause=cause;document.querySelectorAll('#tagRow .tag-chip').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');trackEvent('return_logged',{cause});setTimeout(dismissTagPanel,250);}
+function finish(){state.endedAt=new Date().toISOString();recordSkillComplete('finish');saveHistory();stopTimer();goTo('finish');}
+function renderSummary(){const top=getTopDistraction();document.getElementById('sumTarget').textContent=state.target||'My chosen focus target';document.getElementById('sumLabel').textContent=state.label||'thinking';document.getElementById('sumPhrase').textContent=`${state.label||'thinking'} - begin again - return to ${state.target||'the next right thing'}.`;document.getElementById('sumReturns').textContent=state.returns;document.getElementById('sumFieldCleared').textContent=`Field cleared: ${state.fieldClearedSteps.length} of ${PREP_STEPS.length} steps.`;const topLine=document.getElementById('topDistractionLine');if(top){document.getElementById('sumTopDistraction').textContent=`Your top distraction today: ${top.label} - ${top.count} of ${state.returns} returns.`;topLine.hidden=false;}else{topLine.hidden=true;}}
+function setDifficulty(value,el){state.difficulty=value;document.querySelectorAll('#difficultyRow .difficulty-chip').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');window.parent.postMessage({type:'focusLogUpdate',skillSlug:SKILL_SLUG,payload:buildSessionPayload('finish')},'*');trackEvent('practice_difficulty_selected',{difficulty:value});}
+function resetAll(){stopTimer();dismissTagPanel();state.target='';state.label='';state.returns=0;state.fieldClearedSteps=[];state.distractionTags=[];state.difficulty=null;state.completed=false;document.querySelectorAll('.selected').forEach(e=>e.classList.remove('selected'));document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('targetNext').disabled=true;document.getElementById('labelNext').disabled=true;goTo('home');}
+renderTags();
+applyPrefs();
+renderHistoryLine();
+updatePreview();
+</script>
+</body>
+</html>

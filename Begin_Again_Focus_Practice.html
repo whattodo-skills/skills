@@ -1,118 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Begin Again | What To Do!</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#F7F4ED;--navy:#182047;--blue:#4F5DAD;--blue-lt:#8BA4DC;--blue-bg:#edf1f8;--mint:#B4DACD;--mint-bg:#eaf4f0;--pink:#BD3A59;--pink-lt:#f7e0e6;--text:#1e1e1e;--muted:#6b7280;--border:#e0ddd6;--white:#fff;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08)}
-body{font-family:'Source Sans 3','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center}.site-header{width:100%;background:#182047;color:white;padding:20px 24px;text-align:center;border-bottom:4px solid #B4DACD}.site-header .eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);margin-bottom:5px;font-weight:700}.site-header h1{font-size:clamp(1.35rem,4vw,1.9rem);font-weight:800;line-height:1.2}
-.screen{display:none;width:100%;max-width:720px;padding:24px 16px 80px;animation:fadeIn .3s ease}.screen.active{display:flex;flex-direction:column}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.progress-wrap{display:flex;align-items:center;justify-content:center;margin:0 0 18px}.pdot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:.25s}.pdot.active{background:var(--blue);transform:scale(1.35)}.pdot.done{background:var(--mint)}.pline{width:28px;height:2px;background:var(--border)}.pline.done{background:var(--mint)}
-.card{background:var(--white);border-radius:var(--radius);padding:24px 22px;box-shadow:var(--shadow);margin-bottom:16px}.card h2,.card h3{color:var(--navy);font-weight:800;line-height:1.25;margin-bottom:10px}.card h2{font-size:1.32rem}.card h3{font-size:1.08rem}.card p{color:var(--muted);line-height:1.7;font-size:.96rem;margin-bottom:10px}.card p:last-child{margin-bottom:0}.notice-box{background:var(--mint-bg);border-left:4px solid var(--mint);border-radius:8px;padding:14px 16px;color:var(--text);font-size:.94rem;line-height:1.65;margin-bottom:16px}.blue-box{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:8px;padding:14px 16px;color:var(--navy);font-size:.94rem;line-height:1.65;margin:12px 0}.small-label{color:var(--muted);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:12px 0 7px}
-.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;font-size:.95rem;font-weight:800;transition:transform .15s,box-shadow .2s,opacity .2s}.btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.12)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}.btn-primary{background:var(--navy);color:white}.btn-secondary{background:var(--blue-bg);color:var(--blue);border:1.5px solid var(--blue-lt)}.btn-full{width:100%}.back-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-family:inherit;font-size:.88rem;display:inline-flex;align-items:center;gap:6px;padding:0;margin-bottom:18px}
-.choice-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}.choice{background:white;border:2px solid var(--border);border-radius:var(--radius);padding:13px 16px;cursor:pointer;font-family:inherit;font-size:.94rem;color:var(--text);text-align:left;display:flex;align-items:flex-start;gap:12px;line-height:1.45;transition:border-color .2s,background .2s}.choice:hover{border-color:var(--blue-lt)}.choice.selected{border-color:var(--blue);background:var(--blue-bg);color:var(--navy)}.dot{width:18px;height:18px;border:2px solid var(--border);border-radius:50%;flex-shrink:0;margin-top:2px}.choice.selected .dot{background:var(--blue);border-color:var(--blue)}input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 13px;font-family:inherit;font-size:.95rem;line-height:1.55;color:var(--text);background:white}textarea{min-height:82px;resize:vertical}input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blue)}
-.timer-card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px;margin-bottom:16px;text-align:center}.timer-circle{width:170px;height:170px;border-radius:50%;margin:12px auto 16px;background:conic-gradient(var(--mint) 0deg,var(--blue-bg) 0deg);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 12px white;border:2px solid var(--border)}.timer-time{font-size:2.15rem;font-weight:800;color:var(--navy)}.begin-word{font-size:1.6rem;font-weight:800;color:var(--navy);margin:4px 0 10px}.counter{display:inline-flex;align-items:center;gap:7px;background:var(--mint-bg);color:var(--navy);border-radius:999px;padding:8px 14px;font-weight:800;margin:10px 0}.steps{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.step{background:var(--bg);border-radius:10px;padding:12px 14px;text-align:left;color:var(--navy);font-weight:700;line-height:1.45}.script-card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;border-top:4px solid var(--mint);margin-bottom:16px}.script-line{border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px;color:var(--navy);line-height:1.7;font-size:1rem}.script-line:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.script-line span{display:block;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:3px}.complete-card{background:linear-gradient(135deg,var(--navy),#1e2d6e);color:white;border-radius:var(--radius);padding:34px 26px;box-shadow:var(--shadow);text-align:center;margin-bottom:16px}.complete-card h2{font-size:1.42rem;margin-bottom:10px}.complete-card p{color:rgba(255,255,255,.8);line-height:1.7}.footer-note{text-align:center;color:var(--muted);font-size:.75rem;line-height:1.6;padding:0 16px 24px}@media(max-width:520px){.btn{width:100%}.timer-circle{width:145px;height:145px}.timer-time{font-size:1.85rem}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=Be_Present_Single_Task_Focus.html">
+  <link rel="canonical" href="Be_Present_Single_Task_Focus.html">
+  <title>Be Present: Single Task Focus</title>
 </head>
 <body>
-<header class="site-header"><div class="eyebrow">Focus</div><h1>Begin Again</h1></header>
-
-<div class="screen active" id="home">
-  <div class="progress-wrap"><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
-  <div class="card"><h2>Focus is built by returning.</h2><p>Your attention will wander. You may get distracted, pulled into thoughts, irritated with yourself, or emotionally hooked.</p><p>The skill is not perfect focus. The skill is noticing you left and coming back without turning it into a shame spiral.</p></div>
-  <div class="notice-box"><strong>Begin Again means:</strong> every time you notice you are distracted, that moment becomes the practice.</div>
-  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goTo('target')">Begin →</button></div>
-</div>
-
-<div class="screen" id="target">
-  <button class="back-btn" onclick="goTo('home')">← Back</button>
-  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
-  <div class="card"><h2>Pick one focus target.</h2><p>Choose one simple place to return your attention. Keep it small and concrete.</p>
-    <div class="choice-list" id="targetList">
-      <button class="choice" onclick="selectTarget(this,'my breath')"><span class="dot"></span>My breath</button>
-      <button class="choice" onclick="selectTarget(this,'reading one paragraph')"><span class="dot"></span>Reading one paragraph</button>
-      <button class="choice" onclick="selectTarget(this,'washing the dishes')"><span class="dot"></span>Washing the dishes</button>
-      <button class="choice" onclick="selectTarget(this,'walking and noticing my steps')"><span class="dot"></span>Walking and noticing my steps</button>
-      <button class="choice" onclick="selectTarget(this,'listening to one person')"><span class="dot"></span>Listening to one person</button>
-      <button class="choice" onclick="selectTarget(this,'writing one small section')"><span class="dot"></span>Writing one small section</button>
-    </div>
-    <div class="small-label">Or write your own</div><input id="customTarget" placeholder="Example: folding laundry" oninput="customTarget(this.value)">
-  </div>
-  <div class="btn-row"><button class="btn btn-primary btn-full" id="targetNext" onclick="goTo('label')" disabled>Next →</button></div>
-</div>
-
-<div class="screen" id="label">
-  <button class="back-btn" onclick="goTo('target')">← Back</button>
-  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div></div>
-  <div class="card"><h2>Choose a simple label.</h2><p>When your mind wanders, name it lightly. No scolding. No speech. Just a label, then return.</p>
-    <div class="choice-list" id="labelList">
-      <button class="choice" onclick="selectLabel(this,'thinking')"><span class="dot"></span>thinking</button>
-      <button class="choice" onclick="selectLabel(this,'planning')"><span class="dot"></span>planning</button>
-      <button class="choice" onclick="selectLabel(this,'worrying')"><span class="dot"></span>worrying</button>
-      <button class="choice" onclick="selectLabel(this,'judging')"><span class="dot"></span>judging</button>
-      <button class="choice" onclick="selectLabel(this,'remembering')"><span class="dot"></span>remembering</button>
-      <button class="choice" onclick="selectLabel(this,'pulled away')"><span class="dot"></span>pulled away</button>
-    </div>
-  </div>
-  <div class="blue-box" id="preview">Your return phrase will appear here.</div>
-  <div class="btn-row"><button class="btn btn-primary btn-full" id="labelNext" onclick="goTo('setup')" disabled>Set the timer →</button></div>
-</div>
-
-<div class="screen" id="setup">
-  <button class="back-btn" onclick="goTo('label')">← Back</button>
-  <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div></div>
-  <div class="card"><h2>Set a short practice.</h2><p>You are not trying to win at focus. You are practicing the return.</p>
-    <div class="small-label">Practice length</div><select id="length" onchange="updatePreview()"><option value="120">2 minutes</option><option value="180">3 minutes</option><option value="300" selected>5 minutes</option></select>
-    <div class="blue-box" id="setupPreview"></div>
-  </div>
-  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="startPractice()">Start practice →</button></div>
-</div>
-
-<div class="screen" id="practice">
-  <button class="back-btn" onclick="stopTimer();goTo('setup')">← Back</button>
-  <div class="timer-card"><h2 style="color:var(--navy);margin-bottom:8px">Begin Again</h2><div class="timer-circle" id="circle"><div class="timer-time" id="time">5:00</div></div><div class="begin-word">begin again</div><p style="color:var(--muted);line-height:1.65" id="practiceText"></p><div class="counter">Returns practiced: <span id="returns">0</span></div><div class="steps"><div class="step">1. Notice your attention wandered.</div><div class="step" id="labelStep">2. Label it simply.</div><div class="step" id="returnStep">3. Come back to your focus target.</div></div><div class="btn-row"><button class="btn btn-secondary" onclick="countReturn()">I noticed and returned</button><button class="btn btn-secondary" id="pauseBtn" onclick="toggleTimer()">Pause</button><button class="btn btn-primary" onclick="finish()">Finish →</button></div></div>
-</div>
-
-<div class="screen" id="finish">
-  <div class="complete-card"><h2>You practiced beginning again.</h2><p>Distraction was not the problem. The return was the skill.</p></div>
-  <div class="script-card"><div class="script-line"><span>Focus target</span><div id="sumTarget"></div></div><div class="script-line"><span>Simple label</span><div id="sumLabel"></div></div><div class="script-line"><span>Return phrase</span><div id="sumPhrase"></div></div><div class="script-line"><span>Returns practiced</span><div id="sumReturns"></div></div></div>
-  <div class="card"><h3>Use this anywhere</h3><p>When you lose focus during reading, listening, chores, work, or family time, quietly say “begin again” and return to the next right thing.</p></div>
-  <div class="btn-row"><button class="btn btn-secondary btn-full" onclick="resetAll()">Practice again</button></div>
-</div>
-<div class="footer-note">What To Do! — self-guided skill building for everyday life.</div>
-<script>
-function recordSkillComplete(completionType='finish') {
-  if (window.__skillCompleteSent) return;
-  window.__skillCompleteSent = true;
-  window.parent.postMessage({
-    type: 'skillComplete',
-    skillTitle: 'Begin Again Focus Practice',
-    skillSlug: 'begin-again-focus-practice',
-    completionType
-  }, '*');
-}
-
-const state={target:'',label:'',total:300,remaining:300,timer:null,running:false,returns:0};
-function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});updatePreview();if(id==='finish')renderSummary();}
-function selectTarget(el,val){state.target=val;document.querySelectorAll('#targetList .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');document.getElementById('customTarget').value='';document.getElementById('targetNext').disabled=false;updatePreview();}
-function customTarget(val){state.target=val.trim();document.querySelectorAll('#targetList .choice').forEach(b=>b.classList.remove('selected'));document.getElementById('targetNext').disabled=!state.target;updatePreview();}
-function selectLabel(el,val){state.label=val;document.querySelectorAll('#labelList .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');document.getElementById('labelNext').disabled=false;updatePreview();}
-function updatePreview(){const target=state.target||'your focus target';const label=state.label||'thinking';const phrase=`Notice: “${label}.” Say: “begin again.” Return to ${target}.`;const p=document.getElementById('preview');if(p)p.textContent=phrase;const sp=document.getElementById('setupPreview');if(sp)sp.textContent=`For a few minutes, return to ${target}. Each time your attention wanders, label it “${label},” say “begin again,” and come back.`;}
-function fmt(sec){return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`}
-function draw(){document.getElementById('time').textContent=fmt(state.remaining);const deg=((state.total-state.remaining)/state.total)*360;document.getElementById('circle').style.background=`conic-gradient(var(--mint) ${deg}deg,var(--blue-bg) ${deg}deg)`;}
-function startPractice(){state.total=Number(document.getElementById('length').value);state.remaining=state.total;state.returns=0;document.getElementById('returns').textContent='0';document.getElementById('practiceText').textContent=`Return to ${state.target||'your focus target'}. When your mind wanders, label it “${state.label||'thinking'},” say “begin again,” and come back.`;document.getElementById('labelStep').textContent=`2. Label it: “${state.label||'thinking'}.”`;document.getElementById('returnStep').textContent=`3. Return to ${state.target||'your focus target'}.`;goTo('practice');draw();startTimer();}
-function startTimer(){stopTimer();state.running=true;document.getElementById('pauseBtn').textContent='Pause';state.timer=setInterval(()=>{state.remaining--;draw();if(state.remaining<=0)finish();},1000)}
-function stopTimer(){if(state.timer)clearInterval(state.timer);state.timer=null;state.running=false;}
-function toggleTimer(){if(state.running){stopTimer();document.getElementById('pauseBtn').textContent='Resume'}else{startTimer();}}
-function countReturn(){state.returns++;document.getElementById('returns').textContent=state.returns;}
-function finish(){recordSkillComplete('finish');stopTimer();goTo('finish');}
-function renderSummary(){document.getElementById('sumTarget').textContent=state.target||'My chosen focus target';document.getElementById('sumLabel').textContent=state.label||'thinking';document.getElementById('sumPhrase').textContent=`${state.label||'thinking'} — begin again — return to ${state.target||'the next right thing'}.`;document.getElementById('sumReturns').textContent=state.returns;}
-function resetAll(){stopTimer();state.target='';state.label='';state.returns=0;document.querySelectorAll('.selected').forEach(e=>e.classList.remove('selected'));document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('targetNext').disabled=true;document.getElementById('labelNext').disabled=true;goTo('home');}
-updatePreview();
-</script>
+  <script>window.location.replace('Be_Present_Single_Task_Focus.html');</script>
+  <p><a href="Be_Present_Single_Task_Focus.html">Open Be Present: Single Task Focus</a></p>
 </body>
 </html>

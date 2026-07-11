@@ -10,10 +10,10 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#F7F4ED;--navy:#182047;--blue:#4F5DAD;--blue-bg:#edf1f8;--mint:#B4DACD;--mint-bg:#eaf4f0;--orange:#FF6903;--orange-bg:#fff0e7;--red:#BD3A59;--red-bg:#f7e0e6;--text:#1e1e1e;--muted:#667085;--border:#e0ddd6;--white:#fff;--shadow:0 2px 14px rgba(0,0,0,.08);--radius:16px}
 body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:60px}
-.hero{background:linear-gradient(135deg,var(--navy),#24306a);color:white;padding:32px 24px;border-bottom:4px solid var(--mint)}
+.hero{background:linear-gradient(135deg,var(--navy),#24306a);color:white;padding:32px 24px;border-bottom:4px solid var(--mint);text-align:center}
 .eyebrow{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);font-weight:800;margin-bottom:6px}
 .hero h1{font-size:clamp(1.5rem,4vw,2rem);font-weight:800;line-height:1.1;margin-bottom:10px}
-.hero p{color:rgba(255,255,255,.75);line-height:1.65;max-width:680px;font-size:.97rem}
+.hero p{color:rgba(255,255,255,.75);line-height:1.65;max-width:720px;font-size:.97rem;margin:0 auto}
 .wrap{max-width:860px;margin:0 auto;padding:28px 20px}
 .section{margin-bottom:32px}
 .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:10px}
@@ -110,9 +110,9 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
 <body>
 
 <div class="hero">
-  <div class="eyebrow">Skill Building</div>
+  <div class="eyebrow">Focus</div>
   <h1>Choose What Matters: The Values Compass</h1>
-  <p>Values are the internal GPS that guides your choices — especially when you feel overwhelmed or lost. While goals are destinations, values describe <em>how you want to move</em> through your life.</p>
+  <p>Values are the internal GPS that guides your focus, especially when you feel overwhelmed or stressed. While goals are destinations, values describe where your presence and focus is most meaningful to you.</p>
 </div>
 
 <div class="wrap">
@@ -121,11 +121,15 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
   <div class="section">
     <div class="section-label">What is a value?</div>
     <div class="panel">
-      <p>A value is a <strong>continuous direction, not a destination.</strong> Think of it like heading West — you never actually "arrive" at West, but you can always check your compass to see if you are still moving in that direction.</p>
+      <p>A value is a <strong>continuous direction, not a destination.</strong> It names what matters enough to deserve your attention, energy, and presence. Think of it like heading West — you never actually "arrive" at West, but you can always check your compass to see if you are still moving in that direction.</p>
       <div class="callout">
         <p><strong>Example:</strong> If you value <em>Reliability</em>, that value can help you push through the resistance of starting a difficult email. If you value <em>Kindness</em>, it can act as a buffer when you feel the urge to snap at a coworker during a stressful afternoon.</p>
       </div>
-      <p>When you are keyed up or stuck, your brain often loses track of the "why" behind your actions. By naming your values, you create a standard to measure your actions against — even when emotions are running high.</p>
+      <p>We pay attention to the things that feel important. When your values are clear, you have a way to decide where your focus belongs instead of letting urgency, stress, avoidance, or other people's demands choose for you.</p>
+      <p>When you are keyed up or stuck, your brain often loses track of the "why" behind your actions. By naming your values, you create a standard to measure your attention and actions against — even when emotions are running high.</p>
+      <div class="callout orange-callout">
+        <p><strong>The focus skill:</strong> pause, ask "What matters here?", choose one value, and put your next small action where that value points.</p>
+      </div>
     </div>
   </div>
 
@@ -133,7 +137,7 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
   <div class="section">
     <div class="section-label">Choose your core 3</div>
     <div class="panel">
-      <p class="values-intro">While many things may feel important, trying to live by twenty values at once creates the very overwhelm this program seeks to reduce. Choose the <strong>2–3 values</strong> that resonate most with your current life stage — the ones that, when followed, leave you feeling steady even on a hard day.</p>
+      <p class="values-intro">To identify your values, look for the qualities that make you feel most like yourself when you live them. While many things may feel important, trying to live by twenty values at once creates the very overwhelm this program seeks to reduce. Choose the <strong>2–3 values</strong> that resonate most with your current life stage — the ones that, when followed, leave you feeling steady, clear, and more present even on a hard day.</p>
       <div class="values-limit">Select up to 3 &nbsp;<span id="countBadge">0 / 3</span></div>
       <div class="values-grid" id="valuesGrid"></div>
       <div class="save-row">
@@ -147,20 +151,21 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
   <div class="section">
     <div class="section-label">Your core 3</div>
     <div class="panel">
+      <p>Your core values are not a performance checklist. They are attention anchors. When stress scatters your focus, these are the places you can come back to.</p>
       <div class="core3" id="core3"></div>
     </div>
   </div>
 
   <!-- Pivot Tool -->
   <div class="section">
-    <div class="section-label">Pivot from overwhelm</div>
+    <div class="section-label">Pivot from stress</div>
     <div class="pivot-panel">
       <h3>The Values Pivot Question</h3>
-      <p>When you feel stuck — tightness in the chest, urge to scroll, shallow breathing — use this to shift from reactive to intentional. Select one of your values below.</p>
+      <p>When you feel stuck — tightness in the chest, urge to scroll, shallow breathing, racing thoughts — use this to shift from reactive to intentional. Select one of your values below, then choose one small action that puts your attention back on what matters.</p>
       <select class="pivot-select" id="pivotSelect" onchange="updatePivot()">
         <option value="">— Choose a value —</option>
       </select>
-      <div class="pivot-question empty" id="pivotQuestion">Your pivot question will appear here once you select a value above.</div>
+      <div class="pivot-question empty" id="pivotQuestion">Your value-based focus question will appear here once you select a value above.</div>
     </div>
   </div>
 
@@ -168,7 +173,7 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
   <div class="section">
     <div class="section-label">Values vs. Goals</div>
     <div class="panel">
-      <p>It is easy to confuse a value with a goal. A goal is <em>"finish the project by Friday."</em> A value is <em>"diligence"</em> or <em>"excellence."</em> If you hit a roadblock, you might feel like a failure — but you can still act with diligence by communicating the delay clearly and working steadily.</p>
+      <p>It is easy to confuse a value with a goal. A goal is <em>"finish the project by Friday."</em> A value is <em>"diligence"</em> or <em>"excellence."</em> If you hit a roadblock, your attention may jump to failure, shame, or panic — but you can still return your focus to diligence by communicating the delay clearly and working steadily.</p>
       <div class="compare-grid">
         <div class="compare-card goals">
           <h4>Goals</h4>
@@ -190,7 +195,7 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
         </div>
       </div>
       <div class="callout" style="margin-top:16px;margin-bottom:0">
-        <p>This distinction is vital for maintaining <strong>self-trust when life becomes unpredictable.</strong></p>
+        <p>This distinction is vital for maintaining <strong>self-trust and focus when life becomes unpredictable.</strong> Goals tell you what you hope will happen. Values tell you where to place your attention next.</p>
       </div>
     </div>
   </div>
@@ -199,7 +204,10 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
   <div class="section">
     <div class="section-label">Daily alignment check</div>
     <div class="panel">
-      <p class="align-intro">At the end of the day, don't just look at what you checked off your list. Ask: <strong>"In what moments today did I live my values?"</strong> and <strong>"Where did I drift?"</strong> This is not self-criticism — it is data collection.</p>
+      <p class="align-intro">At the end of the day, don't just look at what you checked off your list. Ask: <strong>"In what moments today did I give my attention to what matters?"</strong> <strong>"Where did I live my values?"</strong> and <strong>"Where did I drift?"</strong> This is not self-criticism — it is data collection.</p>
+      <div class="callout">
+        <p><strong>What living by values can feel like:</strong> clearer, steadier, less scattered, and more grounded. You may still feel stressed, but you are less likely to feel yanked around by whatever is loudest.</p>
+      </div>
       <div class="align-date" id="alignDate"></div>
       <div class="align-list" id="alignList"></div>
       <div class="save-row" style="margin-top:14px">
@@ -318,16 +326,16 @@ function renderPivotSelect(){
   const sel = document.getElementById('pivotSelect');
   sel.innerHTML = '<option value="">— Choose a value —</option>' +
     selected.map(name => `<option value="${name}">${name}</option>`).join('');
-  document.getElementById('pivotQuestion').textContent = 'Your pivot question will appear here once you select a value above.';
+  document.getElementById('pivotQuestion').textContent = 'Your value-based focus question will appear here once you select a value above.';
   document.getElementById('pivotQuestion').classList.add('empty');
 }
 
 function updatePivot(){
   const name = document.getElementById('pivotSelect').value;
   const el   = document.getElementById('pivotQuestion');
-  if(!name){ el.textContent='Your pivot question will appear here once you select a value above.'; el.classList.add('empty'); return; }
+  if(!name){ el.textContent='Your value-based focus question will appear here once you select a value above.'; el.classList.add('empty'); return; }
   const v = ALL_VALUES.find(x=>x.name===name);
-  el.textContent = `If I were acting in alignment with ${name} right now — ${v.pivot}`;
+  el.textContent = `If ${name} matters here, where does my attention belong next? ${v.pivot}`;
   el.classList.remove('empty');
 }
 
@@ -346,8 +354,8 @@ function renderAlignList(){
     return `<div class="align-item">
       <div class="align-val-name">${name}</div>
       <div class="align-buttons">
-        <button class="align-btn ${state==='yes'?'yes':''}" onclick="setAlign('${name}','yes')">✓ Lived it</button>
-        <button class="align-btn ${state==='drift'?'drift':''}" onclick="setAlign('${name}','drift')">↗ Drifted</button>
+        <button class="align-btn ${state==='yes'?'yes':''}" onclick="setAlign('${name}','yes')">✓ Focused on it</button>
+        <button class="align-btn ${state==='drift'?'drift':''}" onclick="setAlign('${name}','drift')">↗ Drifted from it</button>
         <button class="align-btn ${state==='unsure'?'unsure':''}" onclick="setAlign('${name}','unsure')">~ Not sure</button>
       </div>
     </div>`;

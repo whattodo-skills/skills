@@ -125,7 +125,19 @@ const FOCUS_TARGETS=[
   {key:'family-friends',label:'Spending Time With Family or Friends',description:'Notifications, work concerns, social media, and taking photos or videos can reduce attention to the shared experience.',practice:'Choose periods when everyone puts devices away or keeps them out of sight. Notice when work, messages, or social media begin pulling you away. Refocus by asking a genuine question, making eye contact, or joining the activity already happening. Give the people present the attention you would want from them.'},
   {key:'falling-asleep',label:'Trying to Fall Asleep',description:'Scrolling, messaging, news, videos, and racing thoughts often delay sleep and keep attention mentally activated.',practice:'Stop scrolling and move your phone away from the bed. Dim the lights and choose a low-stimulation routine, such as reading, stretching, or slow breathing. If your mind is busy, write down tomorrow’s tasks or worries so you do not have to keep rehearsing them. Return your attention to your breathing, physical sensations, or a calm repeated phrase.'}
 ];
-const DISTRACTION_TAGS=FOCUS_TARGETS;
+const DISTRACTION_TAGS=[
+  {key:'phone',label:'Phone',description:'External distraction'},
+  {key:'noise',label:'Noise',description:'External distraction'},
+  {key:'people',label:'People',description:'External distraction'},
+  {key:'notifications',label:'Notifications',description:'External distraction'},
+  {key:'movement',label:'Movement',description:'External distraction'},
+  {key:'worrying',label:'Worrying',description:'Internal distraction'},
+  {key:'planning',label:'Planning',description:'Internal distraction'},
+  {key:'remembering',label:'Remembering',description:'Internal distraction'},
+  {key:'judging',label:'Judging',description:'Internal distraction'},
+  {key:'daydreaming',label:'Daydreaming',description:'Internal distraction'}
+];
+const DISTRACTION_PRACTICE='Use the lightest possible label, then return to the task without analyzing the distraction.';
 const state={target:'',targetKey:'',targetPractice:'',label:'',total:300,remaining:300,timer:null,running:false,returns:0,fieldClearedSteps:[],customPrepSteps:[],distractionTags:[],tagReturnIndex:null,tagTimeout:null,startedAt:null,endedAt:null,difficulty:null,completed:false};
 
 function readJson(key,fallback){try{return JSON.parse(localStorage.getItem(key))||fallback}catch(e){return fallback}}
@@ -139,7 +151,7 @@ function getTopDistraction(){
   const counts=tagged.reduce((acc,t)=>{acc[t.cause]=(acc[t.cause]||0)+1;return acc},{});
   const topKey=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
   const meta=DISTRACTION_TAGS.find(t=>t.key===topKey);
-  return {key:topKey,label:meta?meta.label:topKey,practice:meta?meta.practice:'Choose one task, name it out loud, and return to that one task for the next minute.',count:counts[topKey],taggedTotal:tagged.length};
+  return {key:topKey,label:meta?meta.label:topKey,practice:DISTRACTION_PRACTICE,count:counts[topKey],taggedTotal:tagged.length};
 }
 function buildSessionPayload(completionType='finish'){
   const top=getTopDistraction();

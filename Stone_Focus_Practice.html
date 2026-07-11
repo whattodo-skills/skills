@@ -327,13 +327,18 @@ textarea:focus { outline:none; border-color:var(--blue); }
   </div>
 
   <div class="card">
-    <h2>Give your attention somewhere steadier.</h2>
-    <p>When your mind keeps circling the same thought, your attention can start to feel hijacked. This practice gives your mind one simple job: follow a small stone as it slowly sinks through clear water.</p>
-    <p>The point is not to force every thought away. The point is to notice when your focus wanders, then gently place it back on the image.</p>
+    <h2>Choose where your attention goes.</h2>
+    <p>Directing your attention means choosing where to place your focus rather than allowing every notification, thought, urge, or demand to pull you in a different direction.</p>
+    <p>This matters because your attention shapes what you feed, what you react to, and what you are able to do next. When attention gets pulled everywhere, you can lose the present moment, scroll longer than you meant to, feed a worry loop, or react before you have a chance to choose.</p>
+    <p>This practice gives your mind one simple job: follow a small stone as it slowly sinks through clear water. Each time your attention wanders and you bring it back, you are practicing how to choose your focus on purpose.</p>
   </div>
 
   <div class="notice-box">
-    <strong>Use this when:</strong> you catch yourself scrolling without meaning to, replaying a conversation, checking headlines over and over, or feeding a thought that is not helping you.
+    <strong>Use this when:</strong> notifications, thoughts, urges, worries, headlines, or other people's demands keep pulling your attention away from what matters right now.
+  </div>
+
+  <div class="prompt-box">
+    <strong>What it can feel like:</strong> your body may settle a little, your breathing may slow, and your mind may feel less scattered. You may notice a small pause between the pull and your next choice.
   </div>
 
   <div class="btn-row">
@@ -351,15 +356,15 @@ textarea:focus { outline:none; border-color:var(--blue); }
   </div>
 
   <div class="card">
-    <h2>First, name what keeps pulling you.</h2>
-    <p>Pick the closest option. This is not about judging yourself. It is just a way to notice where your attention has been going.</p>
+    <h2>First, name what keeps pulling your attention.</h2>
+    <p>Pick the closest option. This is not about judging yourself. It is a way to notice the notification, thought, urge, or demand that has been choosing for you.</p>
   </div>
 
   <div class="check-list" id="pull-list">
     <button class="check-chip" onclick="selectPull(this, 'scrolling')"><span class="cbox"></span>Scrolling when I meant to stop</button>
     <button class="check-chip" onclick="selectPull(this, 'worry')"><span class="cbox"></span>Replaying a worry or what-if</button>
     <button class="check-chip" onclick="selectPull(this, 'conversation')"><span class="cbox"></span>Going over a conversation in my head</button>
-    <button class="check-chip" onclick="selectPull(this, 'headlines')"><span class="cbox"></span>Getting pulled into upsetting headlines or posts</button>
+    <button class="check-chip" onclick="selectPull(this, 'headlines')"><span class="cbox"></span>Getting pulled into notifications, headlines, or posts</button>
     <button class="check-chip" onclick="selectPull(this, 'other')"><span class="cbox"></span>Something else that is not useful right now</button>
   </div>
 
@@ -378,7 +383,7 @@ textarea:focus { outline:none; border-color:var(--blue); }
   </div>
 
   <div class="prompt-box" id="practice-prompt">
-    Your only job: follow the stone. When your mind wanders, notice it and return to the stone.
+    What to do: choose the stone as your focus target. When your mind wanders, notice the pull, name it lightly, and return your attention to the stone.
   </div>
 
   <div class="focus-scene" aria-label="Animated stone sinking through water">
@@ -410,8 +415,9 @@ textarea:focus { outline:none; border-color:var(--blue); }
   </div>
 
   <div class="card">
-    <h2>You practiced moving your focus.</h2>
-    <p>That is the whole skill: notice where your attention went, then place it somewhere you choose.</p>
+    <h2>You practiced directing your attention.</h2>
+    <p>That is the skill: notice where your attention went, name what pulled it, then place it somewhere you choose.</p>
+    <p>This may feel like a little more space inside: less scattered, less yanked around, and more able to decide what gets your focus next.</p>
   </div>
 
   <div class="card">
@@ -432,12 +438,12 @@ textarea:focus { outline:none; border-color:var(--blue); }
 <div class="screen" id="screen-complete">
   <div class="complete-card">
     <h2>Nice work.</h2>
-    <p>You did not just read about focus. You practiced redirecting it. That is the part that makes this useful in real life.</p>
+    <p>You did not just read about focus. You practiced choosing where your attention goes. That is the part that makes this useful in real life.</p>
   </div>
 
   <div class="card">
     <h3>Your focus cue</h3>
-    <p><strong>Stone in the lake.</strong> Let the thought pass by like water. Let your attention sink toward something steadier.</p>
+    <p><strong>Stone in the lake.</strong> Let the pull pass by like water. Let your attention sink toward the next thing you are choosing on purpose.</p>
   </div>
 
   <div class="btn-row">
@@ -466,11 +472,11 @@ let timer = null;
 let seconds = 60;
 const practiceLines = [
   {time:60, text:'Picture a small stone at the surface of a quiet lake.'},
-  {time:50, text:'The stone begins to sink. Slowly. No rush. Your attention follows it down.'},
-  {time:40, text:'If a thought pulls you away, simply notice it. Then return to the stone.'},
+  {time:50, text:'Choose the stone as the place your attention goes. Slowly. No rush.'},
+  {time:40, text:'If a thought, urge, sound, or notification pulls you away, simply notice it. Then return to the stone.'},
   {time:30, text:'Clear water above. Quiet water below. Let the stone keep sinking.'},
   {time:20, text:'Your focus has one simple place to land: the stone, moving downward.'},
-  {time:10, text:'The stone settles at the quiet bottom. Let your attention settle with it.'},
+  {time:10, text:'The stone settles at the quiet bottom. Notice whether your body settles a little with it.'},
   {time:0, text:'The stone is resting at the bottom of a quiet lake. You practiced choosing where your focus goes.'}
 ];
 
@@ -487,11 +493,11 @@ function selectPull(button, choice){
   button.classList.add('selected');
   document.getElementById('choose-next').disabled = false;
   const promptMap = {
-    scrolling:'When the urge to scroll shows up, practice placing your attention on the stone instead.',
-    worry:'When a worry loop shows up, practice placing your attention on the stone instead.',
-    conversation:'When the replay starts, practice placing your attention on the stone instead.',
-    headlines:'When upsetting posts or headlines pull at you, practice placing your attention on the stone instead.',
-    other:'When your attention gets pulled somewhere unhelpful, practice placing it on the stone instead.'
+    scrolling:'When the urge to scroll shows up, notice the pull and practice placing your attention on the stone instead.',
+    worry:'When a worry loop shows up, notice the pull and practice placing your attention on the stone instead.',
+    conversation:'When the replay starts, notice the pull and practice placing your attention on the stone instead.',
+    headlines:'When notifications, headlines, or posts pull at you, notice the pull and practice placing your attention on the stone instead.',
+    other:'When your attention gets pulled somewhere unhelpful, notice the pull and practice placing it on the stone instead.'
   };
   document.getElementById('practice-prompt').textContent = promptMap[choice];
 }

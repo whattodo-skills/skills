@@ -33,11 +33,17 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
 <div class="screen active" id="screen-home">
   <div class="progress-wrap"><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
   <div class="card">
-    <h2>The One Task Start</h2>
-    <p>Your brain resists big, vague tasks. This practice makes the task small enough to start and gives your mind one place to land.</p>
-    <p>This is the workout: notice when attention drifts, name it without judgment, and bring your hands or eyes back to the next physical action.</p>
+    <h2>The One Task Start When You're Distracted</h2>
+    <p>Big, vague tasks make it hard for your brain to know where to begin. When the task feels unclear or overwhelming, our focus and attention looks for something easier, faster, or more interesting. Enter the experience of distraction.</p>
+    <p><strong>Managing Distractions: Single Task Focus</strong> reduces the task to one visible, physical action so your mind has a clear place to return.</p>
+    <h3>What To Do:</h3>
+    <p>Notice when your attention drifts.</p>
+    <p>Name the distraction lightly: "phone," "worrying," "planning," "daydreaming" - without judging yourself or starting an inner lecture.</p>
+    <p>Then guide your eyes or hands back to the next physical action in front of you.</p>
+    <p>You are not trying to hold perfect focus. You are practicing the return.</p>
+    <p>Each time you notice, name, and come back, you strengthen your ability to direct attention on purpose and rewire your brain away from automatic distraction.</p>
   </div>
-  <div class="notice-box"><strong>The skill:</strong> One-mindfully means doing one thing at a time, on purpose. Every return is a rep.</div>
+  <div class="notice-box"><strong>The skill:</strong> Notice the distraction, name it, and gently move focus back to the present moment before avoidance or overreaction takes over.</div>
   <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goTo('screen-moment')">Start the practice →</button></div>
 </div>
 
@@ -64,15 +70,13 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
   <button class="back-btn" onclick="goTo('screen-moment')">← Back</button>
   <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div><div class="pline"></div><div class="pdot"></div></div>
   <div class="card">
-    <h2>Name what usually pulls you away.</h2>
-    <p>This is not about blame. It helps you recognize the hook before it takes over.</p>
+    <h2>Name the distraction</h2>
+    <p><strong>Choices: people, devices, habits, and environments that interrupt your focus</strong></p>
     <div class="check-list" id="pull-list">
-      <button class="check-chip" onclick="togglePull(this,'my phone')"><span class="cbox"></span>My phone</button>
-      <button class="check-chip" onclick="togglePull(this,'messages or notifications')"><span class="cbox"></span>Messages or notifications</button>
-      <button class="check-chip" onclick="togglePull(this,'another task that suddenly feels urgent')"><span class="cbox"></span>Another task that suddenly feels urgent</button>
-      <button class="check-chip" onclick="togglePull(this,'worry about what still needs to be done')"><span class="cbox"></span>Worry about what still needs to be done</button>
-      <button class="check-chip" onclick="togglePull(this,'boredom or restlessness')"><span class="cbox"></span>Boredom or restlessness</button>
-      <button class="check-chip" onclick="togglePull(this,'habit')"><span class="cbox"></span>Habit</button>
+      <button class="check-chip" onclick="togglePull(this,'people')"><span class="cbox"></span>People</button>
+      <button class="check-chip" onclick="togglePull(this,'devices')"><span class="cbox"></span>Devices</button>
+      <button class="check-chip" onclick="togglePull(this,'habits')"><span class="cbox"></span>Habits</button>
+      <button class="check-chip" onclick="togglePull(this,'environments')"><span class="cbox"></span>Environments</button>
     </div>
     <div class="small-label">Add another pull if needed</div>
     <input id="customPull" placeholder="Example: opening another tab" oninput="updatePlan()">
@@ -84,7 +88,7 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
   <button class="back-btn" onclick="goTo('screen-pull')">← Back</button>
   <div class="progress-wrap"><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot done"></div><div class="pline done"></div><div class="pdot active"></div><div class="pline"></div><div class="pdot"></div></div>
   <div class="card">
-    <h2>Create a tiny focus commitment.</h2>
+    <h2>Create a mini anti-distraction plan</h2>
     <p>Small is good. You are not forcing focus. You are practicing the return until starting feels less hard.</p>
     <div class="small-label">I will practice for</div>
     <select id="minutes" onchange="updatePlan()">
@@ -129,19 +133,19 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
 
 <div class="screen" id="screen-finish">
   <div class="complete-card">
-    <h2>You practiced single-task focus.</h2>
-    <p>The win is not never getting distracted. The win is noticing the drift and coming back to what matters.</p>
+    <h2>You practiced rewiring attention.</h2>
+    <p>The win is not never getting distracted. The workout is noticing the distraction, naming it, and gently moving your focus back to the present moment where you can choose instead of avoiding or overreacting.</p>
   </div>
   <div class="script-card">
     <div class="script-line"><span>My focus moment</span><div id="summaryMoment"></div></div>
     <div class="script-line"><span>What pulls me away</span><div id="summaryPulls"></div></div>
     <div class="script-line"><span>My plan</span><div id="summaryPlan"></div></div>
     <div class="script-line"><span>Return reps practiced</span><div id="summaryReps"></div></div>
-    <div class="script-line"><span>Return phrase</span><div>Notice the pull. Name it. Return to what matters.</div></div>
+    <div class="script-line"><span>Return phrase</span><div>Notice the distraction. Name it lightly. Come back to now.</div></div>
   </div>
   <div class="card">
     <h3>Try this tonight</h3>
-    <p>Pick one small window: five minutes, one task, one next physical action. Each time attention drifts, practice the return.</p>
+    <p>Pick one small window: five minutes, one task, one next physical action. Each time attention drifts, notice, name, and return. That repeated return is how you train your brain away from automatic distraction.</p>
   </div>
   <div class="btn-row"><button class="btn btn-secondary btn-full" onclick="resetAll()">Start over</button></div>
 </div>
@@ -171,7 +175,7 @@ function drawTimer(){const t=state.remaining;const m=Math.floor(t/60);const s=St
 function startTimer(){stopTimer();state.running=true;document.getElementById('pauseBtn').textContent='Pause';state.timer=setInterval(()=>{state.remaining--;drawTimer();if(state.remaining<=0)finishPractice();},1000)}
 function stopTimer(){if(state.timer)clearInterval(state.timer);state.timer=null;state.running=false;}
 function toggleTimer(){if(state.running){stopTimer();document.getElementById('pauseBtn').textContent='Resume'}else{startTimer();}}
-function acknowledgeDrift(){state.driftCount++;const pulls=allPulls();const label=pulls.length?pulls[Math.min(state.driftCount-1,pulls.length-1)]:'distraction';state.lastDriftLabel=label;document.getElementById('returnReps').textContent=String(state.driftCount);document.getElementById('driftCoach').innerHTML=`<strong>Return rep ${state.driftCount}</strong><p>That was ${label}. Breathe once. Put your hands or eyes back on ${state.moment||'the next physical action'}.</p>`;}
+function acknowledgeDrift(){state.driftCount++;const pulls=allPulls();const label=pulls.length?pulls[Math.min(state.driftCount-1,pulls.length-1)]:'the distraction';state.lastDriftLabel=label;document.getElementById('returnReps').textContent=String(state.driftCount);document.getElementById('driftCoach').innerHTML=`<strong>Return rep ${state.driftCount}</strong><p>That was ${label}. Breathe once. Put your hands or eyes back on reading this text.</p>`;}
 function finishPractice(){recordSkillComplete('finish');stopTimer();goTo('screen-finish');}
 function renderSummary(){const pulls=allPulls();const minutes=document.getElementById('minutes')?.value||'5';const boundary=document.getElementById('boundary')?.value||'put my phone away';document.getElementById('summaryMoment').textContent=state.moment||'The next physical action';document.getElementById('summaryPulls').textContent=pulls.length?pulls.join(', '):'phone, worry, planning, or habit';document.getElementById('summaryPlan').textContent=`For ${minutes} minutes, I will ${boundary} and return my attention when it drifts.`;document.getElementById('summaryReps').textContent=state.driftCount?`${state.driftCount} return rep${state.driftCount===1?'':'s'}`:'No drift button reps logged yet. Noticing afterward still counts as learning.';}
 function resetAll(){stopTimer();state.moment='';state.pulls=[];state.remaining=300;state.driftCount=0;state.lastDriftLabel='';document.querySelectorAll('.selected').forEach(e=>e.classList.remove('selected'));document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('moment-next').disabled=true;goTo('screen-home');}

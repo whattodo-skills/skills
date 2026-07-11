@@ -302,6 +302,19 @@ function saveValues(){
   try { window.parent.postMessage({type:'saveValues', values:selected}, '*'); } catch(e){}
 }
 
+function applySubscriberValues(values){
+  if(!Array.isArray(values)) return;
+  selected = values
+    .map(v => String(v || '').trim())
+    .filter(v => ALL_VALUES.some(item => item.name === v))
+    .slice(0, 3);
+  persist();
+  renderValuesGrid();
+  renderCore3();
+  renderPivotSelect();
+  renderAlignList();
+}
+
 function renderCore3(){
   const el = document.getElementById('core3');
   const slots = [0,1,2].map(i => {
@@ -380,6 +393,15 @@ renderValuesGrid();
 renderCore3();
 renderPivotSelect();
 renderAlignList();
+
+window.addEventListener('message', function(event){
+  const msg = event.data || {};
+  if(msg.type === 'subscriberValues' || msg.type === 'valuesData'){
+    applySubscriberValues(msg.values || []);
+  }
+});
+
+try { window.parent.postMessage({type:'valuesCompassReady'}, '*'); } catch(e){}
 </script>
 </body>
 </html>

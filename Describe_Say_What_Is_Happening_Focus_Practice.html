@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Describe: Say What Is Happening | What To Do!</title>
+<title>Notice Your Inner World | What To Do!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 </style>
 </head>
 <body>
-<header class="site-header"><div class="eyebrow">Focus</div><h1>Describe: Say What Is Happening</h1></header>
+<header class="site-header"><div class="eyebrow">Focus</div><h1>Notice Your Inner World</h1></header>
 <main class="wrap">
   <section class="intro"><h2>Describe means putting words on what you noticed.</h2><p>This practice helps you name thoughts, feelings, body sensations, urges, assumptions, and facts without adding judgment or a story that pulls you into reacting.</p><p>Knowing what is happening inside matters because thoughts, emotions, body signals, urges, and assumptions can quietly steer your behavior. When you can describe them clearly, you have more room to choose what to do next.</p></section>
   <div class="tabs"><button class="tab active" onclick="showScreen('learn',this)">1. Learn</button><button class="tab" onclick="showScreen('facts',this)">2. Facts</button><button class="tab" onclick="showScreen('inside',this)">3. Inside</button><button class="tab" onclick="showScreen('summary',this)">4. Summary</button></div>
@@ -44,7 +44,7 @@ function recordSkillComplete(completionType='finish') {
   window.__skillCompleteSent = true;
   window.parent.postMessage({
     type: 'skillComplete',
-    skillTitle: 'Describe What Is Happening',
+    skillTitle: 'Notice Your Inner World',
     skillSlug: 'describe-what-is-happening',
     completionType
   }, '*');

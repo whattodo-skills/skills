@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Observe: Notice Before You React | What To Do!</title>
+<title>Pause Before Acting | What To Do!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -12,37 +12,39 @@
 </style>
 </head>
 <body>
-<header class="site-header"><div class="eyebrow">Focus</div><h1>Observe: Notice Before You React</h1></header>
+<header class="site-header"><div class="eyebrow">Focus</div><h1>Pause Before Acting</h1></header>
 <main class="wrap">
-  <section class="intro"><h2>Observe means noticing what is happening before you react.</h2><p>This practice helps you watch thoughts, feelings, body sensations, urges, and your surroundings without immediately judging, explaining, fixing, avoiding, or acting on them.</p></section>
-  <div class="tabs"><button class="tab active" onclick="showScreen('learn',this)">1. Learn</button><button class="tab" onclick="showScreen('notice',this)">2. Notice</button><button class="tab" onclick="showScreen('practice',this)">3. Practice</button><button class="tab" onclick="showScreen('summary',this)">4. Summary</button></div>
+  <section class="intro"><h2>A pause is a brief space between an impulse and your response.</h2><p>When something happens with a person or situation, your body and mind may react quickly. This practice helps you notice that immediate reaction, label it as an emotion, and choose what is effective instead of reacting automatically.</p></section>
+  <div class="tabs"><button class="tab active" onclick="showScreen('learn',this)">1. Learn</button><button class="tab" onclick="showScreen('notice',this)">2. Identify</button><button class="tab" onclick="showScreen('practice',this)">3. Practice</button><button class="tab" onclick="showScreen('summary',this)">4. Summary</button></div>
 
   <section class="screen active" id="learn">
-    <div class="grid"><div class="panel"><h2>What observing is</h2><p>Observing is simply noticing the experience. You are not trying to stop a thought, hold onto a feeling, solve the urge, or force your body to change.</p><div class="note"><strong>The skill:</strong> let thoughts, feelings, sensations, urges, sounds, sights, and memories enter and leave awareness.</div></div><div class="panel"><h2>Why it helps</h2><p>When you observe, you create space between what happens and what you do next. That space gives you a better chance to respond on purpose.</p><div class="note blue"><strong>Remember:</strong> you are controlling your attention, not controlling the whole experience.</div></div></div>
-    <div class="btns"><button class="btn btn-primary btn-full" onclick="showById('notice')">Start noticing →</button></div>
+    <div class="grid"><div class="panel"><h2>What the pause is</h2><p>A pause is not doing nothing forever. It is a short moment where you stop, breathe, and notice the impulse before you speak, send, leave, argue, shut down, explain, fix, or avoid.</p><div class="note"><strong>The skill:</strong> name the emotion underneath the reaction, then choose your next move on purpose.</div></div><div class="panel"><h2>Why it matters</h2><p>Immediate reactions can feel urgent, especially when you feel criticized, disappointed, embarrassed, pressured, ignored, threatened, or overwhelmed. Labeling the emotion gives your brain a handle for what is happening.</p><div class="note blue"><strong>Benefit:</strong> the pause helps you protect relationships, reduce regret, and respond in a way that fits your values and the moment.</div></div></div>
+    <div class="btns"><button class="btn btn-primary btn-full" onclick="showById('notice')">Identify your reaction →</button></div>
   </section>
 
   <section class="screen" id="notice">
-    <div class="grid"><div class="panel"><h2>What do you want to observe?</h2><p>Choose the main thing you want to practice noticing without getting pulled into it.</p><div class="choices" id="focusChoices">
-      <button class="choice" onclick="chooseFocus(this,'Thoughts')">Thoughts<span>Words, images, worries, plans, memories.</span></button>
-      <button class="choice" onclick="chooseFocus(this,'Feelings')">Feelings<span>Emotions rising, falling, or shifting.</span></button>
-      <button class="choice" onclick="chooseFocus(this,'Body sensations')">Body sensations<span>Tightness, warmth, heaviness, energy, pressure.</span></button>
-      <button class="choice" onclick="chooseFocus(this,'Urges')">Urges<span>Pulls to react, avoid, fix, check, explain, or leave.</span></button>
-      <button class="choice" onclick="chooseFocus(this,'Sounds and sights')">Sounds and sights<span>What is happening around you right now.</span></button>
-      <button class="choice" onclick="chooseFocus(this,'All of it')">All of it<span>Inside and outside, coming and going.</span></button>
-    </div></div><div class="panel"><h2>Name the trigger</h2><p>This is not to analyze it. It is only to know what you are practicing with.</p><div class="label">What happened?</div><textarea id="trigger" placeholder="Example: I got a message, remembered something, felt criticized, noticed tension in my chest." oninput="saveState()"></textarea><div class="label">What do you usually do right away?</div><textarea id="reaction" placeholder="Example: explain, shut down, scroll, argue, avoid, fix, replay it." oninput="saveState()"></textarea></div></div>
-    <div class="btns"><button class="btn btn-secondary" onclick="showById('learn')">← Back</button><button class="btn btn-primary" onclick="showById('practice')">Begin observe practice →</button></div>
+    <div class="grid"><div class="panel"><h2>Label the emotion</h2><p>Choose the emotion that best names your immediate reaction. Keep the label simple. You are not proving it, defending it, or judging it.</p><div class="choices" id="focusChoices">
+      <button class="choice" onclick="chooseFocus(this,'Anger')">Anger<span>Something feels unfair, blocked, disrespectful, or wrong.</span></button>
+      <button class="choice" onclick="chooseFocus(this,'Fear')">Fear<span>Something feels unsafe, uncertain, risky, or threatening.</span></button>
+      <button class="choice" onclick="chooseFocus(this,'Hurt')">Hurt<span>Something feels painful, rejected, ignored, or disappointing.</span></button>
+      <button class="choice" onclick="chooseFocus(this,'Shame')">Shame<span>You feel exposed, not good enough, or want to hide.</span></button>
+      <button class="choice" onclick="chooseFocus(this,'Anxiety')">Anxiety<span>Your mind rushes ahead to what could go wrong.</span></button>
+      <button class="choice" onclick="chooseFocus(this,'Sadness')">Sadness<span>Something feels lost, lonely, heavy, or discouraging.</span></button>
+      <button class="choice" onclick="chooseFocus(this,'Guilt')">Guilt<span>You think you may have done something harmful or wrong.</span></button>
+      <button class="choice" onclick="chooseFocus(this,'Embarrassment')">Embarrassment<span>You feel awkward, exposed, or worried about being judged.</span></button>
+    </div></div><div class="panel"><h2>Name the moment</h2><p>Use one real situation or person. The goal is to catch the first impulse before it runs the show.</p><div class="label">What happened?</div><textarea id="trigger" placeholder="Example: My partner questioned my plan. A coworker criticized my work. I received a message that felt demanding." oninput="saveState();renderSummary()"></textarea><div class="label">What was your immediate impulse?</div><textarea id="reaction" placeholder="Example: defend myself, snap back, shut down, send a long text, leave, fix it fast, avoid the conversation." oninput="saveState();renderSummary()"></textarea></div></div>
+    <div class="btns"><button class="btn btn-secondary" onclick="showById('learn')">← Back</button><button class="btn btn-primary" onclick="showById('practice')">Practice the pause →</button></div>
   </section>
 
   <section class="screen" id="practice">
-    <div class="prompt-card"><h2 id="practiceTitle">Watch what comes and goes.</h2><p id="practicePrompt">Notice what is here. You do not have to stop it, hold it, fix it, or obey it.</p></div>
-    <div class="card observe-stage"><div class="timer-row"><div class="mini-stat"><div class="mini-num" id="timeLeft">2:00</div><div class="mini-label">Time Left</div></div><div class="mini-stat"><div class="mini-num" id="roundCount">0</div><div class="mini-label">Prompts</div></div><div class="mini-stat"><div class="mini-num" id="focusType">Observe</div><div class="mini-label">Focus</div></div></div><div class="observe-circle"><div><div class="observe-word" id="observeWord">Ready</div><div class="observe-sub" id="observeSub">Press start</div></div></div><div class="label">Practice length</div><select id="duration" onchange="resetPractice()"><option value="60">1 minute</option><option value="120" selected>2 minutes</option><option value="180">3 minutes</option><option value="300">5 minutes</option></select><div class="btns"><button class="btn btn-primary" id="startBtn" onclick="startPractice()">Start</button><button class="btn btn-secondary" onclick="pausePractice()">Pause</button><button class="btn btn-secondary" onclick="resetPractice()">Reset</button></div></div>
-    <div class="grid"><div class="panel"><h3>What did you notice inside?</h3><textarea id="inside" placeholder="Thoughts, feelings, urges, memories, or body sensations I noticed..." oninput="saveState();renderSummary()"></textarea></div><div class="panel"><h3>What did you notice outside?</h3><textarea id="outside" placeholder="Sounds, sights, smells, taste, touch, or what was happening around me..." oninput="saveState();renderSummary()"></textarea></div></div>
+    <div class="prompt-card"><h2 id="practiceTitle">Create the space.</h2><p id="practicePrompt">Stop for a moment. Breathe. Name the emotion. Notice the impulse. Choose what is effective.</p></div>
+    <div class="card observe-stage"><div class="timer-row"><div class="mini-stat"><div class="mini-num" id="timeLeft">2:00</div><div class="mini-label">Time Left</div></div><div class="mini-stat"><div class="mini-num" id="roundCount">0</div><div class="mini-label">Prompts</div></div><div class="mini-stat"><div class="mini-num" id="focusType">Emotion</div><div class="mini-label">Label</div></div></div><div class="observe-circle"><div><div class="observe-word" id="observeWord">Ready</div><div class="observe-sub" id="observeSub">Press start</div></div></div><div class="label">Practice length</div><select id="duration" onchange="resetPractice()"><option value="60">1 minute</option><option value="120" selected>2 minutes</option><option value="180">3 minutes</option><option value="300">5 minutes</option></select><div class="btns"><button class="btn btn-primary" id="startBtn" onclick="startPractice()">Start</button><button class="btn btn-secondary" onclick="pausePractice()">Pause</button><button class="btn btn-secondary" onclick="resetPractice()">Reset</button></div></div>
+    <div class="grid"><div class="panel"><h3>What tells you to pause?</h3><textarea id="inside" placeholder="Body signals, thoughts, tone of voice, urge to react, or emotion cues I noticed..." oninput="saveState();renderSummary()"></textarea></div><div class="panel"><h3>What effective response could you choose?</h3><textarea id="outside" placeholder="Example: speak more slowly, ask a question, take a break, say what I need, wait before replying, listen first." oninput="saveState();renderSummary()"></textarea></div></div>
     <div class="btns"><button class="btn btn-secondary" onclick="showById('notice')">← Back</button><button class="btn btn-primary" onclick="showById('summary')">View summary →</button></div>
   </section>
 
   <section class="screen" id="summary">
-    <div class="grid"><div class="panel"><h2>Your observe summary</h2><div class="summary" id="summaryBox"></div><div class="btns"><button class="btn btn-primary" onclick="copySummary()">Copy summary</button><button class="btn btn-secondary" onclick="showById('practice')">Practice again</button></div></div><div class="panel"><h2>One-line reminder</h2><div class="note"><strong>Observe:</strong> I can notice what is happening without immediately reacting to it.</div><p>Use this when you feel pulled into overthinking, reacting, avoiding, fixing, checking, or explaining. First observe. Then choose.</p></div></div>
+    <div class="grid"><div class="panel"><h2>Your pause summary</h2><div class="summary" id="summaryBox"></div><div class="btns"><button class="btn btn-primary" onclick="copySummary()">Copy summary</button><button class="btn btn-secondary" onclick="showById('practice')">Practice again</button></div></div><div class="panel"><h2>One-line reminder</h2><div class="note"><strong>Pause:</strong> I can create space between my impulse and my response.</div><p>Use this when you feel pulled to react automatically. Stop, breathe, label the emotion, notice the impulse, and choose what works.</p></div></div>
   </section>
 </main>
 <div class="footer">What To Do! — self-guided skill building for everyday life.</div>
@@ -52,30 +54,30 @@ function recordSkillComplete(completionType='finish') {
   window.__skillCompleteSent = true;
   window.parent.postMessage({
     type: 'skillComplete',
-    skillTitle: 'Observe Before You React',
+    skillTitle: 'Pause Before Acting',
     skillSlug: 'observe-before-you-react',
     completionType
   }, '*');
 }
 
-let selectedFocus='Observe';let timer=null;let promptTimer=null;let running=false;let secondsLeft=120;let rounds=0;
-const prompts=['Notice what is here.','Let it come and go.','You do not have to fix this.','Watch without grabbing on.','Notice the urge without obeying it.','Return to what is happening now.','Inside and outside.','Name it silently: thinking, feeling, sensing, urging.'];
+let selectedFocus='Emotion';let timer=null;let promptTimer=null;let running=false;let secondsLeft=120;let rounds=0;
+const prompts=['Stop for one breath.','Name the emotion.','Notice the impulse.','Relax your jaw and shoulders.','Do not answer yet.','Ask: what would be effective?','Choose your next move.','Respond on purpose.'];
 function $(id){return document.getElementById(id)}
 function showScreen(id,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='practice')preparePractice();if(id==='summary')renderSummary();window.scrollTo({top:0,behavior:'smooth'})}
 function showById(id){let index={learn:0,notice:1,practice:2,summary:3}[id];showScreen(id,document.querySelectorAll('.tab')[index])}
 function chooseFocus(btn,val){selectedFocus=val;document.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');saveState();preparePractice()}
 function saveState(){localStorage.setItem('wtd_observe_practice',JSON.stringify({selectedFocus,trigger:$('trigger')?.value||'',reaction:$('reaction')?.value||'',inside:$('inside')?.value||'',outside:$('outside')?.value||''}))}
-function loadState(){try{let s=JSON.parse(localStorage.getItem('wtd_observe_practice')||'{}');selectedFocus=s.selectedFocus||'Observe';['trigger','reaction','inside','outside'].forEach(id=>{if($(id))$(id).value=s[id]||''})}catch(e){}}
-function preparePractice(){$('focusType').textContent=selectedFocus.length>9?'Observe':selectedFocus;$('practiceTitle').textContent=`Observe: ${selectedFocus}`;$('practicePrompt').textContent='Notice what is happening without judging it, explaining it, fixing it, avoiding it, or reacting right away.'}
+function loadState(){try{let s=JSON.parse(localStorage.getItem('wtd_observe_practice')||'{}');let oldLabels=['Observe','Thoughts','Feelings','Body sensations','Urges','Sounds and sights','All of it'];selectedFocus=oldLabels.includes(s.selectedFocus)?'Emotion':(s.selectedFocus||'Emotion');['trigger','reaction','inside','outside'].forEach(id=>{if($(id))$(id).value=s[id]||''})}catch(e){}}
+function preparePractice(){$('focusType').textContent=selectedFocus.length>9?'Emotion':selectedFocus;$('practiceTitle').textContent=`Pause with ${selectedFocus}`;$('practicePrompt').textContent='Create a brief space between the impulse and your response so you can choose what is effective.'}
 function fmt(n){return `${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`}
 function startPractice(){if(running)return;running=true;$('startBtn').textContent='Running';if(secondsLeft<=0)secondsLeft=+$('duration').value;tick();nextPrompt()}
 function tick(){clearInterval(timer);timer=setInterval(()=>{secondsLeft--;$('timeLeft').textContent=fmt(Math.max(0,secondsLeft));if(secondsLeft<=0)finishPractice()},1000)}
 function nextPrompt(){clearTimeout(promptTimer);if(!running)return;let p=prompts[rounds%prompts.length];$('observeWord').textContent=p;$('observeSub').textContent=selectedFocus;rounds++;$('roundCount').textContent=rounds;promptTimer=setTimeout(nextPrompt,12000)}
-function pausePractice(){running=false;clearInterval(timer);clearTimeout(promptTimer);$('startBtn').textContent='Resume';$('observeWord').textContent='Paused';$('observeSub').textContent='Notice the pause too'}
+function pausePractice(){running=false;clearInterval(timer);clearTimeout(promptTimer);$('startBtn').textContent='Resume';$('observeWord').textContent='Paused';$('observeSub').textContent='Stay with the space'}
 function resetPractice(){running=false;clearInterval(timer);clearTimeout(promptTimer);secondsLeft=+$('duration').value;rounds=0;$('timeLeft').textContent=fmt(secondsLeft);$('roundCount').textContent='0';$('startBtn').textContent='Start';$('observeWord').textContent='Ready';$('observeSub').textContent='Press start'}
-function finishPractice(){pausePractice();$('observeWord').textContent='Done';$('observeSub').textContent='What did you notice?'}
-function renderSummary(){let trigger=$('trigger').value||'Not written';let reaction=$('reaction').value||'Not written';let inside=$('inside').value||'Not written';let outside=$('outside').value||'Not written';$('summaryBox').innerHTML=`<p><strong>Focus:</strong> ${selectedFocus}</p><p><strong>Trigger noticed:</strong> ${trigger}</p><p><strong>Usual reaction:</strong> ${reaction}</p><p><strong>Inside:</strong> ${inside}</p><p><strong>Outside:</strong> ${outside}</p><p><strong>Practice phrase:</strong> Notice before you react.</p>`}
-function copySummary(){recordSkillComplete('copy-summary');navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
+function finishPractice(){pausePractice();$('observeWord').textContent='Done';$('observeSub').textContent='What will you choose?'}
+function renderSummary(){let trigger=$('trigger').value||'Not written';let reaction=$('reaction').value||'Not written';let inside=$('inside').value||'Not written';let outside=$('outside').value||'Not written';$('summaryBox').innerHTML=`<p><strong>Emotion label:</strong> ${selectedFocus}</p><p><strong>Situation or person:</strong> ${trigger}</p><p><strong>Immediate impulse:</strong> ${reaction}</p><p><strong>Pause cue:</strong> ${inside}</p><p><strong>Effective response:</strong> ${outside}</p><p><strong>Practice phrase:</strong> Pause before acting.</p>`}
+function copySummary(){recordSkillComplete('copy-summary');let text=$('summaryBox').innerText;if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(()=>alert('Copied.')).catch(showCopyFallback)}else{showCopyFallback()}function showCopyFallback(){let range=document.createRange();range.selectNodeContents($('summaryBox'));let selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);alert('Summary is ready, but your browser blocked automatic copying. Select the summary text and copy it manually.')}}
 loadState();resetPractice();preparePractice();renderSummary();
 </script>
 </body>

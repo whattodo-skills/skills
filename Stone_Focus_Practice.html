@@ -323,24 +323,6 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 }
 .difficulty-chip:hover { border-color:var(--blue-lt); transform:translateY(-1px); }
 .difficulty-chip.selected { border-color:var(--blue); background:var(--blue-bg); }
-.challenge-options {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:12px;
-}
-.challenge-option {
-  border:2px solid var(--border);
-  background:white;
-  color:var(--navy);
-  border-radius:999px;
-  padding:9px 13px;
-  font-family:inherit;
-  font-size:.88rem;
-  font-weight:800;
-  cursor:pointer;
-}
-.challenge-option.selected { border-color:var(--blue); background:var(--blue-bg); }
 .rep-note {
   display:none;
   background:var(--mint-bg);
@@ -376,7 +358,6 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   .stone.settle { top:260px; }
   .btn { width:100%; }
   .difficulty-chip { width:100%; border-radius:8px; text-align:left; }
-  .challenge-option { width:100%; border-radius:8px; text-align:left; }
 }
 </style>
 </head>
@@ -536,10 +517,6 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
   <div class="notice-box" id="next-challenge-box">
     <strong>Next challenge:</strong> <span id="next-challenge">Choose how difficult returning felt, then this practice will suggest your next step.</span>
-    <div class="challenge-options" aria-label="Choose a longer practice option">
-      <button class="challenge-option" onclick="setChallengeOption('90 seconds', this)">90 seconds</button>
-      <button class="challenge-option" onclick="setChallengeOption('90 minutes', this)">90 minutes</button>
-    </div>
   </div>
 
   <div class="btn-row">
@@ -606,7 +583,7 @@ function postReflectionUpdate(){
 function updateAdaptiveChallenge(){
   const challengeMap = {
     hard:'Repeat for 60 seconds and reduce environmental distractions before you start.',
-    moderate:'Try 90 seconds next time, or choose 90 minutes for a longer focus block.',
+    moderate:'Try 90 seconds next time.',
     easy:'Use “Stone in the lake” during one real task, notification, urge, or worry.'
   };
   nextChallenge = challengeMap[returnDifficulty] || 'Choose how difficult returning felt, then this practice will suggest your next step.';
@@ -614,17 +591,6 @@ function updateAdaptiveChallenge(){
   if (challengeEl) challengeEl.textContent = nextChallenge;
   const repNote = document.getElementById('rep-note');
   if (repNote) repNote.classList.toggle('active', Number(wanderCount) >= 4);
-}
-
-function setChallengeOption(value, button){
-  nextChallenge = value === '90 minutes'
-    ? 'Try a 90-minute focus block using “Stone in the lake” whenever attention gets pulled away.'
-    : 'Try 90 seconds next time.';
-  const challengeEl = document.getElementById('next-challenge');
-  if (challengeEl) challengeEl.textContent = nextChallenge;
-  document.querySelectorAll('.challenge-option').forEach(b => b.classList.remove('selected'));
-  button.classList.add('selected');
-  postReflectionUpdate();
 }
 
 function setWanderCount(value){
@@ -705,7 +671,6 @@ function startOver(){
   nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
   document.querySelectorAll('.check-chip').forEach(b => b.classList.remove('selected'));
   document.querySelectorAll('.difficulty-chip').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.challenge-option').forEach(b => b.classList.remove('selected'));
   document.getElementById('choose-next').disabled = true;
   document.getElementById('reflection').value = '';
   document.getElementById('wander-count').value = '';

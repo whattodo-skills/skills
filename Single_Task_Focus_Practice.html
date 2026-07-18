@@ -55,11 +55,11 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
     <h2>Name the next physical action.</h2>
     <p>Not the whole project. Choose the smallest visible start your hands or eyes can return to.</p>
     <div class="choice-list" id="moment-list">
-      <button class="choice" onclick="selectOne('moment',this,'open the document')"><span class="dot"></span>Open the document</button>
-      <button class="choice" onclick="selectOne('moment',this,'type the first sentence')"><span class="dot"></span>Type the first sentence</button>
-      <button class="choice" onclick="selectOne('moment',this,'fold the next shirt')"><span class="dot"></span>Fold the next shirt</button>
-      <button class="choice" onclick="selectOne('moment',this,'read the next paragraph')"><span class="dot"></span>Read the next paragraph</button>
-      <button class="choice" onclick="selectOne('moment',this,'clear one small surface')"><span class="dot"></span>Clear one small surface</button>
+      <button class="choice" aria-pressed="false" onclick="selectOne('moment',this,'open the document')"><span class="dot"></span>Open the document</button>
+      <button class="choice" aria-pressed="false" onclick="selectOne('moment',this,'type the first sentence')"><span class="dot"></span>Type the first sentence</button>
+      <button class="choice" aria-pressed="false" onclick="selectOne('moment',this,'fold the next shirt')"><span class="dot"></span>Fold the next shirt</button>
+      <button class="choice" aria-pressed="false" onclick="selectOne('moment',this,'read the next paragraph')"><span class="dot"></span>Read the next paragraph</button>
+      <button class="choice" aria-pressed="false" onclick="selectOne('moment',this,'clear one small surface')"><span class="dot"></span>Clear one small surface</button>
     </div>
     <div class="small-label">Or name your own action</div>
     <input id="customMoment" placeholder="Example: write the subject line" oninput="setCustom('moment',this.value)">
@@ -74,10 +74,10 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
     <h2>What will probably pull your attention?</h2>
     <p>This is your plan, not your score. During practice you will label the actual pull when it happens.</p>
     <div class="check-list" id="pull-list">
-      <button class="check-chip" onclick="togglePull(this,'device')"><span class="cbox"></span>Device</button>
-      <button class="check-chip" onclick="togglePull(this,'thought or feeling')"><span class="cbox"></span>Thought or feeling</button>
-      <button class="check-chip" onclick="togglePull(this,'person or environment')"><span class="cbox"></span>Person or environment</button>
-      <button class="check-chip" onclick="togglePull(this,'another task')"><span class="cbox"></span>Another task</button>
+      <button class="check-chip" aria-pressed="false" onclick="togglePull(this,'device')"><span class="cbox"></span>Device</button>
+      <button class="check-chip" aria-pressed="false" onclick="togglePull(this,'thought or feeling')"><span class="cbox"></span>Thought or feeling</button>
+      <button class="check-chip" aria-pressed="false" onclick="togglePull(this,'person or environment')"><span class="cbox"></span>Person or environment</button>
+      <button class="check-chip" aria-pressed="false" onclick="togglePull(this,'another task')"><span class="cbox"></span>Another task</button>
     </div>
     <div class="small-label">Add another likely pull if needed</div>
     <input id="customPull" placeholder="Example: opening another tab" oninput="updatePlan()">
@@ -92,10 +92,10 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
     <h2>Choose your practice level.</h2>
     <p>Levels are visible so you can adjust, repeat, or advance. Distraction is not failure; the return is the rep.</p>
     <div class="level-grid" id="levelGrid">
-      <button class="level-card" onclick="selectLevel(1)"><strong>Level 1 - Start</strong><span>1 minute. Notice at least one moment of attention movement.</span></button>
-      <button class="level-card" onclick="selectLevel(2)"><strong>Level 2 - Return</strong><span>2 minutes. Return without self-criticism.</span></button>
-      <button class="level-card selected" onclick="selectLevel(3)"><strong>Level 3 - Sustain</strong><span>5 minutes. Stay connected to one physical action longer.</span></button>
-      <button class="level-card" onclick="selectLevel(4)"><strong>Level 4 - Transfer</strong><span>10 minutes. Use the method during a meaningful real-world task.</span></button>
+      <button class="level-card" aria-pressed="false" onclick="selectLevel(1)"><strong>Level 1 - Start</strong><span>1 minute. Notice at least one moment of attention movement.</span></button>
+      <button class="level-card" aria-pressed="false" onclick="selectLevel(2)"><strong>Level 2 - Return</strong><span>2 minutes. Return without self-criticism.</span></button>
+      <button class="level-card selected" aria-pressed="true" onclick="selectLevel(3)"><strong>Level 3 - Sustain</strong><span>5 minutes. Stay connected to one physical action longer.</span></button>
+      <button class="level-card" aria-pressed="false" onclick="selectLevel(4)"><strong>Level 4 - Transfer</strong><span>10 minutes. Use the method during a meaningful real-world task.</span></button>
     </div>
     <div class="small-label">Environmental boundary</div>
     <select id="boundary" onchange="updatePlan()">
@@ -106,7 +106,7 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
       <option value="close unrelated tabs">Close unrelated tabs</option>
       <option value="move one unrelated item out of sight">Move one unrelated item out of sight</option>
     </select>
-    <label class="check-chip" style="margin-top:12px" onclick="toggleSkipLabeling(event)"><span class="cbox" id="skipBox"></span>Skip labeling during practice</label>
+    <button type="button" class="check-chip" id="skipToggle" style="margin-top:12px" aria-pressed="false" onclick="toggleSkipLabeling()"><span class="cbox" id="skipBox"></span>Skip labeling during practice</button>
     <div class="focus-box" id="planPreview"></div>
   </div>
   <div class="btn-row"><button class="btn btn-primary btn-full" onclick="startPractice()">Practice returning focus</button></div>
@@ -149,23 +149,23 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
     <h3>Reflect before you adjust.</h3>
     <div class="small-label">How manageable was returning your attention?</div>
     <div class="reflection-grid" id="difficultyChoices">
-      <button class="choice" onclick="selectReflection('difficulty',this,'Hard')"><span class="dot"></span>Hard</button>
-      <button class="choice" onclick="selectReflection('difficulty',this,'Manageable')"><span class="dot"></span>Manageable</button>
-      <button class="choice" onclick="selectReflection('difficulty',this,'Easy')"><span class="dot"></span>Easy</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('difficulty',this,'Hard')"><span class="dot"></span>Hard</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('difficulty',this,'Manageable')"><span class="dot"></span>Manageable</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('difficulty',this,'Easy')"><span class="dot"></span>Easy</button>
     </div>
     <div class="small-label">Did your environmental boundary help?</div>
     <div class="reflection-grid" id="boundaryChoices">
-      <button class="choice" onclick="selectReflection('boundaryHelp',this,'Yes')"><span class="dot"></span>Yes</button>
-      <button class="choice" onclick="selectReflection('boundaryHelp',this,'Somewhat')"><span class="dot"></span>Somewhat</button>
-      <button class="choice" onclick="selectReflection('boundaryHelp',this,'No')"><span class="dot"></span>No</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('boundaryHelp',this,'Yes')"><span class="dot"></span>Yes</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('boundaryHelp',this,'Somewhat')"><span class="dot"></span>Somewhat</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('boundaryHelp',this,'No')"><span class="dot"></span>No</button>
     </div>
     <div class="small-label">What helped you return most quickly?</div>
     <div class="reflection-grid" id="strategyChoices">
-      <button class="choice" onclick="selectReflection('strategy',this,'Naming the distraction')"><span class="dot"></span>Naming the distraction</button>
-      <button class="choice" onclick="selectReflection('strategy',this,'Taking one breath')"><span class="dot"></span>Taking one breath</button>
-      <button class="choice" onclick="selectReflection('strategy',this,'Seeing the next physical action')"><span class="dot"></span>Seeing the next physical action</button>
-      <button class="choice" onclick="selectReflection('strategy',this,'Removing or reducing a distraction')"><span class="dot"></span>Removing or reducing a distraction</button>
-      <button class="choice" onclick="selectReflection('strategy',this,'Something else')"><span class="dot"></span>Something else</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('strategy',this,'Naming the distraction')"><span class="dot"></span>Naming the distraction</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('strategy',this,'Taking one breath')"><span class="dot"></span>Taking one breath</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('strategy',this,'Seeing the next physical action')"><span class="dot"></span>Seeing the next physical action</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('strategy',this,'Removing or reducing a distraction')"><span class="dot"></span>Removing or reducing a distraction</button>
+      <button class="choice" aria-pressed="false" onclick="selectReflection('strategy',this,'Something else')"><span class="dot"></span>Something else</button>
     </div>
   </div>
   <div class="script-card">
@@ -195,12 +195,13 @@ function allPulls(){const custom=document.getElementById('customPull')?.value.tr
 function commonDistraction(){if(!state.driftLabels.length)return 'None labeled yet';const counts={};state.driftLabels.forEach(x=>{counts[x]=(counts[x]||0)+1});return Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0]||'None labeled yet'}
 function nextLevel(){return LEVELS[Math.min(4,state.level+1)]}
 function previousOrSameLevel(){return LEVELS[Math.max(1,state.level-1)]}
-function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='screen-plan')updatePlan();if(id==='screen-finish')renderSummary();}
-function selectOne(key,el,val){state[key]=val;document.querySelectorAll('#moment-list .choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');document.getElementById('customMoment').value='';document.getElementById('moment-next').disabled=false;updatePlan();}
-function setCustom(key,val){state[key]=val.trim();document.querySelectorAll('#moment-list .choice').forEach(b=>b.classList.remove('selected'));document.getElementById('moment-next').disabled=!state[key];updatePlan();}
-function togglePull(el,val){el.classList.toggle('selected');if(state.pulls.includes(val)){state.pulls=state.pulls.filter(p=>p!==val)}else{state.pulls.push(val)}updatePlan();}
-function selectLevel(n){state.level=n;document.querySelectorAll('#levelGrid .level-card').forEach((b,i)=>b.classList.toggle('selected',i===n-1));updatePlan();}
-function toggleSkipLabeling(event){event.preventDefault();state.skipLabeling=!state.skipLabeling;document.getElementById('skipBox').parentElement.classList.toggle('selected',state.skipLabeling);updatePlan();}
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const screen=document.getElementById(id);screen.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='screen-plan')updatePlan();if(id==='screen-finish')renderSummary();setTimeout(()=>{const heading=screen.querySelector('h2,h3');if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});}},0);}
+function setPressed(el,pressed){el.classList.toggle('selected',pressed);el.setAttribute('aria-pressed',pressed?'true':'false')}
+function selectOne(key,el,val){state[key]=val;document.querySelectorAll('#moment-list .choice').forEach(b=>setPressed(b,false));setPressed(el,true);document.getElementById('customMoment').value='';document.getElementById('moment-next').disabled=false;updatePlan();}
+function setCustom(key,val){state[key]=val.trim();document.querySelectorAll('#moment-list .choice').forEach(b=>setPressed(b,false));document.getElementById('moment-next').disabled=!state[key];updatePlan();}
+function togglePull(el,val){const pressed=!el.classList.contains('selected');setPressed(el,pressed);if(state.pulls.includes(val)){state.pulls=state.pulls.filter(p=>p!==val)}else{state.pulls.push(val)}updatePlan();}
+function selectLevel(n){state.level=n;document.querySelectorAll('#levelGrid .level-card').forEach((b,i)=>setPressed(b,i===n-1));updatePlan();}
+function toggleSkipLabeling(){state.skipLabeling=!state.skipLabeling;setPressed(document.getElementById('skipToggle'),state.skipLabeling);updatePlan();}
 function updatePlan(){const chosen=level();const pulls=allPulls();const text=`${chosen.name}: For ${chosen.minutes} minute${chosen.minutes===1?'':'s'}, I will practice: ${cleanAction()}. Goal: ${chosen.goal}. If attention moves toward ${pulls.length?pulls.join(', '):'a distraction'}, I will ${state.skipLabeling?'notice the drift':'label the actual pull'}, take one breath, and return. Before I begin, I will ${currentBoundary()}.`;const box=document.getElementById('planPreview');if(box)box.textContent=text;}
 function startPractice(){const chosen=level();state.total=chosen.minutes*60;state.remaining=state.total;state.driftCount=0;state.driftLabels=[];state.saved=false;goTo('screen-practice');document.getElementById('timerPrompt').textContent=`For the next ${chosen.minutes} minute${chosen.minutes===1?'':'s'}, practice: ${cleanAction()}. You are training the return, not chasing perfect focus.`;document.getElementById('returnReps').textContent='0';document.getElementById('driftCoach').innerHTML='<strong>When you notice drift</strong><p>Tap the button, label the pull, take one breath, and return to your selected action.</p>';drawTimer();startTimer();}
 function drawTimer(){const t=Math.max(0,state.remaining);const m=Math.floor(t/60);const s=String(t%60).padStart(2,'0');document.getElementById('timerTime').textContent=`${m}:${s}`;const deg=((state.total-state.remaining)/state.total)*360;document.getElementById('timerCircle').style.background=`conic-gradient(var(--mint) ${deg}deg,var(--blue-bg) ${deg}deg)`;}
@@ -208,13 +209,13 @@ function startTimer(){stopTimer();state.running=true;document.getElementById('pa
 function stopTimer(){if(state.timer)clearInterval(state.timer);state.timer=null;state.running=false;}
 function toggleTimer(){if(state.running){stopTimer();document.getElementById('pauseBtn').textContent='Resume'}else{startTimer();}}
 function acknowledgeDrift(){if(state.skipLabeling){recordDrift('Skipped label');return}stopTimer();document.getElementById('pauseBtn').textContent='Resume';document.getElementById('driftCoach').innerHTML=`<strong>What pulled your attention away?</strong><p>Choose quickly. No typing needed.</p><div class="label-grid"><button class="btn btn-secondary" onclick="recordDrift('Device')">Device</button><button class="btn btn-secondary" onclick="recordDrift('Thought or feeling')">Thought or feeling</button><button class="btn btn-secondary" onclick="recordDrift('Person or environment')">Person or environment</button><button class="btn btn-secondary" onclick="recordDrift('Another task')">Another task</button><button class="btn btn-secondary" onclick="recordDrift('Other')">Other</button></div>`;}
-function recordDrift(label){state.driftCount++;state.driftLabels.push(label);document.getElementById('returnReps').textContent=String(state.driftCount);document.getElementById('driftCoach').innerHTML=`<strong>Return rep ${state.driftCount}</strong><p>${label==='Skipped label'?'You noticed the drift.':'That was '+label+'.'} Take one breath. Put your hands or eyes back on: <strong>${cleanAction()}</strong>.</p>`;if(!state.running&&state.remaining>0)startTimer();}
+function recordDrift(label){state.driftCount++;state.driftLabels.push(label);document.getElementById('returnReps').textContent=String(state.driftCount);document.getElementById('driftCoach').innerHTML=`<strong>Return rep ${state.driftCount}</strong><p>${label==='Skipped label'?'You noticed the drift.':'That was '+label+'.'} Take one breath. Put your hands or eyes back on: <strong>${cleanAction()}.</strong></p>`;if(!state.running&&state.remaining>0)startTimer();}
 function finishPractice(){recordSkillComplete('finish');stopTimer();goTo('screen-finish');}
-function selectReflection(key,el,val){state[key]=val;el.parentElement.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');renderSummary();}
-function recommendation(){const chosen=level();const boundary=currentBoundary();if(state.difficulty==='Hard'){const next=previousOrSameLevel();return `Next practice: Try ${next.minutes} minute${next.minutes===1?'':'s'} with an even smaller action. ${boundary.includes('phone')?'Keep your phone out of reach':'Strengthen your boundary before starting'}.`; }if(state.difficulty==='Manageable'){return `Next practice: Repeat ${chosen.minutes} minute${chosen.minutes===1?'':'s'} once more and strengthen the boundary that helped most.`}if(state.difficulty==='Easy'){const next=nextLevel();return `Next practice: Move up to ${next.minutes} minute${next.minutes===1?'':'s'} and use the same return method during a real work or home task.`}return 'Answer the reflection questions to get your next practice.'}
+function selectReflection(key,el,val){state[key]=val;el.parentElement.querySelectorAll('.choice').forEach(b=>setPressed(b,false));setPressed(el,true);renderSummary();}
+function recommendation(){const chosen=level();const boundary=currentBoundary();if(state.difficulty==='Hard'){const next=previousOrSameLevel();return `Next practice: Try ${next.minutes} minute${next.minutes===1?'':'s'} with an even smaller action. ${boundary.includes('phone')?'Keep your phone out of reach':'Strengthen your boundary before starting'}.`; }if(state.difficulty==='Manageable'){return `Next practice: Repeat ${chosen.minutes} minute${chosen.minutes===1?'':'s'} once more and strengthen the boundary that helped most.`}if(state.difficulty==='Easy'){if(state.level>=4){return 'Next practice: Stay at 10 minutes and use the same return method during a naturally distracting real-world task.'}const next=nextLevel();return `Next practice: Move up to ${next.minutes} minute${next.minutes===1?'':'s'} and use the same return method during a real work or home task.`}return 'Answer the reflection questions to get your next practice.'}
 function renderSummary(){const chosen=level();state.recommendation=recommendation();document.getElementById('summaryMoment').textContent=cleanAction();document.getElementById('summaryDuration').textContent=`${chosen.name}: ${chosen.minutes} minute${chosen.minutes===1?'':'s'}`;document.getElementById('summaryReps').textContent=state.driftCount?`${state.driftCount} return rep${state.driftCount===1?'':'s'}`:'No drift button reps logged yet. Noticing afterward still counts as learning.';document.getElementById('summaryCommon').textContent=commonDistraction();document.getElementById('summaryBoundary').textContent=currentBoundary();document.getElementById('summaryDifficulty').textContent=state.difficulty||'Choose one above.';document.getElementById('summaryBoundaryHelp').textContent=state.boundaryHelp||'Choose one above.';document.getElementById('summaryStrategy').textContent=state.strategy||'Choose one above.';document.getElementById('recommendationBox').textContent=state.recommendation;}
 function practiceAgain(){stopTimer();state.driftCount=0;state.driftLabels=[];state.difficulty='';state.boundaryHelp='';state.strategy='';state.recommendation='';goTo('screen-plan');}
-function resetAll(){stopTimer();state.moment='';state.pulls=[];state.level=3;state.remaining=300;state.driftCount=0;state.driftLabels=[];state.skipLabeling=false;state.difficulty='';state.boundaryHelp='';state.strategy='';state.recommendation='';state.saved=false;document.querySelectorAll('.selected').forEach(e=>e.classList.remove('selected'));document.querySelectorAll('input').forEach(i=>i.value='');document.querySelectorAll('#levelGrid .level-card').forEach((b,i)=>b.classList.toggle('selected',i===2));document.getElementById('moment-next').disabled=true;document.getElementById('saveStackBtn').textContent='Save to Skills Stack';document.getElementById('saveStatus').classList.remove('show');goTo('screen-home');}
+function resetAll(){stopTimer();state.moment='';state.pulls=[];state.level=3;state.remaining=300;state.driftCount=0;state.driftLabels=[];state.skipLabeling=false;state.difficulty='';state.boundaryHelp='';state.strategy='';state.recommendation='';state.saved=false;document.querySelectorAll('.selected').forEach(e=>setPressed(e,false));document.querySelectorAll('input').forEach(i=>i.value='');document.querySelectorAll('#levelGrid .level-card').forEach((b,i)=>setPressed(b,i===2));document.getElementById('moment-next').disabled=true;document.getElementById('saveStackBtn').textContent='Save to Skills Stack';document.getElementById('saveStatus').classList.remove('show');goTo('screen-home');}
 function buildSkillStack(){const chosen=level();const pulls=allPulls();const skill={category:'Focus',id:'single-task-focus-practice',name:'Managing Distractions: Single Task Focus',url:'https://whattodo-skills.github.io/skills/Single_Task_Focus_Practice.html'};const summary=[`Selected action: ${cleanAction()}`,`Level: ${chosen.name}`,`Duration: ${chosen.minutes} minute${chosen.minutes===1?'':'s'}`,`Expected pulls: ${pulls.length?pulls.join(', '):'distraction'}`,`Return reps: ${state.driftCount||0}`,`Most common distraction: ${commonDistraction()}`,`Difficulty: ${state.difficulty||'not selected'}`,`Next practice: ${state.recommendation||recommendation()}`].join('\n');return {id:`single-task-focus-practice-${Date.now()}`,title:'Managing Distractions: Single Task Focus',goalId:'single-task-focus-practice',goal:'I want to return to one task when distractions pull my attention away.',category:'Focus',objective:'Choose one visible physical action and practice returning to it.',practiceOption:'Notice the actual pull, take one breath, and return hands or eyes to the selected action.',activity:cleanAction(),outcome:'Train attention away from automatic distraction and back to the present task.',source:'single-task-focus-practice',summary,skills:[skill],currentLevel:chosen.name,lastPracticeDate:new Date().toISOString(),lastDuration:chosen.minutes,returnRepetitionCount:state.driftCount,mostCommonDistractionCategory:commonDistraction(),difficultyRating:state.difficulty||'',personalizedNextPracticeRecommendation:state.recommendation||recommendation(),createdAt:new Date().toISOString()};}
 function saveToSkillStack(){state.recommendation=recommendation();const stack=buildSkillStack();recordSkillComplete('save-to-skill-stack');window.parent.postMessage({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack,updatedAt:new Date().toISOString()}},'*');state.saved=true;document.getElementById('saveStackBtn').textContent='Saved to Skills Stack';document.getElementById('saveStatus').classList.add('show');}
 updatePlan();

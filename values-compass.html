@@ -328,8 +328,8 @@ function escapeHtml(value){
   return String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-function jsArg(value){
-  return JSON.stringify(String(value || '')).replace(/</g, '\\u003c');
+function dataAttr(value){
+  return escapeHtml(value);
 }
 
 function valuesCatalog(){
@@ -388,7 +388,7 @@ function renderValuesGrid(){
   grid.innerHTML = valuesCatalog().map(v => {
     const isSel = selected.includes(v.name);
     const isDisabled = !isSel && selected.length >= 3;
-    return `<button class="val-card" type="button" aria-pressed="${isSel ? 'true' : 'false'}" onclick="toggleValue(${jsArg(v.name)})" ${isDisabled ? 'disabled' : ''}>
+    return `<button class="val-card" type="button" aria-pressed="${isSel ? 'true' : 'false'}" data-value="${dataAttr(v.name)}" onclick="toggleValueFromButton(this)" ${isDisabled ? 'disabled' : ''}>
       <div class="val-name">${escapeHtml(v.name)}</div>
       <div class="val-desc">${escapeHtml(v.desc)}</div>
     </button>`;
@@ -413,6 +413,10 @@ function toggleValue(name){
   markStackDirty();
   persist();
   renderAll();
+}
+
+function toggleValueFromButton(button){
+  toggleValue(button.dataset.value || '');
 }
 
 function addCustomValue(){
@@ -524,7 +528,7 @@ function renderActionOptions(){
   const wrap = document.getElementById('actionOptions');
   wrap.innerHTML = ACTIONS.map(action => {
     const pressed = pivotState.action === action && action !== 'Write my own action';
-    return `<button class="choice-btn" type="button" aria-pressed="${pressed ? 'true' : 'false'}" onclick="selectAction(${jsArg(action)})">${escapeHtml(action)}</button>`;
+    return `<button class="choice-btn" type="button" aria-pressed="${pressed ? 'true' : 'false'}" data-action="${dataAttr(action)}" onclick="selectActionFromButton(this)">${escapeHtml(action)}</button>`;
   }).join('');
   if(!ACTIONS.includes(pivotState.action)){
     document.getElementById('customAction').value = pivotState.action || '';
@@ -533,7 +537,7 @@ function renderActionOptions(){
 
 function renderBeginOptions(){
   const wrap = document.getElementById('beginOptions');
-  wrap.innerHTML = BEGIN_TIMES.map(time => `<button class="choice-btn" type="button" aria-pressed="${pivotState.begin === time ? 'true' : 'false'}" onclick="selectBegin(${jsArg(time)})">${escapeHtml(time)}</button>`).join('');
+  wrap.innerHTML = BEGIN_TIMES.map(time => `<button class="choice-btn" type="button" aria-pressed="${pivotState.begin === time ? 'true' : 'false'}" data-begin="${dataAttr(time)}" onclick="selectBeginFromButton(this)">${escapeHtml(time)}</button>`).join('');
 }
 
 function selectAction(action){
@@ -547,6 +551,10 @@ function selectAction(action){
   persist();
   renderActionOptions();
   updateActionSummary();
+}
+
+function selectActionFromButton(button){
+  selectAction(button.dataset.action || '');
 }
 
 function setCustomAction(value){
@@ -563,6 +571,10 @@ function selectBegin(time){
   persist();
   renderBeginOptions();
   updateActionSummary();
+}
+
+function selectBeginFromButton(button){
+  selectBegin(button.dataset.begin || '');
 }
 
 function updateActionSummary(shouldPersist = true){
@@ -595,9 +607,9 @@ function renderAlignList(){
     return `<div class="align-item">
       <div class="align-val-name">${escapeHtml(name)}</div>
       <div class="align-buttons">
-        <button class="align-btn yes" type="button" aria-pressed="${state === 'yes'}" onclick="setAlign(${jsArg(name)},'yes')">Focused on it</button>
-        <button class="align-btn drift" type="button" aria-pressed="${state === 'drift'}" onclick="setAlign(${jsArg(name)},'drift')">Drifted from it</button>
-        <button class="align-btn unsure" type="button" aria-pressed="${state === 'unsure'}" onclick="setAlign(${jsArg(name)},'unsure')">Not sure</button>
+        <button class="align-btn yes" type="button" aria-pressed="${state === 'yes'}" data-value="${dataAttr(name)}" data-align="yes" onclick="setAlignFromButton(this)">Focused on it</button>
+        <button class="align-btn drift" type="button" aria-pressed="${state === 'drift'}" data-value="${dataAttr(name)}" data-align="drift" onclick="setAlignFromButton(this)">Drifted from it</button>
+        <button class="align-btn unsure" type="button" aria-pressed="${state === 'unsure'}" data-value="${dataAttr(name)}" data-align="unsure" onclick="setAlignFromButton(this)">Not sure</button>
       </div>
       <div class="align-prompt">${escapeHtml(alignmentPrompt(name, state))}</div>
     </div>`;
@@ -617,6 +629,10 @@ function setAlign(name, val){
   markStackDirty();
   renderAlignList();
   announce(`${name}: ${alignmentPrompt(name, val)}`);
+}
+
+function setAlignFromButton(button){
+  setAlign(button.dataset.value || '', button.dataset.align || '');
 }
 
 function renderRecommendation(){

@@ -212,6 +212,7 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
       <div class="align-list" id="alignList"></div>
       <div class="save-row" style="margin-top:14px">
         <button class="btn btn-mint" onclick="saveAlignment()">Save Today's Check-In</button>
+        <button class="btn btn-secondary" onclick="saveToSkillStack()">Save to Skill Stack</button>
         <span class="saved-msg" id="alignSaved">Saved ✓</span>
       </div>
     </div>
@@ -385,6 +386,37 @@ function saveAlignment(){
   const msg = document.getElementById('alignSaved');
   msg.style.display='inline';
   setTimeout(()=>msg.style.display='none', 2200);
+}
+
+function buildSkillStack(){
+  const valuesText = selected.length ? selected.join(', ') : 'Choose 2-3 values and use them to decide where focus belongs next.';
+  const skill = {
+    category:'Focus',
+    id:'values-compass',
+    name:'Choose What Matters: The Values Compass',
+    url:'https://whattodo-skills.github.io/skills/values-compass.html'
+  };
+  return {
+    id:`values-compass-${Date.now()}`,
+    title:'Choose What Matters: The Values Compass',
+    goalId:'values-compass',
+    goal:'I want to use my values to choose where my attention belongs.',
+    category:'Focus',
+    objective:'Name what matters and choose one small value-based action.',
+    practiceOption:'Choose core values, ask what matters here, and place focus where that value points.',
+    activity:`Core values: ${valuesText}`,
+    outcome:'Feel clearer, steadier, and less scattered when stress pulls attention away.',
+    source:'the-values-compass',
+    summary:`Values Compass practice. Core values: ${valuesText}`,
+    skills:[skill],
+    createdAt:new Date().toISOString()
+  };
+}
+
+function saveToSkillStack(){
+  const stack = buildSkillStack();
+  window.parent.postMessage({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}}, '*');
+  alert('Skill Stack save requested.');
 }
 
 // Init

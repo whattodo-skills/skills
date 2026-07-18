@@ -147,7 +147,7 @@ input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:
     <h3>Try this tonight</h3>
     <p>Pick one small window: five minutes, one task, one next physical action. Each time attention drifts, notice, name, and return. That repeated return is how you train your brain away from automatic distraction.</p>
   </div>
-  <div class="btn-row"><button class="btn btn-secondary btn-full" onclick="resetAll()">Start over</button></div>
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="saveToSkillStack()">Save to Skill Stack</button><button class="btn btn-secondary btn-full" onclick="resetAll()">Start over</button></div>
 </div>
 
 <div class="footer-note">What To Do! — self-guided skill building for everyday life.</div>
@@ -161,6 +161,19 @@ function recordSkillComplete(completionType='finish') {
     skillSlug: 'single-task-focus-practice',
     completionType
   }, '*');
+}
+
+function buildSkillStack(){
+  const pulls=allPulls();
+  const skill={category:'Focus',id:'single-task-focus-practice',name:'Managing Distractions: Single Task Focus',url:'https://whattodo-skills.github.io/skills/Single_Task_Focus_Practice.html'};
+  return {id:`single-task-focus-practice-${Date.now()}`,title:'Managing Distractions: Single Task Focus',goalId:'single-task-focus-practice',goal:'I want to return to one task when distractions pull my attention away.',category:'Focus',objective:'Choose one visible physical action and practice returning to it.',practiceOption:'Notice the distraction, name it lightly, and bring hands or eyes back to the task.',activity:state.moment||'Practice one next physical action.',outcome:'Train attention away from automatic distraction and back to the present task.',source:'single-task-focus-practice',summary:`Focus moment: ${state.moment||'one task'}\nPulls: ${pulls.length?pulls.join(', '):'distraction'}\nReturn reps: ${state.driftCount||0}`,skills:[skill],createdAt:new Date().toISOString()};
+}
+
+function saveToSkillStack(){
+  const stack=buildSkillStack();
+  recordSkillComplete('save-to-skill-stack');
+  window.parent.postMessage({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack,updatedAt:new Date().toISOString()}},'*');
+  alert('Skill Stack save requested.');
 }
 
 const state={moment:'',pulls:[],timer:null,total:300,remaining:300,running:false,driftCount:0,lastDriftLabel:''};

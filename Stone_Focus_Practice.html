@@ -548,6 +548,7 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
   <div class="btn-row">
     <a class="btn btn-primary" href="https://www.whattodo.coach/terribot-premium" target="_blank" rel="noopener">Ask TerriBot to help you direct your attention</a>
+    <button class="btn btn-secondary" onclick="saveToSkillStack()">Save to Skill Stack</button>
     <button class="btn btn-secondary" onclick="startOver()">Practice again</button>
     <button class="btn btn-secondary" onclick="goTo('screen-home')">Back to start</button>
   </div>
@@ -606,6 +607,32 @@ function postReflectionUpdate(){
       manyReturns:Number(wanderCount) >= 4
     }
   }, '*');
+}
+
+function buildSkillStack(){
+  const skill = {category:'Focus', id:'stone-focus-practice', name:'Direct Your Attention with Stone Focus Practice', url:'https://whattodo-skills.github.io/skills/Stone_Focus_Practice.html'};
+  return {
+    id:`stone-focus-practice-${Date.now()}`,
+    title:'Direct Your Attention with Stone Focus Practice',
+    goalId:'stone-focus-practice',
+    goal:'I want to direct my attention instead of letting distractions choose for me.',
+    category:'Focus',
+    objective:'Use the stone cue to place attention on purpose.',
+    practiceOption:'Follow the stone, notice wandering, and return attention gently.',
+    activity:pullChoice || 'Practice Stone in the lake.',
+    outcome:'Feel less scattered and more able to choose the next focus.',
+    source:'stone-focus-practice',
+    summary:`Stone Focus Practice\nSeconds completed: ${practiceDuration}\nReturns noticed: ${wanderCount || 'Not entered'}\nNext challenge: ${nextChallenge}`,
+    skills:[skill],
+    createdAt:new Date().toISOString()
+  };
+}
+
+function saveToSkillStack(){
+  const stack = buildSkillStack();
+  recordSkillComplete('save-to-skill-stack');
+  window.parent.postMessage({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}}, '*');
+  alert('Skill Stack save requested.');
 }
 
 function updateAdaptiveChallenge(){

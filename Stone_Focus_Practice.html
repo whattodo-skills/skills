@@ -278,6 +278,17 @@ textarea {
   background:#fff;
 }
 textarea:focus { outline:none; border-color:var(--blue); }
+input[type="number"] {
+  width:100%;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  padding:12px 14px;
+  font-family:inherit;
+  font-size:1rem;
+  color:var(--text);
+  background:#fff;
+}
+input[type="number"]:focus { outline:none; border-color:var(--blue); }
 .small-label {
   color:var(--muted);
   font-size:.8rem;
@@ -286,6 +297,32 @@ textarea:focus { outline:none; border-color:var(--blue); }
   text-transform:uppercase;
   margin-bottom:8px;
 }
+.completion-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+  margin-top:12px;
+}
+.difficulty-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+.difficulty-chip {
+  border:2px solid var(--border);
+  background:white;
+  color:var(--navy);
+  border-radius:999px;
+  padding:10px 14px;
+  font-family:inherit;
+  font-size:.9rem;
+  font-weight:800;
+  cursor:pointer;
+  min-height:44px;
+  transition:border-color .2s, background .2s, transform .15s;
+}
+.difficulty-chip:hover { border-color:var(--blue-lt); transform:translateY(-1px); }
+.difficulty-chip.selected { border-color:var(--blue); background:var(--blue-bg); }
 .complete-card {
   background:linear-gradient(135deg,var(--navy),#1e2d6e);
   color:white;
@@ -308,6 +345,7 @@ textarea:focus { outline:none; border-color:var(--blue); }
   .focus-scene { height:330px; }
   .stone.settle { top:260px; }
   .btn { width:100%; }
+  .difficulty-chip { width:100%; border-radius:8px; text-align:left; }
 }
 </style>
 </head>
@@ -423,7 +461,7 @@ textarea:focus { outline:none; border-color:var(--blue); }
   <div class="card">
     <div class="small-label">Quick reflection</div>
     <h3>Where could you use this today?</h3>
-    <textarea id="reflection" placeholder="Example: When I start scrolling before bed, I can pause, picture the stone sinking, and shift my focus to getting ready for sleep."></textarea>
+    <textarea id="reflection" placeholder="Example: When I start scrolling before bed, I can pause, picture the stone sinking, and shift my focus to getting ready for sleep." oninput="postReflectionUpdate()"></textarea>
   </div>
 
   <div class="notice-box">
@@ -437,13 +475,35 @@ textarea:focus { outline:none; border-color:var(--blue); }
 
 <div class="screen" id="screen-complete">
   <div class="complete-card">
-    <h2>Nice work.</h2>
+    <h2>You completed 60 seconds.</h2>
     <p>You did not just read about focus. You practiced choosing where your attention goes. That is the part that makes this useful in real life.</p>
+  </div>
+
+  <div class="card">
+    <h3>Notice what happened.</h3>
+    <div class="completion-grid">
+      <div>
+        <label class="small-label" for="wander-count">How many times did you notice your attention wandering?</label>
+        <input id="wander-count" type="number" min="0" step="1" inputmode="numeric" placeholder="Example: 3" oninput="setWanderCount(this.value)">
+      </div>
+      <div>
+        <div class="small-label">How difficult was returning?</div>
+        <div class="difficulty-row" id="return-difficulty">
+          <button class="difficulty-chip" onclick="setReturnDifficulty('easy', this)">Easy</button>
+          <button class="difficulty-chip" onclick="setReturnDifficulty('moderate', this)">Moderate</button>
+          <button class="difficulty-chip" onclick="setReturnDifficulty('hard', this)">Hard</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="card">
     <h3>Your focus cue</h3>
     <p><strong>Stone in the lake.</strong> Let the pull pass by like water. Let your attention sink toward the next thing you are choosing on purpose.</p>
+  </div>
+
+  <div class="notice-box">
+    <strong>Next challenge:</strong> repeat this practice for 90 seconds, or use “Stone in the lake” during one real distraction today.
   </div>
 
   <div class="btn-row">
@@ -470,6 +530,8 @@ function recordSkillComplete(completionType='finish') {
 let pullChoice = '';
 let timer = null;
 let seconds = 60;
+let wanderCount = '';
+let returnDifficulty = '';
 const practiceLines = [
   {time:60, text:'Picture a small stone at the surface of a quiet lake.'},
   {time:50, text:'Choose the stone as the place your attention goes. Slowly. No rush.'},
@@ -485,6 +547,34 @@ function goTo(id){
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
+}
+
+function postReflectionUpdate(){
+  window.parent.postMessage({
+    type:'focusLogUpdate',
+    skillSlug:'stone-focus-practice',
+    payload:{
+      skillTitle:'Direct Your Attention with Stone Focus Practice',
+      pullChoice,
+      reflection:document.getElementById('reflection')?.value || '',
+      secondsCompleted:60,
+      attentionWanderCount:wanderCount,
+      returnDifficulty,
+      nextChallenge:'Repeat for 90 seconds or use Stone in the lake during one real distraction.'
+    }
+  }, '*');
+}
+
+function setWanderCount(value){
+  wanderCount = value;
+  postReflectionUpdate();
+}
+
+function setReturnDifficulty(value, button){
+  returnDifficulty = value;
+  document.querySelectorAll('#return-difficulty .difficulty-chip').forEach(b => b.classList.remove('selected'));
+  button.classList.add('selected');
+  postReflectionUpdate();
 }
 
 function selectPull(button, choice){
@@ -546,9 +636,13 @@ function resetPractice(){
 function startOver(){
   resetPractice();
   pullChoice = '';
+  wanderCount = '';
+  returnDifficulty = '';
   document.querySelectorAll('.check-chip').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.difficulty-chip').forEach(b => b.classList.remove('selected'));
   document.getElementById('choose-next').disabled = true;
   document.getElementById('reflection').value = '';
+  document.getElementById('wander-count').value = '';
   goTo('screen-home');
 }
 </script>

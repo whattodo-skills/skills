@@ -13,69 +13,79 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
 .hero{background:linear-gradient(135deg,var(--navy),#24306a);color:white;padding:32px 24px;border-bottom:4px solid var(--mint);text-align:center}
 .eyebrow{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);font-weight:800;margin-bottom:6px}
 .hero h1{font-size:clamp(1.5rem,4vw,2rem);font-weight:800;line-height:1.1;margin-bottom:10px}
-.hero p{color:rgba(255,255,255,.75);line-height:1.65;max-width:720px;font-size:.97rem;margin:0 auto}
-.wrap{max-width:860px;margin:0 auto;padding:28px 20px}
+.hero p{color:rgba(255,255,255,.75);line-height:1.65;max-width:760px;font-size:.97rem;margin:0 auto}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px}
 .section{margin-bottom:32px}
 .section-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .section-label::after{content:'';height:1px;background:var(--border);flex:1}
 .panel{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
 .panel p{color:var(--muted);font-size:.92rem;line-height:1.65;margin-bottom:12px}
 .panel p:last-child{margin-bottom:0}
-.panel h3{color:var(--navy);font-size:1.05rem;font-weight:800;margin-bottom:8px}
+.panel h3{color:var(--navy);font-size:1.08rem;font-weight:800;margin-bottom:8px}
 .callout{background:var(--mint-bg);border-left:4px solid var(--mint);border-radius:10px;padding:14px 16px;margin:14px 0}
 .callout p{color:#2a4a42;margin:0;font-size:.9rem;line-height:1.6}
 .callout strong{color:var(--navy)}
 .orange-callout{background:var(--orange-bg);border-left:4px solid var(--orange)}
 .orange-callout p{color:#6b3a00}
-
-/* Values grid */
-.values-intro{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:16px}
-.values-limit{background:var(--blue-bg);border-radius:10px;padding:10px 14px;font-size:.84rem;color:var(--blue);font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.values-intro,.align-intro{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:16px}
+.values-limit{background:var(--blue-bg);border-radius:10px;padding:10px 14px;font-size:.84rem;color:var(--blue);font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}
 .values-limit span{background:var(--navy);color:white;border-radius:999px;padding:2px 10px;font-size:.82rem}
-.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .val-card{border:2px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;background:white;transition:.15s;text-align:left;width:100%}
 .val-card:hover{border-color:var(--blue);background:var(--blue-bg)}
-.val-card.selected{border-color:var(--navy);background:var(--navy);color:white}
-.val-card.selected .val-name{color:white}
-.val-card.selected .val-desc{color:rgba(255,255,255,.7)}
-.val-card.disabled{opacity:.45;cursor:not-allowed}
+.val-card[aria-pressed="true"]{border-color:var(--navy);background:var(--navy);color:white}
+.val-card[aria-pressed="true"] .val-name{color:white}
+.val-card[aria-pressed="true"] .val-desc{color:rgba(255,255,255,.7)}
+.val-card:disabled{opacity:.45;cursor:not-allowed}
 .val-name{font-weight:800;font-size:.95rem;color:var(--navy);margin-bottom:4px}
 .val-desc{font-size:.78rem;color:var(--muted);line-height:1.45}
-
-/* Your Core 3 */
+.custom-value{background:var(--blue-bg);border-radius:14px;padding:16px;margin:8px 0 18px}
+.custom-value label,.field label,.pivot-panel label{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:var(--navy);margin-bottom:6px}
+.custom-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
+input,textarea,select{font:inherit}
+.text-input,.text-area,.pivot-select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 12px;background:white;color:var(--navy)}
+.text-area{min-height:82px;resize:vertical;line-height:1.5}
+.form-hint{font-size:.82rem;color:var(--muted);line-height:1.45;margin-top:8px}
+.validation-msg{font-size:.86rem;color:#7a3a00;font-weight:800;line-height:1.45;margin-top:8px}
 .core3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}
-.core-slot{border:2px dashed var(--border);border-radius:14px;padding:16px;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:white;transition:.2s}
+.core-slot{border:2px dashed var(--border);border-radius:14px;padding:16px;min-height:116px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:white;transition:.2s}
 .core-slot.filled{border-style:solid;border-color:var(--mint);background:var(--mint-bg)}
-.core-slot .slot-num{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--muted);margin-bottom:6px}
+.slot-num{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--muted);margin-bottom:6px}
 .core-slot.filled .slot-num{color:#2a6357}
-.core-slot .slot-name{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:4px}
-.core-slot .slot-pivot{font-size:.78rem;color:var(--muted);line-height:1.4;font-style:italic}
-.core-slot .slot-empty{font-size:.82rem;color:#bbb;line-height:1.45}
-
-/* Pivot tool */
-.pivot-panel{background:linear-gradient(135deg,var(--navy),#24306a);color:white;border-radius:var(--radius);padding:22px;margin-bottom:0}
-.pivot-panel h3{font-size:1.05rem;font-weight:800;margin-bottom:6px;color:white}
+.slot-name{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:4px}
+.slot-pivot{font-size:.78rem;color:var(--muted);line-height:1.4;font-style:italic}
+.slot-empty{font-size:.82rem;color:#8c8c8c;line-height:1.45}
+.pivot-panel{background:linear-gradient(135deg,var(--navy),#24306a);color:white;border-radius:var(--radius);padding:22px}
+.pivot-panel h3{font-size:1.08rem;font-weight:800;margin-bottom:6px;color:white}
 .pivot-panel p{color:rgba(255,255,255,.72);font-size:.88rem;line-height:1.6;margin-bottom:16px}
-.pivot-select{width:100%;border:0;border-radius:10px;padding:12px;font:inherit;font-size:.95rem;font-weight:700;color:var(--navy);background:white;margin-bottom:14px;cursor:pointer}
-.pivot-question{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:16px;font-size:1rem;font-weight:700;color:white;line-height:1.55;min-height:56px;display:flex;align-items:center}
-.pivot-question.empty{color:rgba(255,255,255,.4);font-style:italic;font-weight:400;font-size:.88rem}
-
-/* Alignment check */
-.align-intro{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:16px}
-.align-list{display:flex;flex-direction:column;gap:10px}
-.align-item{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:white;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.align-item.empty-state{justify-content:center;color:var(--muted);font-size:.88rem;font-style:italic}
-.align-val-name{font-weight:800;color:var(--navy);font-size:.95rem}
-.align-buttons{display:flex;gap:6px}
-.align-btn{border:1.5px solid var(--border);border-radius:999px;padding:7px 13px;font:inherit;font-size:.78rem;font-weight:800;cursor:pointer;background:white;color:var(--muted);transition:.14s;white-space:nowrap}
-.align-btn:hover{border-color:var(--navy);color:var(--navy)}
-.align-btn.yes{border-color:#2a6357;background:var(--mint-bg);color:#2a6357}
-.align-btn.drift{border-color:var(--orange);background:var(--orange-bg);color:#7a3a00}
-.align-btn.unsure{border-color:var(--blue);background:var(--blue-bg);color:var(--blue)}
-.align-saved{font-size:.78rem;color:#2a6357;font-weight:800;margin-top:8px;display:none}
+.pivot-panel label{color:var(--mint)}
+.pivot-select{border:0;margin-bottom:14px;font-weight:700;cursor:pointer}
+.pivot-question,.action-summary,.recommendation{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:16px;font-size:1rem;font-weight:700;color:white;line-height:1.55;margin-bottom:12px}
+.pivot-question.empty,.action-summary.empty{color:rgba(255,255,255,.48);font-style:italic;font-weight:400;font-size:.9rem}
+.pivot-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.action-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.choice-btn,.align-btn{border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font:inherit;font-size:.86rem;font-weight:800;cursor:pointer;background:white;color:var(--navy);transition:.14s;text-align:left}
+.choice-btn:hover,.align-btn:hover{border-color:var(--navy)}
+.choice-btn[aria-pressed="true"],.align-btn[aria-pressed="true"]{border-color:var(--mint);background:var(--mint-bg);color:#244b42}
+.begin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.progress-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.level-card{border:1.5px solid var(--border);border-radius:14px;background:white;padding:14px;text-align:center}
+.level-card strong{display:block;color:var(--navy);font-size:.88rem;margin-bottom:4px}
+.level-card span{display:block;color:var(--muted);font-size:.78rem;line-height:1.35}
 .align-date{font-size:.75rem;color:var(--muted);margin-bottom:10px}
-
-/* vs Goals */
+.align-list{display:flex;flex-direction:column;gap:10px}
+.align-item{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:white;display:grid;grid-template-columns:minmax(130px,.7fr) 1.3fr;gap:14px;align-items:start}
+.align-item.empty-state{display:block;text-align:center;color:var(--muted);font-size:.88rem;font-style:italic}
+.align-val-name{font-weight:800;color:var(--navy);font-size:.96rem}
+.align-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.align-btn{border-radius:999px;padding:7px 13px;font-size:.78rem;white-space:nowrap}
+.align-btn.yes[aria-pressed="true"]{border-color:#2a6357;background:var(--mint-bg);color:#2a6357}
+.align-btn.drift[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-bg);color:#7a3a00}
+.align-btn.unsure[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-bg);color:var(--blue)}
+.align-prompt{grid-column:1 / -1;background:var(--bg);border-radius:10px;padding:12px;color:var(--navy);font-weight:700;line-height:1.45}
+.checkin-recommendation{background:var(--orange-bg);border-left:4px solid var(--orange);border-radius:10px;padding:14px 16px;margin-top:14px;color:#5c3200;font-weight:800;line-height:1.55}
+.history-list{display:grid;gap:8px;margin-top:12px}
+.history-item{background:var(--bg);border-radius:10px;padding:12px;color:var(--navy);font-size:.88rem;line-height:1.45}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
 .compare-card{border-radius:14px;padding:16px}
 .compare-card.goals{background:var(--orange-bg);border:1.5px solid #ffd4b0}
@@ -88,22 +98,26 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
 .compare-list li::before{content:'';position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%}
 .compare-card.goals .compare-list li::before{background:var(--orange)}
 .compare-card.values .compare-list li::before{background:var(--mint)}
-
 .save-row{margin-top:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .btn{border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:.9rem;text-decoration:none}
 .btn-primary{background:var(--navy);color:white}
 .btn-secondary{background:var(--blue-bg);color:var(--blue)}
 .btn-mint{background:var(--mint-bg);color:#2a6357}
-.saved-msg{color:#2a6357;font-weight:800;font-size:.88rem;display:none}
-
-@media(max-width:680px){
+.btn:disabled{opacity:.48;cursor:not-allowed}
+.saved-msg,.save-status{color:#2a6357;font-weight:800;font-size:.88rem;display:none}
+.saved-msg.show,.save-status.show{display:inline}
+.sr-live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+@media(max-width:760px){
   .values-grid{grid-template-columns:repeat(2,1fr)}
-  .core3{grid-template-columns:1fr}
-  .compare-grid{grid-template-columns:1fr}
-  .align-item{flex-direction:column;align-items:flex-start}
+  .core3,.progress-grid,.compare-grid,.custom-grid,.pivot-fields{grid-template-columns:1fr}
+  .align-item{grid-template-columns:1fr}
 }
-@media(max-width:400px){
-  .values-grid{grid-template-columns:1fr}
+@media(max-width:480px){
+  .values-grid,.action-options,.begin-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
 }
 </style>
 </head>
@@ -112,75 +126,124 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
 <div class="hero">
   <div class="eyebrow">Focus</div>
   <h1>Choose What Matters: The Values Compass</h1>
-  <p>Values are the internal GPS that guides your focus, especially when you feel overwhelmed or stressed. While goals are destinations, values describe where your presence and focus is most meaningful to you.</p>
+  <p>Values help you decide where your focus belongs. This practice turns a value into one small action so you can return to what matters when stress, urgency, or avoidance pulls your attention away.</p>
 </div>
 
 <div class="wrap">
-
-  <!-- What is a Value -->
   <div class="section">
     <div class="section-label">What is a value?</div>
     <div class="panel">
-      <p>A value is a <strong>continuous direction, not a destination.</strong> It names what matters enough to deserve your attention, energy, and presence. Think of it like heading West — you never actually "arrive" at West, but you can always check your compass to see if you are still moving in that direction.</p>
+      <p>A value is a <strong>continuous direction, not a destination.</strong> It names the quality of action you want to practice. Goals tell you what you hope will happen. Values tell you how you want to show up while you take the next step.</p>
       <div class="callout">
-        <p><strong>Example:</strong> If you value <em>Reliability</em>, that value can help you push through the resistance of starting a difficult email. If you value <em>Kindness</em>, it can act as a buffer when you feel the urge to snap at a coworker during a stressful afternoon.</p>
+        <p><strong>Example:</strong> If you value Reliability, your next action might be opening the difficult email and writing one honest sentence. If you value Kindness, your next action might be pausing before a hard conversation and asking, "What is the kind response here?"</p>
       </div>
-      <p>We pay attention to the things that feel important. When your values are clear, you have a way to decide where your focus belongs instead of letting urgency, stress, avoidance, or other people's demands choose for you.</p>
-      <p>When you are keyed up or stuck, your brain often loses track of the "why" behind your actions. By naming your values, you create a standard to measure your attention and actions against — even when emotions are running high.</p>
+      <p>When life gets loud, your focus can get pulled toward urgency, avoidance, worry, or other people's reactions. Your values give your attention a place to return.</p>
       <div class="callout orange-callout">
         <p><strong>The focus skill:</strong> pause, ask "What matters here?", choose one value, and put your next small action where that value points.</p>
       </div>
     </div>
   </div>
 
-  <!-- Pick Your Values -->
   <div class="section">
-    <div class="section-label">Choose your core 3</div>
+    <div class="section-label">Choose your core values</div>
     <div class="panel">
-      <p class="values-intro">To identify your values, look for the qualities that make you feel most like yourself when you live them. While many things may feel important, trying to live by twenty values at once creates the very overwhelm this program seeks to reduce. Choose the <strong>2–3 values</strong> that resonate most with your current life stage — the ones that, when followed, leave you feeling steady, clear, and more present even on a hard day.</p>
-      <div class="values-limit">Select up to 3 &nbsp;<span id="countBadge">0 / 3</span></div>
-      <div class="values-grid" id="valuesGrid"></div>
-      <div class="save-row">
-        <button class="btn btn-primary" onclick="saveValues()">Save My Values</button>
-        <span class="saved-msg" id="savedMsg">Saved ✓</span>
+      <p class="values-intro">Choose the <strong>2-3 values</strong> that matter most in this season of life. Save is available after two values so your compass has enough direction without becoming overwhelming.</p>
+      <div class="values-limit" aria-live="polite">
+        <span id="countBadge">0 / 3</span>
+        <div id="valueRule">Choose at least 2 and no more than 3 values.</div>
       </div>
+      <div class="values-grid" id="valuesGrid"></div>
+      <div class="custom-value">
+        <h3>Another value that matters to me</h3>
+        <div class="custom-grid">
+          <div class="field">
+            <label for="customValueName">Short value name</label>
+            <input class="text-input" id="customValueName" type="text" maxlength="32" placeholder="Example: Playfulness">
+          </div>
+          <div class="field">
+            <label for="customValueAction">What does this look like in action?</label>
+            <input class="text-input" id="customValueAction" type="text" maxlength="110" placeholder="Example: bringing lightness into a tense moment">
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px">
+          <label for="customValuePivot">Pivot question</label>
+          <input class="text-input" id="customValuePivot" type="text" maxlength="140" placeholder="Example: What would help me bring playfulness here?">
+        </div>
+        <div class="save-row">
+          <button class="btn btn-secondary" type="button" onclick="addCustomValue()">Add custom value</button>
+          <span class="validation-msg" id="customMsg" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="save-row">
+        <button class="btn btn-primary" id="saveValuesBtn" onclick="saveValues()" disabled>Save My Values</button>
+        <span class="saved-msg" id="savedMsg" role="status" aria-live="polite">Saved.</span>
+      </div>
+      <div class="validation-msg" id="saveHelp">Select at least 2 values before saving.</div>
     </div>
   </div>
 
-  <!-- Your Core 3 -->
   <div class="section">
-    <div class="section-label">Your core 3</div>
+    <div class="section-label">Your core values</div>
     <div class="panel">
-      <p>Your core values are not a performance checklist. They are attention anchors. When stress scatters your focus, these are the places you can come back to.</p>
+      <p>Your values are attention anchors, not a performance checklist. When stress scatters your focus, these are the places you can come back to.</p>
       <div class="core3" id="core3"></div>
     </div>
   </div>
 
-  <!-- Pivot Tool -->
   <div class="section">
-    <div class="section-label">Pivot from stress</div>
+    <div class="section-label">Practice the pivot</div>
     <div class="pivot-panel">
-      <h3>The Values Pivot Question</h3>
-      <p>When you feel stuck — tightness in the chest, urge to scroll, shallow breathing, racing thoughts — use this to shift from reactive to intentional. Select one of your values below, then choose one small action that puts your attention back on what matters.</p>
+      <h3>The Values Pivot Practice</h3>
+      <p>Select one value for this moment, name the situation, and choose one small action. The practice is not thinking about values. The practice is doing one value-based action.</p>
+      <label for="pivotSelect">Value for this moment</label>
       <select class="pivot-select" id="pivotSelect" onchange="updatePivot()">
-        <option value="">— Choose a value —</option>
+        <option value="">Choose a value</option>
       </select>
-      <div class="pivot-question empty" id="pivotQuestion">Your value-based focus question will appear here once you select a value above.</div>
+      <div class="pivot-question empty" id="pivotQuestion" aria-live="polite">Your value-based focus question will appear here once you select a value.</div>
+      <div class="pivot-fields">
+        <div class="field">
+          <label for="situationInput">What situation needs your focus?</label>
+          <textarea class="text-area" id="situationInput" oninput="updateActionSummary()" placeholder="Example: I need to start a message I have been avoiding."></textarea>
+        </div>
+        <div class="field">
+          <label>What is one small action this value points to?</label>
+          <div class="action-options" id="actionOptions"></div>
+          <input class="text-input" id="customAction" type="text" maxlength="100" placeholder="Write my own action" oninput="setCustomAction(this.value)">
+        </div>
+      </div>
+      <div class="field" style="margin-top:12px">
+        <label>I will begin</label>
+        <div class="begin-grid" id="beginOptions"></div>
+      </div>
+      <div class="action-summary empty" id="actionSummary" aria-live="polite">Choose a value, action, and start time to create your next step.</div>
     </div>
   </div>
 
-  <!-- Values vs Goals -->
+  <div class="section">
+    <div class="section-label">Skill progression</div>
+    <div class="panel">
+      <p>Progress is based on returning to values in real life, not on reporting perfect alignment.</p>
+      <div class="progress-grid">
+        <div class="level-card"><strong>Level 1</strong><span>Clarify your core values.</span></div>
+        <div class="level-card"><strong>Level 2</strong><span>Use one value during stress.</span></div>
+        <div class="level-card"><strong>Level 3</strong><span>Complete one value-based action.</span></div>
+        <div class="level-card"><strong>Level 4</strong><span>Review what helped or blocked you.</span></div>
+        <div class="level-card"><strong>Level 5</strong><span>Repeat the value in a harder situation.</span></div>
+      </div>
+    </div>
+  </div>
+
   <div class="section">
     <div class="section-label">Values vs. Goals</div>
     <div class="panel">
-      <p>It is easy to confuse a value with a goal. A goal is <em>"finish the project by Friday."</em> A value is <em>"diligence"</em> or <em>"excellence."</em> If you hit a roadblock, your attention may jump to failure, shame, or panic — but you can still return your focus to diligence by communicating the delay clearly and working steadily.</p>
+      <p>It is easy to confuse a value with a goal. A goal is <em>"finish the project by Friday."</em> A value is <em>"diligence"</em> or <em>"excellence."</em> If you hit a roadblock, your attention may jump to failure, shame, or panic, but you can still return your focus to diligence by communicating clearly and taking the next steady step.</p>
       <div class="compare-grid">
         <div class="compare-card goals">
           <h4>Goals</h4>
           <ul class="compare-list">
             <li>External outcomes</li>
             <li>Can be blocked by circumstances</li>
-            <li>You either hit them or you don't</li>
+            <li>You either hit them or you do not</li>
             <li>"Finish the project by Friday"</li>
           </ul>
         </div>
@@ -188,204 +251,441 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
           <h4>Values</h4>
           <ul class="compare-list">
             <li>Internal directions</li>
-            <li>Always accessible to you</li>
-            <li>You can always act in alignment</li>
+            <li>Always available in your next action</li>
+            <li>You can return to them after drifting</li>
             <li>"I act with diligence"</li>
           </ul>
         </div>
       </div>
-      <div class="callout" style="margin-top:16px;margin-bottom:0">
-        <p>This distinction is vital for maintaining <strong>self-trust and focus when life becomes unpredictable.</strong> Goals tell you what you hope will happen. Values tell you where to place your attention next.</p>
-      </div>
     </div>
   </div>
 
-  <!-- Daily Alignment Check -->
   <div class="section">
     <div class="section-label">Daily alignment check</div>
     <div class="panel">
-      <p class="align-intro">At the end of the day, don't just look at what you checked off your list. Ask: <strong>"In what moments today did I give my attention to what matters?"</strong> <strong>"Where did I live my values?"</strong> and <strong>"Where did I drift?"</strong> This is not self-criticism — it is data collection.</p>
-      <div class="callout">
-        <p><strong>What living by values can feel like:</strong> clearer, steadier, less scattered, and more grounded. You may still feel stressed, but you are less likely to feel yanked around by whatever is loudest.</p>
-      </div>
+      <p class="align-intro">At the end of the day, ask: <strong>"Where did I give my attention to what matters?"</strong> and <strong>"Where did I drift?"</strong> This is not self-criticism. It is information you can use to choose tomorrow's next step.</p>
       <div class="align-date" id="alignDate"></div>
       <div class="align-list" id="alignList"></div>
+      <div class="checkin-recommendation" id="checkinRecommendation" aria-live="polite">Choose an alignment response to create tomorrow's next step.</div>
       <div class="save-row" style="margin-top:14px">
         <button class="btn btn-mint" onclick="saveAlignment()">Save Today's Check-In</button>
-        <button class="btn btn-secondary" onclick="saveToSkillStack()">Save to Skill Stack</button>
-        <span class="saved-msg" id="alignSaved">Saved ✓</span>
+        <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skill Stack</button>
+        <span class="saved-msg" id="alignSaved" role="status" aria-live="polite">Saved.</span>
+        <span class="save-status" id="stackStatus" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
+      <div class="history-list" id="historyList"></div>
     </div>
   </div>
-
 </div>
+
+<div class="sr-live" id="liveRegion" aria-live="polite" aria-atomic="true"></div>
 
 <script>
 const ALL_VALUES = [
-  {name:'Integrity',    desc:'Doing what you said you would do.',                         pivot:'What would someone with integrity do right now?'},
-  {name:'Curiosity',   desc:'Approaching problems with questions rather than judgments.', pivot:'What question could I ask instead of assuming?'},
-  {name:'Courage',     desc:'Doing the hard thing even when you are afraid.',             pivot:'What would I do if I were acting with courage right now?'},
-  {name:'Connection',  desc:'Prioritizing the quality of your relationships.',            pivot:'What would strengthen connection in this moment?'},
-  {name:'Stability',   desc:'Creating a predictable and safe environment.',               pivot:'What small action would create more steadiness right now?'},
-  {name:'Growth',      desc:'Valuing the process of learning over the result.',           pivot:'What could I learn from this situation?'},
-  {name:'Reliability', desc:'Following through consistently, even in small things.',      pivot:'What does following through look like right now?'},
-  {name:'Kindness',    desc:'Choosing gentleness toward yourself and others.',            pivot:'What is the kind response in this moment?'},
-  {name:'Clarity',     desc:'Cutting through noise to see and communicate clearly.',      pivot:'What one thing could I clarify right now?'},
-  {name:'Patience',    desc:'Staying steady when outcomes take time.',                    pivot:'What does patience look like in this moment?'},
-  {name:'Diligence',   desc:'Applying consistent, focused effort.',                       pivot:'What is the next steady step I can take?'},
-  {name:'Excellence',  desc:'Doing your best with the resources you have.',               pivot:'What would doing this well look like?'},
-  {name:'Honesty',     desc:'Speaking and acting truthfully, even when it is uncomfortable.', pivot:'What is the honest thing to do right now?'},
-  {name:'Creativity',  desc:'Finding new ways to approach old problems.',                 pivot:'What is an unexpected approach I could try?'},
-  {name:'Balance',     desc:'Tending to multiple areas of life without losing yourself.', pivot:'What needs attention that I have been neglecting?'},
-  {name:'Compassion',  desc:'Responding to pain — your own or others\' — with care.',    pivot:'What would a compassionate response look like right now?'},
-  {name:'Autonomy',    desc:'Making choices that reflect your own needs and judgment.',   pivot:'What choice here is actually mine to make?'},
-  {name:'Accountability', desc:'Owning your actions and their impact.',                  pivot:'What can I take ownership of right now?'},
+  {name:'Integrity',desc:'Doing what you said you would do.',pivot:'What would someone with integrity do right now?'},
+  {name:'Curiosity',desc:'Approaching problems with questions rather than judgments.',pivot:'What question could I ask instead of assuming?'},
+  {name:'Courage',desc:'Doing the hard thing even when you are afraid.',pivot:'What would I do if I were acting with courage right now?'},
+  {name:'Connection',desc:'Prioritizing the quality of your relationships.',pivot:'What would strengthen connection in this moment?'},
+  {name:'Steadiness',desc:'Responding consistently and thoughtfully when circumstances change.',pivot:'What small action would help me respond steadily right now?'},
+  {name:'Growth',desc:'Valuing the process of learning over the result.',pivot:'What could I learn from this situation?'},
+  {name:'Reliability',desc:'Following through consistently, even in small things.',pivot:'What does following through look like right now?'},
+  {name:'Kindness',desc:'Choosing gentleness toward yourself and others.',pivot:'What is the kind response in this moment?'},
+  {name:'Clarity',desc:'Cutting through noise to see and communicate clearly.',pivot:'What one thing could I clarify right now?'},
+  {name:'Patience',desc:'Staying steady when outcomes take time.',pivot:'What does patience look like in this moment?'},
+  {name:'Diligence',desc:'Applying consistent, focused effort.',pivot:'What is the next steady step I can take?'},
+  {name:'Excellence',desc:'Bringing care and skill while accepting real limits.',pivot:'What would careful, skillful effort look like within my real limits?'},
+  {name:'Honesty',desc:'Speaking and acting truthfully, even when it is uncomfortable.',pivot:'What is the honest thing to do right now?'},
+  {name:'Creativity',desc:'Finding new ways to approach old problems.',pivot:'What is an unexpected approach I could try?'},
+  {name:'Balance',desc:'Giving thoughtful attention to the parts of life that matter.',pivot:'What part of life needs thoughtful attention right now?'},
+  {name:'Compassion',desc:'Responding to pain, your own or others, with care.',pivot:'What would a compassionate response look like right now?'},
+  {name:'Autonomy',desc:'Making choices that reflect your own needs and judgment.',pivot:'What choice here is actually mine to make?'},
+  {name:'Accountability',desc:'Owning your actions and their impact.',pivot:'What can I take ownership of right now?'}
 ];
 
-const STORAGE_KEY = 'wtd_values_v1';
-const ALIGN_KEY   = 'wtd_values_align_v1';
+const ACTIONS = ['Start for two minutes','Send the message','Ask one clear question','Put the phone away','Take one caring action','Write my own action'];
+const BEGIN_TIMES = ['Now','Within 10 minutes','Later today'];
+const STORAGE_KEY = 'wtd_values_v2';
+const ALIGN_KEY = 'wtd_values_align_history_v2';
 
 let selected = [];
+let customValues = [];
 let alignState = {};
+let pivotState = {value:'',situation:'',action:'',begin:''};
+let saveTimeout = null;
+let stackSaved = false;
 
-function todayStr(){ return new Date().toISOString().slice(0,10); }
+function localDateKey(){
+  const d = new Date();
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0,10);
+}
+
+function announce(text){
+  document.getElementById('liveRegion').textContent = text;
+}
+
+function escapeHtml(value){
+  return String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function jsArg(value){
+  return JSON.stringify(String(value || '')).replace(/</g, '\\u003c');
+}
+
+function valuesCatalog(){
+  return ALL_VALUES.concat(customValues);
+}
+
+function valueByName(name){
+  return valuesCatalog().find(v => v.name === name);
+}
+
+function cleanAction(){
+  return pivotState.action || 'one small value-based action';
+}
 
 function load(){
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){ const d=JSON.parse(raw); selected=d.selected||[]; }
+    if(raw){
+      const data = JSON.parse(raw);
+      customValues = Array.isArray(data.customValues) ? data.customValues.slice(0,10) : [];
+      selected = Array.isArray(data.selected) ? data.selected.filter(v => valueByName(v)).slice(0,3) : [];
+      pivotState = Object.assign(pivotState, data.pivotState || {});
+    }
   } catch(e){}
   try {
     const raw = localStorage.getItem(ALIGN_KEY);
-    if(raw){ const d=JSON.parse(raw); if(d.date===todayStr()) alignState=d.state||{}; }
+    if(raw){
+      const data = JSON.parse(raw);
+      const today = localDateKey();
+      const todayItem = Array.isArray(data.history) ? data.history.find(item => item.date === today) : null;
+      alignState = todayItem && todayItem.state ? todayItem.state : {};
+    }
   } catch(e){}
 }
 
 function persist(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({selected}));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({selected, customValues, pivotState}));
 }
 
-function persistAlign(){
-  localStorage.setItem(ALIGN_KEY, JSON.stringify({date:todayStr(), state:alignState}));
+function markStackDirty(){
+  if(stackSaved){
+    resetStackUi();
+  }
+}
+
+function selectedCountText(){
+  return `${selected.length} / 3`;
+}
+
+function canSaveValues(){
+  return selected.length >= 2 && selected.length <= 3;
 }
 
 function renderValuesGrid(){
   const grid = document.getElementById('valuesGrid');
-  grid.innerHTML = ALL_VALUES.map(v => {
+  grid.innerHTML = valuesCatalog().map(v => {
     const isSel = selected.includes(v.name);
     const isDisabled = !isSel && selected.length >= 3;
-    return `<button class="val-card ${isSel?'selected':''} ${isDisabled?'disabled':''}" onclick="toggleValue('${v.name}')" ${isDisabled?'disabled':''}>
-      <div class="val-name">${v.name}</div>
-      <div class="val-desc">${v.desc}</div>
+    return `<button class="val-card" type="button" aria-pressed="${isSel ? 'true' : 'false'}" onclick="toggleValue(${jsArg(v.name)})" ${isDisabled ? 'disabled' : ''}>
+      <div class="val-name">${escapeHtml(v.name)}</div>
+      <div class="val-desc">${escapeHtml(v.desc)}</div>
     </button>`;
   }).join('');
-  document.getElementById('countBadge').textContent = `${selected.length} / 3`;
+  document.getElementById('countBadge').textContent = selectedCountText();
+  document.getElementById('saveValuesBtn').disabled = !canSaveValues();
+  document.getElementById('saveHelp').textContent = canSaveValues() ? 'Ready to save your values.' : 'Select at least 2 values before saving.';
+  announce(`${selected.length} values selected.`);
 }
 
 function toggleValue(name){
-  if(selected.includes(name)){
-    selected = selected.filter(v=>v!==name);
+  const clean = String(name || '').trim();
+  if(selected.includes(clean)){
+    selected = selected.filter(v => v !== clean);
   } else {
     if(selected.length >= 3) return;
-    selected.push(name);
+    selected.push(clean);
   }
-  renderValuesGrid();
-  renderCore3();
-  renderPivotSelect();
-  renderAlignList();
+  if(!selected.includes(pivotState.value)){
+    pivotState.value = '';
+  }
+  markStackDirty();
+  persist();
+  renderAll();
+}
+
+function addCustomValue(){
+  const name = document.getElementById('customValueName').value.trim();
+  const action = document.getElementById('customValueAction').value.trim();
+  const pivot = document.getElementById('customValuePivot').value.trim();
+  const msg = document.getElementById('customMsg');
+  if(!name || !action){
+    msg.textContent = 'Add a value name and what it looks like in action.';
+    return;
+  }
+  if(valuesCatalog().some(v => v.name.toLowerCase() === name.toLowerCase())){
+    msg.textContent = 'That value is already available.';
+    return;
+  }
+  const custom = {
+    name,
+    desc: action,
+    pivot: pivot || `What would ${name.toLowerCase()} look like in action right now?`
+  };
+  customValues.push(custom);
+  if(selected.length < 3) selected.push(name);
+  document.getElementById('customValueName').value = '';
+  document.getElementById('customValueAction').value = '';
+  document.getElementById('customValuePivot').value = '';
+  msg.textContent = `${name} added.`;
+  markStackDirty();
+  persist();
+  renderAll();
 }
 
 function saveValues(){
+  if(!canSaveValues()) return;
   persist();
-  const msg = document.getElementById('savedMsg');
-  msg.style.display='inline';
-  setTimeout(()=>msg.style.display='none', 2200);
-  try { window.parent.postMessage({type:'saveValues', values:selected}, '*'); } catch(e){}
+  showInlineStatus('savedMsg', 'Saved.');
+  window.parent.postMessage({type:'saveValues', values:selected}, '*');
 }
 
 function applySubscriberValues(values){
   if(!Array.isArray(values)) return;
-  selected = values
+  const incoming = values
     .map(v => String(v || '').trim())
-    .filter(v => ALL_VALUES.some(item => item.name === v))
+    .map(v => v === 'Stability' ? 'Steadiness' : v)
+    .filter(Boolean)
     .slice(0, 3);
+  incoming.forEach(name => {
+    if(!valueByName(name)){
+      customValues.push({
+        name,
+        desc:`Practicing ${name.toLowerCase()} through one clear action.`,
+        pivot:`What would ${name.toLowerCase()} look like in action right now?`
+      });
+    }
+  });
+  selected = incoming.filter(v => valueByName(v)).slice(0, 3);
   persist();
-  renderValuesGrid();
-  renderCore3();
-  renderPivotSelect();
-  renderAlignList();
+  renderAll();
 }
 
 function renderCore3(){
   const el = document.getElementById('core3');
-  const slots = [0,1,2].map(i => {
+  el.innerHTML = [0,1,2].map(i => {
     const name = selected[i];
     if(name){
-      const v = ALL_VALUES.find(x=>x.name===name);
+      const v = valueByName(name) || {};
       return `<div class="core-slot filled">
         <div class="slot-num">Value ${i+1}</div>
-        <div class="slot-name">${name}</div>
-        <div class="slot-pivot">"${v.pivot}"</div>
+        <div class="slot-name">${escapeHtml(name)}</div>
+        <div class="slot-pivot">"${escapeHtml(v.pivot || '')}"</div>
       </div>`;
     }
     return `<div class="core-slot">
       <div class="slot-num">Value ${i+1}</div>
       <div class="slot-empty">Choose a value above to fill this slot</div>
     </div>`;
-  });
-  el.innerHTML = slots.join('');
+  }).join('');
 }
 
 function renderPivotSelect(){
   const sel = document.getElementById('pivotSelect');
-  sel.innerHTML = '<option value="">— Choose a value —</option>' +
-    selected.map(name => `<option value="${name}">${name}</option>`).join('');
-  document.getElementById('pivotQuestion').textContent = 'Your value-based focus question will appear here once you select a value above.';
-  document.getElementById('pivotQuestion').classList.add('empty');
+  sel.innerHTML = '<option value="">Choose a value</option>' + selected.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
+  sel.value = selected.includes(pivotState.value) ? pivotState.value : '';
+  renderActionOptions();
+  renderBeginOptions();
+  updatePivot(false);
 }
 
-function updatePivot(){
-  const name = document.getElementById('pivotSelect').value;
-  const el   = document.getElementById('pivotQuestion');
-  if(!name){ el.textContent='Your value-based focus question will appear here once you select a value above.'; el.classList.add('empty'); return; }
-  const v = ALL_VALUES.find(x=>x.name===name);
-  el.textContent = `If ${name} matters here, where does my attention belong next? ${v.pivot}`;
-  el.classList.remove('empty');
+function updatePivot(shouldPersist = true){
+  const selectedValue = document.getElementById('pivotSelect').value;
+  pivotState.value = selectedValue;
+  pivotState.situation = document.getElementById('situationInput').value.trim();
+  const el = document.getElementById('pivotQuestion');
+  if(!selectedValue){
+    el.textContent = 'Your value-based focus question will appear here once you select a value.';
+    el.classList.add('empty');
+  } else {
+    const v = valueByName(selectedValue) || {};
+    el.textContent = `If ${selectedValue} matters here, where does my focus belong next? ${v.pivot || ''}`;
+    el.classList.remove('empty');
+  }
+  if(shouldPersist){
+    markStackDirty();
+    persist();
+  }
+  updateActionSummary(false);
+}
+
+function renderActionOptions(){
+  const wrap = document.getElementById('actionOptions');
+  wrap.innerHTML = ACTIONS.map(action => {
+    const pressed = pivotState.action === action && action !== 'Write my own action';
+    return `<button class="choice-btn" type="button" aria-pressed="${pressed ? 'true' : 'false'}" onclick="selectAction(${jsArg(action)})">${escapeHtml(action)}</button>`;
+  }).join('');
+  if(!ACTIONS.includes(pivotState.action)){
+    document.getElementById('customAction').value = pivotState.action || '';
+  }
+}
+
+function renderBeginOptions(){
+  const wrap = document.getElementById('beginOptions');
+  wrap.innerHTML = BEGIN_TIMES.map(time => `<button class="choice-btn" type="button" aria-pressed="${pivotState.begin === time ? 'true' : 'false'}" onclick="selectBegin(${jsArg(time)})">${escapeHtml(time)}</button>`).join('');
+}
+
+function selectAction(action){
+  if(action === 'Write my own action'){
+    document.getElementById('customAction').focus();
+    return;
+  }
+  pivotState.action = action;
+  document.getElementById('customAction').value = '';
+  markStackDirty();
+  persist();
+  renderActionOptions();
+  updateActionSummary();
+}
+
+function setCustomAction(value){
+  pivotState.action = value.trim();
+  markStackDirty();
+  persist();
+  renderActionOptions();
+  updateActionSummary();
+}
+
+function selectBegin(time){
+  pivotState.begin = time;
+  markStackDirty();
+  persist();
+  renderBeginOptions();
+  updateActionSummary();
+}
+
+function updateActionSummary(shouldPersist = true){
+  pivotState.situation = document.getElementById('situationInput').value.trim();
+  if(shouldPersist){
+    markStackDirty();
+    persist();
+  }
+  const box = document.getElementById('actionSummary');
+  if(!pivotState.value || !pivotState.action || !pivotState.begin){
+    box.textContent = 'Choose a value, action, and start time to create your next step.';
+    box.classList.add('empty');
+    return;
+  }
+  const situation = pivotState.situation ? ` In this situation: ${pivotState.situation}` : '';
+  box.textContent = `My next action: ${pivotState.action}. I will begin: ${pivotState.begin}.${situation}`;
+  box.classList.remove('empty');
 }
 
 function renderAlignList(){
-  const el   = document.getElementById('alignList');
-  const date = document.getElementById('alignDate');
-  date.textContent = 'Today · ' + new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-
+  const el = document.getElementById('alignList');
+  document.getElementById('alignDate').textContent = 'Today · ' + new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
   if(!selected.length){
     el.innerHTML = '<div class="align-item empty-state">Choose your core values above to unlock the alignment check.</div>';
+    renderRecommendation();
     return;
   }
-
   el.innerHTML = selected.map(name => {
     const state = alignState[name] || '';
     return `<div class="align-item">
-      <div class="align-val-name">${name}</div>
+      <div class="align-val-name">${escapeHtml(name)}</div>
       <div class="align-buttons">
-        <button class="align-btn ${state==='yes'?'yes':''}" onclick="setAlign('${name}','yes')">✓ Focused on it</button>
-        <button class="align-btn ${state==='drift'?'drift':''}" onclick="setAlign('${name}','drift')">↗ Drifted from it</button>
-        <button class="align-btn ${state==='unsure'?'unsure':''}" onclick="setAlign('${name}','unsure')">~ Not sure</button>
+        <button class="align-btn yes" type="button" aria-pressed="${state === 'yes'}" onclick="setAlign(${jsArg(name)},'yes')">Focused on it</button>
+        <button class="align-btn drift" type="button" aria-pressed="${state === 'drift'}" onclick="setAlign(${jsArg(name)},'drift')">Drifted from it</button>
+        <button class="align-btn unsure" type="button" aria-pressed="${state === 'unsure'}" onclick="setAlign(${jsArg(name)},'unsure')">Not sure</button>
       </div>
+      <div class="align-prompt">${escapeHtml(alignmentPrompt(name, state))}</div>
     </div>`;
   }).join('');
+  renderRecommendation();
+}
+
+function alignmentPrompt(name, state){
+  if(state === 'yes') return 'What action helped you live this value?';
+  if(state === 'drift') return 'What is one small course correction you can make?';
+  if(state === 'unsure') return 'What evidence would show this value in action tomorrow?';
+  return 'Choose one response to get a next-step prompt.';
 }
 
 function setAlign(name, val){
   alignState[name] = val;
+  markStackDirty();
   renderAlignList();
+  announce(`${name}: ${alignmentPrompt(name, val)}`);
+}
+
+function renderRecommendation(){
+  document.getElementById('checkinRecommendation').textContent = checkinRecommendation();
+}
+
+function checkinRecommendation(){
+  const priority = selected.find(name => alignState[name] === 'drift') || selected.find(name => alignState[name] === 'unsure') || selected.find(name => alignState[name] === 'yes') || pivotState.value || selected[0];
+  if(!priority) return 'Choose an alignment response to create tomorrow\'s next step.';
+  const value = valueByName(priority) || {};
+  if(alignState[priority] === 'yes'){
+    return `Tomorrow, practice ${priority} by repeating the action that helped today. Before the first similar moment, ask, "${value.pivot || 'What would this value look like in action?'}"`;
+  }
+  if(alignState[priority] === 'drift'){
+    return `Tomorrow, practice ${priority} by choosing one small course correction before the moment gets loud. Ask, "${value.pivot || 'What would this value look like in action?'}"`;
+  }
+  if(alignState[priority] === 'unsure'){
+    return `Tomorrow, practice ${priority} by looking for one clear piece of evidence that you acted on it. Ask, "${value.pivot || 'What would this value look like in action?'}"`;
+  }
+  return `Tomorrow, practice ${priority} by taking one small action: ${cleanAction()}.`;
 }
 
 function saveAlignment(){
-  persistAlign();
-  const msg = document.getElementById('alignSaved');
-  msg.style.display='inline';
-  setTimeout(()=>msg.style.display='none', 2200);
+  const date = localDateKey();
+  let history = [];
+  try {
+    const raw = localStorage.getItem(ALIGN_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      history = Array.isArray(data.history) ? data.history : [];
+    }
+  } catch(e){}
+  const entry = {
+    date,
+    displayDate:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+    state:alignState,
+    recommendation:checkinRecommendation(),
+    action:pivotState.action || ''
+  };
+  history = history.filter(item => item.date !== date);
+  history.unshift(entry);
+  history = history.slice(0,7);
+  localStorage.setItem(ALIGN_KEY, JSON.stringify({history}));
+  showInlineStatus('alignSaved', 'Saved.');
+  renderHistory();
+}
+
+function renderHistory(){
+  const el = document.getElementById('historyList');
+  let history = [];
+  try {
+    const raw = localStorage.getItem(ALIGN_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      history = Array.isArray(data.history) ? data.history : [];
+    }
+  } catch(e){}
+  if(!history.length){
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = history.slice(0,5).map(item => `<div class="history-item"><strong>${escapeHtml(item.displayDate || item.date)}:</strong> ${escapeHtml(item.recommendation || 'Practice one small value-based action.')}</div>`).join('');
+}
+
+function showInlineStatus(id, text){
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2400);
 }
 
 function buildSkillStack(){
@@ -396,6 +696,7 @@ function buildSkillStack(){
     name:'Choose What Matters: The Values Compass',
     url:'https://whattodo-skills.github.io/skills/values-compass.html'
   };
+  const nextAction = pivotState.action ? `Next action: ${pivotState.action}. Begin: ${pivotState.begin || 'not selected'}.` : 'Next action not selected yet.';
   return {
     id:`values-compass-${Date.now()}`,
     title:'Choose What Matters: The Values Compass',
@@ -404,33 +705,84 @@ function buildSkillStack(){
     category:'Focus',
     objective:'Name what matters and choose one small value-based action.',
     practiceOption:'Choose core values, ask what matters here, and place focus where that value points.',
-    activity:`Core values: ${valuesText}`,
+    activity:`Core values: ${valuesText}. ${nextAction}`,
     outcome:'Feel clearer, steadier, and less scattered when stress pulls attention away.',
     source:'the-values-compass',
-    summary:`Values Compass practice. Core values: ${valuesText}`,
+    summary:`Values Compass practice. Core values: ${valuesText}\nSelected value: ${pivotState.value || 'not selected'}\nSituation: ${pivotState.situation || 'not named'}\n${nextAction}\nRecommendation: ${checkinRecommendation()}`,
     skills:[skill],
+    currentLevel:'Level 3 - Act',
+    lastPracticeDate:new Date().toISOString(),
+    personalizedNextPracticeRecommendation:checkinRecommendation(),
     createdAt:new Date().toISOString()
   };
 }
 
-function saveToSkillStack(){
-  const stack = buildSkillStack();
-  window.parent.postMessage({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}}, '*');
-  alert('Skill Stack save requested.');
+function resetStackUi(){
+  if(saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = null;
+  stackSaved = false;
+  const btn = document.getElementById('saveStackBtn');
+  const status = document.getElementById('stackStatus');
+  btn.disabled = false;
+  btn.textContent = 'Save to Skill Stack';
+  status.textContent = '';
+  status.classList.remove('show');
 }
 
-// Init
+function saveToSkillStack(){
+  const stack = buildSkillStack();
+  const btn = document.getElementById('saveStackBtn');
+  const status = document.getElementById('stackStatus');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  status.textContent = 'Saving to Skill Stack...';
+  status.classList.add('show');
+  window.parent.postMessage({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}}, '*');
+  if(saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(() => {
+    if(stackSaved) return;
+    btn.disabled = false;
+    btn.textContent = 'Save to Skill Stack';
+    status.textContent = 'Save did not finish. Please try again.';
+  }, 8000);
+}
+
+function renderAll(){
+  renderValuesGrid();
+  renderCore3();
+  document.getElementById('situationInput').value = pivotState.situation || '';
+  renderPivotSelect();
+  updateActionSummary(false);
+  renderAlignList();
+  renderHistory();
+}
+
 load();
-renderValuesGrid();
-renderCore3();
-renderPivotSelect();
-renderAlignList();
+renderAll();
 
 window.addEventListener('message', function(event){
   const msg = event.data || {};
   if(msg.type === 'subscriberValues' || msg.type === 'valuesData'){
     applySubscriberValues(msg.values || []);
+    return;
   }
+  if(msg.type !== 'dashboardSaveResult' || msg.action !== 'skillStackSaved') return;
+  if(saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = null;
+  const btn = document.getElementById('saveStackBtn');
+  const status = document.getElementById('stackStatus');
+  btn.disabled = false;
+  if(msg.ok){
+    stackSaved = true;
+    btn.textContent = 'Saved to Skill Stack';
+    status.textContent = 'Saved to Skill Stack.';
+    status.classList.add('show');
+    return;
+  }
+  stackSaved = false;
+  btn.textContent = 'Save to Skill Stack';
+  status.textContent = 'Save did not finish. Please try again.';
+  status.classList.add('show');
 });
 
 try { window.parent.postMessage({type:'valuesCompassReady'}, '*'); } catch(e){}

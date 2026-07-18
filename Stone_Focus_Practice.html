@@ -323,6 +323,18 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 }
 .difficulty-chip:hover { border-color:var(--blue-lt); transform:translateY(-1px); }
 .difficulty-chip.selected { border-color:var(--blue); background:var(--blue-bg); }
+.rep-note {
+  display:none;
+  background:var(--mint-bg);
+  border-left:4px solid var(--mint);
+  border-radius:8px;
+  padding:12px 14px;
+  color:var(--navy);
+  font-size:.9rem;
+  line-height:1.6;
+  margin-top:12px;
+}
+.rep-note.active { display:block; }
 .complete-card {
   background:linear-gradient(135deg,var(--navy),#1e2d6e);
   color:white;
@@ -485,6 +497,7 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
       <div>
         <label class="small-label" for="wander-count">How many times did you notice your attention wandering?</label>
         <input id="wander-count" type="number" min="0" step="1" inputmode="numeric" placeholder="Example: 3" oninput="setWanderCount(this.value)">
+        <div class="rep-note" id="rep-note"><strong>Many returns count.</strong> Each return is a deliberate practice repetition, not poor performance.</div>
       </div>
       <div>
         <div class="small-label">How difficult was returning?</div>
@@ -502,8 +515,8 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
     <p><strong>Stone in the lake.</strong> Let the pull pass by like water. Let your attention sink toward the next thing you are choosing on purpose.</p>
   </div>
 
-  <div class="notice-box">
-    <strong>Next challenge:</strong> repeat this practice for 90 seconds, or use “Stone in the lake” during one real distraction today.
+  <div class="notice-box" id="next-challenge-box">
+    <strong>Next challenge:</strong> <span id="next-challenge">Choose how difficult returning felt, then this practice will suggest your next step.</span>
   </div>
 
   <div class="btn-row">
@@ -532,6 +545,7 @@ let timer = null;
 let seconds = 60;
 let wanderCount = '';
 let returnDifficulty = '';
+let nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
 const practiceLines = [
   {time:60, text:'Picture a small stone at the surface of a quiet lake.'},
   {time:50, text:'Choose the stone as the place your attention goes. Slowly. No rush.'},
@@ -560,13 +574,28 @@ function postReflectionUpdate(){
       secondsCompleted:60,
       attentionWanderCount:wanderCount,
       returnDifficulty,
-      nextChallenge:'Repeat for 90 seconds or use Stone in the lake during one real distraction.'
+      nextChallenge,
+      manyReturns:Number(wanderCount) >= 4
     }
   }, '*');
 }
 
+function updateAdaptiveChallenge(){
+  const challengeMap = {
+    hard:'Repeat for 60 seconds and reduce environmental distractions before you start.',
+    moderate:'Try 90 seconds next time.',
+    easy:'Use “Stone in the lake” during one real task, notification, urge, or worry.'
+  };
+  nextChallenge = challengeMap[returnDifficulty] || 'Choose how difficult returning felt, then this practice will suggest your next step.';
+  const challengeEl = document.getElementById('next-challenge');
+  if (challengeEl) challengeEl.textContent = nextChallenge;
+  const repNote = document.getElementById('rep-note');
+  if (repNote) repNote.classList.toggle('active', Number(wanderCount) >= 4);
+}
+
 function setWanderCount(value){
   wanderCount = value;
+  updateAdaptiveChallenge();
   postReflectionUpdate();
 }
 
@@ -574,6 +603,7 @@ function setReturnDifficulty(value, button){
   returnDifficulty = value;
   document.querySelectorAll('#return-difficulty .difficulty-chip').forEach(b => b.classList.remove('selected'));
   button.classList.add('selected');
+  updateAdaptiveChallenge();
   postReflectionUpdate();
 }
 
@@ -638,11 +668,13 @@ function startOver(){
   pullChoice = '';
   wanderCount = '';
   returnDifficulty = '';
+  nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
   document.querySelectorAll('.check-chip').forEach(b => b.classList.remove('selected'));
   document.querySelectorAll('.difficulty-chip').forEach(b => b.classList.remove('selected'));
   document.getElementById('choose-next').disabled = true;
   document.getElementById('reflection').value = '';
   document.getElementById('wander-count').value = '';
+  updateAdaptiveChallenge();
   goTo('screen-home');
 }
 </script>

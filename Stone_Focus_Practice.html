@@ -323,6 +323,28 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 }
 .difficulty-chip:hover { border-color:var(--blue-lt); transform:translateY(-1px); }
 .difficulty-chip.selected { border-color:var(--blue); background:var(--blue-bg); }
+.duration-row {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:9px;
+  margin:0 0 14px;
+}
+.duration-chip {
+  border:2px solid var(--border);
+  background:white;
+  color:var(--navy);
+  border-radius:999px;
+  padding:9px 14px;
+  font-family:inherit;
+  font-size:.9rem;
+  font-weight:800;
+  cursor:pointer;
+  min-height:42px;
+  transition:border-color .2s, background .2s, transform .15s;
+}
+.duration-chip:hover { border-color:var(--blue-lt); transform:translateY(-1px); }
+.duration-chip.selected { border-color:var(--blue); background:var(--blue-bg); }
 .rep-note {
   display:none;
   background:var(--mint-bg);
@@ -358,6 +380,7 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   .stone.settle { top:260px; }
   .btn { width:100%; }
   .difficulty-chip { width:100%; border-radius:8px; text-align:left; }
+  .duration-chip { flex:1 1 calc(50% - 5px); border-radius:8px; }
 }
 </style>
 </head>
@@ -445,6 +468,10 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   </div>
 
   <div class="timer-card">
+    <div class="duration-row" aria-label="Choose practice length">
+      <button class="duration-chip selected" onclick="setPracticeDuration(60, this)">60 seconds</button>
+      <button class="duration-chip" onclick="setPracticeDuration(90, this)">90 seconds</button>
+    </div>
     <div class="timer" id="timer">60</div>
     <div class="timer-label" id="timer-label">seconds of steady focus</div>
   </div>
@@ -487,7 +514,7 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
 <div class="screen" id="screen-complete">
   <div class="complete-card">
-    <h2>You completed 60 seconds.</h2>
+    <h2 id="complete-title">You completed 60 seconds.</h2>
     <p>You did not just read about focus. You practiced choosing where your attention goes. That is the part that makes this useful in real life.</p>
   </div>
 
@@ -543,6 +570,7 @@ function recordSkillComplete(completionType='finish') {
 let pullChoice = '';
 let timer = null;
 let seconds = 60;
+let practiceDuration = 60;
 let wanderCount = '';
 let returnDifficulty = '';
 let nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
@@ -571,7 +599,7 @@ function postReflectionUpdate(){
       skillTitle:'Direct Your Attention with Stone Focus Practice',
       pullChoice,
       reflection:document.getElementById('reflection')?.value || '',
-      secondsCompleted:60,
+      secondsCompleted:practiceDuration,
       attentionWanderCount:wanderCount,
       returnDifficulty,
       nextChallenge,
@@ -583,7 +611,7 @@ function postReflectionUpdate(){
 function updateAdaptiveChallenge(){
   const challengeMap = {
     hard:'Repeat for 60 seconds and reduce environmental distractions before you start.',
-    moderate:'Try 90 seconds next time.',
+    moderate:'Try the 90-second timer next time.',
     easy:'Use “Stone in the lake” during one real task, notification, urge, or worry.'
   };
   nextChallenge = challengeMap[returnDifficulty] || 'Choose how difficult returning felt, then this practice will suggest your next step.';
@@ -622,12 +650,28 @@ function selectPull(button, choice){
   document.getElementById('practice-prompt').textContent = promptMap[choice];
 }
 
+function setPracticeDuration(value, button){
+  if (timer) return;
+  practiceDuration = value;
+  seconds = value;
+  document.querySelectorAll('.duration-chip').forEach(b => b.classList.remove('selected'));
+  button.classList.add('selected');
+  document.getElementById('timer').textContent = seconds;
+  document.getElementById('timer-label').textContent = value === 90 ? 'seconds of extended focus' : 'seconds of steady focus';
+  const stone = document.getElementById('stone');
+  stone.style.transition = `top ${value}s linear, transform ${value}s linear`;
+  updateSceneText();
+}
+
 function startPractice(){
   clearInterval(timer);
-  seconds = 60;
+  seconds = practiceDuration;
   document.getElementById('timer').textContent = seconds;
+  document.querySelectorAll('.duration-chip').forEach(b => b.disabled = true);
   document.getElementById('start-btn').disabled = true;
   document.getElementById('start-btn').textContent = 'Practicing...';
+  const stone = document.getElementById('stone');
+  stone.style.transition = `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
   document.getElementById('stone').classList.add('settle');
   updateSceneText();
   timer = setInterval(() => {
@@ -636,30 +680,35 @@ function startPractice(){
     updateSceneText();
     if(seconds <= 0){
       clearInterval(timer);
+      timer = null;
       document.getElementById('start-btn').disabled = false;
       document.getElementById('start-btn').textContent = 'Practice again';
+      document.getElementById('complete-title').textContent = `You completed ${practiceDuration} seconds.`;
       setTimeout(() => goTo('screen-reflect'), 900);
     }
   }, 1000);
 }
 
 function updateSceneText(){
-  const line = practiceLines.find(item => seconds <= item.time) || practiceLines[0];
+  const scaledSeconds = Math.round((seconds / practiceDuration) * 60);
+  const line = practiceLines.find(item => scaledSeconds <= item.time) || practiceLines[0];
   document.getElementById('scene-text').textContent = line.text;
 }
 
 function resetPractice(){
   clearInterval(timer);
-  seconds = 60;
+  timer = null;
+  seconds = practiceDuration;
   document.getElementById('timer').textContent = seconds;
-  document.getElementById('timer-label').textContent = 'seconds of steady focus';
+  document.getElementById('timer-label').textContent = practiceDuration === 90 ? 'seconds of extended focus' : 'seconds of steady focus';
+  document.querySelectorAll('.duration-chip').forEach(b => b.disabled = false);
   document.getElementById('start-btn').disabled = false;
   document.getElementById('start-btn').textContent = 'Start';
   const stone = document.getElementById('stone');
   stone.style.transition = 'none';
   stone.classList.remove('settle');
   stone.offsetHeight;
-  stone.style.transition = 'top 60s linear, transform 60s linear';
+  stone.style.transition = `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
   document.getElementById('scene-text').textContent = 'Picture a small stone at the surface of a quiet lake.';
 }
 

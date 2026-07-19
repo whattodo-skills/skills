@@ -853,7 +853,7 @@ function pausePracticeOnExit(){
   document.querySelectorAll('.duration-chip').forEach(b => b.disabled = false);
   document.getElementById('start-btn').disabled = false;
   document.getElementById('start-btn').textContent = 'Start';
-  announce('Timer paused because you left the practice screen.');
+  announce('Practice stopped because you left the screen.');
 }
 
 function resetPractice(){

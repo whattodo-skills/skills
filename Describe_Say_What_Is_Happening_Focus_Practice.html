@@ -23,7 +23,7 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
 .intro p:last-child,.panel p:last-child{margin-bottom:0}
 .stepper{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
 .tab{border:1.5px solid var(--border);background:white;color:var(--muted);border-radius:999px;padding:9px 14px;font:inherit;font-weight:900;cursor:pointer}
-.tab[aria-selected="true"]{background:var(--navy);color:white;border-color:var(--navy)}
+.tab[aria-current="step"]{background:var(--navy);color:white;border-color:var(--navy)}
 .screen{display:none}
 .screen.active{display:block}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -54,6 +54,8 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
 .status{color:var(--navy);font-size:.92rem;font-weight:800;line-height:1.45;min-height:1.4em;margin-top:10px}
 .invalid{border-color:var(--red)!important;background:var(--red-bg)}
 .validation{color:#8f1737;font-weight:800;line-height:1.45;margin-top:10px}
+.reset-confirm{display:none;border:1.5px solid #ffd1b5;background:var(--orange-bg);border-radius:12px;padding:12px;margin-top:10px;color:#6b3a00;font-weight:800;line-height:1.45}
+.reset-confirm.active{display:block}
 .progress-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .level-card{border:1.5px solid var(--border);border-radius:12px;padding:12px;background:white}
 .level-card strong{display:block;color:var(--navy)}
@@ -76,15 +78,15 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     <p>This matters because your inner world can quietly steer what you do next. When you can describe it clearly, you create enough space to choose an action that fits the facts, not only the urge.</p>
   </section>
 
-  <div class="stepper" role="tablist" aria-label="Notice Your Inner World steps">
-    <button class="tab" id="tab-learn" role="tab" aria-controls="learn" aria-selected="true" onclick="showById('learn')">1. Learn</button>
-    <button class="tab" id="tab-describe" role="tab" aria-controls="describe" aria-selected="false" onclick="showById('describe')">2. Describe</button>
-    <button class="tab" id="tab-action" role="tab" aria-controls="action" aria-selected="false" onclick="showById('action')">3. Choose</button>
-    <button class="tab" id="tab-review" role="tab" aria-controls="review" aria-selected="false" onclick="showById('review')">4. Review</button>
-    <button class="tab" id="tab-summary" role="tab" aria-controls="summary" aria-selected="false" onclick="showById('summary')">5. Summary</button>
+  <div class="stepper" aria-label="Notice Your Inner World steps">
+    <button class="tab" id="step-learn" aria-controls="learn" aria-current="step" onclick="showById('learn')">1. Learn</button>
+    <button class="tab" id="step-describe" aria-controls="describe" onclick="showById('describe')">2. Describe</button>
+    <button class="tab" id="step-action" aria-controls="action" onclick="showById('action')">3. Choose</button>
+    <button class="tab" id="step-review" aria-controls="review" onclick="showById('review')">4. Review</button>
+    <button class="tab" id="step-summary" aria-controls="summary" onclick="showById('summary')">5. Summary</button>
   </div>
 
-  <section class="screen active" id="learn" role="tabpanel" aria-labelledby="tab-learn">
+  <section class="screen active" id="learn" aria-labelledby="step-learn">
     <div class="grid">
       <div class="panel">
         <h2 tabindex="-1">Learn the skill</h2>
@@ -108,13 +110,20 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     </div>
   </section>
 
-  <section class="screen" id="describe" role="tabpanel" aria-labelledby="tab-describe">
+  <section class="screen" id="describe" aria-labelledby="step-describe">
     <div class="grid">
       <div class="panel">
         <h2 tabindex="-1">Describe what happened</h2>
         <p>Write what could be seen, heard, recorded, or directly observed.</p>
         <label for="whatHappened">What happened?</label>
         <textarea id="whatHappened" placeholder="Example: I sent a text at noon. It is now 4 p.m. I have not received a reply." oninput="handleInput()"></textarea>
+        <label for="factObservable">Could a camera or microphone directly record this?</label>
+        <select id="factObservable" onchange="handleInput()">
+          <option value="">Choose one</option>
+          <option value="yes">Yes - keep it as a fact.</option>
+          <option value="partly">Partly - separate what happened from the meaning I added.</option>
+          <option value="no">No - move it to story or assumption.</option>
+        </select>
         <label class="deep-field" for="seeHear">What did you see or hear?</label>
         <textarea class="deep-field" id="seeHear" placeholder="Example: Their tone got quieter. The door closed. I saw the message was read." oninput="handleInput()"></textarea>
         <label for="story">The story my mind added</label>
@@ -141,7 +150,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
           <option value="Relieved">Relieved - tension easing after pressure or fear.</option>
           <option value="Something else">Something else</option>
         </select>
-        <label for="feeling">Optional emotion words</label>
+        <label for="feeling">Emotion words</label>
         <input id="feeling" placeholder="Example: anxious and embarrassed." oninput="handleInput()">
         <label class="deep-field" for="sensation">Body sensation</label>
         <textarea class="deep-field" id="sensation" placeholder="Example: My chest feels tight. My stomach feels heavy. My jaw is tense." oninput="handleInput()"></textarea>
@@ -171,7 +180,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     </div>
   </section>
 
-  <section class="screen" id="action" role="tabpanel" aria-labelledby="tab-action">
+  <section class="screen" id="action" aria-labelledby="step-action">
     <div class="panel">
       <h2 tabindex="-1">Choose one action that fits the facts</h2>
       <p>This is separate from describing. First you notice what is happening; then you choose one response based on the facts, not only the urge.</p>
@@ -199,7 +208,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     </div>
   </section>
 
-  <section class="screen" id="review" role="tabpanel" aria-labelledby="tab-review">
+  <section class="screen" id="review" aria-labelledby="step-review">
     <div class="panel">
       <h2 tabindex="-1">Review what happened</h2>
       <p>You can use this now if something already happened, or come back later after you practice the action.</p>
@@ -219,7 +228,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     </div>
   </section>
 
-  <section class="screen" id="summary" role="tabpanel" aria-labelledby="tab-summary">
+  <section class="screen" id="summary" aria-labelledby="step-summary">
     <div class="grid">
       <div class="panel">
         <h2 tabindex="-1">Your describe summary</h2>
@@ -228,9 +237,17 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
         <p class="note orange">By default, Skills Stack saves only the skill name, category, and next practice. Check the box only if you want this private reflection included.</p>
         <div class="btns">
           <button class="btn btn-primary" id="copySummaryBtn" onclick="copySummary()">Copy summary</button>
-          <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skill Stack</button>
+          <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button>
+          <button class="btn btn-secondary" onclick="practiceAgain()">Practice again</button>
           <button class="btn btn-warning" onclick="clearDraft()">Clear saved draft from this device</button>
-          <button class="btn btn-secondary" onclick="resetAll()">Start over</button>
+          <button class="btn btn-secondary" onclick="requestStartOver()">Start over</button>
+        </div>
+        <div class="reset-confirm" id="resetConfirm" aria-live="polite">
+          Clear this practice and start over?
+          <div class="btns">
+            <button class="btn btn-warning" onclick="resetAll()">Yes, start over</button>
+            <button class="btn btn-secondary" onclick="cancelStartOver()">Keep practicing</button>
+          </div>
         </div>
         <div class="status" id="copyStatus" aria-live="polite"></div>
         <div class="status" id="stackStatus" aria-live="polite"></div>
@@ -253,32 +270,41 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
 <div class="sr-only" id="liveRegion" aria-live="polite"></div>
 <script>
 const STORAGE_KEY = 'wtd_notice_inner_world_v3';
+const SAFE_PARENT_ORIGIN = 'https://www.whattodo.coach';
 const COMPLETION_FLAGS = {};
 let mode = 'quick';
 let selectedUrge = '';
 let selectedAction = '';
 let saveTimeout = null;
 let stackSaved = false;
+let sessionId = newSessionId();
 
 function $(id){ return document.getElementById(id); }
 function val(id){ return ($(id)?.value || '').trim(); }
 function announce(text){ $('liveRegion').textContent = text; }
 function smoothBehavior(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; }
+function newSessionId(){ return (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : `notice-${Date.now()}-${Math.random().toString(16).slice(2)}`; }
+function postToParent(message){ if(window.parent === window) return; window.parent.postMessage(message, SAFE_PARENT_ORIGIN); }
 
 function recordSkillComplete(completionType='finish'){
-  if(COMPLETION_FLAGS[completionType]) return;
-  COMPLETION_FLAGS[completionType] = true;
-  window.parent.postMessage({
+  const flag = `${sessionId}:${completionType}`;
+  if(COMPLETION_FLAGS[flag]) return;
+  COMPLETION_FLAGS[flag] = true;
+  postToParent({
     type:'skillComplete',
     skillTitle:'Notice Your Inner World',
     skillSlug:'notice-your-inner-world',
-    completionType
-  }, '*');
+    completionType,
+    sessionId
+  });
 }
 
 function showById(id){
   document.querySelectorAll('.screen').forEach(screen => screen.classList.toggle('active', screen.id === id));
-  document.querySelectorAll('.tab').forEach(tab => tab.setAttribute('aria-selected', tab.getAttribute('aria-controls') === id ? 'true' : 'false'));
+  document.querySelectorAll('.tab').forEach(tab => {
+    if(tab.getAttribute('aria-controls') === id) tab.setAttribute('aria-current','step');
+    else tab.removeAttribute('aria-current');
+  });
   if(id === 'summary') renderSummary();
   const heading = document.querySelector(`#${id} h2`);
   if(heading) heading.focus({preventScroll:true});
@@ -315,7 +341,9 @@ function thoughtPhrase(){
 }
 
 function emotionText(){
-  return val('feeling') || val('emotionSelect');
+  const selected = val('emotionSelect');
+  if(selected === 'Something else') return val('feeling');
+  return val('feeling') || selected;
 }
 
 function emotionPhrase(){
@@ -356,6 +384,9 @@ function buildTranslation(){
   const story = val('story');
   const factParts = [];
   if(facts) factParts.push(`Observable fact: ${cleanSentence(facts)}`);
+  if(val('factObservable') === 'no') factParts.push('Fact check: this sounds like a story or assumption, so move the meaning into the story or assumption field.');
+  if(val('factObservable') === 'partly') factParts.push('Fact check: separate what could be recorded from the meaning your mind added.');
+  if(val('factObservable') === 'yes') factParts.push('Fact check: this sounds directly observable.');
   if(story) factParts.push(`Story my mind added: "${story}."`);
   factParts.push(unknownPhrase() || 'What I do not know yet: I can name the unknown before filling it in.');
   $('factTranslation').textContent = factParts.filter(Boolean).join(' ');
@@ -392,6 +423,7 @@ function handleEmotionChange(){
   if(val('emotionSelect') && val('emotionSelect') !== 'Something else'){
     $('feeling').value = '';
   }
+  $('feeling').placeholder = val('emotionSelect') === 'Something else' ? 'Name the emotion you notice.' : 'Example: anxious and embarrassed.';
   handleInput();
 }
 
@@ -415,9 +447,12 @@ function setCustomAction(value){
 
 function minimalDescribeComplete(){
   const hasFact = Boolean(observableFacts());
+  const factCheck = val('factObservable');
+  const factCheckOk = factCheck === 'yes' || factCheck === 'partly';
+  const customEmotionOk = val('emotionSelect') !== 'Something else' || Boolean(val('feeling'));
   const hasInner = Boolean(val('thought') || emotionText() || val('sensation') || urgeText());
   const hasUnknown = Boolean(val('assumption') || val('unknown') || val('behaviorPull'));
-  return {hasFact, hasInner, hasUnknown, ok:hasFact && hasInner && hasUnknown};
+  return {hasFact, factCheckOk, customEmotionOk, hasInner, hasUnknown, ok:hasFact && factCheckOk && customEmotionOk && hasInner && hasUnknown};
 }
 
 function actionComplete(){
@@ -433,7 +468,8 @@ function showValidation(target, message){
 function goAction(){
   const check = minimalDescribeComplete();
   if(!check.ok){
-    showValidation('describeValidation','Before choosing an action, add at least one observable fact, one inner signal, and one assumption or unknown.');
+    const message = !check.factCheckOk ? 'Before choosing an action, answer the camera or microphone fact check. If it is not observable, move the meaning into story or assumption.' : !check.customEmotionOk ? 'Name the emotion in the emotion words field when Something else is selected.' : 'Before choosing an action, add at least one observable fact, one inner signal, and one assumption or unknown.';
+    showValidation('describeValidation', message);
     return;
   }
   $('describeValidation').textContent = '';
@@ -539,7 +575,7 @@ async function copySummary(){
   const text = $('summaryBox').innerText || '';
   if(!minimalDescribeComplete().ok){
     showById('describe');
-    showValidation('describeValidation','Before copying, add at least one observable fact, one inner signal, and one assumption or unknown.');
+    showValidation('describeValidation','Before copying, complete the observable fact check, one inner signal, and one assumption or unknown.');
     return;
   }
   if(!actionComplete()){
@@ -571,17 +607,19 @@ async function copySummary(){
 }
 
 function buildSkillStack(){
-  const action = selectedAction || val('customAction') || 'Practice Quick Describe with one mild situation.';
   const includePrivate = $('includePrivateSummary').checked;
   const stack = {
-    id:'focus-notice-your-inner-world',
+    id:'notice-your-inner-world',
     title:'Notice Your Inner World',
+    skillId:'notice-your-inner-world',
+    skillName:'Notice Your Inner World',
+    category:'Focus',
+    catKey:'focus',
+    catLabel:'Focus',
     goalId:'notice-your-inner-world',
     goal:'I want to notice what is influencing my behavior before I react.',
-    category:'Focus',
     objective:'Describe facts, thoughts, emotions, body sensations, urges, and assumptions clearly.',
     practiceOption:'Use clear describing words, identify the unknown, and choose one action that fits the facts.',
-    activity:action,
     outcome:'More room to pause, check the facts, and choose a next action.',
     source:'notice-your-inner-world',
     suggestedNextPractice:recommendationText(),
@@ -600,7 +638,7 @@ function resetStackUi(){
   const status = $('stackStatus');
   if(!btn || !status) return;
   btn.disabled = false;
-  btn.textContent = 'Save to Skill Stack';
+  btn.textContent = 'Save to Skills Stack';
   status.textContent = '';
 }
 
@@ -608,7 +646,7 @@ function saveToSkillStack(){
   const check = minimalDescribeComplete();
   if(!check.ok){
     showById('describe');
-    showValidation('describeValidation','Before saving, add at least one observable fact, one inner signal, and one assumption or unknown.');
+    showValidation('describeValidation','Before saving, complete the observable fact check, one inner signal, and one assumption or unknown.');
     return;
   }
   if(!actionComplete()){
@@ -619,22 +657,23 @@ function saveToSkillStack(){
   const stack = buildSkillStack();
   const btn = $('saveStackBtn');
   const status = $('stackStatus');
+  stackSaved = false;
   btn.disabled = true;
   btn.textContent = 'Saving...';
-  status.textContent = 'Saving to Skill Stack...';
-  window.parent.postMessage({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}}, '*');
+  status.textContent = 'Saving to Skills Stack...';
+  postToParent({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}});
   if(saveTimeout) clearTimeout(saveTimeout);
   saveTimeout = setTimeout(() => {
     if(stackSaved) return;
     btn.disabled = false;
-    btn.textContent = 'Save to Skill Stack';
+    btn.textContent = 'Save to Skills Stack';
     status.textContent = 'Save did not finish. Please try again.';
   }, 8000);
 }
 
 function saveState(){
   const data = {mode, selectedUrge, selectedAction};
-  ['whatHappened','seeHear','story','thought','emotionSelect','feeling','sensation','otherUrge','assumption','unknown','behaviorPull','customAction','beginTime','outcomeSelect','outcomeNote'].forEach(id => data[id] = $(id)?.value || '');
+  ['whatHappened','factObservable','seeHear','story','thought','emotionSelect','feeling','sensation','otherUrge','assumption','unknown','behaviorPull','customAction','beginTime','outcomeSelect','outcomeNote'].forEach(id => data[id] = $(id)?.value || '');
   data.includePrivateSummary = $('includePrivateSummary')?.checked || false;
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
@@ -660,14 +699,48 @@ function clearDraft(){
   location.reload();
 }
 
+function practiceAgain(){
+  const keptMode = mode;
+  sessionStorage.removeItem(STORAGE_KEY);
+  sessionId = newSessionId();
+  selectedUrge = '';
+  selectedAction = '';
+  stackSaved = false;
+  if(saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = null;
+  document.querySelectorAll('textarea,input').forEach(el => {
+    if(el.type !== 'checkbox') el.value = '';
+  });
+  document.querySelectorAll('select').forEach(el => el.value = '');
+  document.querySelectorAll('.choice[aria-pressed="true"]').forEach(btn => btn.setAttribute('aria-pressed','false'));
+  if($('includePrivateSummary')) $('includePrivateSummary').checked = false;
+  $('copyStatus').textContent = '';
+  resetStackUi();
+  mode = keptMode;
+  setMode(mode);
+  showById('describe');
+  announce('New practice session started. Your mode was preserved.');
+}
+
+function requestStartOver(){
+  const panel = $('resetConfirm');
+  panel.classList.add('active');
+  panel.querySelector('button').focus();
+  announce('Confirm whether to clear this practice and start over.');
+}
+
+function cancelStartOver(){
+  $('resetConfirm').classList.remove('active');
+  announce('Start over canceled.');
+}
+
 function resetAll(){
-  if(confirm('Clear this practice and start over?')){
-    sessionStorage.removeItem(STORAGE_KEY);
-    location.reload();
-  }
+  sessionStorage.removeItem(STORAGE_KEY);
+  location.reload();
 }
 
 window.addEventListener('message', event => {
+  if(event.origin !== SAFE_PARENT_ORIGIN || event.source !== window.parent) return;
   const msg = event.data || {};
   if(msg.type !== 'dashboardSaveResult' || msg.action !== 'skillStackSaved') return;
   if(saveTimeout) clearTimeout(saveTimeout);
@@ -678,19 +751,19 @@ window.addEventListener('message', event => {
   if(msg.ok){
     stackSaved = true;
     recordSkillComplete('skill-saved');
-    btn.textContent = 'Saved to Skill Stack';
-    status.textContent = 'Saved to Skill Stack.';
+    btn.textContent = 'Saved to Skills Stack';
+    status.textContent = 'Saved to Skills Stack.';
     return;
   }
   stackSaved = false;
-  btn.textContent = 'Save to Skill Stack';
+  btn.textContent = 'Save to Skills Stack';
   status.textContent = 'Save did not finish. Please try again.';
 });
 
 loadState();
 setMode(mode);
 buildTranslation();
-try{ window.parent.postMessage({type:'noticeInnerWorldReady'}, '*'); }catch(e){}
+postToParent({type:'noticeInnerWorldReady'});
 </script>
 </body>
 </html>

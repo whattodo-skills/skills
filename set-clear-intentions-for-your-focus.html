@@ -68,7 +68,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     <div class="stepper" role="tablist" aria-label="Set Clear Intentions steps">
       <button class="tab" id="tab-learn" role="tab" aria-controls="learn" aria-selected="true" onclick="go('learn')">1. Learn</button>
       <button class="tab" id="tab-name" role="tab" aria-controls="name" aria-selected="false" onclick="go('name')">2. Name</button>
-      <button class="tab" id="tab-diagnose" role="tab" aria-controls="diagnose" aria-selected="false" onclick="go('diagnose')">3. Diagnose</button>
+      <button class="tab" id="tab-barrier" role="tab" aria-controls="barrier" aria-selected="false" onclick="go('barrier')">3. Notice</button>
       <button class="tab" id="tab-intend" role="tab" aria-controls="intend" aria-selected="false" onclick="go('intend')">4. Intend</button>
       <button class="tab" id="tab-begin" role="tab" aria-controls="begin" aria-selected="false" onclick="go('begin')">5. Begin</button>
       <button class="tab" id="tab-review" role="tab" aria-controls="review" aria-selected="false" onclick="go('review')">6. Review</button>
@@ -90,13 +90,13 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
       <label for="taskText">The task</label>
       <textarea id="taskText" placeholder="Example: start the report, answer the email, fold the laundry, begin studying" oninput="updateState()"></textarea>
       <div class="validation" id="nameValidation" aria-live="polite"></div>
-      <div class="btns"><button class="btn secondary" onclick="go('learn')">Back</button><button class="btn primary" onclick="goDiagnose()">Next</button></div>
+      <div class="btns"><button class="btn secondary" onclick="go('learn')">Back</button><button class="btn primary" onclick="goBarrier()">Next</button></div>
     </div>
   </section>
 
-  <section class="screen" id="diagnose" role="tabpanel" aria-labelledby="tab-diagnose">
+  <section class="screen" id="barrier" role="tabpanel" aria-labelledby="tab-barrier">
     <div class="card">
-      <h2 tabindex="-1">Diagnose what makes starting hard</h2>
+      <h2 tabindex="-1">Notice what makes starting hard</h2>
       <p>Choose the main barrier. This changes the strategy, because different starting problems need different support.</p>
       <div class="choices" id="reasonList" role="group" aria-label="Main starting barrier">
         <button class="choice" type="button" aria-pressed="false" data-reason="Too big" onclick="pickReason(this)">It feels too big.<span class="desc">Reduce the scope to one visible action.</span></button>
@@ -118,7 +118,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
         <button class="choice" type="button" aria-pressed="false" data-loop="rumination" onclick="toggleLoop(this)">I replay thoughts in my head.</button>
         <button class="choice" type="button" aria-pressed="false" data-loop="deadline pressure" onclick="toggleLoop(this)">I wait until pressure forces me.</button>
       </div>
-      <div class="validation" id="diagnoseValidation" aria-live="polite"></div>
+      <div class="validation" id="barrierValidation" aria-live="polite"></div>
       <div class="btns"><button class="btn secondary" onclick="go('name')">Back</button><button class="btn primary" onclick="goIntend()">Set intention</button></div>
     </div>
   </section>
@@ -141,7 +141,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
       <select id="minutes" onchange="updateState()"><option value="2">2 minutes</option><option value="5" selected>5 minutes</option><option value="10">10 minutes</option></select>
       <div class="box blue" id="planBox" aria-live="polite"></div>
       <div class="validation" id="intendValidation" aria-live="polite"></div>
-      <div class="btns"><button class="btn secondary" onclick="go('diagnose')">Back</button><button class="btn primary" id="startBtn" onclick="startTimer()">Start the intention</button></div>
+      <div class="btns"><button class="btn secondary" onclick="go('barrier')">Back</button><button class="btn primary" id="startBtn" onclick="startTimer()">Start the intention</button></div>
     </div>
   </section>
 
@@ -229,8 +229,8 @@ function placeText(){
 }
 function intentionText(){return `When ${cueText()}, I will ${s.step||'do one tiny first step'} for ${s.minutes||5} minutes${placeText()}.`}
 function renderPlan(){const box=$('planBox');if(!box)return;box.textContent=intentionText()}
-function goDiagnose(){if(!s.task){$('nameValidation').textContent='Name one specific task before continuing.';announce('Name one specific task before continuing.');return}$('nameValidation').textContent='';go('diagnose')}
-function goIntend(){if(!(s.reason||s.customReason)){$('diagnoseValidation').textContent='Choose or write the main starting barrier.';announce('Choose or write the main starting barrier.');return}$('diagnoseValidation').textContent='';go('intend')}
+function goBarrier(){if(!s.task){$('nameValidation').textContent='Name one specific task before continuing.';announce('Name one specific task before continuing.');return}$('nameValidation').textContent='';go('barrier')}
+function goIntend(){if(!(s.reason||s.customReason)){$('barrierValidation').textContent='Choose or write the main starting barrier.';announce('Choose or write the main starting barrier.');return}$('barrierValidation').textContent='';go('intend')}
 function intentionComplete(){return Boolean(s.step&&s.smallEnough==='Yes'&&s.cueType&&s.minutes)}
 function startTimer(){updateState();if(!s.step){$('intendValidation').textContent='Write a specific tiny first step before starting.';announce('Write a specific tiny first step before starting.');return}if(s.smallEnough!=='Yes'){$('intendValidation').textContent='Make the step small enough that you could begin it in under one minute.';announce('Make the step smaller before starting.');return}if(!s.cueType){$('intendValidation').textContent='Choose when this intention will begin.';announce('Choose when this intention will begin.');return}$('intendValidation').textContent='';s.total=s.minutes*60;s.left=s.total;s.startedSeconds=0;go('begin');$('timerText').textContent=`Work only on: ${s.step}. Starting counts.`;draw();runTimer();recordSkillComplete('practice-started')}
 function fmt(n){return `${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`}

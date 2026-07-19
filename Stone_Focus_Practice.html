@@ -130,6 +130,12 @@ body {
   transition:transform .15s, box-shadow .2s, opacity .2s;
 }
 .btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,0.12); }
+.btn:disabled { opacity:.52; cursor:not-allowed; transform:none; box-shadow:none; }
+.btn:focus-visible, .back-btn:focus-visible, .check-chip:focus-visible, .duration-chip:focus-visible, .difficulty-chip:focus-visible, textarea:focus-visible, input:focus-visible {
+  outline:3px solid rgba(79,93,173,.44);
+  outline-offset:3px;
+  border-color:var(--blue);
+}
 .btn-primary { background:var(--navy); color:#fff; }
 .btn-secondary { background:var(--blue-bg); color:var(--blue); border:1.5px solid var(--blue-lt); }
 .btn-full { width:100%; }
@@ -148,7 +154,7 @@ body {
 }
 .progress-wrap { display:flex; justify-content:center; align-items:center; gap:0; margin:0 0 18px; }
 .pdot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:.3s; }
-.pdot.active { background:var(--blue); transform:scale(1.35); }
+.pdot[aria-current="step"] { background:var(--blue); transform:scale(1.35); }
 .pdot.done { background:var(--mint); }
 .pline { width:28px; height:2px; background:var(--border); }
 .pline.done { background:var(--mint); }
@@ -251,7 +257,7 @@ body {
   gap:12px;
   line-height:1.45;
 }
-.check-chip.selected { border-color:var(--blue); background:var(--blue-bg); color:var(--navy); }
+.check-chip.selected, .check-chip[aria-pressed="true"] { border-color:var(--blue); background:var(--blue-bg); color:var(--navy); }
 .cbox {
   width:18px;
   height:18px;
@@ -322,7 +328,7 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   transition:border-color .2s, background .2s, transform .15s;
 }
 .difficulty-chip:hover { border-color:var(--blue-lt); transform:translateY(-1px); }
-.difficulty-chip.selected { border-color:var(--blue); background:var(--blue-bg); }
+.difficulty-chip.selected, .difficulty-chip[aria-pressed="true"] { border-color:var(--blue); background:var(--blue-bg); }
 .duration-row {
   display:flex;
   justify-content:center;
@@ -344,7 +350,7 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   transition:border-color .2s, background .2s, transform .15s;
 }
 .duration-chip:hover { border-color:var(--blue-lt); transform:translateY(-1px); }
-.duration-chip.selected { border-color:var(--blue); background:var(--blue-bg); }
+.duration-chip.selected, .duration-chip[aria-pressed="true"] { border-color:var(--blue); background:var(--blue-bg); }
 .rep-note {
   display:none;
   background:var(--mint-bg);
@@ -357,6 +363,22 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   margin-top:12px;
 }
 .rep-note.active { display:block; }
+.save-status {
+  display:none;
+  color:#2a6357;
+  font-weight:800;
+  text-align:center;
+  margin-top:10px;
+}
+.save-status.show { display:block; }
+.sr-status {
+  position:absolute;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+}
 .complete-card {
   background:linear-gradient(135deg,var(--navy),#1e2d6e);
   color:white;
@@ -382,6 +404,17 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   .difficulty-chip { width:100%; border-radius:8px; text-align:left; }
   .duration-chip { flex:1 1 calc(50% - 5px); border-radius:8px; }
 }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after {
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
+  .screen { animation:none!important; }
+  .water-line,.bubble { animation:none!important; }
+  .btn:hover,.difficulty-chip:hover,.duration-chip:hover { transform:none!important; }
+}
 </style>
 </head>
 <body>
@@ -390,13 +423,14 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   <div class="eyebrow">Focus</div>
   <h1>Direct Your Attention with Stone Focus Practice</h1>
 </header>
+<div id="status-region" class="sr-status" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <div class="screen active" id="screen-home">
-  <div class="progress-wrap" aria-hidden="true">
-    <div class="pdot active"></div><div class="pline"></div>
-    <div class="pdot"></div><div class="pline"></div>
-    <div class="pdot"></div><div class="pline"></div>
-    <div class="pdot"></div>
+  <div class="progress-wrap" aria-label="Step 1 of 4: Learn">
+    <div class="pdot" aria-label="Learn" aria-current="step"></div><div class="pline"></div>
+    <div class="pdot" aria-label="Choose pull"></div><div class="pline"></div>
+    <div class="pdot" aria-label="Practice"></div><div class="pline"></div>
+    <div class="pdot" aria-label="Reflect"></div>
   </div>
 
   <div class="card">
@@ -421,11 +455,11 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
 <div class="screen" id="screen-choose">
   <button class="back-btn" onclick="goTo('screen-home')">← Back</button>
-  <div class="progress-wrap" aria-hidden="true">
-    <div class="pdot done"></div><div class="pline done"></div>
-    <div class="pdot active"></div><div class="pline"></div>
-    <div class="pdot"></div><div class="pline"></div>
-    <div class="pdot"></div>
+  <div class="progress-wrap" aria-label="Step 2 of 4: Choose pull">
+    <div class="pdot done" aria-label="Learn"></div><div class="pline done"></div>
+    <div class="pdot" aria-label="Choose pull" aria-current="step"></div><div class="pline"></div>
+    <div class="pdot" aria-label="Practice"></div><div class="pline"></div>
+    <div class="pdot" aria-label="Reflect"></div>
   </div>
 
   <div class="card">
@@ -434,11 +468,11 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   </div>
 
   <div class="check-list" id="pull-list">
-    <button class="check-chip" onclick="selectPull(this, 'scrolling')"><span class="cbox"></span>Scrolling when I meant to stop</button>
-    <button class="check-chip" onclick="selectPull(this, 'worry')"><span class="cbox"></span>Replaying a worry or what-if</button>
-    <button class="check-chip" onclick="selectPull(this, 'conversation')"><span class="cbox"></span>Going over a conversation in my head</button>
-    <button class="check-chip" onclick="selectPull(this, 'headlines')"><span class="cbox"></span>Getting pulled into notifications, headlines, or posts</button>
-    <button class="check-chip" onclick="selectPull(this, 'other')"><span class="cbox"></span>Something else that is not useful right now</button>
+    <button class="check-chip" aria-pressed="false" onclick="selectPull(this, 'scrolling')"><span class="cbox"></span>Scrolling when I meant to stop</button>
+    <button class="check-chip" aria-pressed="false" onclick="selectPull(this, 'worry')"><span class="cbox"></span>Replaying a worry or what-if</button>
+    <button class="check-chip" aria-pressed="false" onclick="selectPull(this, 'conversation')"><span class="cbox"></span>Going over a conversation in my head</button>
+    <button class="check-chip" aria-pressed="false" onclick="selectPull(this, 'headlines')"><span class="cbox"></span>Getting pulled into notifications, headlines, or posts</button>
+    <button class="check-chip" aria-pressed="false" onclick="selectPull(this, 'other')"><span class="cbox"></span>Something else that is not useful right now</button>
   </div>
 
   <div class="btn-row">
@@ -448,11 +482,11 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
 <div class="screen" id="screen-practice">
   <button class="back-btn" onclick="goTo('screen-choose')">← Back</button>
-  <div class="progress-wrap" aria-hidden="true">
-    <div class="pdot done"></div><div class="pline done"></div>
-    <div class="pdot done"></div><div class="pline done"></div>
-    <div class="pdot active"></div><div class="pline"></div>
-    <div class="pdot"></div>
+  <div class="progress-wrap" aria-label="Step 3 of 4: Practice">
+    <div class="pdot done" aria-label="Learn"></div><div class="pline done"></div>
+    <div class="pdot done" aria-label="Choose pull"></div><div class="pline done"></div>
+    <div class="pdot" aria-label="Practice" aria-current="step"></div><div class="pline"></div>
+    <div class="pdot" aria-label="Reflect"></div>
   </div>
 
   <div class="prompt-box" id="practice-prompt">
@@ -468,9 +502,9 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
   </div>
 
   <div class="timer-card">
-    <div class="duration-row" aria-label="Choose practice length">
-      <button class="duration-chip selected" onclick="setPracticeDuration(60, this)">60 seconds</button>
-      <button class="duration-chip" onclick="setPracticeDuration(90, this)">90 seconds</button>
+    <div class="duration-row" role="group" aria-label="Choose practice length">
+      <button class="duration-chip selected" aria-pressed="true" onclick="setPracticeDuration(60, this)">60 seconds</button>
+      <button class="duration-chip" aria-pressed="false" onclick="setPracticeDuration(90, this)">90 seconds</button>
     </div>
     <div class="timer" id="timer">60</div>
     <div class="timer-label" id="timer-label">seconds of steady focus</div>
@@ -483,12 +517,12 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 </div>
 
 <div class="screen" id="screen-reflect">
-  <button class="back-btn" onclick="goTo('screen-practice')">← Practice again</button>
-  <div class="progress-wrap" aria-hidden="true">
-    <div class="pdot done"></div><div class="pline done"></div>
-    <div class="pdot done"></div><div class="pline done"></div>
-    <div class="pdot done"></div><div class="pline done"></div>
-    <div class="pdot active"></div>
+  <button class="back-btn" onclick="practiceAgain()">← Practice again</button>
+  <div class="progress-wrap" aria-label="Step 4 of 4: Reflect">
+    <div class="pdot done" aria-label="Learn"></div><div class="pline done"></div>
+    <div class="pdot done" aria-label="Choose pull"></div><div class="pline done"></div>
+    <div class="pdot done" aria-label="Practice"></div><div class="pline done"></div>
+    <div class="pdot" aria-label="Reflect" aria-current="step"></div>
   </div>
 
   <div class="card">
@@ -528,10 +562,19 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
       </div>
       <div>
         <div class="small-label">How difficult was returning?</div>
-        <div class="difficulty-row" id="return-difficulty">
-          <button class="difficulty-chip" onclick="setReturnDifficulty('easy', this)">Easy</button>
-          <button class="difficulty-chip" onclick="setReturnDifficulty('moderate', this)">Moderate</button>
-          <button class="difficulty-chip" onclick="setReturnDifficulty('hard', this)">Hard</button>
+        <div class="difficulty-row" id="return-difficulty" role="group" aria-label="How difficult was returning?">
+          <button class="difficulty-chip" aria-pressed="false" onclick="setReturnDifficulty('easy', this)">Easy</button>
+          <button class="difficulty-chip" aria-pressed="false" onclick="setReturnDifficulty('moderate', this)">Moderate</button>
+          <button class="difficulty-chip" aria-pressed="false" onclick="setReturnDifficulty('hard', this)">Hard</button>
+        </div>
+      </div>
+      <div>
+        <div class="small-label">Did you use “Stone in the lake” in a real situation?</div>
+        <div class="difficulty-row" id="real-use" role="group" aria-label="Did you use Stone in the lake in a real situation?">
+          <button class="difficulty-chip" aria-pressed="false" onclick="setRealUse('redirected', this)">Yes, and I redirected my attention</button>
+          <button class="difficulty-chip" aria-pressed="false" onclick="setRealUse('difficult', this)">Yes, but returning was difficult</button>
+          <button class="difficulty-chip" aria-pressed="false" onclick="setRealUse('late', this)">I noticed too late</button>
+          <button class="difficulty-chip" aria-pressed="false" onclick="setRealUse('not-yet', this)">I have not tried it yet</button>
         </div>
       </div>
     </div>
@@ -548,33 +591,27 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
   <div class="btn-row">
     <a class="btn btn-primary" href="https://www.whattodo.coach/terribot-premium" target="_blank" rel="noopener">Ask TerriBot to help you direct your attention</a>
-    <button class="btn btn-secondary" onclick="saveToSkillStack()">Save to Skill Stack</button>
-    <button class="btn btn-secondary" onclick="startOver()">Practice again</button>
-    <button class="btn btn-secondary" onclick="goTo('screen-home')">Back to start</button>
+    <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button>
+    <button class="btn btn-secondary" onclick="practiceAgain()">Practice again</button>
+    <button class="btn btn-secondary" onclick="startOver()">Start over</button>
   </div>
+  <div class="save-status" id="saveStatus" role="status" aria-live="polite" aria-atomic="true"></div>
 </div>
 
 <div class="footer-note">What To Do! skill-building practice · Self-guided focus exercise</div>
 
 <script>
-function recordSkillComplete(completionType='finish') {
-  if (window.__skillCompleteSent) return;
-  window.__skillCompleteSent = true;
-  window.parent.postMessage({
-    type: 'skillComplete',
-    skillTitle: 'Direct Your Attention with Stone Focus Practice',
-    skillSlug: 'stone-focus-practice',
-    completionType
-  }, '*');
-}
-
+const SAFE_PARENT_ORIGIN = 'https://www.whattodo.coach';
 let pullChoice = '';
 let timer = null;
 let seconds = 60;
 let practiceDuration = 60;
 let wanderCount = '';
 let returnDifficulty = '';
+let realUse = '';
 let nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
+let sessionId = 0;
+let saveTimeout = null;
 const practiceLines = [
   {time:60, text:'Picture a small stone at the surface of a quiet lake.'},
   {time:50, text:'Choose the stone as the place your attention goes. Slowly. No rush.'},
@@ -585,15 +622,52 @@ const practiceLines = [
   {time:0, text:'The stone is resting at the bottom of a quiet lake. You practiced choosing where your focus goes.'}
 ];
 
+function postToParent(message){
+  window.parent.postMessage(message, SAFE_PARENT_ORIGIN);
+}
+
+function announce(message){
+  const region = document.getElementById('status-region');
+  if (region) region.textContent = message;
+}
+
+function prefersReducedMotion(){
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function recordSkillComplete(completionType='finish') {
+  const key = `${sessionId}:${completionType}`;
+  window.__skillCompleteSent = window.__skillCompleteSent || new Set();
+  if (window.__skillCompleteSent.has(key)) return;
+  window.__skillCompleteSent.add(key);
+  postToParent({
+    type: 'skillComplete',
+    skillTitle: 'Direct Your Attention with Stone Focus Practice',
+    skillSlug: 'stone-focus-practice',
+    completionType,
+    sessionId
+  });
+}
+
 function goTo(id){
+  const active = document.querySelector('.screen.active');
+  if (active?.id === 'screen-practice' && id !== 'screen-practice') pausePracticeOnExit();
   if (id === 'screen-complete') recordSkillComplete('finish');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+  window.scrollTo({top:0, behavior:prefersReducedMotion() ? 'auto' : 'smooth'});
+  setTimeout(() => {
+    const heading = screen.querySelector('h2,h3');
+    if (heading) {
+      heading.setAttribute('tabindex','-1');
+      heading.focus({preventScroll:true});
+    }
+  }, 0);
 }
 
 function postReflectionUpdate(){
-  window.parent.postMessage({
+  postToParent({
     type:'focusLogUpdate',
     skillSlug:'stone-focus-practice',
     payload:{
@@ -603,49 +677,80 @@ function postReflectionUpdate(){
       secondsCompleted:practiceDuration,
       attentionWanderCount:wanderCount,
       returnDifficulty,
+      realUse,
       nextChallenge,
       manyReturns:Number(wanderCount) >= 4
     }
-  }, '*');
+  });
 }
 
 function buildSkillStack(){
   const skill = {category:'Focus', id:'stone-focus-practice', name:'Direct Your Attention with Stone Focus Practice', url:'https://whattodo-skills.github.io/skills/Stone_Focus_Practice.html'};
   return {
-    id:`stone-focus-practice-${Date.now()}`,
+    id:'stone-focus-practice',
     title:'Direct Your Attention with Stone Focus Practice',
-    goalId:'stone-focus-practice',
-    goal:'I want to direct my attention instead of letting distractions choose for me.',
+    skillId:'stone-focus-practice',
+    skillName:'Direct Your Attention with Stone Focus Practice',
     category:'Focus',
-    objective:'Use the stone cue to place attention on purpose.',
-    practiceOption:'Follow the stone, notice wandering, and return attention gently.',
-    activity:pullChoice || 'Practice Stone in the lake.',
-    outcome:'Feel less scattered and more able to choose the next focus.',
+    catKey:'focus',
+    catLabel:'Focus',
+    practiceUrl:'https://whattodo-skills.github.io/skills/Stone_Focus_Practice.html',
     source:'stone-focus-practice',
-    summary:`Stone Focus Practice\nSeconds completed: ${practiceDuration}\nReturns noticed: ${wanderCount || 'Not entered'}\nNext challenge: ${nextChallenge}`,
     skills:[skill],
-    createdAt:new Date().toISOString()
+    updatedAt:new Date().toISOString()
   };
 }
 
 function saveToSkillStack(){
   const stack = buildSkillStack();
   recordSkillComplete('save-to-skill-stack');
-  window.parent.postMessage({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}}, '*');
-  alert('Skill Stack save requested.');
+  const button = document.getElementById('saveStackBtn');
+  const status = document.getElementById('saveStatus');
+  button.disabled = true;
+  button.textContent = 'Saving...';
+  status.textContent = 'Saving skill to Skills Stack...';
+  status.classList.add('show');
+  announce('Saving skill to Skills Stack.');
+  postToParent({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}});
+  if (saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(() => {
+    button.disabled = false;
+    button.textContent = 'Save to Skills Stack';
+    status.textContent = 'Save did not finish. Please try again.';
+    announce('Save did not finish. Please try again.');
+  }, 8000);
 }
 
 function updateAdaptiveChallenge(){
-  const challengeMap = {
-    hard:'Repeat for 60 seconds and reduce environmental distractions before you start.',
-    moderate:'Try the 90-second timer next time.',
-    easy:'Use “Stone in the lake” during one real task, notification, urge, or worry.'
+  if (returnDifficulty === 'hard') {
+    nextChallenge = 'Repeat for 60 seconds and reduce environmental distractions before you start.';
+  } else if (returnDifficulty === 'moderate') {
+    nextChallenge = 'Try the 90-second timer next time.';
+  } else if (returnDifficulty === 'easy') {
+    nextChallenge = 'Use “Stone in the lake” during one real task, notification, urge, or worry.';
+  } else {
+    nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
+  }
+  const pullTips = {
+    scrolling:' Put the device down before saying the cue.',
+    worry:' Write the worry down, then return to the chosen activity.',
+    conversation:' Name “replaying,” then orient to one present sensory detail.',
+    headlines:' Silence one predictable notification source before the next practice.',
+    other:' Choose one small environmental support before the next practice.'
   };
-  nextChallenge = challengeMap[returnDifficulty] || 'Choose how difficult returning felt, then this practice will suggest your next step.';
+  if (returnDifficulty && pullTips[pullChoice]) nextChallenge += pullTips[pullChoice];
+  const useTips = {
+    redirected:' Keep using the cue in real moments so the return becomes familiar.',
+    difficult:' Repeat with a milder distraction and lower the intensity before returning.',
+    late:' The next rep is noticing sooner, even if the pull has already captured your attention.',
+    'not-yet':' Pick one low-stakes moment today to try the cue once.'
+  };
+  if (realUse && useTips[realUse]) nextChallenge += ` ${useTips[realUse]}`;
   const challengeEl = document.getElementById('next-challenge');
   if (challengeEl) challengeEl.textContent = nextChallenge;
   const repNote = document.getElementById('rep-note');
   if (repNote) repNote.classList.toggle('active', Number(wanderCount) >= 4);
+  announce(`Next challenge updated. ${nextChallenge}`);
 }
 
 function setWanderCount(value){
@@ -656,16 +761,29 @@ function setWanderCount(value){
 
 function setReturnDifficulty(value, button){
   returnDifficulty = value;
-  document.querySelectorAll('#return-difficulty .difficulty-chip').forEach(b => b.classList.remove('selected'));
-  button.classList.add('selected');
+  document.querySelectorAll('#return-difficulty .difficulty-chip').forEach(b => setPressed(b, false));
+  setPressed(button, true);
   updateAdaptiveChallenge();
   postReflectionUpdate();
 }
 
+function setRealUse(value, button){
+  realUse = value;
+  document.querySelectorAll('#real-use .difficulty-chip').forEach(b => setPressed(b, false));
+  setPressed(button, true);
+  updateAdaptiveChallenge();
+  postReflectionUpdate();
+}
+
+function setPressed(button, pressed){
+  button.classList.toggle('selected', pressed);
+  button.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+}
+
 function selectPull(button, choice){
   pullChoice = choice;
-  document.querySelectorAll('#pull-list .check-chip').forEach(b => b.classList.remove('selected'));
-  button.classList.add('selected');
+  document.querySelectorAll('#pull-list .check-chip').forEach(b => setPressed(b, false));
+  setPressed(button, true);
   document.getElementById('choose-next').disabled = false;
   const promptMap = {
     scrolling:'When the urge to scroll shows up, notice the pull and practice placing your attention on the stone instead.',
@@ -675,32 +793,37 @@ function selectPull(button, choice){
     other:'When your attention gets pulled somewhere unhelpful, notice the pull and practice placing it on the stone instead.'
   };
   document.getElementById('practice-prompt').textContent = promptMap[choice];
+  announce('Attention pull selected.');
 }
 
 function setPracticeDuration(value, button){
   if (timer) return;
   practiceDuration = value;
   seconds = value;
-  document.querySelectorAll('.duration-chip').forEach(b => b.classList.remove('selected'));
-  button.classList.add('selected');
+  document.querySelectorAll('.duration-chip').forEach(b => setPressed(b, false));
+  setPressed(button, true);
   document.getElementById('timer').textContent = seconds;
   document.getElementById('timer-label').textContent = value === 90 ? 'seconds of extended focus' : 'seconds of steady focus';
   const stone = document.getElementById('stone');
-  stone.style.transition = `top ${value}s linear, transform ${value}s linear`;
+  stone.style.transition = prefersReducedMotion() ? 'none' : `top ${value}s linear, transform ${value}s linear`;
   updateSceneText();
+  announce(`${value} second practice selected.`);
 }
 
 function startPractice(){
   clearInterval(timer);
+  sessionId++;
   seconds = practiceDuration;
+  resetSaveUi();
   document.getElementById('timer').textContent = seconds;
   document.querySelectorAll('.duration-chip').forEach(b => b.disabled = true);
   document.getElementById('start-btn').disabled = true;
   document.getElementById('start-btn').textContent = 'Practicing...';
   const stone = document.getElementById('stone');
-  stone.style.transition = `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
+  stone.style.transition = prefersReducedMotion() ? 'none' : `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
   document.getElementById('stone').classList.add('settle');
   updateSceneText();
+  announce(`Timer started for ${practiceDuration} seconds.`);
   timer = setInterval(() => {
     seconds--;
     document.getElementById('timer').textContent = seconds;
@@ -711,6 +834,7 @@ function startPractice(){
       document.getElementById('start-btn').disabled = false;
       document.getElementById('start-btn').textContent = 'Practice again';
       document.getElementById('complete-title').textContent = `You completed ${practiceDuration} seconds.`;
+      announce(`Timer complete. You completed ${practiceDuration} seconds.`);
       setTimeout(() => goTo('screen-reflect'), 900);
     }
   }, 1000);
@@ -718,8 +842,18 @@ function startPractice(){
 
 function updateSceneText(){
   const scaledSeconds = Math.round((seconds / practiceDuration) * 60);
-  const line = practiceLines.find(item => scaledSeconds <= item.time) || practiceLines[0];
+  const line = practiceLines.find(item => scaledSeconds >= item.time) || practiceLines[practiceLines.length - 1];
   document.getElementById('scene-text').textContent = line.text;
+}
+
+function pausePracticeOnExit(){
+  if (!timer) return;
+  clearInterval(timer);
+  timer = null;
+  document.querySelectorAll('.duration-chip').forEach(b => b.disabled = false);
+  document.getElementById('start-btn').disabled = false;
+  document.getElementById('start-btn').textContent = 'Start';
+  announce('Timer paused because you left the practice screen.');
 }
 
 function resetPractice(){
@@ -735,24 +869,86 @@ function resetPractice(){
   stone.style.transition = 'none';
   stone.classList.remove('settle');
   stone.offsetHeight;
-  stone.style.transition = `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
+  stone.style.transition = prefersReducedMotion() ? 'none' : `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
   document.getElementById('scene-text').textContent = 'Picture a small stone at the surface of a quiet lake.';
+  announce('Practice timer reset.');
+}
+
+function resetSaveUi(){
+  if (saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = null;
+  const button = document.getElementById('saveStackBtn');
+  const status = document.getElementById('saveStatus');
+  if (button) {
+    button.disabled = false;
+    button.textContent = 'Save to Skills Stack';
+  }
+  if (status) {
+    status.textContent = '';
+    status.classList.remove('show');
+  }
+}
+
+function practiceAgain(){
+  resetPractice();
+  wanderCount = '';
+  returnDifficulty = '';
+  realUse = '';
+  nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
+  document.querySelectorAll('#return-difficulty .difficulty-chip, #real-use .difficulty-chip').forEach(b => setPressed(b, false));
+  document.getElementById('wander-count').value = '';
+  document.getElementById('reflection').value = '';
+  resetSaveUi();
+  updateAdaptiveChallenge();
+  goTo('screen-practice');
 }
 
 function startOver(){
   resetPractice();
   pullChoice = '';
+  practiceDuration = 60;
+  seconds = 60;
   wanderCount = '';
   returnDifficulty = '';
+  realUse = '';
   nextChallenge = 'Choose how difficult returning felt, then this practice will suggest your next step.';
-  document.querySelectorAll('.check-chip').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.difficulty-chip').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.check-chip').forEach(b => setPressed(b, false));
+  document.querySelectorAll('.difficulty-chip').forEach(b => setPressed(b, false));
+  document.querySelectorAll('.duration-chip').forEach((b, index) => setPressed(b, index === 0));
   document.getElementById('choose-next').disabled = true;
+  document.getElementById('practice-prompt').textContent = 'What to do: choose the stone as your focus target. When your mind wanders, notice the pull, name it lightly, and return your attention to the stone.';
   document.getElementById('reflection').value = '';
   document.getElementById('wander-count').value = '';
+  document.getElementById('timer').textContent = '60';
+  document.getElementById('timer-label').textContent = 'seconds of steady focus';
+  document.getElementById('complete-title').textContent = 'You completed 60 seconds.';
+  document.getElementById('stone').style.transition = prefersReducedMotion() ? 'none' : 'top 60s linear, transform 60s linear';
+  resetSaveUi();
   updateAdaptiveChallenge();
   goTo('screen-home');
 }
+
+window.addEventListener('message', event => {
+  if (event.origin !== SAFE_PARENT_ORIGIN || event.source !== window.parent) return;
+  const message = event.data || {};
+  if (message.type !== 'dashboardSaveResult' || message.action !== 'skillStackSaved') return;
+  if (saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = null;
+  const button = document.getElementById('saveStackBtn');
+  const status = document.getElementById('saveStatus');
+  button.disabled = false;
+  if (message.ok) {
+    button.textContent = 'Saved to Skills Stack';
+    status.textContent = 'Saved to Skills Stack.';
+    status.classList.add('show');
+    announce('Saved to Skills Stack.');
+    return;
+  }
+  button.textContent = 'Save to Skills Stack';
+  status.textContent = 'Save did not finish. Please try again.';
+  status.classList.add('show');
+  announce('Save did not finish. Please try again.');
+});
 </script>
 </body>
 </html>

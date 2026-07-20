@@ -272,7 +272,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="checkin-recommendation" id="checkinRecommendation" aria-live="polite">Choose an alignment response to create tomorrow's next step.</div>
       <div class="save-row" style="margin-top:14px">
         <button class="btn btn-mint" onclick="saveAlignment()">Save Today's Check-In</button>
-        <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skill Stack</button>
+        <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button>
         <span class="saved-msg" id="alignSaved" role="status" aria-live="polite">Saved.</span>
         <span class="save-status" id="stackStatus" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
@@ -309,6 +309,7 @@ const ACTIONS = ['Start for two minutes','Send the message','Ask one clear quest
 const BEGIN_TIMES = ['Now','Within 10 minutes','Later today'];
 const STORAGE_KEY = 'wtd_values_v2';
 const ALIGN_KEY = 'wtd_values_align_history_v2';
+const SAFE_PARENT_ORIGIN = 'https://www.whattodo.coach';
 
 let selected = [];
 let customValues = [];
@@ -325,6 +326,11 @@ function localDateKey(){
 
 function announce(text){
   document.getElementById('liveRegion').textContent = text;
+}
+
+function postToParent(message){
+  if(window.parent === window) return;
+  window.parent.postMessage(message, SAFE_PARENT_ORIGIN);
 }
 
 function escapeHtml(value){
@@ -455,7 +461,7 @@ function saveValues(){
   if(!canSaveValues()) return;
   persist();
   showInlineStatus('savedMsg', 'Saved.');
-  window.parent.postMessage({type:'saveValues', values:selected}, '*');
+  postToParent({type:'saveValues', values:selected});
 }
 
 function applySubscriberValues(values){
@@ -739,19 +745,18 @@ function buildSkillStack(){
     name:'Choose What Matters: The Values Compass',
     url:'https://whattodo-skills.github.io/skills/values-compass.html'
   };
-  const nextAction = pivotState.action ? `Next action: ${pivotState.action}. Begin: ${pivotState.begin || 'not selected'}.` : 'Next action not selected yet.';
   return {
-    id:`values-compass-${Date.now()}`,
+    id:'values-compass',
     title:'Choose What Matters: The Values Compass',
     goalId:'values-compass',
     goal:'I want to use my values to choose where my attention belongs.',
     category:'Focus',
     objective:'Name what matters and choose one small value-based action.',
     practiceOption:'Choose core values, ask what matters here, and place focus where that value points.',
-    activity:`Core values: ${valuesText}. ${nextAction}`,
+    activity:`Core values: ${valuesText}. Practice one value-guided next step.`,
     outcome:'Feel clearer, steadier, and less scattered when stress pulls attention away.',
     source:'the-values-compass',
-    summary:`Values Compass practice. Core values: ${valuesText}\nSelected value: ${pivotState.value || 'not selected'}\nSituation: ${pivotState.situation || 'not named'}\n${nextAction}\nRecommendation: ${checkinRecommendation()}`,
+    summary:`Values Compass practice. Core values: ${valuesText}\nRecommendation: ${checkinRecommendation()}`,
     skills:[skill],
     currentLevel:'Level 3 - Act',
     lastPracticeDate:new Date().toISOString(),
@@ -767,25 +772,26 @@ function resetStackUi(){
   const btn = document.getElementById('saveStackBtn');
   const status = document.getElementById('stackStatus');
   btn.disabled = false;
-  btn.textContent = 'Save to Skill Stack';
+  btn.textContent = 'Save to Skills Stack';
   status.textContent = '';
   status.classList.remove('show');
 }
 
 function saveToSkillStack(){
+  stackSaved = false;
   const stack = buildSkillStack();
   const btn = document.getElementById('saveStackBtn');
   const status = document.getElementById('stackStatus');
   btn.disabled = true;
   btn.textContent = 'Saving...';
-  status.textContent = 'Saving to Skill Stack...';
+  status.textContent = 'Saving to Skills Stack...';
   status.classList.add('show');
-  window.parent.postMessage({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}}, '*');
+  postToParent({type:'dashboardStateSave', action:'skillStackSaved', payload:{stack, updatedAt:new Date().toISOString()}});
   if(saveTimeout) clearTimeout(saveTimeout);
   saveTimeout = setTimeout(() => {
     if(stackSaved) return;
     btn.disabled = false;
-    btn.textContent = 'Save to Skill Stack';
+    btn.textContent = 'Save to Skills Stack';
     status.textContent = 'Save did not finish. Please try again.';
   }, 8000);
 }
@@ -804,6 +810,7 @@ load();
 renderAll();
 
 window.addEventListener('message', function(event){
+  if(event.origin !== SAFE_PARENT_ORIGIN || event.source !== window.parent) return;
   const msg = event.data || {};
   if(msg.type === 'subscriberValues' || msg.type === 'valuesData'){
     applySubscriberValues(msg.values || []);
@@ -817,18 +824,18 @@ window.addEventListener('message', function(event){
   btn.disabled = false;
   if(msg.ok){
     stackSaved = true;
-    btn.textContent = 'Saved to Skill Stack';
-    status.textContent = 'Saved to Skill Stack.';
+    btn.textContent = 'Saved to Skills Stack';
+    status.textContent = 'Saved to Skills Stack.';
     status.classList.add('show');
     return;
   }
   stackSaved = false;
-  btn.textContent = 'Save to Skill Stack';
+  btn.textContent = 'Save to Skills Stack';
   status.textContent = 'Save did not finish. Please try again.';
   status.classList.add('show');
 });
 
-try { window.parent.postMessage({type:'valuesCompassReady'}, '*'); } catch(e){}
+try { postToParent({type:'valuesCompassReady'}); } catch(e){}
 </script>
 </body>
 </html>

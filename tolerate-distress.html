@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tolerate Distress | What To Do!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F7F4ED;--navy:#182047;--blue:#4F5DAD;--blue-bg:#edf1f8;--blue-lt:#8BA4DC;--mint:#B4DACD;--mint-bg:#eaf4f0;--pink:#BD3A59;--pink-bg:#f7e0e6;--orange:#FF6903;--orange-bg:#fff0e7;--text:#1e1e1e;--muted:#667085;--border:#ded8ce;--white:#fff;--shadow:0 2px 14px rgba(0,0,0,.08);--radius:14px}
+body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.site-header{width:100%;background:var(--navy);color:white;padding:20px 24px;text-align:center;border-bottom:4px solid var(--mint)}
+.eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);font-weight:800;margin-bottom:5px}
+.site-header h1{font-size:clamp(1.35rem,4vw,1.9rem);font-weight:800;line-height:1.15}
+.site-header p{max-width:780px;margin:8px auto 0;color:rgba(255,255,255,.78);line-height:1.55}
+.wrap{max-width:1060px;margin:0 auto;padding:24px 16px 70px}
+.intro,.panel,.card{background:white;border-radius:18px;box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
+.intro h2,.panel h2,.panel h3,.card h3{color:var(--navy);line-height:1.2;margin-bottom:8px}
+.intro p,.panel p,.card p{color:var(--muted);line-height:1.65;margin-bottom:10px}
+.stepper{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.step{border:1.5px solid var(--border);background:white;color:var(--muted);border-radius:999px;padding:9px 14px;font:inherit;font-weight:900;cursor:pointer}
+.step[aria-current="step"]{background:var(--navy);color:white;border-color:var(--navy)}
+.screen{display:none}.screen.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label,.label{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:900;margin:14px 0 6px}
+textarea,input,select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 12px;font:inherit;background:white;color:var(--text)}
+textarea{min-height:88px;resize:vertical}
+button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(79,93,173,.42);outline-offset:3px;border-color:var(--blue)}
+.note{border-left:4px solid var(--mint);background:var(--mint-bg);border-radius:12px;padding:14px;color:#2a6357;line-height:1.55;margin:14px 0}
+.note.blue{border-left-color:var(--blue);background:var(--blue-bg);color:var(--navy)}
+.note.orange{border-left-color:var(--orange);background:var(--orange-bg);color:#6b3a00}
+.note.red{border-left-color:var(--pink);background:var(--pink-bg);color:#7c1430}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.choices.three{grid-template-columns:repeat(3,1fr)}
+.choice{border:2px solid var(--border);background:white;border-radius:14px;padding:13px;text-align:left;font:inherit;cursor:pointer;line-height:1.35;color:var(--navy);font-weight:800}
+.choice span{display:block;color:var(--muted);font-size:.82rem;font-weight:600;margin-top:3px}
+.choice:hover,.choice[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-bg)}
+.choice[aria-pressed="true"]::after{content:"Selected";display:inline-block;margin-top:8px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:900}
+.rating-grid{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;margin-top:8px}
+.rating{border:1.5px solid var(--border);background:white;border-radius:9px;padding:9px 5px;font:inherit;font-weight:900;color:var(--navy);cursor:pointer}
+.rating[aria-pressed="true"]{background:var(--navy);color:white;border-color:var(--navy)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--navy);color:white}.btn-secondary{background:var(--blue-bg);color:var(--blue);border:1.5px solid #cbd4ee}.btn-warning{background:var(--orange-bg);color:#873a00;border:1.5px solid #ffd1b5}.btn-danger{background:var(--pink-bg);color:#7c1430;border:1.5px solid #e9a8b8}.btn-full{width:100%}
+.timer-card{background:var(--navy);color:white;border-radius:18px;box-shadow:var(--shadow);padding:26px;text-align:center;margin-bottom:16px}
+.timer{font-size:clamp(3rem,12vw,5rem);font-weight:300;line-height:1;margin-bottom:8px}
+.timer-card p{color:rgba(255,255,255,.78)}
+.cue{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:12px;padding:16px;color:var(--navy);line-height:1.65;margin:12px 0}
+.rep{display:inline-flex;align-items:center;justify-content:center;min-width:82px;border-radius:999px;padding:9px 14px;background:var(--mint-bg);color:#2a6357;font-weight:900}
+.summary,.recommendation{background:var(--mint-bg);border-left:4px solid var(--mint);border-radius:12px;padding:14px;line-height:1.65;color:var(--navy);margin-top:12px}
+.summary-section{margin-bottom:12px}.summary-section:last-child{margin-bottom:0}.summary strong,.recommendation strong{display:block;color:var(--blue);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}.summary-section div{white-space:pre-wrap}
+.status,.validation{color:var(--navy);font-size:.92rem;font-weight:800;line-height:1.45;min-height:1.4em;margin-top:10px}.validation{color:#8f1737}
+.mode-card{border:2px solid var(--border);border-radius:16px;padding:16px;background:white;text-align:left}
+.mode-card[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-bg)}
+.mode-card strong{display:block;color:var(--navy);font-size:1.1rem;margin-bottom:4px}
+.confirm-reset{border:1.5px solid var(--orange);background:var(--orange-bg);border-radius:14px;padding:14px;margin-top:12px}.confirm-reset[hidden]{display:none}
+@media(max-width:760px){.grid,.choices,.choices.three{grid-template-columns:1fr}.rating-grid{grid-template-columns:repeat(6,1fr)}.btn{width:100%}.wrap{padding:18px 10px 60px}.stepper{gap:6px}.step{font-size:.86rem;padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){html:focus-within{scroll-behavior:auto!important}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="eyebrow">Coping</div><h1>Tolerate Distress</h1><p>Get through a hard moment without making it harder.</p></header>
+<main class="wrap">
+  <section class="intro">
+    <h2>Distress is not a command.</h2>
+    <p>Distress is emotional or physical discomfort that feels difficult to tolerate. When distress rises, the mind may demand immediate relief through reacting, escaping, arguing, sending a message, shutting down, using something, or taking another impulsive action.</p>
+    <p>Tolerating distress does not mean approving of the situation or remaining in danger. It means staying with the feeling long enough to choose what helps instead of automatically doing what the urge demands.</p>
+    <div class="note"><strong>Success is not feeling calm immediately.</strong> Success is noticing the urge, creating a pause, and avoiding an action that would make the next moment harder.</div>
+    <div class="note red"><strong>Safety first:</strong> Do not use this exercise to delay protective action. When you or someone else is in immediate danger, prioritize safety and appropriate help.</div>
+  </section>
+
+  <nav class="stepper" aria-label="Tolerate Distress steps">
+    <button class="step" id="step-learn" aria-controls="learn" aria-current="step" onclick="requestStep('learn')">1. Learn</button>
+    <button class="step" id="step-safety" aria-controls="safety" onclick="requestStep('safety')">2. Safety</button>
+    <button class="step" id="step-identify" aria-controls="identify" onclick="requestStep('identify')">3. Identify</button>
+    <button class="step" id="step-support" aria-controls="support" onclick="requestStep('support')">4. Support</button>
+    <button class="step" id="step-practice" aria-controls="practice" onclick="requestStep('practice')">5. Practice</button>
+    <button class="step" id="step-recheck" aria-controls="recheck" onclick="requestStep('recheck')">6. Recheck</button>
+    <button class="step" id="step-action" aria-controls="action" onclick="requestStep('action')">7. Action</button>
+    <button class="step" id="step-review" aria-controls="review" onclick="requestStep('review')">8. Review</button>
+    <button class="step" id="step-summary" aria-controls="summary" onclick="requestStep('summary')">9. Summary</button>
+  </nav>
+
+  <section class="screen active" id="learn" role="region" aria-labelledby="step-learn">
+    <div class="grid">
+      <button class="mode-card" type="button" id="modeQuick" aria-pressed="false" onclick="chooseMode('quick')"><strong>Quick Hold</strong><span>30 to 90 seconds. For a difficult moment happening now. Minimal reading and typing.</span></button>
+      <button class="mode-card" type="button" id="modeGuided" aria-pressed="false" onclick="chooseMode('guided')"><strong>Guided Practice</strong><span>3 to 5 minutes. For learning or rehearsing the complete skill with fuller reflection.</span></button>
+    </div>
+    <div class="note blue">You do not have to like this feeling, solve everything, or act on the urge. You only need to get through the next moment safely.</div>
+    <div class="btns"><button class="btn btn-primary btn-full" onclick="goSafety()">Check safety first</button></div>
+    <div class="validation" id="learnValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="safety" role="region" aria-labelledby="step-safety">
+    <div class="panel"><h2 tabindex="-1">Check safety before reflecting</h2><p><strong>Are you in immediate danger, or do you think you may act on an urge to harm yourself or someone else?</strong></p><div class="choices three" id="safetyChoices">
+      <button class="choice" type="button" data-value="No" aria-pressed="false" onclick="chooseSafety(this)">No</button>
+      <button class="choice" type="button" data-value="I am not sure" aria-pressed="false" onclick="chooseSafety(this)">I am not sure</button>
+      <button class="choice" type="button" data-value="Yes" aria-pressed="false" onclick="chooseSafety(this)">Yes</button>
+    </div><div class="btns"><button class="btn btn-secondary" onclick="showStep('learn')">Back</button><button class="btn btn-primary" onclick="goIdentify()">Continue</button></div></div>
+    <div class="panel" id="safetySupport" hidden><h2>Move toward safety now</h2><p>This exercise is not enough for immediate danger. Move toward safety and contact someone who can help now. In the United States, call or text 988. Call emergency services when there is immediate danger.</p><div class="note red">Do not use this exercise to delay protective action. When you or someone else is in immediate danger, prioritize safety and appropriate help.</div><div class="btns"><a class="btn btn-danger" href="tel:988">Call or text 988</a><a class="btn btn-secondary" href="sms:">Contact a trusted person</a><button class="btn btn-secondary" onclick="postToParent({type:'safetyPlanRequested',skillId:'tolerate-distress'});announce('Safety plan request sent if this page is connected to your dashboard.')">View my safety plan</button><a class="btn btn-danger" href="tel:911">Call emergency services</a><button class="btn btn-primary" onclick="returnWhenSafe()">Return only when I am safe enough to practice</button></div></div>
+    <div class="validation" id="safetyValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="identify" role="region" aria-labelledby="step-identify">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Identify the moment</h2><p>Use broad categories. You do not need to describe private details.</p><div class="label">What are you feeling?</div><div class="choices" id="emotionChoices"></div><label for="emotionOther">Something else</label><input id="emotionOther" placeholder="Write a brief feeling word." oninput="handleOtherEmotion()"></div>
+      <div class="panel"><h2>Rate distress</h2><p>How intense is the distress right now? 0 means no distress. 10 means as intense as you can imagine.</p><div class="rating-grid" id="beforeGrid" aria-label="Starting distress intensity"></div><div class="status">Starting intensity: <span id="beforeLabel">Not rated</span></div></div>
+    </div>
+    <div class="grid">
+      <div class="panel"><h2>What is the urge asking you to do?</h2><div class="choices" id="urgeChoices"></div><label for="urgeOther">Another impulse</label><input id="urgeOther" placeholder="Keep it broad and non-graphic." oninput="handleOtherUrge()"></div>
+      <div class="panel"><h2>What do you want to avoid making worse?</h2><div class="choices" id="worseChoices"></div><label for="worseOther">Something else</label><input id="worseOther" placeholder="Write a brief category." oninput="handleOtherWorse()"></div>
+    </div>
+    <div class="btns"><button class="btn btn-secondary" onclick="showStep('safety')">Back</button><button class="btn btn-primary" onclick="goSupport()">Choose support</button></div>
+    <div class="validation" id="identifyValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="support" role="region" aria-labelledby="step-support">
+    <div class="panel"><h2 tabindex="-1">Choose a distress-tolerance support</h2><p>Pick one support to practice now. You can switch if it is not helping.</p><div class="choices" id="supportChoices"></div></div>
+    <div class="panel"><h2>Practice length</h2><p id="durationHelp">Choose a length that is short enough to practice safely.</p><div class="choices three" id="durationChoices"></div><div class="note blue" id="supportRecommendation"></div><div class="btns"><button class="btn btn-secondary" onclick="showStep('identify')">Back</button><button class="btn btn-primary" onclick="goPractice()">Begin practice</button></div></div>
+    <div class="validation" id="supportValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="practice" role="region" aria-labelledby="step-practice">
+    <div class="timer-card"><h2 tabindex="-1">Practice staying with distress</h2><div class="timer" id="timerText">00:30</div><p id="timerStatus">Ready to begin.</p></div>
+    <div class="panel"><h2>Your current cue</h2><div class="cue" id="practiceCue"></div><div class="status">Pause repetitions: <span class="rep" id="repCount">0</span></div><div class="btns"><button class="btn btn-primary" id="startBtn" onclick="startTimer()">Start</button><button class="btn btn-secondary" id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button><button class="btn btn-secondary" id="resumeBtn" onclick="resumeTimer()" disabled>Resume</button><button class="btn btn-secondary" id="repBtn" onclick="recordRep()" disabled>I noticed the urge and stayed with the pause</button><button class="btn btn-secondary" onclick="stopForSwitch()">Switch support</button><button class="btn btn-warning" onclick="finishEarly()">Finish early</button><button class="btn btn-secondary" onclick="leavePractice()">Leave practice</button></div></div>
+    <div class="validation" id="practiceValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="recheck" role="region" aria-labelledby="step-recheck">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Recheck distress</h2><p>Distress does not have to decrease for this practice to count.</p><div class="rating-grid" id="afterGrid" aria-label="Ending distress intensity"></div><div class="status">Ending intensity: <span id="afterLabel">Not rated</span></div></div>
+      <div class="panel"><h2>What happened with the urge?</h2><div class="choices" id="urgeResultChoices"></div></div>
+    </div>
+    <div class="grid">
+      <div class="panel"><h2>How much choice do you feel now?</h2><div class="choices" id="choiceSpaceChoices"></div></div>
+      <div class="panel"><h2>How challenging was the practice?</h2><div class="choices" id="challengeChoices"></div><h2 style="margin-top:16px">How comfortable did you feel?</h2><div class="choices" id="comfortChoices"></div></div>
+    </div>
+    <div class="btns"><button class="btn btn-secondary" onclick="showStep('practice')">Back</button><button class="btn btn-primary" onclick="goAction()">Choose a safe action</button></div>
+    <div class="validation" id="recheckValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="action" role="region" aria-labelledby="step-action">
+    <div class="panel"><h2 tabindex="-1">Choose the next safe action</h2><p>Tolerating distress creates time for a choice. It does not require doing nothing.</p><div class="choices" id="actionChoices"></div><label for="actionOther">Choose another safe action</label><input id="actionOther" placeholder="Brief safe action category." oninput="handleOtherAction()"><label for="actionDetail">What exactly will you do?</label><textarea id="actionDetail" placeholder="Example: Wait ten minutes before sending a message. Ask someone to sit nearby. Write down what I need before speaking." oninput="handleInput()"></textarea><label for="actionTime">When will you begin?</label><select id="actionTime" onchange="handleInput()"><option value="">Choose one</option><option>Now</option><option>Within ten minutes</option><option>Later today</option><option>At a specific time</option><option>After I contact someone</option></select><div class="cue" id="generatedStatement"></div><div class="btns"><button class="btn btn-secondary" onclick="showStep('recheck')">Back</button><button class="btn btn-primary" onclick="goReview()">Review and adapt</button></div></div>
+    <div class="validation" id="actionValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="review" role="region" aria-labelledby="step-review">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Review the pause</h2><div class="label">What happened after the pause?</div><div class="choices" id="afterPauseChoices"></div><label for="afterPauseOther">Something else</label><input id="afterPauseOther" placeholder="Optional." oninput="handleOtherAfterPause()"></div>
+      <div class="panel"><h2>What helped most?</h2><div class="choices" id="helpedChoices"></div><label for="helpedOther">Something else</label><input id="helpedOther" placeholder="Optional." oninput="handleOtherHelped()"></div>
+    </div>
+    <div class="panel"><h2>What should change next time?</h2><div class="choices" id="changeChoices"></div><label for="changeOther">Something else</label><input id="changeOther" placeholder="Optional." oninput="handleOtherChange()"><div class="btns"><button class="btn btn-secondary" onclick="showStep('action')">Back</button><button class="btn btn-primary" onclick="goSummary()">Build summary</button></div></div>
+    <div class="validation" id="reviewValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="summary" role="region" aria-labelledby="step-summary">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Your distress-tolerance summary</h2><p>You practiced staying with distress without automatically following the urge. The goal was not to feel perfect. It was to create enough space for a safer choice.</p><div class="summary" id="summaryBox" aria-live="polite"></div><label><input id="includePrivateSummary" type="checkbox" style="width:auto;margin-right:8px" onchange="handleInput()"> Include my private practice summary.</label><p class="note orange">By default, Skills Stack saves only the skill name, category, current level, preferred support, next practice, and practice URL. Check the box only if you want your private practice summary included.</p><p class="note blue">Your draft is temporarily saved for this browser session.</p><div class="btns"><a class="btn btn-secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a><button class="btn btn-primary" id="copySummaryBtn" onclick="copySummary()">Copy summary</button><button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button><button class="btn btn-secondary" onclick="practiceAgain()">Practice again</button><button class="btn btn-warning" onclick="clearDraft()">Clear saved draft</button><button class="btn btn-secondary" aria-controls="resetConfirm" onclick="requestReset()">Start over</button></div><div class="confirm-reset" id="resetConfirm" role="group" aria-labelledby="resetConfirmTitle" hidden><strong id="resetConfirmTitle">Start over and clear this practice?</strong><p>This clears the temporary draft for this browser session.</p><div class="btns"><button class="btn btn-warning" onclick="confirmReset()">Yes, start over</button><button class="btn btn-secondary" onclick="cancelReset()">Keep practicing</button></div></div><div class="status" id="copyStatus" aria-live="polite"></div><div class="status" id="stackStatus" aria-live="polite"></div></div>
+      <div class="panel"><h2>Recommended next practice</h2><div class="recommendation" id="recommendation"></div><div class="note"><strong>Progression level</strong><span id="levelText">Notice</span></div></div>
+    </div>
+  </section>
+</main>
+<div class="sr-only" id="liveRegion" aria-live="polite" aria-atomic="true"></div>
+<script>
+const STORAGE_KEY='wtd_tolerate_distress_v1';
+const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
+const PRACTICE_URL='https://whattodo-skills.github.io/skills/tolerate-distress.html';
+const STEP_ORDER=['learn','safety','identify','support','practice','recheck','action','review','summary'];
+const EMOTIONS=['Discomfort','Uncertainty','Sadness','Anger','Fear','Shame','Grief','Overwhelm','Mixed emotions','Not sure yet','Something else'];
+const URGES=['Respond immediately','Argue or confront','Send a message','Leave abruptly','Shut down','Avoid or escape','Numb the feeling','Make a major decision','Do something I may regret','Another impulse'];
+const WORSE=['A relationship','My safety','My work or responsibilities','My health','A decision','The conflict','Tomorrow’s situation','Something else'];
+const SUPPORTS=[
+  ['ground','Ground in the room','Press your feet into the floor. Name three things you can see, two things you can hear, and one thing you can physically feel.'],
+  ['exhale','Lengthen the exhale','Breathe normally. Let each exhale be slightly slower and longer than the inhale. Stop if breathing this way makes you dizzy or uncomfortable.'],
+  ['urge','Ride the urge','Notice where the urge appears in your body. Observe whether it grows, shifts, peaks, or softens. You do not need to fight it or obey it.'],
+  ['sense','Soothe one sense','Hold a warm or cool safe object, listen to a steady sound, wrap yourself in something comfortable, notice a familiar scent, or sip water slowly.'],
+  ['distraction','Use a brief safe distraction','Count objects of one color, organize ten items, walk to another room, complete one neutral task, or listen to one song. Distraction creates time. It does not solve the situation or permanently avoid it.'],
+  ['contact','Contact support','Ask someone to stay nearby, call or message a trusted person, or contact a professional support resource.']
+];
+const QUICK_DURATIONS=[30,60,90], GUIDED_DURATIONS=[180,300];
+const s={mode:'',safetyClear:false,emotions:[],before:'',urge:'',worse:'',support:'',duration:30,remaining:30,total:30,timer:null,running:false,started:false,elapsed:0,reps:0,after:'',urgeResult:'',choiceSpace:'',challenge:'',comfort:'',action:'',afterPause:'',helped:'',change:'',recommendation:'',level:'Notice',stackSaved:false,sessionId:newSessionId(),events:{}};
+let saveTimeout=null;
+function $(id){return document.getElementById(id)}
+function val(id){return ($(id)?.value||'').trim()}
+function announce(text){$('liveRegion').textContent=text}
+function motion(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}
+function postToParent(message){if(window.parent===window)return;window.parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function newSessionId(){return `tolerate-${Date.now()}-${Math.random().toString(36).slice(2,8)}`}
+function recordEvent(completionType){const key=`${s.sessionId}:${completionType}`;if(s.events[key])return;s.events[key]=true;postToParent({type:'skillComplete',skillTitle:'Tolerate Distress',skillSlug:'tolerate-distress',completionType,sessionId:s.sessionId})}
+function resetPrivateConsent(){if($('includePrivateSummary'))$('includePrivateSummary').checked=false}
+function beginNewSession(keepPlan=false){stopTimer(true);s.sessionId=newSessionId();s.events={};s.stackSaved=false;s.started=false;s.elapsed=0;s.reps=0;s.running=false;s.remaining=s.duration;s.recommendation='';if(!keepPlan){s.after='';s.urgeResult='';s.choiceSpace='';s.challenge='';s.comfort='';s.action='';s.afterPause='';s.helped='';s.change='';['actionDetail','actionTime','afterPauseOther','helpedOther','changeOther'].forEach(id=>{if($(id))$(id).value=''})}resetPrivateConsent();resetSaveUi();saveState()}
+function showStep(id){if(id!=='practice'&&activeStep()==='practice'&&s.running){stopTimer(false);announce('Practice stopped because you left the screen.')}document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.step').forEach(t=>{if(t.getAttribute('aria-controls')===id)t.setAttribute('aria-current','step');else t.removeAttribute('aria-current')});if(id==='summary')renderSummary();if(id==='support')renderSupportRecommendation();if(id==='practice')renderPractice();if(id==='action')renderStatement();const h=document.querySelector(`#${id} h2`);if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:motion()});announce(`Step changed to ${h?h.textContent:id}.`)}
+function activeStep(){return document.querySelector('.screen.active')?.id||'learn'}
+function requestStep(id){if(STEP_ORDER.indexOf(id)<=STEP_ORDER.indexOf(activeStep())){showStep(id);return}if(canReach(id))showStep(id);else announce('Complete the current required fields before moving ahead.')}
+function validate(id,msg){$(id).textContent=msg;announce(msg)}
+function handleInput(){resetSaveUi();saveState();renderStatement();renderSummary()}
+function setOne(group,prop,value){s[prop]=s[prop]===value?'':value;document.querySelectorAll(`#${group} .choice`).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===s[prop])));handleInput()}
+function toggleMulti(group,value){if(s.emotions.includes(value))s.emotions=s.emotions.filter(x=>x!==value);else s.emotions.push(value);document.querySelectorAll(`#${group} .choice`).forEach(b=>b.setAttribute('aria-pressed',String(s.emotions.includes(b.dataset.value))));handleInput()}
+function chooseMode(mode){s.mode=mode;s.duration=mode==='quick'?30:180;s.total=s.duration;s.remaining=s.duration;$('modeQuick').setAttribute('aria-pressed',String(mode==='quick'));$('modeGuided').setAttribute('aria-pressed',String(mode==='guided'));renderDurationChoices();handleInput()}
+function chooseSafety(btn){const value=btn.dataset.value;document.querySelectorAll('#safetyChoices .choice').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));if(value==='No'){s.safetyClear=true;$('safetySupport').hidden=true;$('safetyValidation').textContent=''}else{s.safetyClear=false;$('safetySupport').hidden=false;recordEvent('safety-support-shown');validate('safetyValidation','Use safety support now. Return only when you are safe enough to practice.')}saveState()}
+function returnWhenSafe(){document.querySelectorAll('#safetyChoices .choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value==='No')));s.safetyClear=true;$('safetySupport').hidden=true;$('safetyValidation').textContent='';announce('Returned to practice after safety check. Continue only if you are safe enough to practice.')}
+function makeChoices(id,items,prop,mode='one'){const box=$(id);box.textContent='';items.forEach(item=>{const arr=Array.isArray(item)?item:[item,''];const value=arr[0],label=arr[1]||arr[0],detail=arr[2]||'';const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.value=value;b.setAttribute('aria-pressed','false');b.textContent=label;if(detail){const span=document.createElement('span');span.textContent=detail;b.appendChild(span)}b.onclick=()=>mode==='multi'?toggleMulti(id,value):setOne(id,prop,value);box.appendChild(b)})}
+function makeRatings(id,label,prop){const box=$(id);box.textContent='';for(let i=0;i<=10;i++){const b=document.createElement('button');b.type='button';b.className='rating';b.textContent=String(i);b.setAttribute('aria-pressed','false');b.onclick=()=>{s[prop]=String(i);document.querySelectorAll(`#${id} .rating`).forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');$(label).textContent=String(i);handleInput()};box.appendChild(b)}}
+function renderDurationChoices(){const box=$('durationChoices');if(!box)return;const list=s.mode==='guided'?GUIDED_DURATIONS:QUICK_DURATIONS;box.textContent='';list.forEach(sec=>{const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.value=String(sec);b.setAttribute('aria-pressed',String(s.duration===sec));b.textContent=sec>=60?`${sec/60} minute${sec>60?'s':''}`:`${sec} seconds`;b.onclick=()=>{s.duration=sec;s.total=sec;s.remaining=sec;renderDurationChoices();handleInput()};box.appendChild(b)});$('durationHelp').textContent=s.mode==='guided'?'Guided Practice uses a 3- or 5-minute timer with coaching prompts.':'Quick Hold uses a 30-, 60-, or 90-second guided sequence.'}
+function handleOtherEmotion(){const value=val('emotionOther');s.emotions=s.emotions.filter(x=>x!=='Something else');if(value&&!s.emotions.includes(value))s.emotions.push(value);document.querySelectorAll('#emotionChoices .choice').forEach(b=>b.setAttribute('aria-pressed',String(s.emotions.includes(b.dataset.value))));handleInput()}
+function handleOtherUrge(){if(val('urgeOther'))s.urge=val('urgeOther');handleInput()}
+function handleOtherWorse(){if(val('worseOther'))s.worse=val('worseOther');handleInput()}
+function handleOtherAction(){if(val('actionOther'))s.action=val('actionOther');handleInput()}
+function handleOtherAfterPause(){if(val('afterPauseOther'))s.afterPause=val('afterPauseOther');handleInput()}
+function handleOtherHelped(){if(val('helpedOther'))s.helped=val('helpedOther');handleInput()}
+function handleOtherChange(){if(val('changeOther'))s.change=val('changeOther');handleInput()}
+function goSafety(){if(!s.mode){validate('learnValidation','Choose Quick Hold or Guided Practice first.');return}$('learnValidation').textContent='';showStep('safety')}
+function goIdentify(){if(!s.safetyClear){validate('safetyValidation','Choose No only if you are safe enough to practice. If you are not sure, use support now.');return}$('safetyValidation').textContent='';showStep('identify')}
+function identifyComplete(){return s.emotions.length&&(!s.emotions.includes('Something else')||val('emotionOther'))&&s.before!==''&&s.urge&&s.worse}
+function goSupport(){if(!identifyComplete()){validate('identifyValidation','Choose at least one feeling, rate the distress, choose an urge, and choose what you want to avoid making worse. If you choose Something else for feeling, add a brief feeling word.');return}if(needsSafetySupport()){showStep('safety');$('safetySupport').hidden=false;s.safetyClear=false;recordEvent('safety-support-shown');validate('safetyValidation','Because safety may be involved, pause this exercise and use support now.');return}$('identifyValidation').textContent='';showStep('support')}
+function supportComplete(){return s.support&&s.duration}
+function goPractice(){if(!supportComplete()){validate('supportValidation','Choose one support and one practice length.');return}$('supportValidation').textContent='';s.total=s.duration;s.remaining=s.duration;s.elapsed=0;s.started=false;s.reps=0;recordEvent('practice-started');showStep('practice')}
+function recheckComplete(){return s.after!==''&&s.urgeResult&&s.choiceSpace&&s.challenge&&s.comfort}
+function goAction(){if(!recheckComplete()){validate('recheckValidation','Rate the distress now and answer each recheck question.');return}if(s.comfort==='I did not feel safe continuing'){showStep('safety');$('safetySupport').hidden=false;recordEvent('safety-support-shown');validate('safetyValidation','Stop the exercise and use safety or professional support. Do not repeat a harder version right now.');return}$('recheckValidation').textContent='';showStep('action')}
+function actionComplete(){return s.action&&val('actionDetail')&&val('actionTime')}
+function goReview(){if(!actionComplete()){validate('actionValidation','Choose a safe action, write exactly what you will do, and choose when you will begin.');return}$('actionValidation').textContent='';showStep('review')}
+function reviewComplete(){return s.afterPause&&s.helped&&s.change}
+function goSummary(){if(!reviewComplete()){validate('reviewValidation','Answer what happened, what helped most, and what should change next time.');return}$('reviewValidation').textContent='';recordEvent('result-reviewed');showStep('summary')}
+function canReach(id){const n=STEP_ORDER.indexOf(id);if(n>0&&!s.mode)return false;if(n>1&&!s.safetyClear)return false;if(n>2&&!identifyComplete())return false;if(n>3&&!supportComplete())return false;if(n>5&&!recheckComplete())return false;if(n>6&&!actionComplete())return false;if(n>7&&!reviewComplete())return false;return true}
+function needsSafetySupport(){const text=[s.urge,s.worse,val('urgeOther'),val('worseOther')].join(' ').toLowerCase();return /\b(suicide|kill|harm myself|hurt myself|hurt someone|unsafe|weapon|overdose)\b/.test(text)||s.worse==='My safety'}
+function supportLabel(){const item=SUPPORTS.find(x=>x[0]===s.support);return item?item[1]:'Not chosen'}
+function supportInstruction(){const item=SUPPORTS.find(x=>x[0]===s.support);return item?item[2]:'Choose one support to anchor your attention.'}
+function renderSupportRecommendation(){const rec=$('supportRecommendation');if(!rec)return;const intensity=Number(s.before||0);let text='Recommended: ';if(intensity>=8)text+='Ground in the room or contact support. Keep the practice short and prioritize safety.';else if(s.urge==='Numb the feeling'||s.urge==='Avoid or escape')text+='Ride the urge or soothe one sense so you can stay present without obeying the pull.';else if(s.urge==='Respond immediately'||s.urge==='Send a message'||s.urge==='Argue or confront')text+='Lengthen the exhale or ground in the room before deciding what to say.';else text+='Choose the support that gives you enough space to avoid making the next moment harder.';rec.textContent=text}
+function renderPractice(){s.remaining=s.remaining||s.duration;drawTimer();$('repCount').textContent=String(s.reps);$('practiceCue').textContent=practiceCue();$('timerStatus').textContent=s.started?'Practice paused.':'Ready to begin.';$('repBtn').disabled=!s.running;$('pauseBtn').disabled=!s.running;$('resumeBtn').disabled=s.running||!s.started||s.remaining<=0}
+function practiceCue(){const steps=s.mode==='quick'?['Name: This is distress.','Allow: I do not have to like it or solve it right now.','Anchor: '+supportInstruction(),'Notice: Observe the urge without obeying it.','Choose: What keeps the next minute from becoming harder?']:['Notice the feeling without explaining it.','Find where it appears in your body.','Name the urge without turning it into an instruction.','Return to your anchor: '+supportLabel()+'.','You can feel this and still choose what happens next.','One safe minute is enough for now.'];const idx=s.total?Math.min(steps.length-1,Math.floor((s.elapsed/Math.max(1,s.total))*steps.length)):0;return steps[idx]}
+function drawTimer(){const m=Math.floor(s.remaining/60),sec=s.remaining%60;$('timerText').textContent=`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`}
+function startTimer(){if(s.running)return;s.started=true;s.running=true;$('startBtn').disabled=true;$('pauseBtn').disabled=false;$('resumeBtn').disabled=true;$('repBtn').disabled=false;$('timerStatus').textContent='Practice active.';tick()}
+function tick(){clearInterval(s.timer);s.timer=setInterval(()=>{if(!s.running)return;s.remaining=Math.max(0,s.remaining-1);s.elapsed=s.total-s.remaining;drawTimer();$('practiceCue').textContent=practiceCue();if(s.remaining<=0){completePractice('timer-completed')}},1000)}
+function pauseTimer(){if(!s.running)return;s.running=false;clearInterval(s.timer);$('pauseBtn').disabled=true;$('resumeBtn').disabled=false;$('repBtn').disabled=true;$('timerStatus').textContent='Practice paused.';announce('Practice paused.')}
+function resumeTimer(){if(s.remaining<=0)return;s.running=true;$('pauseBtn').disabled=false;$('resumeBtn').disabled=true;$('repBtn').disabled=false;$('timerStatus').textContent='Practice resumed.';announce('Practice resumed.');tick()}
+function stopTimer(silent){s.running=false;clearInterval(s.timer);s.timer=null;if($('pauseBtn')){$('pauseBtn').disabled=true;$('resumeBtn').disabled=s.remaining<=0||!s.started;$('repBtn').disabled=true;$('startBtn').disabled=s.started&&s.remaining>0}if(!silent&&$('timerStatus'))$('timerStatus').textContent='Practice stopped because you left the screen.'}
+function completePractice(type){stopTimer(true);s.remaining=0;drawTimer();$('timerStatus').textContent='Practice time complete.';$('startBtn').disabled=true;$('resumeBtn').disabled=true;$('repBtn').disabled=true;recordEvent('practice-completed');announce('Timer complete. Move to recheck.');setTimeout(()=>showStep('recheck'),600)}
+function finishEarly(){if(!s.started||s.elapsed<3){$('practiceValidation').textContent='Prepared to practice but did not begin.';announce('Prepared to practice but did not begin.');recordEvent('practice-prepared');showStep('recheck');return}recordEvent('practice-completed');showStep('recheck')}
+function recordRep(){if(!s.running)return;s.reps++;$('repCount').textContent=String(s.reps);announce(`Pause repetitions: ${s.reps}.`);saveState()}
+function stopForSwitch(){stopTimer(false);showStep('support')}
+function leavePractice(){stopTimer(false);showStep('support')}
+function renderStatement(){const box=$('generatedStatement');if(!box)return;const emotion=(s.emotions[0]||'this feeling').toLowerCase();const impulse=(s.urge||'act on the urge').toLowerCase();const time=val('actionTime')||'chosen time';const action=val('actionDetail')||'choose one safe action';box.textContent=`I can feel ${emotion} without immediately ${impulse}. For the next ${time}, I will ${action}.`}
+function recommendationText(){if(s.comfort==='I did not feel safe continuing')return 'Do not repeat a harder version. Stop the exercise and use safety or professional support.';if(s.urgeResult==='I did not act on it')return 'You created space between feeling and action. Repeat the same support once more, then use it during a slightly more challenging moment.';if(s.urgeResult==='I delayed it')return 'Delaying was successful practice. Choose another short delay and decide what support will help during it.';if(s.urgeResult==='I reacted partly but stopped sooner')return 'You interrupted the pattern earlier than before. Next time, begin the skill at the first body signal or thought that predicts the reaction.';if(s.urgeResult==='I acted on it')return 'No shame. Notice the earliest point where another choice may have been possible. Rehearse a 30-second pause at that earlier cue and identify one person or support you can contact.';if(Number(s.after)>=8&&s.urgeResult!=='I acted on it')return 'The feeling stayed intense, but you did not make the situation harder. That is successful distress-tolerance practice. Continue with support rather than increasing difficulty.';if(s.challenge==='Too hard')return 'Use a shorter practice, choose a stronger grounding anchor, and involve another person earlier.';if(s.challenge==='Too easy')return 'Practice during a mild real-world discomfort or extend the pause before responding.';if(s.choiceSpace==='I need another person’s support')return 'Repeat this with another person nearby or contact support before the distress gets stronger.';return 'Repeat the same support during one real moment this week. The aim is not perfect calm. The aim is one safer choice.'}
+function levelText(){if(s.afterPause==='I chose a different response')return 'Choose';if(s.afterPause==='I delayed the impulse')return 'Pause';if(s.afterPause==='I reacted but stopped sooner')return 'Recover';if(s.helped==='Riding the urge')return 'Ride';if(s.helped==='Grounding'||s.helped==='Breathing'||s.helped==='Sensory soothing')return 'Anchor';if(s.change==='Repeat the same practice')return 'Review';if(s.choiceSpace==='I have enough space to choose a next action')return 'Transfer';return 'Notice'}
+function addSummaryRow(container,label,value){const row=document.createElement('div');row.className='summary-section';const strong=document.createElement('strong');strong.textContent=label;const content=document.createElement('div');content.textContent=value||'Not selected';row.append(strong,content);container.append(row)}
+function renderSummary(){const box=$('summaryBox');if(!box)return;s.recommendation=recommendationText();s.level=levelText();box.textContent='';addSummaryRow(box,'Emotion category',s.emotions.join(', '));addSummaryRow(box,'Starting and ending intensity',`${s.before||'Not rated'} to ${s.after||'Not rated'}`);addSummaryRow(box,'Broad urge category',s.urge);addSummaryRow(box,'Support used',supportLabel());addSummaryRow(box,'Pause repetitions',s.started?String(s.reps):'Prepared to practice but did not begin.');addSummaryRow(box,'What happened with the urge',s.urgeResult);addSummaryRow(box,'Next safe action',val('actionDetail'));addSummaryRow(box,'Recommendation',s.recommendation);addSummaryRow(box,'Current level',s.level);const rec=$('recommendation');if(rec){rec.textContent='';const strong=document.createElement('strong');strong.textContent='Next practice';rec.append(strong,document.createTextNode(s.recommendation))}if($('levelText'))$('levelText').textContent=s.level}
+function selectSummaryText(){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);$('summaryBox').scrollIntoView({block:'nearest',behavior:motion()})}
+async function copyText(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}const helper=document.createElement('textarea');helper.value=text;helper.setAttribute('readonly','');helper.style.position='fixed';helper.style.left='-9999px';document.body.appendChild(helper);helper.focus();helper.select();const copied=document.execCommand('copy');document.body.removeChild(helper);return copied}
+async function copySummary(){renderSummary();const btn=$('copySummaryBtn');btn.disabled=true;btn.textContent='Copying...';try{const copied=await copyText($('summaryBox').innerText);recordEvent('summary-copied');if(copied){$('copyStatus').textContent='Summary copied.';btn.textContent='Copied'}else{selectSummaryText();$('copyStatus').textContent='Automatic copy was blocked. The summary is selected now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}}catch(e){selectSummaryText();$('copyStatus').textContent='Automatic copy was blocked. The summary is selected now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}finally{setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}}
+function buildSkillStack(){const stack={skillId:'tolerate-distress',skillName:'Tolerate Distress',catKey:'coping',stacked:true,currentLevel:s.level,preferredSupport:supportLabel(),nextPractice:s.recommendation,practiceUrl:PRACTICE_URL,id:'tolerate-distress',title:'Tolerate Distress',category:'Coping',catLabel:'Coping',source:'tolerate-distress',updatedAt:new Date().toISOString()};if($('includePrivateSummary')?.checked){renderSummary();stack.privateSummary=$('summaryBox').innerText}return stack}
+function resetSaveUi(){clearTimeout(saveTimeout);saveTimeout=null;s.stackSaved=false;if($('saveStackBtn')){$('saveStackBtn').disabled=false;$('saveStackBtn').textContent='Save to Skills Stack'}if($('stackStatus'))$('stackStatus').textContent=''}
+function saveToSkillStack(){renderSummary();s.stackSaved=false;const btn=$('saveStackBtn');btn.disabled=true;btn.textContent='Saving...';$('stackStatus').textContent='Saving to Skills Stack...';recordEvent('save-to-skills-stack');postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:buildSkillStack(),updatedAt:new Date().toISOString()}});clearTimeout(saveTimeout);saveTimeout=setTimeout(()=>{if(s.stackSaved)return;btn.disabled=false;btn.textContent='Save to Skills Stack';$('stackStatus').textContent='Save did not finish. Please try again.'},8000)}
+function saveState(){const data={mode:s.mode,emotions:s.emotions,before:s.before,urge:s.urge,worse:s.worse,support:s.support,duration:s.duration,after:s.after,urgeResult:s.urgeResult,choiceSpace:s.choiceSpace,challenge:s.challenge,comfort:s.comfort,action:s.action,afterPause:s.afterPause,helped:s.helped,change:s.change};['emotionOther','urgeOther','worseOther','actionOther','actionDetail','actionTime','afterPauseOther','helpedOther','changeOther'].forEach(id=>data[id]=$(id)?.value||'');sessionStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+function restorePressed(group,prop){document.querySelectorAll(`#${group} .choice`).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===s[prop]||(prop==='emotions'&&s.emotions.includes(b.dataset.value)))))}
+function restoreRatings(){if(s.before){$('beforeLabel').textContent=s.before;document.querySelectorAll('#beforeGrid .rating').forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===s.before)))}if(s.after){$('afterLabel').textContent=s.after;document.querySelectorAll('#afterGrid .rating').forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===s.after)))}}
+function loadState(){try{const data=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');Object.assign(s,data);s.safetyClear=false;s.emotions=Array.isArray(data.emotions)?data.emotions:[];['emotionOther','urgeOther','worseOther','actionOther','actionDetail','actionTime','afterPauseOther','helpedOther','changeOther'].forEach(id=>{if($(id)&&typeof data[id]==='string')$(id).value=data[id]});if(s.mode){$('modeQuick').setAttribute('aria-pressed',String(s.mode==='quick'));$('modeGuided').setAttribute('aria-pressed',String(s.mode==='guided'));s.total=s.duration;s.remaining=s.duration}restorePressed('emotionChoices','emotions');['urgeChoices','worseChoices','supportChoices','urgeResultChoices','choiceSpaceChoices','challengeChoices','comfortChoices','actionChoices','afterPauseChoices','helpedChoices','changeChoices'].forEach(id=>{const map={urgeChoices:'urge',worseChoices:'worse',supportChoices:'support',urgeResultChoices:'urgeResult',choiceSpaceChoices:'choiceSpace',challengeChoices:'challenge',comfortChoices:'comfort',actionChoices:'action',afterPauseChoices:'afterPause',helpedChoices:'helped',changeChoices:'change'};restorePressed(id,map[id])});restoreRatings();renderDurationChoices();renderStatement();renderSummary()}catch(e){}}
+function practiceAgain(){beginNewSession(true);s.after='';s.urgeResult='';s.choiceSpace='';s.challenge='';s.comfort='';showStep('support');announce('New practice session started. Your support plan was preserved.')}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);announce('Temporary draft cleared for this browser session.');location.reload()}
+function requestReset(){$('resetConfirm').hidden=false;$('resetConfirm').querySelector('button').focus();announce('Confirm start over before clearing this practice.')}
+function confirmReset(){clearDraft()}
+function cancelReset(){$('resetConfirm').hidden=true;$('saveStackBtn')?.focus();announce('Start over canceled.')}
+window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==window.parent)return;const msg=event.data||{};if(msg.type!=='dashboardSaveResult'||msg.action!=='skillStackSaved')return;clearTimeout(saveTimeout);const btn=$('saveStackBtn');btn.disabled=false;if(msg.ok){s.stackSaved=true;btn.textContent='Saved to Skills Stack';$('stackStatus').textContent='Saved to Skills Stack.';announce('Skills Stack saving successful.')}else{s.stackSaved=false;btn.textContent='Save to Skills Stack';$('stackStatus').textContent='Save did not finish. Please try again.';announce('Skills Stack saving failed.')}})
+makeChoices('emotionChoices',EMOTIONS,'emotions','multi');makeChoices('urgeChoices',URGES,'urge');makeChoices('worseChoices',WORSE,'worse');makeChoices('supportChoices',SUPPORTS,'support');makeChoices('urgeResultChoices',['I did not act on it','I delayed it','I reacted partly but stopped sooner','I acted on it','I am still deciding','The situation changed'],'urgeResult');makeChoices('choiceSpaceChoices',['I still feel pulled toward the impulse','I have a little more space','I have enough space to choose a next action','I need another person’s support'],'choiceSpace');makeChoices('challengeChoices',['Too hard','About right','Too easy'],'challenge');makeChoices('comfortChoices',['Comfortable enough','Somewhat uncomfortable','Very uncomfortable','I did not feel safe continuing'],'comfort');makeChoices('actionChoices',['Wait ten minutes before responding','Step away and return at a specific time','Ask someone to stay with me','Write down what I need before speaking','Use another coping skill','Do one neutral task','Return to what I was doing','Ask for professional support','Choose another safe action'],'action');makeChoices('afterPauseChoices',['I chose a different response','I delayed the impulse','I reacted but stopped sooner','I am still tolerating the feeling','I needed another person’s support','I have not taken the next step yet','Something else'],'afterPause');makeChoices('helpedChoices',['Grounding','Breathing','Riding the urge','Sensory soothing','Brief distraction','Contacting someone','Naming the feeling','Remembering what I did not want to make worse','Something else'],'helped');makeChoices('changeChoices',['Start the skill sooner','Use a shorter practice','Use a different support','Contact someone earlier','Move away from the triggering situation','Make the next action smaller','Repeat the same practice','Something else'],'change');makeRatings('beforeGrid','beforeLabel','before');makeRatings('afterGrid','afterLabel','after');renderDurationChoices();loadState();try{postToParent({type:'tolerateDistressReady'})}catch(e){}
+</script>
+</body>
+</html>

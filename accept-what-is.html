@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accept What Is | What To Do!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F7F4ED;--navy:#182047;--blue:#4F5DAD;--blue-bg:#edf1f8;--blue-lt:#8BA4DC;--mint:#B4DACD;--mint-bg:#eaf4f0;--pink:#BD3A59;--pink-bg:#f7e0e6;--orange:#FF6903;--orange-bg:#fff0e7;--text:#1e1e1e;--muted:#667085;--border:#ded8ce;--white:#fff;--shadow:0 2px 14px rgba(0,0,0,.08);--radius:14px}
+body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.site-header{width:100%;background:var(--navy);color:white;padding:20px 24px;text-align:center;border-bottom:4px solid var(--mint)}
+.eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);font-weight:800;margin-bottom:5px}
+.site-header h1{font-size:clamp(1.35rem,4vw,1.9rem);font-weight:800;line-height:1.15}
+.site-header p{max-width:780px;margin:8px auto 0;color:rgba(255,255,255,.78);line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 70px}
+.intro,.panel,.card{background:white;border-radius:18px;box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
+.intro h2,.panel h2,.panel h3,.card h3{color:var(--navy);line-height:1.2;margin-bottom:8px}
+.intro p,.panel p,.card p{color:var(--muted);line-height:1.65;margin-bottom:10px}
+.stepper{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.step{border:1.5px solid var(--border);background:white;color:var(--muted);border-radius:999px;padding:9px 14px;font:inherit;font-weight:900;cursor:pointer}
+.step[aria-current="step"]{background:var(--navy);color:white;border-color:var(--navy)}
+.screen{display:none}.screen.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label,.label{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:900;margin:14px 0 6px}
+textarea,input,select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 12px;font:inherit;background:white;color:var(--text)}
+textarea{min-height:88px;resize:vertical}
+button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(79,93,173,.42);outline-offset:3px;border-color:var(--blue)}
+.note{border-left:4px solid var(--mint);background:var(--mint-bg);border-radius:12px;padding:14px;color:#2a6357;line-height:1.55;margin:14px 0}
+.note.blue{border-left-color:var(--blue);background:var(--blue-bg);color:var(--navy)}
+.note.orange{border-left-color:var(--orange);background:var(--orange-bg);color:#6b3a00}
+.note.red{border-left-color:var(--pink);background:var(--pink-bg);color:#7c1430}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.choice{border:2px solid var(--border);background:white;border-radius:14px;padding:13px;text-align:left;font:inherit;cursor:pointer;line-height:1.35;color:var(--navy);font-weight:800}
+.choice span{display:block;color:var(--muted);font-size:.82rem;font-weight:600;margin-top:3px}
+.choice:hover,.choice[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-bg)}
+.choice[aria-pressed="true"]::after{content:"Selected";display:inline-block;margin-top:8px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:900}
+.rating-grid{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;margin-top:8px}
+.rating{border:1.5px solid var(--border);background:white;border-radius:9px;padding:9px 5px;font:inherit;font-weight:900;color:var(--navy);cursor:pointer}
+.rating[aria-pressed="true"]{background:var(--navy);color:white;border-color:var(--navy)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn-primary{background:var(--navy);color:white}.btn-secondary{background:var(--blue-bg);color:var(--blue);border:1.5px solid #cbd4ee}.btn-warning{background:var(--orange-bg);color:#873a00;border:1.5px solid #ffd1b5}.btn-full{width:100%}
+.summary,.recommendation{background:var(--mint-bg);border-left:4px solid var(--mint);border-radius:12px;padding:14px;line-height:1.65;color:var(--navy);margin-top:12px}
+.summary-section{margin-bottom:12px}.summary-section:last-child{margin-bottom:0}.summary strong,.recommendation strong{display:block;color:var(--blue);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}.summary-section div{white-space:pre-wrap}
+.status,.validation{color:var(--navy);font-size:.92rem;font-weight:800;line-height:1.45;min-height:1.4em;margin-top:10px}.validation{color:#8f1737}
+.confirm-reset{border:1.5px solid var(--orange);background:var(--orange-bg);border-radius:14px;padding:14px;margin-top:12px}.confirm-reset[hidden]{display:none}
+@media(max-width:760px){.grid,.choices{grid-template-columns:1fr}.rating-grid{grid-template-columns:repeat(6,1fr)}.btn{width:100%}.wrap{padding:18px 10px 60px}}
+@media(prefers-reduced-motion:reduce){html:focus-within{scroll-behavior:auto!important}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="eyebrow">Coping</div><h1>Accept What Is</h1><p>Recognize the reality of this moment without approving of it, exaggerating it, or spending all your energy fighting facts that cannot immediately be changed.</p></header>
+<main class="wrap">
+  <section class="intro">
+    <h2>Acceptance is not approval.</h2>
+    <p>Acceptance means acknowledging: this is what is happening right now. Once you stop arguing with the fact that something has happened, you may have more energy to decide how you want to respond.</p>
+    <div class="note"><strong>You can accept reality and still:</strong> feel upset, disagree, set a boundary, ask for help, work to change the situation, or leave an unsafe situation.</div>
+  </section>
+
+  <nav class="stepper" aria-label="Accept What Is steps">
+    <button class="step" id="step-checkin" aria-controls="checkin" aria-current="step" onclick="showStep('checkin')">1. Check In</button>
+    <button class="step" id="step-facts" aria-controls="facts" onclick="showStep('facts')">2. Facts</button>
+    <button class="step" id="step-mind" aria-controls="mind" onclick="showStep('mind')">3. Mind Adds</button>
+    <button class="step" id="step-control" aria-controls="control" onclick="showStep('control')">4. Control</button>
+    <button class="step" id="step-statement" aria-controls="statement" onclick="showStep('statement')">5. Statement</button>
+    <button class="step" id="step-summary" aria-controls="summary" onclick="showStep('summary')">6. Summary</button>
+  </nav>
+
+  <section class="screen active" id="checkin" role="region" aria-labelledby="step-checkin">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Check in with intensity</h2><p>How intense does this situation feel right now? 0 means not intense. 10 means extremely intense.</p><div class="rating-grid" id="beforeGrid" aria-label="Intensity before"></div><div class="status">Starting intensity: <span id="beforeLabel">Not rated</span></div></div>
+      <div class="panel"><h2>Name the hard-to-accept situation</h2><p>Use one real situation. There is no perfect wording. You are identifying where the fight with reality is happening.</p><label for="situation">The situation I am having difficulty accepting is:</label><textarea id="situation" placeholder="Example: A plan changed unexpectedly. Someone said no. I made a mistake. I have to wait for an answer." oninput="handleInput()"></textarea></div>
+    </div>
+    <div class="btns"><button class="btn btn-primary btn-full" onclick="goFacts()">State the facts</button></div>
+    <div class="validation" id="checkinValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="facts" role="region" aria-labelledby="step-facts">
+    <div class="panel"><h2 tabindex="-1">State the facts</h2><p>Describe what happened using only information a camera, recording, document, or neutral observer could confirm. Leave out judgments, predictions, blame, and conclusions.</p><div class="note blue"><strong>Try this shift:</strong> Instead of "They canceled because they do not care," use "They canceled our plans this morning."</div><label for="factsText">The facts I know are:</label><textarea id="factsText" placeholder="Write the observable facts here." oninput="handleInput()"></textarea><div class="btns"><button class="btn btn-secondary" onclick="showStep('checkin')">Back</button><button class="btn btn-primary" onclick="goMind()">Notice what my mind is adding</button></div></div>
+    <div class="validation" id="factsValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="mind" role="region" aria-labelledby="step-mind">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Notice what your mind is adding</h2><p>The mind may predict the future, assign blame, exaggerate consequences, or tell you what should have happened. Notice the thought without treating it as confirmed fact.</p><label for="mindAdds">My mind is adding the thought that:</label><textarea id="mindAdds" placeholder="Example: This should not be happening. I cannot handle this. Everything is ruined." oninput="handleInput()"></textarea></div>
+      <div class="panel"><h2>Separate knowing from fearing</h2><label for="knownText">What I know:</label><textarea id="knownText" placeholder="Facts only." oninput="handleInput()"></textarea><label for="fearText">What I fear, assume, predict, or judge:</label><textarea id="fearText" placeholder="Predictions, assumptions, judgments, or fears." oninput="handleInput()"></textarea></div>
+    </div>
+    <div class="panel"><h2>Name the fight with reality</h2><p>Which part of reality keeps pulling you into the argument?</p><div class="choices" id="fightChoices">
+      <button class="choice" type="button" data-fight="This should not have happened" aria-pressed="false" onclick="chooseFight(this)">This should not have happened<span>Replaying how reality was supposed to go.</span></button>
+      <button class="choice" type="button" data-fight="I cannot control another person's decision" aria-pressed="false" onclick="chooseFight(this)">I cannot control another person's decision<span>Trying to make another person feel, choose, or respond differently.</span></button>
+      <button class="choice" type="button" data-fight="An answer is not available yet" aria-pressed="false" onclick="chooseFight(this)">An answer is not available yet<span>Demanding certainty before certainty exists.</span></button>
+      <button class="choice" type="button" data-fight="The past cannot be changed right now" aria-pressed="false" onclick="chooseFight(this)">The past cannot be changed right now<span>Using energy wishing time worked differently.</span></button>
+    </div><label for="fightOther">Or write the part of reality I keep fighting:</label><input id="fightOther" placeholder="Example: I keep fighting that this decision already happened." oninput="setCustomFight(this.value)"><label for="fightChanging">Is fighting this fact changing it right now?</label><select id="fightChanging" onchange="handleInput()"><option value="">Choose one</option><option>No</option><option>I am not sure</option><option>Yes, there is still action I can take</option></select><div class="btns"><button class="btn btn-secondary" onclick="showStep('facts')">Back</button><button class="btn btn-primary" onclick="goControl()">Sort what I can control</button></div></div>
+    <div class="validation" id="mindValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="control" role="region" aria-labelledby="step-control">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">I can influence this now</h2><p>Examples: what I say next, whether I ask a question, take a break, set a boundary, ask for support, or care for myself today.</p><textarea id="canInfluence" placeholder="What is inside your influence right now?" oninput="handleInput()"></textarea></div>
+      <div class="panel"><h2>I cannot change this right now</h2><p>Examples: what already happened, another person's feelings, someone else's decision, time that has passed, or an answer you have not received.</p><textarea id="cannotChange" placeholder="What cannot be changed in this moment?" oninput="handleInput()"></textarea></div>
+    </div>
+    <div class="panel"><h2>I do not know yet</h2><p>Examples: what another person is thinking, what will happen next, whether this is permanent, or how long the problem will last.</p><textarea id="unknownText" placeholder="What remains uncertain?" oninput="handleInput()"></textarea><div class="btns"><button class="btn btn-secondary" onclick="showStep('mind')">Back</button><button class="btn btn-primary" onclick="goStatement()">Create my acceptance statement</button></div></div>
+    <div class="validation" id="controlValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="statement" role="region" aria-labelledby="step-statement">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Create an acceptance statement</h2><p>Choose one statement or write your own. Read it slowly. Nothing has to change for the practice to count.</p><div class="choices" id="statementChoices">
+        <button class="choice" type="button" data-statement="I do not have to like this. It is what is happening right now." aria-pressed="false" onclick="chooseStatement(this)">I do not have to like this.<span>It is what is happening right now.</span></button>
+        <button class="choice" type="button" data-statement="I wish this were different, and I can acknowledge that it is real." aria-pressed="false" onclick="chooseStatement(this)">I wish this were different.<span>And I can acknowledge that it is real.</span></button>
+        <button class="choice" type="button" data-statement="This has already happened. I can choose how I respond from here." aria-pressed="false" onclick="chooseStatement(this)">This has already happened.<span>I can choose how I respond from here.</span></button>
+        <button class="choice" type="button" data-statement="I can accept the facts and still take action." aria-pressed="false" onclick="chooseStatement(this)">I can accept the facts.<span>And still take action.</span></button>
+      </div><label for="customStatement">My acceptance statement:</label><textarea id="customStatement" placeholder="I do not have to like this. Right now, the reality is..." oninput="setCustomStatement(this.value)"></textarea></div>
+      <div class="panel"><h2>Choose the next steady step</h2><p>Acceptance is not passivity. It creates space to choose your response based on the situation as it actually is.</p><div class="choices" id="nextChoices">
+        <button class="choice" type="button" data-next="Take one action within my control" aria-pressed="false" onclick="chooseNext(this)">Take one action within my control</button>
+        <button class="choice" type="button" data-next="Ask for more information" aria-pressed="false" onclick="chooseNext(this)">Ask for more information</button>
+        <button class="choice" type="button" data-next="Set or communicate a boundary" aria-pressed="false" onclick="chooseNext(this)">Set or communicate a boundary</button>
+        <button class="choice" type="button" data-next="Give myself time to feel what I feel" aria-pressed="false" onclick="chooseNext(this)">Give myself time to feel what I feel</button>
+        <button class="choice" type="button" data-next="Ask someone for support" aria-pressed="false" onclick="chooseNext(this)">Ask someone for support</button>
+        <button class="choice" type="button" data-next="Use another coping skill" aria-pressed="false" onclick="chooseNext(this)">Use another coping skill</button>
+      </div><label for="nextOther">My next steady step is:</label><input id="nextOther" placeholder="Write a specific next step." oninput="setCustomNext(this.value)"><label for="whenNext">When will I take it?</label><select id="whenNext" onchange="handleInput()"><option value="">Choose a time</option><option>Now</option><option>Within the next hour</option><option>Later today</option><option>Tomorrow</option><option>After I receive more information</option><option>I am not ready to decide yet</option></select></div>
+    </div>
+    <div class="panel"><h2>Check in again</h2><p>The number may be lower, higher, or unchanged. Lower intensity is not the only sign this helped. You may also have clearer facts, a next step, or more awareness of what remains uncertain.</p><div class="rating-grid" id="afterGrid" aria-label="Intensity after"></div><div class="status">Ending intensity: <span id="afterLabel">Not rated</span></div><label for="understanding">After this exercise, I understand that:</label><textarea id="understanding" placeholder="Example: I can stop fighting this long enough to choose what I do next." oninput="handleInput()"></textarea><div class="btns"><button class="btn btn-secondary" onclick="showStep('control')">Back</button><button class="btn btn-primary" onclick="goSummary()">Build summary</button></div></div>
+    <div class="validation" id="statementValidation" aria-live="polite"></div>
+  </section>
+
+  <section class="screen" id="summary" role="region" aria-labelledby="step-summary">
+    <div class="grid">
+      <div class="panel"><h2 tabindex="-1">Your acceptance summary</h2><div class="summary" id="summaryBox" aria-live="polite"></div><label><input id="includePrivateSummary" type="checkbox" style="width:auto;margin-right:8px" onchange="handleInput()"> Include my private reflection in the Skills Stack save.</label><p class="note orange">By default, Skills Stack saves only this skill, the category, and recommended next practice. Check the box only if you want your situation, facts, and reflection included.</p><div class="btns"><button class="btn btn-primary" id="copySummaryBtn" onclick="copySummary()">Copy summary</button><button class="btn btn-secondary" onclick="practiceAgain()">Practice again</button><button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button><button class="btn btn-warning" onclick="clearDraft()">Clear saved draft</button><button class="btn btn-secondary" aria-controls="resetConfirm" onclick="resetAll()">Start over</button></div><div class="confirm-reset" id="resetConfirm" role="group" aria-labelledby="resetConfirmTitle" hidden><strong id="resetConfirmTitle">Start over and clear this practice?</strong><p>This clears the saved draft on this device.</p><div class="btns"><button class="btn btn-warning" onclick="confirmResetAll()">Yes, start over</button><button class="btn btn-secondary" onclick="cancelResetAll()">Keep practicing</button></div></div><div class="status" id="copyStatus" aria-live="polite"></div><div class="status" id="stackStatus" aria-live="polite"></div></div>
+      <div class="panel"><h2>Skill statement</h2><div class="note"><p>I can acknowledge what is happening without approving of it.</p><p>I can feel what I feel without exaggerating the facts.</p><p>I can stop fighting what cannot be changed in this moment.</p><p>I can use my energy to choose what I do next.</p></div><div class="recommendation" id="recommendation"><strong>Recommended next practice</strong>Notice one small moment this week when reality does not match your expectations. Say: I do not have to like this. This is what is happening. What can I do next?</div></div>
+    </div>
+  </section>
+</main>
+<div class="sr-only" id="liveRegion" aria-live="polite" aria-atomic="true"></div>
+<script>
+const STORAGE_KEY='wtd_accept_what_is_v1';
+const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
+let sessionId=createSessionId();
+let completionEvents=new Set();
+let beforeRating='',afterRating='',fightReality='',acceptStatement='',nextStep='',saveTimeout=null,stackSaved=false;
+function $(id){return document.getElementById(id)}
+function val(id){return ($(id)?.value||'').trim()}
+function announce(text){$('liveRegion').textContent=text}
+function motion(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}
+function postToParent(message){if(window.parent===window)return;window.parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function createSessionId(){return `accept-${Date.now()}-${Math.random().toString(36).slice(2,8)}`}
+function beginNewPracticeSession(){sessionId=createSessionId();completionEvents=new Set()}
+function recordSkillComplete(completionType='finish'){const key=`${sessionId}:${completionType}`;if(completionEvents.has(key))return;completionEvents.add(key);postToParent({type:'skillComplete',skillTitle:'Accept What Is',skillSlug:'accept-what-is',completionType,sessionId})}
+function showStep(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.step').forEach(t=>{if(t.getAttribute('aria-controls')===id)t.setAttribute('aria-current','step');else t.removeAttribute('aria-current')});if(id==='summary')renderSummary();const h=document.querySelector(`#${id} h2`);if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:motion()});announce(`Step changed to ${h?h.textContent:id}.`)}
+function validate(id,msg){$(id).textContent=msg;announce(msg)}
+function handleInput(resetSave=true){if(resetSave)resetStackUi();saveState();renderSummary()}
+function makeRatingGrid(id,labelId,stateName){const grid=$(id);grid.textContent='';for(let i=0;i<=10;i++){const b=document.createElement('button');b.type='button';b.className='rating';b.textContent=String(i);b.setAttribute('aria-pressed','false');b.onclick=()=>{if(stateName==='before')beforeRating=String(i);else afterRating=String(i);[...grid.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');$(labelId).textContent=String(i);handleInput()};grid.appendChild(b)}}
+function setPressed(group,button,valueSetter,value){const was=button.getAttribute('aria-pressed')==='true';document.querySelectorAll(`#${group} .choice`).forEach(b=>b.setAttribute('aria-pressed','false'));if(was){valueSetter('');button.setAttribute('aria-pressed','false')}else{valueSetter(value);button.setAttribute('aria-pressed','true')}handleInput()}
+function chooseFight(btn){setPressed('fightChoices',btn,v=>fightReality=v,btn.dataset.fight);if(fightReality)$('fightOther').value=''}
+function setCustomFight(value){if(value.trim()){fightReality=value.trim();document.querySelectorAll('#fightChoices .choice').forEach(b=>b.setAttribute('aria-pressed','false'))}else fightReality='';handleInput()}
+function chooseStatement(btn){setPressed('statementChoices',btn,v=>acceptStatement=v,btn.dataset.statement);if(acceptStatement)$('customStatement').value=acceptStatement}
+function setCustomStatement(value){acceptStatement=value.trim();if(acceptStatement)document.querySelectorAll('#statementChoices .choice').forEach(b=>b.setAttribute('aria-pressed','false'));handleInput()}
+function chooseNext(btn){setPressed('nextChoices',btn,v=>nextStep=v,btn.dataset.next);if(nextStep)$('nextOther').value=''}
+function setCustomNext(value){if(value.trim()){nextStep=value.trim();document.querySelectorAll('#nextChoices .choice').forEach(b=>b.setAttribute('aria-pressed','false'))}else nextStep='';handleInput()}
+function goFacts(){if(!beforeRating||!val('situation')){validate('checkinValidation','Add an intensity rating and the situation you are having difficulty accepting.');return}$('checkinValidation').textContent='';showStep('facts')}
+function goMind(){if(!val('factsText')){validate('factsValidation','Write at least one observable fact before moving on.');return}$('factsValidation').textContent='';showStep('mind')}
+function goControl(){if(!val('mindAdds')||!fightReality||!val('fightChanging')){validate('mindValidation','Name what your mind is adding, the reality you are fighting, and whether fighting it is changing it right now.');return}$('mindValidation').textContent='';showStep('control')}
+function goStatement(){if(!val('canInfluence')&&!val('cannotChange')&&!val('unknownText')){validate('controlValidation','Sort at least one part of the situation before creating your statement.');return}$('controlValidation').textContent='';showStep('statement')}
+function goSummary(){if(!acceptStatement||!nextStep||!val('whenNext')||!afterRating){validate('statementValidation','Choose an acceptance statement, next steady step, timing, and ending intensity rating.');return}$('statementValidation').textContent='';recordSkillComplete('summary-built');showStep('summary')}
+function recommendationText(){if(afterRating&&beforeRating&&Number(afterRating)>Number(beforeRating))return 'Next practice: use one calming coping skill first, then return to the acceptance statement when your body has more room.';if(val('fightChanging')==='Yes, there is still action I can take')return 'Next practice: take the action that is actually within your control while letting go of the part you cannot control right now.';if(val('whenNext')==='I am not ready to decide yet')return 'Next practice: repeat the facts-versus-assumptions step and give yourself time before choosing.';return 'Next practice: notice one small mismatch this week and ask, What is happening, and what can I do next?'}
+function addSummaryRow(container,label,value){const row=document.createElement('div');row.className='summary-section';const strong=document.createElement('strong');strong.textContent=label;const content=document.createElement('div');content.textContent=value||'Not written yet';row.append(strong,content);container.append(row)}
+function renderSummary(){const box=$('summaryBox');if(!box)return;box.textContent='';addSummaryRow(box,'Intensity before',beforeRating||'Not rated');addSummaryRow(box,'Situation',val('situation'));addSummaryRow(box,'Facts I know',val('factsText'));addSummaryRow(box,'Mind is adding',val('mindAdds'));addSummaryRow(box,'What I know',val('knownText'));addSummaryRow(box,'What I fear, assume, predict, or judge',val('fearText'));addSummaryRow(box,'Reality I keep fighting',fightReality);addSummaryRow(box,'Is fighting it changing it?',val('fightChanging'));addSummaryRow(box,'I can influence',val('canInfluence'));addSummaryRow(box,'I cannot change right now',val('cannotChange'));addSummaryRow(box,'I do not know yet',val('unknownText'));addSummaryRow(box,'Acceptance statement',acceptStatement);addSummaryRow(box,'Next steady step',nextStep);addSummaryRow(box,'When',val('whenNext'));addSummaryRow(box,'Intensity after',afterRating||'Not rated');addSummaryRow(box,'After this exercise, I understand',val('understanding'));addSummaryRow(box,'Recommended next practice',recommendationText());const rec=$('recommendation');if(rec){rec.textContent='';const strong=document.createElement('strong');strong.textContent='Recommended next practice';rec.append(strong,document.createTextNode(recommendationText()))}}
+function selectSummaryText(){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);$('summaryBox').scrollIntoView({block:'nearest',behavior:motion()})}
+async function copyText(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}const helper=document.createElement('textarea');helper.value=text;helper.setAttribute('readonly','');helper.style.position='fixed';helper.style.left='-9999px';document.body.appendChild(helper);helper.focus();helper.select();const copied=document.execCommand('copy');document.body.removeChild(helper);return copied}
+async function copySummary(){renderSummary();const btn=$('copySummaryBtn');btn.disabled=true;btn.textContent='Copying...';try{const copied=await copyText($('summaryBox').innerText);recordSkillComplete('summary-copied');if(copied){$('copyStatus').textContent='Summary copied.';btn.textContent='Copied'}else{selectSummaryText();$('copyStatus').textContent='Automatic copy was blocked. The summary is selected now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}}catch(e){selectSummaryText();$('copyStatus').textContent='Automatic copy was blocked. The summary is selected now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}finally{setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}}
+function buildSkillStack(){const stack={id:'accept-what-is',title:'Accept What Is',goalId:'accept-what-is',goal:'I want to acknowledge reality clearly so I can choose what to do next.',category:'Coping',catKey:'coping',catLabel:'Coping',objective:'Recognize the reality of the present moment without denying it, exaggerating it, or fighting facts that cannot immediately be changed.',practiceOption:'State the facts, notice what the mind adds, sort control, create an acceptance statement, and choose one steady next step.',activity:'Practice accepting what is happening right now without approving of it.',outcome:'More energy for a steady next step instead of arguing with reality.',source:'accept-what-is',recommendedNextPractice:recommendationText(),skills:[{category:'Coping',id:'accept-what-is',name:'Accept What Is',url:'https://whattodo-skills.github.io/skills/accept-what-is.html'}],updatedAt:new Date().toISOString()};if($('includePrivateSummary').checked){renderSummary();stack.privateSummary=$('summaryBox').innerText}return stack}
+function resetStackUi(){const btn=$('saveStackBtn'),status=$('stackStatus');if(!btn||!status)return;stackSaved=false;btn.disabled=false;btn.textContent='Save to Skills Stack';status.textContent=''}
+function saveToSkillStack(){stackSaved=false;const stack=buildSkillStack();const btn=$('saveStackBtn');btn.disabled=true;btn.textContent='Saving...';$('stackStatus').textContent='Saving to Skills Stack...';postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack,updatedAt:new Date().toISOString()}});clearTimeout(saveTimeout);saveTimeout=setTimeout(()=>{if(stackSaved)return;btn.disabled=false;btn.textContent='Save to Skills Stack';$('stackStatus').textContent='Save did not finish. Please try again.'},8000)}
+function saveState(){const data={beforeRating,afterRating,fightReality,acceptStatement,nextStep,includePrivateSummary:$('includePrivateSummary')?.checked||false};['situation','factsText','mindAdds','knownText','fearText','fightOther','fightChanging','canInfluence','cannotChange','unknownText','customStatement','nextOther','whenNext','understanding'].forEach(id=>data[id]=$(id)?.value||'');sessionStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+function loadState(){try{const data=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');beforeRating=data.beforeRating||'';afterRating=data.afterRating||'';fightReality=data.fightReality||'';acceptStatement=data.acceptStatement||'';nextStep=data.nextStep||'';Object.keys(data).forEach(id=>{if($(id)&&typeof data[id]==='string')$(id).value=data[id]});if($('includePrivateSummary'))$('includePrivateSummary').checked=Boolean(data.includePrivateSummary);if(beforeRating){$('beforeLabel').textContent=beforeRating;document.querySelectorAll('#beforeGrid .rating').forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===beforeRating)))}if(afterRating){$('afterLabel').textContent=afterRating;document.querySelectorAll('#afterGrid .rating').forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===afterRating)))}}catch(e){}}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);announce('Saved draft cleared from this device.');location.reload()}
+function practiceAgain(){beginNewPracticeSession();resetStackUi();showStep('checkin')}
+function resetAll(){const panel=$('resetConfirm');panel.hidden=false;panel.querySelector('button').focus();announce('Confirm start over before clearing this practice.')}
+function confirmResetAll(){clearDraft()}
+function cancelResetAll(){const panel=$('resetConfirm');panel.hidden=true;announce('Start over canceled.')}
+window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==window.parent)return;const msg=event.data||{};if(msg.type!=='dashboardSaveResult'||msg.action!=='skillStackSaved')return;clearTimeout(saveTimeout);const btn=$('saveStackBtn');btn.disabled=false;if(msg.ok){stackSaved=true;recordSkillComplete('skill-saved');btn.textContent='Saved to Skills Stack';$('stackStatus').textContent='Saved to Skills Stack.';announce('Skills Stack saving successful.')}else{stackSaved=false;btn.textContent='Save to Skills Stack';$('stackStatus').textContent='Save did not finish. Please try again.';announce('Skills Stack saving failed.')}})
+makeRatingGrid('beforeGrid','beforeLabel','before');makeRatingGrid('afterGrid','afterLabel','after');loadState();renderSummary();try{postToParent({type:'acceptWhatIsReady'})}catch(e){}
+</script>
+</body>
+</html>

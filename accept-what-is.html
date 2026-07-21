@@ -101,10 +101,10 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
 
   <section class="screen" id="control" role="region" aria-labelledby="step-control">
     <div class="grid">
-      <div class="panel"><h2 tabindex="-1">I can influence this now</h2><p>Examples: what I say next, whether I ask a question, take a break, set a boundary, ask for support, or care for myself today.</p><textarea id="canInfluence" placeholder="What is inside your influence right now?" oninput="handleInput()"></textarea></div>
-      <div class="panel"><h2>I cannot change this right now</h2><p>Examples: what already happened, another person's feelings, someone else's decision, time that has passed, or an answer you have not received.</p><textarea id="cannotChange" placeholder="What cannot be changed in this moment?" oninput="handleInput()"></textarea></div>
+      <div class="panel"><h2 tabindex="-1">I can influence this now</h2><p>Examples: what I say next, whether I ask a question, take a break, set a boundary, ask for support, or care for myself today.</p><label for="canInfluence">What can I influence right now?</label><textarea id="canInfluence" placeholder="What is inside your influence right now?" oninput="handleInput()"></textarea></div>
+      <div class="panel"><h2>I cannot change this right now</h2><p>Examples: what already happened, another person's feelings, someone else's decision, time that has passed, or an answer you have not received.</p><label for="cannotChange">What can I not change right now?</label><textarea id="cannotChange" placeholder="What cannot be changed in this moment?" oninput="handleInput()"></textarea></div>
     </div>
-    <div class="panel"><h2>I do not know yet</h2><p>Examples: what another person is thinking, what will happen next, whether this is permanent, or how long the problem will last.</p><textarea id="unknownText" placeholder="What remains uncertain?" oninput="handleInput()"></textarea><div class="btns"><button class="btn btn-secondary" onclick="showStep('mind')">Back</button><button class="btn btn-primary" onclick="goStatement()">Create my acceptance statement</button></div></div>
+    <div class="panel"><h2>I do not know yet</h2><p>Examples: what another person is thinking, what will happen next, whether this is permanent, or how long the problem will last.</p><label for="unknownText">What do I not know yet?</label><textarea id="unknownText" placeholder="What remains uncertain?" oninput="handleInput()"></textarea><div class="btns"><button class="btn btn-secondary" onclick="showStep('mind')">Back</button><button class="btn btn-primary" onclick="goStatement()">Create my acceptance statement</button></div></div>
     <div class="validation" id="controlValidation" aria-live="polite"></div>
   </section>
 
@@ -150,7 +150,8 @@ function announce(text){$('liveRegion').textContent=text}
 function motion(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}
 function postToParent(message){if(window.parent===window)return;window.parent.postMessage(message,SAFE_PARENT_ORIGIN)}
 function createSessionId(){return `accept-${Date.now()}-${Math.random().toString(36).slice(2,8)}`}
-function beginNewPracticeSession(){sessionId=createSessionId();completionEvents=new Set()}
+function resetPrivateConsent(){const consent=$('includePrivateSummary');if(consent)consent.checked=false}
+function beginNewPracticeSession(){sessionId=createSessionId();completionEvents=new Set();resetPrivateConsent()}
 function recordSkillComplete(completionType='finish'){const key=`${sessionId}:${completionType}`;if(completionEvents.has(key))return;completionEvents.add(key);postToParent({type:'skillComplete',skillTitle:'Accept What Is',skillSlug:'accept-what-is',completionType,sessionId})}
 function showStep(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.step').forEach(t=>{if(t.getAttribute('aria-controls')===id)t.setAttribute('aria-current','step');else t.removeAttribute('aria-current')});if(id==='summary')renderSummary();const h=document.querySelector(`#${id} h2`);if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:motion()});announce(`Step changed to ${h?h.textContent:id}.`)}
 function activeStep(){return document.querySelector('.screen.active')?.id||'checkin'}

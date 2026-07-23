@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Through a Hard Moment | What To Do!</title>
+<title>Tolerate A Hard Moment | What To Do!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -63,7 +63,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,
 </style>
 </head>
 <body>
-<header class="site-header"><div class="eyebrow">Coping</div><h1>Get Through a Hard Moment</h1><p>Feel what is here without making the next moment harder.</p></header>
+<header class="site-header"><div class="eyebrow">Coping</div><h1>Tolerate A Hard Moment</h1><p>Feel what is here without making the next moment harder.</p></header>
 <main class="wrap">
   <section class="intro">
     <h2>Tolerate discomfort without needing to escape it or act right away.</h2>
@@ -72,7 +72,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,
     <div class="note"><strong>Success is not feeling calm immediately.</strong> Success is noticing the pull to react, creating a pause, and avoiding an action that would make the next moment harder.</div>
   </section>
 
-  <nav class="stepper" aria-label="Get Through a Hard Moment steps">
+  <nav class="stepper" aria-label="Tolerate A Hard Moment steps">
     <button class="step" id="step-learn" aria-controls="learn" aria-current="step" onclick="requestStep('learn')">1. Learn</button>
     <button class="step" id="step-safety" aria-controls="safety" onclick="requestStep('safety')">2. Safety</button>
     <button class="step" id="step-quick" aria-controls="quick" onclick="requestStep('quick')" hidden>3. Quick Pause</button>
@@ -178,7 +178,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,
 <script>
 const STORAGE_KEY='wtd_tolerate_distress_v1';
 const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
-const PRACTICE_URL='https://whattodo-skills.github.io/skills/tolerate-distress.html';
+const PRACTICE_URL='https://whattodo-skills.github.io/skills/tolerate-a-hard-moment.html';
 const STEP_ORDER=['learn','safety','quick','identify','support','practice','recheck','action','quick-next','review','summary'];
 const EMOTIONS=['Discomfort','Uncertainty','Sadness','Anger','Fear','Shame','Grief','Overwhelm','Mixed emotions','Not sure yet','Something else'];
 const URGES=['Respond immediately','Argue or confront','Send a message','Leave abruptly','Shut down','Avoid or escape','Numb the feeling','Make a major decision','Do something I may regret','Another pull'];
@@ -200,7 +200,7 @@ function announce(text){$('liveRegion').textContent=text}
 function motion(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}
 function postToParent(message){if(window.parent===window)return;window.parent.postMessage(message,SAFE_PARENT_ORIGIN)}
 function newSessionId(){return `tolerate-${Date.now()}-${Math.random().toString(36).slice(2,8)}`}
-function recordEvent(completionType){const key=`${s.sessionId}:${completionType}`;if(s.events[key])return;s.events[key]=true;postToParent({type:'skillComplete',skillTitle:'Tolerate Distress',skillSlug:'tolerate-distress',completionType,sessionId:s.sessionId})}
+function recordEvent(completionType){const key=`${s.sessionId}:${completionType}`;if(s.events[key])return;s.events[key]=true;postToParent({type:'skillComplete',skillTitle:'Tolerate A Hard Moment',skillSlug:'tolerate-a-hard-moment',completionType,sessionId:s.sessionId})}
 function beginNewSession(keepPlan=false){stopTimer(true);s.sessionId=newSessionId();s.events={};s.stackSaved=false;s.started=false;s.elapsed=0;s.reps=0;s.running=false;s.remaining=s.duration;s.practiceResult='';s.recommendation='';if(!keepPlan){s.after='';s.urgeResult='';s.choiceSpace='';s.challenge='';s.comfort='';s.action='';s.afterPause='';s.helped='';s.change='';['actionDetail','actionTime','quickActionDetail','afterPauseOther','helpedOther','changeOther','laterOutcome'].forEach(id=>{if($(id))$(id).value=''})}resetSaveUi();saveState()}
 function showStep(id){if(id!=='practice'&&activeStep()==='practice'&&s.running){stopTimer(false,true);announce('Practice stopped because you left the screen.')}document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.step').forEach(t=>{const controls=t.getAttribute('aria-controls');const quickOnly=controls==='quick'||controls==='quick-next';t.hidden=quickOnly&&s.mode!=='quick';if(controls===id)t.setAttribute('aria-current','step');else t.removeAttribute('aria-current')});if(id==='summary')renderSummary();if(id==='support')renderSupportRecommendation();if(id==='practice')renderPractice();if(id==='action')renderStatement();const h=document.querySelector(`#${id} h2`);if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:motion()});announce(`Step changed to ${h?h.textContent:id}.`)}
 function activeStep(){return document.querySelector('.screen.active')?.id||'learn'}
@@ -264,7 +264,7 @@ function renderSummary(){const box=$('summaryBox');if(!box)return;s.recommendati
 function selectSummaryText(){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);$('summaryBox').scrollIntoView({block:'nearest',behavior:motion()})}
 async function copyText(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}const helper=document.createElement('textarea');helper.value=text;helper.setAttribute('readonly','');helper.style.position='fixed';helper.style.left='-9999px';document.body.appendChild(helper);helper.focus();helper.select();const copied=document.execCommand('copy');document.body.removeChild(helper);return copied}
 async function copySummary(){renderSummary();const btn=$('copySummaryBtn');btn.disabled=true;btn.textContent='Copying...';try{const copied=await copyText($('summaryBox').innerText);recordEvent('summary-copied');if(copied){$('copyStatus').textContent='Summary copied.';btn.textContent='Copied'}else{selectSummaryText();$('copyStatus').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}}catch(e){selectSummaryText();$('copyStatus').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}finally{setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}}
-function buildSkillStack(){return {skillId:'tolerate-distress',skillName:'Get Through a Hard Moment',catKey:'coping',stacked:true,currentLevel:s.level,preferredSupport:supportLabel(),nextPractice:s.recommendation,practiceUrl:PRACTICE_URL,id:'tolerate-distress',title:'Get Through a Hard Moment',category:'Coping',catLabel:'Coping',source:'tolerate-distress',updatedAt:new Date().toISOString()}}
+function buildSkillStack(){return {skillId:'tolerate-a-hard-moment',skillName:'Tolerate A Hard Moment',catKey:'coping',stacked:true,currentLevel:s.level,preferredSupport:supportLabel(),nextPractice:s.recommendation,practiceUrl:PRACTICE_URL,id:'tolerate-a-hard-moment',title:'Tolerate A Hard Moment',category:'Coping',catLabel:'Coping',source:'tolerate-a-hard-moment',updatedAt:new Date().toISOString()}}
 function resetSaveUi(){clearTimeout(saveTimeout);saveTimeout=null;s.stackSaved=false;if($('saveStackBtn')){$('saveStackBtn').disabled=false;$('saveStackBtn').textContent='Save to Skills Stack'}if($('stackStatus'))$('stackStatus').textContent=''}
 function saveToSkillStack(){renderSummary();s.stackSaved=false;const btn=$('saveStackBtn');btn.disabled=true;btn.textContent='Saving...';$('stackStatus').textContent='Saving to Skills Stack...';recordEvent('save-to-skills-stack');postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:buildSkillStack(),updatedAt:new Date().toISOString()}});clearTimeout(saveTimeout);saveTimeout=setTimeout(()=>{if(s.stackSaved)return;btn.disabled=false;btn.textContent='Save to Skills Stack';$('stackStatus').textContent='Save did not finish. Please try again.'},8000)}
 function saveState(){const data={mode:s.mode,emotions:s.emotions,before:s.before,urge:s.urge,worse:s.worse,support:s.support,duration:s.duration,after:s.after,urgeResult:s.urgeResult,choiceSpace:s.choiceSpace,challenge:s.challenge,comfort:s.comfort,action:s.action,afterPause:s.afterPause,helped:s.helped,change:s.change};['emotionOther','urgeOther','quickUrgeOther','worseOther','actionOther','actionDetail','quickActionDetail','actionTime','afterPauseOther','helpedOther','changeOther','laterOutcome'].forEach(id=>data[id]=$(id)?.value||'');sessionStorage.setItem(STORAGE_KEY,JSON.stringify(data))}

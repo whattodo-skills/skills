@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cope Ahead | What To Do!</title>
+<style>
+:root{--bg:#f7f4ed;--ink:#27313d;--muted:#667085;--navy:#182047;--blue:#4f5dad;--blue-bg:#edf1f8;--mint:#eaf4f0;--pink:#bd3a59;--orange:#fff0e7;--line:#ded8ce;--white:#fff;--shadow:0 2px 14px rgba(0,0,0,.07)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+.wrap{max-width:1060px;margin:auto;padding:22px 14px 70px}
+.hero,.panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow)}
+.ey{font-weight:900;color:var(--pink);letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
+h1,h2,h3{color:var(--navy);line-height:1.18}
+h1{font-size:clamp(2rem,5vw,3rem);margin:.15em 0}
+h2{margin:0 0 8px}
+p{color:var(--muted)}
+.steps{display:flex;gap:7px;overflow:auto;list-style:none;padding:0;margin:0 0 16px}
+.steps li{padding:7px 11px;border-radius:999px;background:#eee;color:var(--muted);font-weight:850;font-size:.86rem;white-space:nowrap}
+.steps [aria-current="step"]{background:var(--navy);color:white}
+.screen{display:none}.screen.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.choices,.rating{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:10px}
+.rating{grid-template-columns:repeat(11,1fr)}
+.choice,.rate,.btn{font:inherit;border:2px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--navy);font-weight:850;text-align:left;cursor:pointer}
+.rate{text-align:center;padding:10px 4px}
+.choice[aria-pressed="true"],.rate[aria-pressed="true"]{background:var(--blue-bg);border-color:var(--blue)}
+.choice span{display:block;margin-top:4px;color:var(--muted);font-size:.9rem;font-weight:600}
+.btn{display:inline-flex;justify-content:center;text-align:center;text-decoration:none}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:white}
+.btn.warning{background:var(--orange);color:#873a00;border-color:#ffd1b5}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+fieldset{border:0;margin:0;padding:0}
+legend,.label,label{display:block;font-weight:900;color:var(--navy);margin:13px 0 6px}
+input,textarea,select{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;color:var(--ink);background:white}
+textarea{min-height:86px;resize:vertical}
+.note,.summary-row,.confirm-reset,.timer-card{border-left:4px solid var(--blue);background:var(--blue-bg);border-radius:12px;padding:13px;margin:12px 0;color:var(--navy);line-height:1.55}
+.note.mint{border-left-color:#79b8a5;background:var(--mint);color:#24554b}
+.note.warn,.confirm-reset{border-left-color:#ff6903;background:var(--orange);color:#663400}
+.timer{font-size:clamp(2.2rem,10vw,4rem);font-weight:950;color:var(--navy);line-height:1;margin:.25em 0}
+.scale-help{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.88rem;font-weight:750;margin-top:6px}
+.summary{display:grid;gap:10px}
+.summary-row strong{display:block;color:var(--blue);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.hidden{display:none!important}
+.error,.status{min-height:1.35em;margin-top:10px;font-weight:850;color:#8f1737}
+.status{color:var(--navy)}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:4px solid #f4c95d;outline-offset:2px}
+@media(max-width:720px){.wrap{padding:18px 10px 60px}.grid,.choices{grid-template-columns:1fr}.rating{grid-template-columns:repeat(6,1fr)}.btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="ey">Coping</div>
+    <h1>Cope Ahead</h1>
+    <p>Practice what you will do before a difficult moment arrives.</p>
+  </header>
+
+  <ol class="steps" aria-label="Cope Ahead steps">
+    <li id="step-learn" aria-current="step">1. Learn</li>
+    <li id="step-situation">2. Situation</li>
+    <li id="step-hard">3. Hardest Moment</li>
+    <li id="step-warning">4. Warning Sign</li>
+    <li id="step-response">5. First Response</li>
+    <li id="step-backup">6. Backup</li>
+    <li id="step-rehearse">7. Rehearse</li>
+    <li id="step-review">8. Review</li>
+    <li id="step-summary">9. Summary</li>
+  </ol>
+
+  <section class="screen active" id="learn" aria-labelledby="learn-title">
+    <div class="panel">
+      <h2 id="learn-title" tabindex="-1">Prepare for the difficult moment</h2>
+      <p>Worry imagines what might go wrong. Cope Ahead practices what you will do next.</p>
+      <p>Choose one upcoming situation, identify the most likely difficult moment, and rehearse a simple response before it happens.</p>
+      <p>The goal is not to feel perfectly calm or guarantee a good outcome. The goal is to make your next useful action easier to remember.</p>
+      <div class="btns"><button class="btn primary" type="button" onclick="show('situation')">Build my plan</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="situation" aria-labelledby="situation-title">
+    <div class="panel">
+      <h2 id="situation-title" tabindex="-1">Choose the situation</h2>
+      <fieldset><legend>What upcoming situation are you preparing for?</legend><div class="choices" id="situationChoices"></div></fieldset>
+      <div id="situationOtherWrap" class="hidden"><label for="situationOther">Write the situation.</label><input id="situationOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>When will it happen?</legend><div class="choices" id="whenChoices"></div></fieldset>
+      <div id="whenDetailWrap" class="hidden"><label for="whenDetail">Add the specific date or time.</label><input id="whenDetail" maxlength="160" oninput="saveFromInputs()"></div>
+      <label for="specificSituation">Make it specific enough to picture</label>
+      <input id="specificSituation" maxlength="240" oninput="saveFromInputs()" placeholder="Example: Meeting with my supervisor Tuesday morning.">
+      <div class="note mint">Instead of “Going to work,” use one specific moment you can picture.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('learn')">Back</button><button class="btn primary" type="button" onclick="goHard()">Continue</button></div>
+      <div class="error" id="situation-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="hard" aria-labelledby="hard-title">
+    <div class="panel">
+      <h2 id="hard-title" tabindex="-1">Identify the hardest moment</h2>
+      <fieldset><legend>What is most likely to be difficult?</legend><div class="choices" id="hardChoices"></div></fieldset>
+      <div id="hardOtherWrap" class="hidden"><label for="hardOther">Write what may be difficult.</label><input id="hardOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <label for="momentDetail">What will probably be happening when this moment arrives?</label>
+      <input id="momentDetail" maxlength="240" oninput="saveFromInputs()" placeholder="Use one short, realistic description.">
+      <div class="btns"><button class="btn" type="button" onclick="show('situation')">Back</button><button class="btn primary" type="button" onclick="goWarning()">Continue</button></div>
+      <div class="error" id="hard-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="warning" aria-labelledby="warning-title">
+    <div class="panel">
+      <h2 id="warning-title" tabindex="-1">Spot the first warning sign</h2>
+      <fieldset><legend>Body</legend><div class="choices" id="bodyCueChoices"></div></fieldset>
+      <fieldset><legend>Thought</legend><div class="choices" id="thoughtCueChoices"></div></fieldset>
+      <fieldset><legend>Pull to act</legend><div class="choices" id="pullCueChoices"></div></fieldset>
+      <label for="customCue">Optional custom sign</label><input id="customCue" maxlength="160" oninput="saveFromInputs()">
+      <div class="note mint" id="cuePreview">My cue: Choose one warning sign to begin your plan.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('hard')">Back</button><button class="btn primary" type="button" onclick="goResponse()">Continue</button></div>
+      <div class="error" id="warning-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="response" aria-labelledby="response-title">
+    <div class="panel">
+      <h2 id="response-title" tabindex="-1">Choose the first response</h2>
+      <fieldset><legend>What will you do first?</legend><div class="choices" id="responseChoices"></div></fieldset>
+      <label for="exactResponse">What exactly will you do or say?</label>
+      <textarea id="exactResponse" maxlength="360" oninput="saveFromInputs()" placeholder="Describe an observable action or exact words."></textarea>
+      <div class="note warn">Avoid vague plans like “stay calm,” “be confident,” “handle it well,” or “do not overthink.”</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('warning')">Back</button><button class="btn primary" type="button" onclick="goBackup()">Continue</button></div>
+      <div class="error" id="response-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="backup" aria-labelledby="backup-title">
+    <div class="panel">
+      <h2 id="backup-title" tabindex="-1">Choose one backup</h2>
+      <fieldset><legend>What will you do if the first response is not enough?</legend><div class="choices" id="backupChoices"></div></fieldset>
+      <div id="backupOtherWrap" class="hidden"><label for="backupOther">Write your backup.</label><input id="backupOther" maxlength="220" oninput="saveFromInputs()"></div>
+      <fieldset><legend>Choose one brief reminder</legend><div class="choices" id="reminderChoices"></div></fieldset>
+      <div id="reminderOtherWrap" class="hidden"><label for="reminderOther">Write your reminder.</label><input id="reminderOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <div class="note mint" id="planPreview">Your plan will appear here after you choose a cue, response, and backup.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('response')">Back</button><button class="btn primary" type="button" onclick="goRehearse()">Continue</button></div>
+      <div class="error" id="backup-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="rehearse" aria-labelledby="rehearse-title">
+    <div class="panel">
+      <h2 id="rehearse-title" tabindex="-1">Rehearse for 60 seconds</h2>
+      <div class="timer-card">
+        <div class="timer" id="timerText" aria-live="off">60</div>
+        <p id="coachText">Picture the situation beginning. Press Start when you are ready.</p>
+      </div>
+      <div class="btns">
+        <button class="btn primary" id="startBtn" type="button" onclick="startTimer()">Start</button>
+        <button class="btn" id="pauseBtn" type="button" onclick="pauseTimer()" disabled>Pause</button>
+        <button class="btn" id="finishBtn" type="button" onclick="finishTimer(true)" disabled>Finish early</button>
+        <button class="btn warning" id="stopBtn" type="button" onclick="stopTimer('Practice stopped.')" disabled>Stop rehearsal</button>
+      </div>
+      <div class="btns"><button class="btn" type="button" onclick="leaveRehearsal('backup')">Back</button><button class="btn primary" type="button" onclick="goReview()">Continue</button></div>
+      <div class="status" id="timerStatus" aria-live="polite"></div>
+      <div class="error" id="rehearse-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="review" aria-labelledby="review-title">
+    <div class="panel">
+      <h2 id="review-title" tabindex="-1">Review and adjust</h2>
+      <fieldset><legend>How prepared did you feel before the rehearsal?</legend><div class="scale-help"><span>0 - Not prepared yet</span><span>10 - Very prepared</span></div><div class="rating" id="preparedBefore"></div></fieldset>
+      <fieldset><legend>How prepared do you feel after the rehearsal?</legend><div class="scale-help"><span>0 - Not prepared yet</span><span>10 - Very prepared</span></div><div class="rating" id="preparedAfter"></div></fieldset>
+      <fieldset><legend>What happened during the rehearsal?</legend><div class="choices" id="resultChoices"></div></fieldset>
+      <div id="resultOtherWrap" class="hidden"><label for="resultOther">Something else</label><input id="resultOther" maxlength="160" oninput="saveFromInputs()"></div>
+      <fieldset><legend>How challenging was the rehearsal?</legend><div class="choices" id="challengeChoices"></div></fieldset>
+      <div class="btns"><button class="btn" type="button" onclick="show('rehearse')">Back</button><button class="btn primary" type="button" onclick="goSummary()">Build summary</button></div>
+      <div class="error" id="review-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="summary" aria-labelledby="summary-title">
+    <div class="panel">
+      <h2 id="summary-title" tabindex="-1">You prepared for an upcoming challenge by identifying the difficult moment, choosing what you will do, and mentally practicing how you will respond.</h2>
+      <div class="summary" id="summaryBox" aria-live="polite"></div>
+      <div class="note" id="recommendation"></div>
+      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my private practice summary.</label>
+      <p class="note mint">Your draft is temporarily saved for this browser session.</p>
+      <div class="btns">
+        <a class="btn" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
+        <button class="btn primary" id="saveBtn" type="button" onclick="saveStack()">Save to Skills Stack</button>
+        <button class="btn primary" id="copyBtn" type="button" onclick="copySummary()">Copy summary</button>
+        <button class="btn" type="button" onclick="rehearseAgain()">Rehearse this plan again</button>
+        <button class="btn" type="button" onclick="show('response')">Update my plan</button>
+        <button class="btn" type="button" onclick="prepareAnother()">Prepare for another situation</button>
+        <button class="btn" type="button" onclick="show('deeper')">Build a fuller plan</button>
+        <button class="btn" type="button" onclick="show('realReview')">Review what happened later</button>
+        <button class="btn warning" type="button" onclick="clearDraft()">Clear saved draft</button>
+        <button class="btn warning" id="startOverBtn" type="button" aria-controls="resetConfirm" onclick="requestReset()">Start over</button>
+      </div>
+      <div class="confirm-reset hidden" id="resetConfirm" role="group" aria-labelledby="resetTitle"><strong id="resetTitle">Start over and clear this practice?</strong><p>This clears the temporary draft for this browser session.</p><div class="btns"><button class="btn warning" type="button" onclick="confirmReset()">Yes, start over</button><button class="btn" type="button" onclick="cancelReset()">Keep my results</button></div></div>
+      <div class="status" id="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="deeper" aria-labelledby="deeper-title">
+    <div class="panel">
+      <h2 id="deeper-title" tabindex="-1">Build a fuller plan</h2>
+      <div class="grid">
+        <div><label for="prepareBefore">What should you prepare beforehand?</label><input id="prepareBefore" maxlength="220" oninput="saveFromInputs()"></div>
+        <div><label for="breakPlace">Where could you take a break?</label><input id="breakPlace" maxlength="220" oninput="saveFromInputs()"></div>
+        <div><label for="supportPerson">Who could you contact if needed?</label><input id="supportPerson" maxlength="220" oninput="saveFromInputs()"></div>
+        <div><label for="rehearseAgainWhen">When will you rehearse again?</label><input id="rehearseAgainWhen" maxlength="220" oninput="saveFromInputs()"></div>
+      </div>
+      <label for="afterSituation">What will you do after the situation?</label><input id="afterSituation" maxlength="240" oninput="saveFromInputs()">
+      <div class="btns"><button class="btn primary" type="button" onclick="recordEvent('plan-adjusted');show('summary')">Save fuller plan</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="realReview" aria-labelledby="real-review-title">
+    <div class="panel">
+      <h2 id="real-review-title" tabindex="-1">Review what happened later</h2>
+      <fieldset><legend>What happened?</legend><div class="choices" id="realOutcomeChoices"></div></fieldset>
+      <div id="realOutcomeOtherWrap" class="hidden"><label for="realOutcomeOther">Something else</label><input id="realOutcomeOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>Which response did you use?</legend><div class="choices" id="usedResponseChoices"></div></fieldset>
+      <fieldset><legend>How effectively did you follow the plan?</legend><div class="scale-help"><span>0 - I could not use the plan</span><span>10 - I followed it very effectively</span></div><div class="rating" id="effectiveness"></div></fieldset>
+      <fieldset><legend>What should change next time?</legend><div class="choices" id="changeNextChoices"></div></fieldset>
+      <div id="changeNextOtherWrap" class="hidden"><label for="changeNextOther">Something else</label><input id="changeNextOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <div class="btns"><button class="btn" type="button" onclick="show('summary')">Back</button><button class="btn primary" type="button" onclick="saveRealReview()">Save review</button></div>
+      <div class="error" id="real-review-error" aria-live="polite"></div>
+    </div>
+  </section>
+  <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</main>
+<script>
+const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
+const PRACTICE_URL='https://whattodo-skills.github.io/skills/cope-ahead.html';
+const STORAGE_KEY='wtd_cope_ahead_v1';
+const $=id=>document.getElementById(id);
+const stepOrder=['learn','situation','hard','warning','response','backup','rehearse','review','summary'];
+let sessionId=newSessionId(),eventFlags={},saveTimer=null,timer=null,remaining=60,timerRunning=false,rehearsalDone=false;
+const state={situation:'',situationOther:'',when:'',whenDetail:'',specificSituation:'',hard:'',hardOther:'',momentDetail:'',warningSign:'',customCue:'',response:'',exactResponse:'',backup:'',backupOther:'',reminder:'',reminderOther:'',preparedBefore:'',preparedAfter:'',results:[],resultOther:'',challenge:'',recommendation:'',includePrivate:false,prepareBefore:'',breakPlace:'',supportPerson:'',rehearseAgainWhen:'',afterSituation:'',realOutcome:'',realOutcomeOther:'',usedResponse:'',effectiveness:'',changeNext:'',changeNextOther:''};
+const singleGroups={situationChoices:['situation','situationOtherWrap'],whenChoices:['when','whenDetailWrap'],hardChoices:['hard','hardOtherWrap'],bodyCueChoices:['warningSign'],thoughtCueChoices:['warningSign'],pullCueChoices:['warningSign'],responseChoices:['response'],backupChoices:['backup','backupOtherWrap'],reminderChoices:['reminder','reminderOtherWrap'],challengeChoices:['challenge'],realOutcomeChoices:['realOutcome','realOutcomeOtherWrap'],usedResponseChoices:['usedResponse'],changeNextChoices:['changeNext','changeNextOtherWrap']};
+const multiGroups={resultChoices:['results','resultOtherWrap']};
+const choices={
+situationChoices:['A difficult conversation','An appointment','A work or school responsibility','A social event','Receiving feedback','Setting a boundary','Seeing a difficult person','Waiting for important news','Completing an uncomfortable task','Entering an unfamiliar place','Managing a strong temptation','Something else'],
+whenChoices:['Later today','Tomorrow','This week','At a specific date or time','Not scheduled yet'],
+hardChoices:['I may feel anxious or overwhelmed','I may become angry or defensive','I may shut down or go blank','I may avoid saying what I need','I may agree to something I do not want','I may overexplain','I may leave too quickly','I may react impulsively','I may become self-critical','Someone may respond negatively','I may receive disappointing information','Something else'],
+bodyCueChoices:['Tight shoulders','Faster heartbeat','Shallow breathing','Muscle tension','Feeling hot','Stomach discomfort','Restlessness','Feeling frozen'],
+thoughtCueChoices:['I cannot handle this','I need to get out','I have to fix this immediately','This is going badly','I cannot think clearly','They are judging me'],
+pullCueChoices:['Avoid','Leave immediately','Shut down','Defend myself','Overexplain','Give in','Seek reassurance','Make a fast decision'],
+backupChoices:['Pause and take another slower breath','Read my notes','Ask for a short break','Repeat my prepared statement','Ask for more time before deciding','Contact a support person','Focus only on the next step','Leave appropriately','Write my own backup'],
+reminderChoices:['I only need to handle the next moment','I do not have to answer immediately','I can pause before responding','I can ask for clarification','I can control my response, not the outcome','I do not need to do this perfectly','Write my own reminder'],
+resultChoices:['I noticed the warning sign','I remembered my first response','I used the backup response','I practiced what I wanted to say','I recovered after something went wrong','I need a simpler plan','I had difficulty picturing the situation','Something else'],
+challengeChoices:['Too hard','About right','Too easy'],
+realOutcomeChoices:['It was close to what I expected','Part of it was different','It was very different','The situation did not happen','It was rescheduled','Something else'],
+usedResponseChoices:['First response','Backup response','Both','A different response','I did not remember the plan'],
+changeNextChoices:['Make the plan shorter','Choose an earlier warning sign','Choose a different first response','Strengthen the backup','Practice more than once','Keep the plan the same','Something else']
+};
+const responseSets={quick:['Wait three seconds before answering','Take one slower breath out','Ask for a moment to think','Lower my shoulders before speaking'],blank:['Read my prepared note','Ask the person to repeat the question','Say, “I need a moment to think”','Focus only on the next step'],defensive:['Listen until the other person finishes','Ask one clarifying question','State one fact before explaining','Slow down my response'],explain:['Use a two-sentence response','Stop after stating the main point','Ask whether more detail is needed'],agree:['Say, “I need time before I agree”','Read my prepared boundary','Repeat my boundary once','Ask to respond later']};
+const coachLines=['Picture the situation beginning.','Imagine the difficult moment arriving.','Notice the first warning sign.','Use your first response.','Say your reminder.','Continue even if you feel nervous or make a small mistake.','Use your backup instead of restarting the scene.','Picture yourself completing, pausing, or leaving intentionally.','The goal is not perfection. Practice what you will do next.'];
+function newSessionId(){return 'cope-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
+function text(id){return ($(id)?.value||'').trim()}
+function announce(msg){$('live').textContent=msg}
+function postToParent(message){if(parent!==window)parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function recordEvent(type){const key=sessionId+':'+type;if(eventFlags[key])return;eventFlags[key]=true;postToParent({type:'skillComplete',skillTitle:'Cope Ahead',skillSlug:'cope-ahead',completionType:type,sessionId})}
+function show(id){if(document.querySelector('.screen.active')?.id==='rehearse'&&id!=='rehearse'&&timerRunning)stopTimer('Practice stopped because you left the screen.');document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.steps li').forEach(li=>li.removeAttribute('aria-current'));$('step-'+id)?.setAttribute('aria-current','step');const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.');saveDraft()}
+function showError(id,msg){$(id).textContent=msg;announce(msg)}
+function needsCustom(v){return ['Something else','Write my own backup','Write my own reminder'].includes(v)}
+function selected(prop,other){return needsCustom(state[prop])?state[other]:state[prop]}
+function valid(prop,other){return selected(prop,other)&&selected(prop,other).trim().length>1}
+function makeChoice(group,item){const btn=document.createElement('button');btn.type='button';btn.className='choice';btn.dataset.value=item;btn.setAttribute('aria-pressed','false');btn.textContent=item;btn.onclick=()=>selectChoice(group,item);$(group).appendChild(btn)}
+function selectChoice(group,value){if(singleGroups[group]){const [prop,wrap]=singleGroups[group];state[prop]=value;if(wrap&&!needsCustom(value)){const el=$(wrap)?.querySelector('input');if(el){el.value='';state[el.id]=''}}if(['bodyCueChoices','thoughtCueChoices','pullCueChoices'].includes(group)){['bodyCueChoices','thoughtCueChoices','pullCueChoices'].forEach(g=>document.querySelectorAll('#'+g+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===value))))}else document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===value)))}else{const [prop,wrap]=multiGroups[group];state[prop]=state[prop].includes(value)?state[prop].filter(x=>x!==value):[...state[prop],value];if(value==='Something else'&&!state[prop].includes(value)&&wrap){const el=$(wrap)?.querySelector('input');if(el){el.value='';state[el.id]=''}}document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(state[prop].includes(b.dataset.value))))}if(group==='hardChoices')renderResponses();toggleOther();updatePreviews();saveDraft()}
+function renderResponses(keepSelection=false){let key='quick';if(/blank|shut down/i.test(state.hard))key='blank';else if(/defensive|angry/i.test(state.hard))key='defensive';else if(/overexplain/i.test(state.hard))key='explain';else if(/agree|boundary/i.test(state.hard))key='agree';const previous=state.response;$('responseChoices').textContent='';responseSets[key].forEach(v=>makeChoice('responseChoices',v));state.response=keepSelection?previous:''}
+function makeRatings(group,prop,label){for(let i=0;i<=10;i++){const btn=document.createElement('button');btn.type='button';btn.className='rate';btn.dataset.value=String(i);btn.setAttribute('aria-pressed','false');btn.setAttribute('aria-label',i+' out of 10 - '+label);btn.title=btn.getAttribute('aria-label');btn.textContent=String(i);btn.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===state[prop])));saveDraft()};$(group).appendChild(btn)}}
+function toggleOther(){Object.entries(singleGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!needsCustom(state[prop])&&!(prop==='when'&&state[prop]==='At a specific date or time'))});Object.entries(multiGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!state[prop].includes('Something else'))})}
+function saveFromInputs(){['situationOther','whenDetail','specificSituation','hardOther','momentDetail','customCue','exactResponse','backupOther','reminderOther','resultOther','prepareBefore','breakPlace','supportPerson','rehearseAgainWhen','afterSituation','realOutcomeOther','changeNextOther'].forEach(id=>{if($(id))state[id]=text(id)});state.includePrivate=!!$('includePrivate')?.checked;toggleOther();updatePreviews();saveDraft()}
+function updatePreviews(){const cue=state.customCue||state.warningSign;$('cuePreview').textContent=cue?'My cue: When I notice '+cue+', I will begin my plan.':'My cue: Choose one warning sign to begin your plan.';$('planPreview').textContent=(cue&&state.response&&valid('backup','backupOther'))?'When I notice: '+cue+'\nI will first: '+(state.exactResponse||state.response)+'\nIf I need more help: '+selected('backup','backupOther'):'Your plan will appear here after you choose a cue, response, and backup.'}
+function goHard(){saveFromInputs();if(!valid('situation','situationOther')||!state.when||!state.specificSituation){showError('situation-error','Choose the situation, timing, and a specific moment you can picture.');return}if(state.when==='At a specific date or time'&&!state.whenDetail){showError('situation-error','Add the specific date or time.');return}$('situation-error').textContent='';recordEvent('practice-started');show('hard')}
+function goWarning(){saveFromInputs();if(!valid('hard','hardOther')||!state.momentDetail){showError('hard-error','Choose the difficult moment and write what will probably be happening.');return}$('hard-error').textContent='';show('warning')}
+function goResponse(){saveFromInputs();if(!state.warningSign&&!state.customCue){showError('warning-error','Choose one warning sign or write a custom sign.');return}$('warning-error').textContent='';show('response')}
+function vaguePlan(txt){return /^(stay calm|be confident|handle it well|do not overthink|don't overthink|calm down)$/i.test(txt.trim())}
+function goBackup(){saveFromInputs();if(!state.response||!state.exactResponse||vaguePlan(state.exactResponse)){showError('response-error','Choose a first response and write an observable action or exact words.');return}$('response-error').textContent='';show('backup')}
+function goRehearse(){saveFromInputs();if(!valid('backup','backupOther')||!valid('reminder','reminderOther')){showError('backup-error','Choose one backup and one reminder.');return}$('backup-error').textContent='';recordEvent('plan-created');show('rehearse')}
+function leaveRehearsal(id){if(timerRunning)stopTimer('Practice stopped because you left the screen.');show(id)}
+function startTimer(){if(timerRunning)return;if(rehearsalDone){remaining=60;rehearsalDone=false}$('startBtn').textContent='Resume';timerRunning=true;$('pauseBtn').disabled=false;$('finishBtn').disabled=false;$('stopBtn').disabled=false;$('startBtn').disabled=true;recordEvent('rehearsal-started');tickCoach();timer=setInterval(()=>{remaining-=1;$('timerText').textContent=String(remaining);tickCoach();if(remaining<=0)finishTimer(false)},1000)}
+function tickCoach(){const index=Math.min(coachLines.length-1,Math.floor((60-remaining)/7));$('coachText').textContent=coachLines[index]}
+function pauseTimer(){clearInterval(timer);timerRunning=false;$('startBtn').disabled=false;$('pauseBtn').disabled=true;$('startBtn').textContent='Resume';$('timerStatus').textContent='Rehearsal paused.'}
+function finishTimer(early){clearInterval(timer);timerRunning=false;rehearsalDone=true;remaining=0;$('timerText').textContent='0';$('startBtn').disabled=false;$('pauseBtn').disabled=true;$('finishBtn').disabled=true;$('stopBtn').disabled=true;$('startBtn').textContent='Start';$('timerStatus').textContent=early?'Rehearsal finished early.':'Rehearsal complete.';recordEvent('rehearsal-completed')}
+function stopTimer(msg){clearInterval(timer);timerRunning=false;remaining=60;rehearsalDone=false;$('timerText').textContent='60';$('coachText').textContent='Picture the situation beginning. Press Start when you are ready.';$('startBtn').disabled=false;$('pauseBtn').disabled=true;$('finishBtn').disabled=true;$('stopBtn').disabled=true;$('startBtn').textContent='Start';$('timerStatus').textContent=msg;announce(msg)}
+function goReview(){if(!rehearsalDone){showError('rehearse-error','Start the rehearsal and finish it, or choose Finish early.');return}$('rehearse-error').textContent='';show('review')}
+function goSummary(){saveFromInputs();if(!state.preparedBefore||!state.preparedAfter||!state.results.length||!state.challenge){showError('review-error','Complete the preparedness ratings, rehearsal result, and challenge rating.');return}if(state.results.includes('Something else')&&!state.resultOther){showError('review-error','Write what else happened during rehearsal.');return}state.recommendation=recommendation();$('review-error').textContent='';renderSummary();recordEvent('rehearsal-completed');saveDraft();show('summary')}
+function recommendation(){const gain=Number(state.preparedAfter||0)-Number(state.preparedBefore||0);if(state.results.includes('I had difficulty picturing the situation'))return 'Rehearse only the moment when you expect to need the plan.';if(state.results.includes('I need a simpler plan'))return 'Shorten the plan to three parts: cue, first response, backup.';if(state.results.includes('I used the backup response'))return 'Keep the backup and practice moving from the first response to the backup once more.';if(gain<=0)return 'Simplify the sequence rather than adding more tools.';if(state.challenge==='Too hard')return 'Practice only the difficult moment with less detail. Keep one warning sign, one first response, and one backup.';if(state.challenge==='Too easy')return 'Add one realistic complication and practice using the backup without restarting.';return 'Repeat the same rehearsal once more before the situation.'}
+function addSummary(label,value){const row=document.createElement('div');row.className='summary-row';const strong=document.createElement('strong');strong.textContent=label;const body=document.createElement('div');body.textContent=value||'Not answered';row.append(strong,body);$('summaryBox').append(row)}
+function renderSummary(){const box=$('summaryBox');box.textContent='';addSummary('Upcoming situation',selected('situation','situationOther'));addSummary('Likely difficult moment',selected('hard','hardOther'));addSummary('Warning sign',state.customCue||state.warningSign);addSummary('First response',state.exactResponse||state.response);addSummary('Backup response',selected('backup','backupOther'));addSummary('Reminder',selected('reminder','reminderOther'));addSummary('Before and after preparedness',state.preparedBefore+' to '+state.preparedAfter);addSummary('Rehearsal result',state.results.map(v=>v==='Something else'?state.resultOther:v).join(', '));addSummary('Adaptive next practice',state.recommendation||recommendation());$('recommendation').textContent=state.recommendation||recommendation()}
+function summaryText(){return Array.from($('summaryBox').querySelectorAll('.summary-row')).map(row=>row.innerText.trim()).join('\n\n')}
+async function copySummary(){const btn=$('copyBtn');btn.disabled=true;btn.textContent='Copying...';try{await navigator.clipboard.writeText(summaryText());$('status').textContent='Summary copied.';btn.textContent='Copied'}catch(e){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=getSelection();sel.removeAllRanges();sel.addRange(range);$('status').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}recordEvent('summary-copied');setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}
+function stackPayload(){const stack={skillId:'cope-ahead',skillName:'Cope Ahead',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,practiceStep:'Rehearse',generalNextPractice:state.recommendation||recommendation(),practiceUrl:PRACTICE_URL,id:'cope-ahead',title:'Cope Ahead',source:'cope-ahead',updatedAt:new Date().toISOString()};if(state.includePrivate)stack.privatePracticeSummary={situation:selected('situation','situationOther'),hardMoment:selected('hard','hardOther'),warningSign:state.customCue||state.warningSign,firstResponse:state.exactResponse||state.response,backup:selected('backup','backupOther'),reminder:selected('reminder','reminderOther'),nextPractice:state.recommendation||recommendation()};return stack}
+function resetSaveUi(){clearTimeout(saveTimer);if($('saveBtn')){$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack'}if($('status'))$('status').textContent=''}
+function saveStack(){resetSaveUi();$('saveBtn').disabled=true;$('saveBtn').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';recordEvent('skills-stack-save-requested');postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:stackPayload(),updatedAt:new Date().toISOString()}});saveTimer=setTimeout(()=>{if($('saveBtn').textContent==='Saved to Skills Stack')return;$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
+function rehearseAgain(){remaining=60;rehearsalDone=false;state.preparedBefore='';state.preparedAfter='';state.results=[];state.resultOther='';state.challenge='';state.recommendation='';state.includePrivate=false;sessionId=newSessionId();eventFlags={};document.querySelectorAll('#review .choice,#review .rate').forEach(b=>b.setAttribute('aria-pressed','false'));if($('includePrivate'))$('includePrivate').checked=false;stopTimer('Ready to rehearse this plan again.');show('rehearse')}
+function prepareAnother(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
+function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus()}
+function cancelReset(){$('resetConfirm').classList.add('hidden');announce('Start over canceled.');$('startOverBtn').focus()}
+function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
+function saveRealReview(){saveFromInputs();if(!valid('realOutcome','realOutcomeOther')||!state.usedResponse||!state.effectiveness||!valid('changeNext','changeNextOther')){showError('real-review-error','Complete the real-world review choices.');return}$('real-review-error').textContent='';recordEvent('outcome-reviewed');saveDraft();announce('Real-world review saved.');show('summary')}
+function saveDraft(){sessionStorage.setItem(STORAGE_KEY,JSON.stringify({sessionId,eventFlags,state,rehearsalDone,remaining}))}
+function restoreSelectionUi(){document.querySelectorAll('.choice').forEach(b=>{const group=b.parentElement.id;if(singleGroups[group])b.setAttribute('aria-pressed',String(state[singleGroups[group][0]]===b.dataset.value));if(multiGroups[group])b.setAttribute('aria-pressed',String(state[multiGroups[group][0]].includes(b.dataset.value))) });['preparedBefore','preparedAfter','effectiveness'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(state[group]===b.dataset.value))))}
+function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;Object.assign(state,saved.state);sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};rehearsalDone=!!saved.rehearsalDone;remaining=saved.remaining||60;Object.entries(state).forEach(([key,value])=>{if($(key)&&typeof value==='string')$(key).value=value});renderResponses(true);restoreSelectionUi();toggleOther();updatePreviews()}catch(e){}}
+window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('saveBtn').disabled=false;if(msg.ok){recordEvent('save-to-skills-stack');$('saveBtn').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
+Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item)));
+renderResponses();
+makeRatings('preparedBefore','preparedBefore','preparedness before rehearsal');
+makeRatings('preparedAfter','preparedAfter','preparedness after rehearsal');
+makeRatings('effectiveness','effectiveness','effectiveness following the plan');
+restoreDraft();
+postToParent({type:'copeAheadReady'});
+</script>
+</body>
+</html>

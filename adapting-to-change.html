@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Adapting To Change | What To Do!</title>
 <style>
-:root{--navy:#182047;--blue:#4f5dad;--pink:#bd3a59;--mint:#eaf4f0;--blue-bg:#edf1f8;--bg:#f7f4ed;--line:#ded8ce;--text:#28313d;--muted:#667085;--white:#fff}
+:root{--navy:#182047;--blue:#4f5dad;--pink:#bd3a59;--mint:#eaf4f0;--blue-bg:#edf1f8;--orange-bg:#fff0e7;--bg:#f7f4ed;--line:#ded8ce;--text:#28313d;--muted:#667085;--white:#fff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
 .wrap{max-width:980px;margin:auto;padding:24px 16px 70px}
@@ -18,17 +18,18 @@ p{color:var(--muted)}
 .steps{display:flex;gap:7px;overflow:auto;padding:0;margin:0 0 16px;list-style:none}
 .steps li{padding:7px 11px;border-radius:20px;background:#eee;white-space:nowrap;color:var(--muted);font-weight:800;font-size:.88rem}
 .steps [aria-current="step"]{background:var(--navy);color:white}
-.screen{display:none}
-.screen.active{display:block}
-.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
-.choice,.btn{font:inherit;border:2px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--navy);font-weight:800;text-align:left;cursor:pointer}
-.choice{position:relative}
-.choice[aria-pressed="true"]{background:var(--blue-bg);border-color:var(--blue)}
-.choice .state{display:block;color:var(--blue);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-top:7px;font-weight:900}
-.choice[aria-pressed="false"] .state{display:none}
+.screen{display:none}.screen.active{display:block}
+.choices,.rating{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+.rating{grid-template-columns:repeat(11,1fr)}
+.choice,.rate,.btn{font:inherit;border:2px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--navy);font-weight:800;text-align:left;cursor:pointer}
+.rate{text-align:center;padding:10px 4px}
+.choice[aria-pressed="true"],.rate[aria-pressed="true"]{background:var(--blue-bg);border-color:var(--blue)}
+.choice .state,.rate .state{display:block;color:var(--blue);font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;margin-top:7px;font-weight:900}
+.choice[aria-pressed="false"] .state,.rate[aria-pressed="false"] .state{display:none}
 .choice span:not(.state){display:block;color:var(--muted);font-size:.9rem;font-weight:600;margin-top:4px}
 .btn{display:inline-flex;justify-content:center;text-align:center;text-decoration:none}
 .btn.primary{background:var(--navy);color:white;border-color:var(--navy)}
+.btn.warning{background:var(--orange-bg);color:#873a00;border-color:#ffd1b5}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 fieldset{border:0;margin:0;padding:0}
@@ -36,17 +37,19 @@ legend,.label,label{display:block;font-weight:900;color:var(--navy);margin:14px 
 .group-title{margin:18px 0 8px;color:var(--pink);font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;font-weight:900}
 input,textarea,select{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;background:white;color:var(--text)}
 textarea{min-height:84px;resize:vertical}
-.note,.example,.statement{background:var(--mint);padding:14px;border-radius:12px;margin:12px 0;line-height:1.55}
+.note,.example,.statement,.confirm-reset{background:var(--mint);padding:14px;border-radius:12px;margin:12px 0;line-height:1.55}
 .example{background:#fff7ef;border-left:4px solid #ff6903}
-.statement{background:var(--blue-bg);border-left:4px solid var(--blue);color:var(--navy)}
+.statement{background:var(--blue-bg);border-left:4px solid var(--blue);color:var(--navy);white-space:pre-wrap}
+.confirm-reset{background:var(--orange-bg);border:1.5px solid #ffd1b5}
 .summary{display:grid;gap:12px}
 .summary-row{background:var(--blue-bg);border-radius:12px;padding:12px}
 .summary-row strong{display:block;color:var(--blue);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
-.error{color:#8f1737;font-weight:800;min-height:1.4em;margin-top:10px}
+.error,.status{color:#8f1737;font-weight:800;min-height:1.4em;margin-top:10px}
+.status{color:var(--navy)}
 .hidden{display:none!important}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:4px solid #f4c95d;outline-offset:2px}
-@media(max-width:650px){.wrap{padding:18px 10px 60px}.choices{grid-template-columns:1fr}.btn{width:100%}}
+@media(max-width:650px){.wrap{padding:18px 10px 60px}.choices{grid-template-columns:1fr}.rating{grid-template-columns:repeat(6,1fr)}.btn{width:100%}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -55,22 +58,25 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   <header class="hero">
     <div class="ey">Coping</div>
     <h1>Adapting To Change</h1>
-    <p>Recognize what is different, make room for your reaction, and take one workable step forward.</p>
+    <p>Recognize what is different, separate facts from meanings, and take one workable step forward.</p>
   </header>
 
   <ol class="steps" aria-label="Adapting To Change steps">
     <li id="step-learn" aria-current="step">1. Learn</li>
-    <li id="step-theme">2. What Changed</li>
-    <li id="step-meaning">3. Fact Check</li>
-    <li id="step-next">4. Next Step</li>
-    <li id="step-guided">5. Guided Review</li>
-    <li id="step-summary">6. Summary</li>
+    <li id="step-safety">2. Safety</li>
+    <li id="step-rate">3. Rate</li>
+    <li id="step-theme">4. What Changed</li>
+    <li id="step-meaning">5. Fact Check</li>
+    <li id="step-next">6. Next Step</li>
+    <li id="step-guided">7. Guided Review</li>
+    <li id="step-challenge">8. Try</li>
+    <li id="step-summary">9. Summary</li>
   </ol>
 
   <section class="screen active" id="learn" aria-labelledby="learn-title">
     <div class="card">
       <h2 id="learn-title" tabindex="-1">Change can take time to adjust to</h2>
-      <p>Adapting does not mean liking the change. It means seeing what is true clearly enough to choose a useful response. Start with a manageable change.</p>
+      <p>Adapting does not mean liking the change. It means seeing what is true clearly enough to choose a useful response.</p>
       <div class="note">This is a self-guided practice for manageable changes. Use it only when you are safe enough to pause and reflect.</div>
       <h3>Choose Your Skill Practice Version</h3>
       <div class="btns">
@@ -78,6 +84,35 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
         <button class="btn primary" type="button" onclick="chooseMode('guided')">Guided Adaptation</button>
         <a class="btn" href="https://www.whattodo.coach/skills-3/" target="_top">Return to Skills</a>
       </div>
+    </div>
+  </section>
+
+  <section class="screen" id="safety" aria-labelledby="safety-title">
+    <div class="card">
+      <h2 id="safety-title" tabindex="-1">Safety Check</h2>
+      <p>This practice is for manageable changes. Do not use it to delay protective action or urgent help.</p>
+      <div class="note">If you or someone else is in immediate danger, call 911, text or call 988, or go to the nearest emergency room.</div>
+      <button class="btn primary" type="button" onclick="attestSafety()">By continuing, you attest to your safety</button>
+      <div class="error" id="safety-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="rate" aria-labelledby="rate-title">
+    <div class="card">
+      <h2 id="rate-title" tabindex="-1">Before you begin</h2>
+      <fieldset>
+        <legend>How clear does this change feel right now?</legend>
+        <div class="rating" id="clarityBefore"></div>
+      </fieldset>
+      <fieldset>
+        <legend>How much energy are you spending wishing this change were different?</legend>
+        <div class="rating" id="wishBefore"></div>
+      </fieldset>
+      <div class="btns">
+        <button class="btn" type="button" onclick="show('safety')">Back</button>
+        <button class="btn primary" type="button" onclick="goTheme()">Continue</button>
+      </div>
+      <div class="error" id="rate-error" aria-live="polite"></div>
     </div>
   </section>
 
@@ -97,10 +132,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       </fieldset>
       <div id="custom-theme-wrap" class="hidden">
         <label for="customTheme">What changed?</label>
-        <textarea id="customTheme" maxlength="400" oninput="updateCustomTheme()" placeholder="Write one short description of what changed."></textarea>
+        <textarea id="customTheme" maxlength="400" oninput="saveFromInputs()" placeholder="Write one short description of what changed."></textarea>
       </div>
       <div class="btns">
-        <button class="btn" type="button" onclick="show('learn')">Back</button>
+        <button class="btn" type="button" onclick="show('rate')">Back</button>
         <button class="btn primary" type="button" onclick="goPrompts()">Continue</button>
       </div>
       <div class="error" id="theme-error" aria-live="polite"></div>
@@ -110,18 +145,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   <section class="screen" id="prompts" aria-labelledby="prompts-title">
     <div class="card">
       <h2 id="prompts-title" tabindex="-1">Describe the change with guidance</h2>
-      <p id="prompt-intro">Answer the prompts using simple, concrete language.</p>
+      <p id="prompt-intro">Choose a starter statement if one fits. You can edit the words so they match your real situation.</p>
       <div class="example" id="exampleBox"></div>
+      <fieldset>
+        <legend>Starter statements</legend>
+        <div class="choices" id="statementChoices"></div>
+      </fieldset>
       <div id="standard-prompts">
-        <label id="beforeLabel" for="beforeText">What was true before?</label>
+        <label id="beforeLabel" for="beforeText">What was true before? Edit if needed.</label>
         <textarea id="beforeText" maxlength="500" oninput="updateGenerated()"></textarea>
-        <label id="nowLabel" for="nowText">What is true now?</label>
+        <label id="nowLabel" for="nowText">What is true now? Edit if needed.</label>
         <textarea id="nowText" maxlength="500" oninput="updateGenerated()"></textarea>
       </div>
       <div id="self-prompts" class="hidden">
-        <label for="selfChange">What change are you dealing with?</label>
+        <label for="selfChange">What change are you dealing with? Edit if needed.</label>
         <textarea id="selfChange" maxlength="500" oninput="updateGenerated()"></textarea>
-        <label for="selfJudgment">What are you telling yourself you should already be doing, feeling, or handling better?</label>
+        <label for="selfJudgment">What are you telling yourself you should already be doing, feeling, or handling better? Edit if needed.</label>
         <textarea id="selfJudgment" maxlength="500" oninput="updateGenerated()"></textarea>
       </div>
       <div class="statement" id="generatedStatement" aria-live="polite"></div>
@@ -146,6 +185,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
         <div class="choices" id="confirmChoices"></div>
       </fieldset>
       <div class="note hidden" id="factHelp">Keep only what happened in the first box. Move predictions, judgments, and meanings into the second box.</div>
+      <label class="hidden" id="revisionWrap"><input id="factRevised" type="checkbox" onchange="handleFactMeaningInput()"> I revised the first box or moved my interpretation into the second box.</label>
       <div class="btns">
         <button class="btn" type="button" onclick="show('prompts')">Back</button>
         <button class="btn primary" type="button" onclick="goNext()">Continue</button>
@@ -158,12 +198,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
     <div class="card">
       <h2 id="next-title" tabindex="-1">Choose one workable step</h2>
       <p>Now that the change is clearer, choose what you can influence next.</p>
-      <label for="influence">What can you influence next?</label>
-      <textarea id="influence" maxlength="500" oninput="handleInput()"></textarea>
-      <label for="action">What exactly will you do?</label>
-      <textarea id="action" maxlength="500" oninput="handleInput()"></textarea>
+      <fieldset>
+        <legend>What can you influence next?</legend>
+        <div class="choices" id="influenceChoices"></div>
+      </fieldset>
+      <div id="influenceOtherWrap" class="hidden">
+        <label for="influenceOther">What else can you influence?</label>
+        <input id="influenceOther" maxlength="180" oninput="saveFromInputs()" placeholder="Write a short phrase.">
+      </div>
+      <fieldset>
+        <legend>What exactly will you do?</legend>
+        <div class="choices" id="actionStepChoices"></div>
+      </fieldset>
+      <div id="actionOtherWrap" class="hidden">
+        <label for="actionOther">What action will you take?</label>
+        <input id="actionOther" maxlength="180" oninput="saveFromInputs()" placeholder="Write one specific action.">
+      </div>
       <label for="when">When will you begin?</label>
-      <select id="when" onchange="handleInput()">
+      <select id="when" onchange="handleTimingChange()">
         <option value="">Choose</option>
         <option>Now</option>
         <option>Within 10 minutes</option>
@@ -172,9 +224,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
         <option>At a specific time</option>
         <option>After another activity</option>
       </select>
+      <div id="specificTimeWrap" class="hidden">
+        <label for="specificTime">What exact time?</label>
+        <input id="specificTime" maxlength="120" oninput="saveFromInputs()" placeholder="Example: 3:30 PM">
+      </div>
+      <div id="cueWrap" class="hidden">
+        <label for="afterCue">After what activity?</label>
+        <input id="afterCue" maxlength="160" oninput="saveFromInputs()" placeholder="Example: After I finish lunch">
+      </div>
+      <fieldset>
+        <legend>Could you begin this action in under five minutes?</legend>
+        <div class="choices" id="underFiveChoices"></div>
+      </fieldset>
       <div class="btns">
         <button class="btn" type="button" onclick="show('meaning')">Back</button>
-        <button class="btn primary" type="button" onclick="mode==='guided'?goGuided():goSummary()">Build summary</button>
+        <button class="btn primary" id="nextContinue" type="button" onclick="mode==='guided'?goGuided():goChallenge()">Continue to review</button>
       </div>
       <div class="error" id="next-error" aria-live="polite"></div>
     </div>
@@ -184,45 +248,132 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
     <div class="card">
       <h2 id="guided-title" tabindex="-1">Guided adaptation review</h2>
       <p>Use the fact statement as the foundation for the rest of the practice.</p>
-      <label for="reaction">How are your mind or body responding?</label>
-      <textarea id="reaction" maxlength="500" oninput="handleInput()"></textarea>
-      <label for="feelings">What feelings are present?</label>
-      <textarea id="feelings" maxlength="400" oninput="handleInput()"></textarea>
-      <label for="fixed">What cannot change right now?</label>
-      <textarea id="fixed" maxlength="500" oninput="handleInput()"></textarea>
-      <label for="unknown">What do you not know yet?</label>
-      <textarea id="unknown" maxlength="500" oninput="handleInput()"></textarea>
-      <label for="reality">Reality statement</label>
-      <textarea id="reality" maxlength="500" oninput="handleInput()" placeholder="Example: This changed, and I can choose one workable response today."></textarea>
-      <label for="prepare">When this feels difficult again, I will:</label>
-      <textarea id="prepare" maxlength="500" oninput="handleInput()"></textarea>
-      <label for="flex">Optional flexibility challenge</label>
-      <select id="flex" onchange="handleInput()">
-        <option>Skip this challenge today</option>
+      <fieldset>
+        <legend>How are your mind or body responding?</legend>
+        <div class="choices" id="reactionChoices"></div>
+      </fieldset>
+      <div id="reactionOtherWrap" class="hidden">
+        <label for="reactionOther">Something else I notice</label>
+        <input id="reactionOther" maxlength="180" oninput="saveFromInputs()" placeholder="Optional. Write a short phrase.">
+      </div>
+      <fieldset>
+        <legend>What feelings are present?</legend>
+        <div class="choices" id="feelingChoices"></div>
+      </fieldset>
+      <fieldset>
+        <legend>What cannot change right now?</legend>
+        <div class="choices" id="fixedChoices"></div>
+      </fieldset>
+      <div id="fixedOtherWrap" class="hidden">
+        <label for="fixedOther">What else cannot change right now?</label>
+        <input id="fixedOther" maxlength="180" oninput="saveFromInputs()" placeholder="Write a short phrase.">
+      </div>
+      <fieldset>
+        <legend>What do you not know yet?</legend>
+        <div class="choices" id="unknownChoices"></div>
+      </fieldset>
+      <div id="unknownOtherWrap" class="hidden">
+        <label for="unknownOther">What else is unknown?</label>
+        <input id="unknownOther" maxlength="180" oninput="saveFromInputs()" placeholder="Write a short phrase.">
+      </div>
+      <fieldset>
+        <legend>Choose a reality statement</legend>
+        <div class="choices" id="realityChoices"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Rehearse your preparation: when this feels difficult again, what will you do first?</legend>
+        <div class="choices" id="prepareChoices"></div>
+      </fieldset>
+      <div id="prepareOtherWrap" class="hidden">
+        <label for="prepareOther">What else will you do first?</label>
+        <input id="prepareOther" maxlength="180" oninput="saveFromInputs()" placeholder="Write one first move.">
+      </div>
+      <label for="flex">Flexibility challenge</label>
+      <select id="flex" onchange="saveFromInputs()">
         <option>Take a different route</option>
         <option>Change part of my routine</option>
         <option>Complete a routine task differently</option>
+        <option>Ask for updated information instead of guessing</option>
       </select>
       <div class="btns">
         <button class="btn" type="button" onclick="show('next')">Back</button>
-        <button class="btn primary" type="button" onclick="goSummary()">Build summary</button>
+        <button class="btn primary" type="button" onclick="goChallenge()">Practice the challenge</button>
       </div>
       <div class="error" id="guided-error" aria-live="polite"></div>
     </div>
   </section>
 
+  <section class="screen" id="challenge" aria-labelledby="challenge-title">
+    <div class="card">
+      <h2 id="challenge-title" tabindex="-1">Review what happened</h2>
+      <fieldset>
+        <legend>How clear does this change feel now?</legend>
+        <div class="rating" id="clarityAfter"></div>
+      </fieldset>
+      <fieldset>
+        <legend>How much energy are you spending wishing this change were different now?</legend>
+        <div class="rating" id="wishAfter"></div>
+      </fieldset>
+      <fieldset>
+        <legend>How challenging was this practice?</legend>
+        <div class="choices" id="challengeRatingChoices"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Did this action fit the situation well enough?</legend>
+        <div class="choices" id="fitChoices"></div>
+      </fieldset>
+      <fieldset>
+        <legend>What happened when you tried the action or flexibility challenge?</legend>
+        <div class="choices" id="outcomeChoices"></div>
+      </fieldset>
+      <fieldset>
+        <legend>What do you want to remember for next time?</legend>
+        <div class="choices" id="rememberChoices"></div>
+      </fieldset>
+      <div id="rememberOtherWrap" class="hidden">
+        <label for="reviewNote">What else do you want to remember?</label>
+        <input id="reviewNote" maxlength="180" oninput="saveFromInputs()" placeholder="Optional. Write a short phrase.">
+      </div>
+      <label for="laterReview">Later action review</label>
+      <select id="laterReview" onchange="saveFromInputs()">
+        <option value="">Choose one</option>
+        <option>I tried the action</option>
+        <option>I tried part of it</option>
+        <option>I have not tried it yet</option>
+        <option>The situation changed</option>
+      </select>
+      <div class="btns">
+        <button class="btn" type="button" onclick="mode==='guided'?show('guided'):show('next')">Back</button>
+        <button class="btn primary" type="button" onclick="goSummary()">Build summary</button>
+      </div>
+      <div class="error" id="challenge-error" aria-live="polite"></div>
+    </div>
+  </section>
+
   <section class="screen" id="summary" aria-labelledby="summary-title">
     <div class="card">
-      <h2 id="summary-title" tabindex="-1">You practiced seeing what changed clearly, making room for your reaction, and taking one workable step in the life you are living now.</h2>
+      <h2 id="summary-title" tabindex="-1">You practiced seeing what changed clearly, making room for your reaction, and adjusting one workable step.</h2>
       <div class="summary" id="out" aria-live="polite"></div>
       <div class="note" id="rec"></div>
+      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my private practice summary in the Skills Stack save.</label>
+      <p class="note">Your draft is temporarily saved for this browser session. Skills Stack saves only the skill unless you check the box above.</p>
       <div class="btns">
+        <button class="btn primary" id="copySummaryBtn" type="button" onclick="copySummary()">Copy summary</button>
         <button class="btn primary" id="save" type="button" onclick="saveStack()">Save to Skills Stack</button>
-        <button class="btn" type="button" onclick="repeat()">Practice this change again</button>
-        <button class="btn" type="button" onclick="location.reload()">Use another change</button>
+        <button class="btn" type="button" onclick="practiceAgain()">Practice this change again</button>
+        <button class="btn warning" type="button" onclick="clearDraft()">Clear saved draft</button>
+        <button class="btn warning" type="button" aria-controls="resetConfirm" onclick="requestReset()">Start over</button>
         <a class="btn" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
       </div>
-      <div id="status" aria-live="polite"></div>
+      <div class="confirm-reset hidden" id="resetConfirm" role="group" aria-labelledby="resetTitle">
+        <strong id="resetTitle">Start over and clear this practice?</strong>
+        <p>This clears the temporary draft for this browser session.</p>
+        <div class="btns">
+          <button class="btn warning" type="button" onclick="confirmReset()">Yes, start over</button>
+          <button class="btn" type="button" onclick="cancelReset()">Keep practicing</button>
+        </div>
+      </div>
+      <div id="status" class="status" aria-live="polite"></div>
     </div>
   </section>
   <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
@@ -231,10 +382,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 <script>
 const ORIGIN='https://www.whattodo.coach';
 const URL='https://whattodo-skills.github.io/skills/adapting-to-change.html';
+const STORAGE_KEY='wtd_adapting_to_change_v2';
 const $=id=>document.getElementById(id);
 let mode='';
 let saveTimer=null;
-const state={theme:'',customTheme:'',before:'',now:'',selfChange:'',selfJudgment:'',fact:'',meaning:'',confirm:'',influence:'',action:'',when:'',reaction:'',feelings:'',fixed:'',unknown:'',reality:'',prepare:'',flex:'Skip this challenge today',recommendation:'Begin the smallest visible part of your action before trying to solve the entire change.'};
+let sessionId=newSessionId();
+let eventFlags={};
+const state={safe:false,theme:'',customTheme:'',before:'',now:'',selfChange:'',selfJudgment:'',fact:'',meaning:'',confirm:'',factRevised:false,clarityBefore:'',wishBefore:'',clarityAfter:'',wishAfter:'',influence:'',influenceOther:'',action:'',actionOther:'',when:'',specificTime:'',afterCue:'',underFive:'',reaction:[],reactionOther:'',feelings:[],fixed:'',fixedOther:'',unknown:'',unknownOther:'',reality:'',prepare:'',prepareOther:'',flex:'Take a different route',challengeRating:'',fit:'',outcome:'',remember:'',reviewNote:'',laterReview:'',recommendation:'Begin the smallest visible part of your action before trying to solve the entire change.',includePrivate:false};
 const themeGroups={
   'themes-control':[
     ['uncertainty','I do not know what will happen next'],
@@ -269,37 +423,171 @@ const prompts={
   other:{before:'What was true before?',now:'What is different now?',template:(a,b)=>`Before, ${a}. Now, ${b}.`,example:['Fact: The appointment was scheduled for Tuesday. It has been moved to Friday.','Meaning added: This means no one respects my time.']}
 };
 const selfPrompt={example:['Fact: I started a new role three weeks ago.','Meaning added: I should already know how to do everything.']};
+const statementStarters={
+  uncertainty:[
+    ['I had a clear plan','I do not know the next step yet'],
+    ['I knew what to expect','Something is still undecided'],
+    ['The timing felt predictable','The timing is uncertain right now']
+  ],
+  work:[
+    ['My work or school routine was familiar','The expectations, schedule, or workload changed'],
+    ['I knew what my role required','I am being asked to adjust how I work'],
+    ['The old plan was working for me','I need to respond to a new requirement']
+  ],
+  responsibility:[
+    ['I was managing my usual responsibilities','I have one more responsibility to account for'],
+    ['The load felt more familiar','The load feels bigger or less predictable'],
+    ['I had fewer things to track','I need a smaller plan for what matters first']
+  ],
+  routine:[
+    ['My usual routine helped me move through the day','Part of that routine no longer works the same way'],
+    ['I knew when I would do this','I need a different cue or time'],
+    ['The old rhythm felt familiar','The current rhythm needs adjusting']
+  ],
+  health:[
+    ['My body, energy, or focus felt more predictable','My body, energy, or focus needs different pacing now'],
+    ['I could usually rely on my usual capacity','I need to work with what my capacity is today'],
+    ['I expected myself to function the old way','I am noticing a real limit or change']
+  ],
+  relationship:[
+    ['The relationship had a familiar pattern','The pattern, closeness, or communication changed'],
+    ['I knew what to expect from this person','I am adjusting to something different between us'],
+    ['The connection felt more predictable','I need to respond to the relationship as it is now']
+  ],
+  loss:[
+    ['I expected this person, plan, opportunity, or future to continue','That expectation is no longer happening in the same way'],
+    ['I was holding onto a version of what I thought would happen','I am dealing with what is true now'],
+    ['The old possibility mattered to me','I need to care for myself while adjusting to its absence']
+  ],
+  identity:[
+    ['This role helped me understand myself','That role looks different now'],
+    ['I used to know how I fit here','I am learning what my place looks like now'],
+    ['Part of my identity felt steady','That part feels less certain right now']
+  ],
+  support:[
+    ['I could count on this support in a familiar way','That support is less available or different now'],
+    ['I had help I expected to be there','I need to identify what support is realistic now'],
+    ['I felt less alone with this before','I need a different support plan now']
+  ],
+  comparison:[
+    ['I keep expecting the old situation to return','The current situation is different'],
+    ['I am comparing now to how things used to be','I need to respond to what is happening now'],
+    ['The old version felt easier or better','The present version is what I have to work with']
+  ],
+  selfcriticism:[
+    ['I am dealing with a change that still feels hard','I should already be handling this better'],
+    ['I am still learning how to respond to this change','I should not be struggling with this'],
+    ['This situation asks me to adjust','I should already know exactly what to do']
+  ],
+  other:[
+    ['Something important changed','I need to respond to what is true now'],
+    ['The old plan no longer fully fits','I need one workable next step'],
+    ['What I expected is different from what happened','I can pause and choose how to adjust']
+  ]
+};
 function text(id){return ($(id)?.value||'').trim()}
+function newSessionId(){return 'adapt-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
 function announce(msg){$('live').textContent=msg}
 function post(msg){if(parent!==window)parent.postMessage(msg,ORIGIN)}
+function recordEvent(completionType){const key=sessionId+':'+completionType;if(eventFlags[key])return;eventFlags[key]=true;post({type:'skillComplete',skillTitle:'Adapting To Change',skillSlug:'adapting-to-change',completionType,sessionId})}
+function showError(id,msg){$(id).textContent=msg;announce(msg)}
+function validText(value){return value&&value.trim().length>1}
 function setStep(id){const map={prompts:'theme'};const key=map[id]||id;document.querySelectorAll('.steps li').forEach(li=>li.removeAttribute('aria-current'));$('step-'+key)?.setAttribute('aria-current','step')}
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));setStep(id);const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.')}
-function chooseMode(nextMode){mode=nextMode;show('theme')}
-function makeChoice(group,value,label){const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.value=value;b.setAttribute('aria-pressed','false');b.textContent=label;const chosen=document.createElement('span');chosen.className='state';chosen.textContent='Chosen';b.appendChild(chosen);b.onclick=()=>selectTheme(value);$(group).appendChild(b)}
-function selectTheme(value){state.theme=value;document.querySelectorAll('[data-value]').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===value)));$('custom-theme-wrap').classList.toggle('hidden',value!=='other');$('theme-error').textContent='';updatePromptText()}
-function updateCustomTheme(){state.customTheme=text('customTheme')}
-function validText(value){return value&&value.trim().length>1}
-function showError(id,msg){$(id).textContent=msg;announce(msg)}
+function chooseMode(nextMode){mode=nextMode;state.safe=false;recordEvent('practice-started');show('safety')}
+function attestSafety(){state.safe=true;$('safety-error').textContent='';saveDraft();show('rate')}
+function makeStateSpan(){const span=document.createElement('span');span.className='state';span.textContent='Chosen';return span}
+function makeChoice(group,value,label,handler){const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.value=value;b.setAttribute('aria-pressed','false');b.textContent=label;b.appendChild(makeStateSpan());b.onclick=()=>handler(value);$(group).appendChild(b)}
+function makeSingle(group,values,prop,after){values.forEach(value=>makeChoice(group,value,value,selected=>{state[prop]=selected;document.querySelectorAll('#'+group+' .choice').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===selected)));if(after)after(selected);saveDraft()}))}
+function makeMulti(group,values,prop){values.forEach(value=>makeChoice(group,value,value,selected=>{const list=state[prop];if(list.includes(selected))state[prop]=list.filter(x=>x!==selected);else state[prop]=[...list,selected];document.querySelectorAll('#'+group+' .choice').forEach(btn=>btn.setAttribute('aria-pressed',String(state[prop].includes(btn.dataset.value))));toggleOtherFields();saveDraft()}))}
+function makeRatings(group,prop){const box=$(group);for(let i=0;i<=10;i++){const b=document.createElement('button');b.type='button';b.className='rate';b.dataset.value=String(i);b.setAttribute('aria-pressed','false');b.textContent=String(i);b.appendChild(makeStateSpan());b.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[prop])));saveDraft()};box.appendChild(b)}}
+function selectTheme(value){state.theme=value;document.querySelectorAll('[data-value]').forEach(btn=>{if(btn.closest('#themes-control,#themes-roles,#themes-response'))btn.setAttribute('aria-pressed',String(btn.dataset.value===value))});$('custom-theme-wrap').classList.toggle('hidden',value!=='other');$('theme-error').textContent='';updatePromptText();saveDraft()}
+function goTheme(){if(!state.safe){showError('rate-error','Complete the safety acknowledgement first.');show('safety');return}if(!state.clarityBefore||!state.wishBefore){showError('rate-error','Rate clarity and how much energy you are spending wishing the change were different.');return}$('rate-error').textContent='';show('theme')}
 function selectedThemeLabel(){if(state.theme==='other')return state.customTheme||'Something else changed';for(const list of Object.values(themeGroups)){const found=list.find(item=>item[0]===state.theme);if(found)return found[1]}return ''}
-function goPrompts(){updateCustomTheme();if(!state.theme){showError('theme-error','Choose what feels most different right now.');return}if(state.theme==='other'&&!validText(state.customTheme)){showError('theme-error','Write a short description of what changed.');return}$('theme-error').textContent='';updatePromptText();updateGenerated();show('prompts')}
-function updatePromptText(){const isSelf=state.theme==='selfcriticism';$('standard-prompts').classList.toggle('hidden',isSelf);$('self-prompts').classList.toggle('hidden',!isSelf);if(isSelf){setExample(selfPrompt.example);return}const cfg=prompts[state.theme]||prompts.other;$('beforeLabel').textContent=cfg.before;$('nowLabel').textContent=cfg.now;setExample(cfg.example)}
+function goPrompts(){saveFromInputs();if(!state.theme){showError('theme-error','Choose what feels most different right now.');return}if(state.theme==='other'&&!validText(state.customTheme)){showError('theme-error','Write a short description of what changed.');return}$('theme-error').textContent='';updatePromptText();updateGenerated();show('prompts')}
+function updatePromptText(){const isSelf=state.theme==='selfcriticism';$('standard-prompts').classList.toggle('hidden',isSelf);$('self-prompts').classList.toggle('hidden',!isSelf);renderStatementChoices();if(isSelf){setExample(selfPrompt.example);return}const cfg=prompts[state.theme]||prompts.other;$('beforeLabel').textContent=cfg.before+' Edit if needed.';$('nowLabel').textContent=cfg.now+' Edit if needed.';setExample(cfg.example)}
 function setExample(lines){const box=$('exampleBox');box.textContent='';const title=document.createElement('strong');title.textContent='Example';box.appendChild(title);lines.forEach(line=>{const p=document.createElement('p');p.textContent=line;box.appendChild(p)})}
+function renderStatementChoices(){
+  const box=$('statementChoices');
+  box.textContent='';
+  const starters=statementStarters[state.theme]||statementStarters.other;
+  starters.forEach((pair,index)=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='choice';
+    b.dataset.value=String(index);
+    b.setAttribute('aria-pressed','false');
+    b.textContent=state.theme==='selfcriticism'?`The change: ${pair[0]}`:`Before: ${pair[0]}`;
+    const detail=document.createElement('span');
+    detail.textContent=state.theme==='selfcriticism'?`Self-judgment: ${pair[1]}`:`Now: ${pair[1]}`;
+    b.appendChild(detail);
+    b.appendChild(makeStateSpan());
+    b.onclick=()=>{
+      document.querySelectorAll('#statementChoices .choice').forEach(btn=>btn.setAttribute('aria-pressed',String(btn===b)));
+      if(state.theme==='selfcriticism'){
+        $('selfChange').value=pair[0];
+        $('selfJudgment').value=pair[1];
+      }else{
+        $('beforeText').value=pair[0];
+        $('nowText').value=pair[1];
+      }
+      updateGenerated();
+      announce('Starter statement selected. You can edit it if needed.');
+    };
+    box.appendChild(b);
+  });
+}
 function generatedText(){if(state.theme==='selfcriticism'){const a=text('selfChange'),b=text('selfJudgment');return a&&b?`The change is: ${a}\nI am also telling myself that I should: ${b}`:''}const a=text('beforeText'),b=text('nowText');const cfg=prompts[state.theme]||prompts.other;return a&&b?cfg.template(a,b):''}
-function updateGenerated(){state.before=text('beforeText');state.now=text('nowText');state.selfChange=text('selfChange');state.selfJudgment=text('selfJudgment');const out=generatedText();$('generatedStatement').textContent=out||'Your guided statement will appear here.';announce(out?'Generated change statement updated.':'')}
-function goMeaning(){updateGenerated();if(state.theme==='selfcriticism'){if(!validText(state.selfChange)||!validText(state.selfJudgment)){showError('prompts-error','Answer both self-criticism prompts before continuing.');return}state.fact='The change is: '+state.selfChange;state.meaning='I am also telling myself that I should: '+state.selfJudgment}else{if(!validText(state.before)||!validText(state.now)){showError('prompts-error','Answer both guided prompts before continuing.');return}state.fact=generatedText();state.meaning=''}$('prompts-error').textContent='';$('factField').value=state.fact;$('meaningField').value=state.meaning;state.confirm='';renderConfirmChoices();show('meaning')}
-function renderConfirmChoices(){const box=$('confirmChoices');box.textContent='';['Yes','Partly','No'].forEach(value=>{const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.confirm=value;b.setAttribute('aria-pressed',String(state.confirm===value));b.textContent=value;const span=document.createElement('span');span.className='state';span.textContent='Chosen';b.appendChild(span);b.onclick=()=>{state.confirm=value;document.querySelectorAll('[data-confirm]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.confirm===value)));$('factHelp').classList.toggle('hidden',value==='Yes');$('meaning-error').textContent='';handleFactMeaningInput()};box.appendChild(b)})}
-function handleFactMeaningInput(){state.fact=text('factField');state.meaning=text('meaningField')}
-function goNext(){handleFactMeaningInput();if(!validText(state.fact)){showError('meaning-error','Keep a meaningful fact-based description in the first box.');return}if(!state.confirm){showError('meaning-error','Choose whether another person could confirm the first statement.');return}if((state.confirm==='Partly'||state.confirm==='No')&&!validText(state.fact)){showError('meaning-error','Keep only what happened in the first box before continuing.');return}$('meaning-error').textContent='';show('next')}
-function handleInput(){['influence','action','when','reaction','feelings','fixed','unknown','reality','prepare','flex'].forEach(id=>{if($(id))state[id]=text(id)})}
+function updateGenerated(){saveFromInputs(false);const out=generatedText();$('generatedStatement').textContent=out||'Your guided statement will appear here.';if(out)announce('Generated change statement updated.');saveDraft()}
+function goMeaning(){updateGenerated();if(state.theme==='selfcriticism'){if(!validText(state.selfChange)||!validText(state.selfJudgment)){showError('prompts-error','Answer both self-criticism prompts before continuing.');return}state.fact='The change is: '+state.selfChange;state.meaning='I am also telling myself that I should: '+state.selfJudgment}else{if(!validText(state.before)||!validText(state.now)){showError('prompts-error','Answer both guided prompts before continuing.');return}state.fact=generatedText();state.meaning=''}$('prompts-error').textContent='';$('factField').value=state.fact;$('meaningField').value=state.meaning;state.confirm='';state.factRevised=false;$('factRevised').checked=false;renderConfirmChoices();recordEvent('change-described');saveDraft();show('meaning')}
+function renderConfirmChoices(){const box=$('confirmChoices');box.textContent='';['Yes','Partly','No'].forEach(value=>makeChoice('confirmChoices',value,value,selected=>{state.confirm=selected;document.querySelectorAll('#confirmChoices .choice').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.value===selected)));const needRevision=selected!=='Yes';$('factHelp').classList.toggle('hidden',!needRevision);$('revisionWrap').classList.toggle('hidden',!needRevision);$('meaning-error').textContent='';handleFactMeaningInput()}))}
+function handleFactMeaningInput(){state.fact=text('factField');state.meaning=text('meaningField');state.factRevised=$('factRevised').checked;saveDraft()}
+function goNext(){handleFactMeaningInput();if(!validText(state.fact)){showError('meaning-error','Keep a meaningful fact-based description in the first box.');return}if(!state.confirm){showError('meaning-error','Choose whether another person could confirm the first statement.');return}if((state.confirm==='Partly'||state.confirm==='No')&&!state.factRevised){showError('meaning-error','Confirm that you revised the first box or moved interpretation into the second box.');return}$('meaning-error').textContent='';show('next')}
+function handleTimingChange(){saveFromInputs();$('specificTimeWrap').classList.toggle('hidden',state.when!=='At a specific time');$('cueWrap').classList.toggle('hidden',state.when!=='After another activity');$('nextContinue').textContent=mode==='guided'?'Continue to guided review':'Continue to review'}
+function toggleOtherFields(){[['influenceOtherWrap','influence'],['actionOtherWrap','action'],['fixedOtherWrap','fixed'],['unknownOtherWrap','unknown'],['prepareOtherWrap','prepare'],['rememberOtherWrap','remember']].forEach(([wrap,prop])=>$(wrap)?.classList.toggle('hidden',state[prop]!=='Something else'));$('reactionOtherWrap')?.classList.toggle('hidden',!state.reaction.includes('Something else'))}
+function saveFromInputs(shouldRender=true){['customTheme','beforeText','nowText','selfChange','selfJudgment','influenceOther','actionOther','when','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther','flex','reviewNote','laterReview'].forEach(id=>{if($(id)){const key=id==='beforeText'?'before':id==='nowText'?'now':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;if(shouldRender)saveDraft()}
+function selectedWithOther(prop,otherProp){return state[prop]==='Something else'?state[otherProp]:state[prop]}
+function nextComplete(){saveFromInputs();if(!state.influence||!state.action||!state.when){showError('next-error','Choose what you can influence, the action you will take, and when you will begin.');return false}if(state.influence==='Something else'&&!validText(state.influenceOther)){showError('next-error','Write the short phrase for what else you can influence.');return false}if(state.action==='Something else'&&!validText(state.actionOther)){showError('next-error','Write the specific action you will take.');return false}if(state.when==='At a specific time'&&!validText(state.specificTime)){showError('next-error','Write the exact time you will begin.');return false}if(state.when==='After another activity'&&!validText(state.afterCue)){showError('next-error','Write the exact activity that will cue the action.');return false}if(!state.underFive){showError('next-error','Choose whether you could begin this action in under five minutes.');return false}$('next-error').textContent='';recordEvent('action-planned');return true}
 function goGuided(){if(!nextComplete())return;show('guided')}
-function nextComplete(){handleInput();if(!validText(state.influence)||!validText(state.action)||!state.when){showError('next-error','Write what you can influence, the exact action you will take, and when you will begin.');return false}$('next-error').textContent='';return true}
-function guidedComplete(){handleInput();if(mode!=='guided')return true;if(!validText(state.reaction)||!validText(state.feelings)||!validText(state.fixed)||!validText(state.unknown)||!validText(state.reality)||!validText(state.prepare)){showError('guided-error','Complete each guided reflection before building the summary.');return false}$('guided-error').textContent='';return true}
+function guidedComplete(){saveFromInputs();if(mode!=='guided')return true;if(!state.reaction.length&&!validText(state.reactionOther)){showError('guided-error','Choose or write one mind or body response.');return false}if(!state.feelings.length){showError('guided-error','Choose at least one feeling.');return false}if(!state.fixed||!state.unknown||!state.reality||!state.prepare||!state.flex){showError('guided-error','Choose one response for each guided review section.');return false}if(state.fixed==='Something else'&&!validText(state.fixedOther)){showError('guided-error','Write the short phrase for what else cannot change right now.');return false}if(state.unknown==='Something else'&&!validText(state.unknownOther)){showError('guided-error','Write the short phrase for what else is unknown.');return false}if(state.prepare==='Something else'&&!validText(state.prepareOther)){showError('guided-error','Write the first move you will use next time.');return false}$('guided-error').textContent='';return true}
+function goChallenge(){if(!nextComplete()||!guidedComplete())return;show('challenge')}
+function challengeComplete(){saveFromInputs();if(!state.clarityAfter||!state.wishAfter||!state.challengeRating||!state.fit||!state.outcome||!state.laterReview){showError('challenge-error','Complete the ratings, practice review, fit response, outcome, and later action review.');return false}$('challenge-error').textContent='';recordEvent('action-reviewed');return true}
+function timingText(){if(state.when==='At a specific time')return state.specificTime;if(state.when==='After another activity')return state.afterCue;return state.when}
+function recommendationText(){const clarityGain=Number(state.clarityAfter||0)-Number(state.clarityBefore||0);const wishDrop=Number(state.wishBefore||0)-Number(state.wishAfter||0);if(state.fit==='No')return 'Adjust the next step before repeating. Make it smaller, more specific, or better matched to what is actually in your control.';if(state.outcome==='I got stuck')return 'Keep the fact statement and reduce the action to a two-minute version. Practice returning to what is true before choosing the next response.';if(state.laterReview==='I have not tried it yet')return 'Lower the starting point. Choose one action you can begin in under five minutes and attach it to a clear cue.';if(state.challengeRating==='Hard')return 'Repeat the same skill with a smaller change or add support before trying a harder situation.';if(clarityGain>0||wishDrop>0)return 'Use this again when the change feels loud: name what changed, move meanings into the second box, then choose one workable step.';if(state.underFive==='No')return 'Make the next action smaller. A useful adaptation step should be easy enough to begin even while the change still feels uncomfortable.';return 'Repeat the same sequence with one real change this week: separate fact from meaning, choose what can be influenced, try one step, then review.'}
 function addSummary(label,value){const row=document.createElement('div');row.className='summary-row';const strong=document.createElement('strong');strong.textContent=label;const body=document.createElement('div');body.textContent=value||'Not answered';row.append(strong,body);$('out').append(row)}
-function goSummary(){if(!nextComplete()||!guidedComplete())return;$('out').textContent='';addSummary('Theme',selectedThemeLabel());addSummary('What changed',state.fact);addSummary('What my mind is adding',state.meaning||'Nothing named yet');addSummary('What I can influence',state.influence);addSummary('Action',state.action);addSummary('When I will begin',state.when);if(mode==='guided'){addSummary('Mind or body response',state.reaction);addSummary('Feelings',state.feelings);addSummary('What cannot change right now',state.fixed);addSummary('What I do not know yet',state.unknown);addSummary('Reality statement',state.reality);addSummary('Preparation',state.prepare);addSummary('Flexibility challenge',state.flex)}$('rec').textContent=state.recommendation;show('summary')}
-function saveStack(){clearTimeout(saveTimer);$('save').disabled=true;$('save').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';post({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:{skillId:'adapting-to-change',skillName:'Adapting To Change',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,practiceStep:'Recognize the new reality and begin one workable response.',generalNextPractice:state.recommendation,practiceUrl:URL,id:'adapting-to-change',title:'Adapting To Change',source:'adapting-to-change',updatedAt:new Date().toISOString()}}});saveTimer=setTimeout(()=>{if($('save').textContent==='Saved to Skills Stack')return;$('save').disabled=false;$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
-function repeat(){state.influence='';state.action='';state.when='';['influence','action','when'].forEach(id=>{if($(id))$(id).value=''});$('status').textContent='';$('save').disabled=false;$('save').textContent='Save to Skills Stack';show('next')}
+function goSummary(){if(!challengeComplete())return;state.recommendation=recommendationText();$('out').textContent='';addSummary('Theme',selectedThemeLabel());addSummary('What changed',state.fact);addSummary('What my mind is adding',state.meaning||'Nothing named yet');addSummary('Clarity before and after',`${state.clarityBefore} to ${state.clarityAfter}`);addSummary('Wishing energy before and after',`${state.wishBefore} to ${state.wishAfter}`);addSummary('What I can influence',selectedWithOther('influence','influenceOther'));addSummary('Action',selectedWithOther('action','actionOther'));addSummary('When I will begin',timingText());addSummary('Can begin in under five minutes',state.underFive);if(mode==='guided'){addSummary('Mind or body response',[...state.reaction,state.reactionOther].filter(Boolean).join(', '));addSummary('Feelings',state.feelings.join(', '));addSummary('What cannot change right now',selectedWithOther('fixed','fixedOther'));addSummary('What I do not know yet',selectedWithOther('unknown','unknownOther'));addSummary('Reality statement',state.reality);addSummary('Preparation',selectedWithOther('prepare','prepareOther'));addSummary('Flexibility challenge',state.flex)}addSummary('Practice outcome',state.outcome);addSummary('Later action review',state.laterReview);addSummary('What to remember',selectedWithOther('remember','reviewNote'));$('rec').textContent=state.recommendation;recordEvent('practice-completed');saveDraft();show('summary')}
+function privateSummary(){return {theme:selectedThemeLabel(),fact:state.fact,meaning:state.meaning,influence:selectedWithOther('influence','influenceOther'),action:selectedWithOther('action','actionOther'),when:timingText(),outcome:state.outcome,recommendation:state.recommendation}}
+function summaryText(){return Array.from($('out').querySelectorAll('.summary-row')).map(row=>row.innerText.trim()).join('\n\n')+'\n\nRecommendation\n'+$('rec').textContent}
+async function copySummary(){const btn=$('copySummaryBtn');btn.disabled=true;btn.textContent='Copying...';try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(summaryText());$('status').textContent='Summary copied.';btn.textContent='Copied'}else{throw new Error('clipboard unavailable')}}catch(e){const range=document.createRange();range.selectNodeContents($('out'));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);$('status').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}recordEvent('summary-copied');setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}
+function buildStack(){const stack={skillId:'adapting-to-change',skillName:'Adapting To Change',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,practiceStep:'Recognize the new reality and begin one workable response.',generalNextPractice:state.recommendation,practiceUrl:URL,id:'adapting-to-change',title:'Adapting To Change',source:'adapting-to-change',updatedAt:new Date().toISOString()};if(state.includePrivate)stack.privatePracticeSummary=privateSummary();return stack}
+function resetSaveUi(){clearTimeout(saveTimer);$('save').disabled=false;$('save').textContent='Save to Skills Stack';$('status').textContent=''}
+function saveStack(){resetSaveUi();$('save').disabled=true;$('save').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';recordEvent('save-to-skills-stack');post({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:buildStack(),updatedAt:new Date().toISOString()}});saveTimer=setTimeout(()=>{if($('save').textContent==='Saved to Skills Stack')return;$('save').disabled=false;$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
+function clearFields(ids){ids.forEach(id=>{if($(id))$(id).value=''})}
+function practiceAgain(){sessionId=newSessionId();eventFlags={};state.clarityBefore='';state.wishBefore='';state.clarityAfter='';state.wishAfter='';state.influence='';state.influenceOther='';state.action='';state.actionOther='';state.when='';state.specificTime='';state.afterCue='';state.underFive='';state.reaction=[];state.reactionOther='';state.feelings=[];state.fixed='';state.fixedOther='';state.unknown='';state.unknownOther='';state.reality='';state.prepare='';state.prepareOther='';state.flex='Take a different route';state.challengeRating='';state.fit='';state.outcome='';state.remember='';state.reviewNote='';state.laterReview='';state.recommendation='';state.includePrivate=false;clearFields(['influenceOther','actionOther','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther','reviewNote']);['when','laterReview','flex'].forEach(id=>{if($(id))$(id).value=id==='flex'?'Take a different route':''});if($('includePrivate'))$('includePrivate').checked=false;document.querySelectorAll('.rate,.choice').forEach(btn=>btn.setAttribute('aria-pressed','false'));selectTheme(state.theme);$('factField').value=state.fact;$('meaningField').value=state.meaning;resetSaveUi();saveDraft();show('rate');announce('New practice session started. The mode, change theme, and fact statement were preserved.')}
+function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus();announce('Confirm start over before clearing this practice.')}
+function cancelReset(){$('resetConfirm').classList.add('hidden');$('save').focus();announce('Start over canceled.')}
+function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
+function saveDraft(){saveFromInputs(false);sessionStorage.setItem(STORAGE_KEY,JSON.stringify({mode,sessionId,state,eventFlags}));resetSaveUi()}
+function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);Object.entries(state).forEach(([key,value])=>{const id=key==='before'?'beforeText':key==='now'?'nowText':key;if($(id)&&typeof value==='string')$(id).value=value});if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;if(state.theme){selectTheme(state.theme);updatePromptText();updateGenerated()}if(state.confirm)renderConfirmChoices();['clarityBefore','wishBefore','clarityAfter','wishAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[group]))));restoreChoices();handleTimingChange()}catch(e){}}
+function restoreChoices(){const groups={influenceChoices:'influence',actionStepChoices:'action',underFiveChoices:'underFive',reactionChoices:'reaction',feelingChoices:'feelings',fixedChoices:'fixed',unknownChoices:'unknown',realityChoices:'reality',prepareChoices:'prepare',challengeRatingChoices:'challengeRating',fitChoices:'fit',outcomeChoices:'outcome',rememberChoices:'remember'};Object.entries(groups).forEach(([group,prop])=>{document.querySelectorAll('#'+group+' .choice').forEach(btn=>{const value=btn.dataset.value;const current=state[prop];btn.setAttribute('aria-pressed',String(Array.isArray(current)?current.includes(value):current===value))})});toggleOtherFields()}
 window.addEventListener('message',event=>{if(event.origin!==ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('save').disabled=false;if(msg.ok){$('save').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
-Object.entries(themeGroups).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item[0],item[1])));
+Object.entries(themeGroups).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item[0],item[1],selectTheme)));
+makeRatings('clarityBefore','clarityBefore');makeRatings('wishBefore','wishBefore');makeRatings('clarityAfter','clarityAfter');makeRatings('wishAfter','wishAfter');
+makeSingle('influenceChoices',['My next step','My schedule or timing','How I ask for information','How I talk to myself about the change','What support I use','What I stop trying to control','Something else'],'influence',toggleOtherFields);
+makeSingle('actionStepChoices',['Take one two-minute step','Ask one clear question','Write down the facts before reacting','Adjust one part of my routine','Contact one support person','Pause before making a decision','Something else'],'action',toggleOtherFields);
+makeSingle('underFiveChoices',['Yes','Partly','No'],'underFive');
+makeMulti('reactionChoices',['Racing thoughts','Tension','Avoiding','Checking repeatedly','Trying to control everything','Shutting down','Something else'],'reaction');
+makeMulti('feelingChoices',['Sadness','Anger','Fear','Grief','Uncertainty','Relief','Overwhelm','Hope'],'feelings');
+makeSingle('fixedChoices',['What already happened','Another person’s choice','A schedule or deadline','A health or body limit','A loss or ending','The fact that this is uncertain','Something else'],'fixed',toggleOtherFields);
+makeSingle('unknownChoices',['How long this will last','How someone else will respond','Whether the plan will work','What I will feel later','What information I still need','What support will be available','Something else'],'unknown',toggleOtherFields);
+makeSingle('realityChoices',['This changed, and I can choose one workable response today.','I do not have to like this to respond effectively.','I can separate what happened from what I am afraid it means.','I can take one step before I understand everything.'],'reality');
+makeSingle('prepareChoices',['Read my fact statement again','Take one slow breath before deciding','Ask for one piece of information','Use a two-minute version of the action','Name what is fixed and what is flexible','Contact support before I spiral','Something else'],'prepare',toggleOtherFields);
+makeSingle('challengeRatingChoices',['Easy','Manageable','Hard'],'challengeRating');
+makeSingle('fitChoices',['Yes','Somewhat','No'],'fit');
+makeSingle('outcomeChoices',['I tried the action','I tried part of it','I got stuck','I chose a different workable step','I need more support'],'outcome');
+makeSingle('rememberChoices',['Small steps count','The fact is not the same as the fear','I can adapt without liking the change','I need a clearer cue next time','I need more support','Something else'],'remember',toggleOtherFields);
+restoreDraft();
 post({type:'adaptingToChangeReady'});
 </script>
 </body>

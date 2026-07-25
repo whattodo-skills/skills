@@ -192,18 +192,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <h2 id="summary-title" tabindex="-1">You prepared for an upcoming challenge by identifying the difficult moment, choosing what you will do, and mentally practicing how you will respond.</h2>
       <div class="summary" id="summaryBox" aria-live="polite"></div>
       <div class="note" id="recommendation"></div>
-      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my private practice summary.</label>
-      <p class="note mint">Your draft is temporarily saved for this browser session.</p>
       <div class="btns">
         <a class="btn" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
         <button class="btn primary" id="saveBtn" type="button" onclick="saveStack()">Save to Skills Stack</button>
         <button class="btn primary" id="copyBtn" type="button" onclick="copySummary()">Copy summary</button>
-        <button class="btn" type="button" onclick="rehearseAgain()">Rehearse this plan again</button>
         <button class="btn" type="button" onclick="show('response')">Update my plan</button>
         <button class="btn" type="button" onclick="prepareAnother()">Prepare for another situation</button>
-        <button class="btn" type="button" onclick="show('deeper')">Build a fuller plan</button>
-        <button class="btn" type="button" onclick="show('realReview')">Review what happened later</button>
-        <button class="btn warning" type="button" onclick="clearDraft()">Clear saved draft</button>
         <button class="btn warning" id="startOverBtn" type="button" aria-controls="resetConfirm" onclick="requestReset()">Start over</button>
       </div>
       <div class="confirm-reset hidden" id="resetConfirm" role="group" aria-labelledby="resetTitle"><strong id="resetTitle">Start over and clear this practice?</strong><p>This clears the temporary draft for this browser session.</p><div class="btns"><button class="btn warning" type="button" onclick="confirmReset()">Yes, start over</button><button class="btn" type="button" onclick="cancelReset()">Keep my results</button></div></div>
@@ -211,33 +205,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
     </div>
   </section>
 
-  <section class="screen" id="deeper" aria-labelledby="deeper-title">
-    <div class="panel">
-      <h2 id="deeper-title" tabindex="-1">Build a fuller plan</h2>
-      <div class="grid">
-        <div><label for="prepareBefore">What should you prepare beforehand?</label><input id="prepareBefore" maxlength="220" oninput="saveFromInputs()"></div>
-        <div><label for="breakPlace">Where could you take a break?</label><input id="breakPlace" maxlength="220" oninput="saveFromInputs()"></div>
-        <div><label for="supportPerson">Who could you contact if needed?</label><input id="supportPerson" maxlength="220" oninput="saveFromInputs()"></div>
-        <div><label for="rehearseAgainWhen">When will you rehearse again?</label><input id="rehearseAgainWhen" maxlength="220" oninput="saveFromInputs()"></div>
-      </div>
-      <label for="afterSituation">What will you do after the situation?</label><input id="afterSituation" maxlength="240" oninput="saveFromInputs()">
-      <div class="btns"><button class="btn primary" type="button" onclick="recordEvent('plan-adjusted');show('summary')">Save fuller plan</button></div>
-    </div>
-  </section>
-
-  <section class="screen" id="realReview" aria-labelledby="real-review-title">
-    <div class="panel">
-      <h2 id="real-review-title" tabindex="-1">Review what happened later</h2>
-      <fieldset><legend>What happened?</legend><div class="choices" id="realOutcomeChoices"></div></fieldset>
-      <div id="realOutcomeOtherWrap" class="hidden"><label for="realOutcomeOther">Something else</label><input id="realOutcomeOther" maxlength="180" oninput="saveFromInputs()"></div>
-      <fieldset><legend>Which response did you use?</legend><div class="choices" id="usedResponseChoices"></div></fieldset>
-      <fieldset><legend>How effectively did you follow the plan?</legend><div class="scale-help"><span>0 - I could not use the plan</span><span>10 - I followed it very effectively</span></div><div class="rating" id="effectiveness"></div></fieldset>
-      <fieldset><legend>What should change next time?</legend><div class="choices" id="changeNextChoices"></div></fieldset>
-      <div id="changeNextOtherWrap" class="hidden"><label for="changeNextOther">Something else</label><input id="changeNextOther" maxlength="180" oninput="saveFromInputs()"></div>
-      <div class="btns"><button class="btn" type="button" onclick="show('summary')">Back</button><button class="btn primary" type="button" onclick="saveRealReview()">Save review</button></div>
-      <div class="error" id="real-review-error" aria-live="polite"></div>
-    </div>
-  </section>
   <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </main>
 <script>
@@ -247,8 +214,8 @@ const STORAGE_KEY='wtd_cope_ahead_v1';
 const $=id=>document.getElementById(id);
 const stepOrder=['learn','situation','hard','warning','response','backup','rehearse','review','summary'];
 let sessionId=newSessionId(),eventFlags={},saveTimer=null,timer=null,remaining=60,timerRunning=false,rehearsalDone=false,hardestOnly=false;
-const state={situation:'',situationOther:'',when:'',whenDetail:'',specificSituation:'',hard:'',hardOther:'',momentDetail:'',warningSign:'',warningSentence:'',customCue:'',response:'',responseOther:'',exactResponse:'',backup:'',backupOther:'',reminder:'',reminderOther:'',complication:'',complicationOther:'',rehearsalScript:'',preparedBefore:'',preparedAfter:'',results:[],resultOther:'',adjustment:'',challenge:'',recommendation:'',includePrivate:false,prepareBefore:'',breakPlace:'',supportPerson:'',rehearseAgainWhen:'',afterSituation:'',realOutcome:'',realOutcomeOther:'',usedResponse:'',effectiveness:'',changeNext:'',changeNextOther:''};
-const singleGroups={situationChoices:['situation','situationOtherWrap'],whenChoices:['when','whenDetailWrap'],hardChoices:['hard','hardOtherWrap'],bodyCueChoices:['warningSign'],thoughtCueChoices:['warningSign'],pullCueChoices:['warningSign'],responseChoices:['response','responseOtherWrap'],backupChoices:['backup','backupOtherWrap'],reminderChoices:['reminder','reminderOtherWrap'],complicationChoices:['complication','complicationOtherWrap'],adjustmentChoices:['adjustment'],challengeChoices:['challenge'],realOutcomeChoices:['realOutcome','realOutcomeOtherWrap'],usedResponseChoices:['usedResponse'],changeNextChoices:['changeNext','changeNextOtherWrap']};
+const state={situation:'',situationOther:'',when:'',whenDetail:'',specificSituation:'',hard:'',hardOther:'',momentDetail:'',warningSign:'',warningSentence:'',customCue:'',response:'',responseOther:'',exactResponse:'',backup:'',backupOther:'',reminder:'',reminderOther:'',complication:'',complicationOther:'',rehearsalScript:'',preparedBefore:'',preparedAfter:'',results:[],resultOther:'',adjustment:'',challenge:'',recommendation:''};
+const singleGroups={situationChoices:['situation','situationOtherWrap'],whenChoices:['when','whenDetailWrap'],hardChoices:['hard','hardOtherWrap'],bodyCueChoices:['warningSign'],thoughtCueChoices:['warningSign'],pullCueChoices:['warningSign'],responseChoices:['response','responseOtherWrap'],backupChoices:['backup','backupOtherWrap'],reminderChoices:['reminder','reminderOtherWrap'],complicationChoices:['complication','complicationOtherWrap'],adjustmentChoices:['adjustment'],challengeChoices:['challenge']};
 const multiGroups={resultChoices:['results','resultOtherWrap']};
 const choices={
 situationChoices:['A difficult conversation','An appointment','A work or school responsibility','A social event','Receiving feedback','Setting a boundary','Seeing a difficult person','Waiting for important news','Completing an uncomfortable task','Entering an unfamiliar place','Managing a strong temptation','Something else'],
@@ -263,9 +230,6 @@ complicationChoices:['The person interrupts me','The person disagrees','I lose t
 resultChoices:['I noticed my warning sign','I used my first move','I remembered what I wanted to say','I used my backup','I continued after something went wrong','I need a simpler plan','I had trouble picturing the situation','Something else'],
 adjustmentChoices:['Make my first move clearer','Make my backup more practical','Shorten my reminder','Choose an earlier warning sign','Practice only the difficult moment','Keep the plan as it is'],
 challengeChoices:['Too hard','About right','Too easy'],
-realOutcomeChoices:['It was close to what I expected','Part of it was different','It was very different','The situation did not happen','It was rescheduled','Something else'],
-usedResponseChoices:['First move','Backup response','Both','A different response','I did not remember the plan'],
-changeNextChoices:['Make the plan shorter','Choose an earlier warning sign','Choose a different first move','Strengthen the backup','Practice more than once','Keep the plan the same','Something else']
 };
 const responseSets={
 conversation:['Say the opening sentence I prepared','State the main issue clearly','Ask the other person how they see the situation','Listen fully before responding','Name the outcome I am hoping for','Ask one clarifying question'],
@@ -307,7 +271,7 @@ function renderReminders(){const cat=planCategory();renderChoiceGroup('reminderC
 function renderComplications(){let cat=planCategory();if(cat==='appointment')cat='task';if(cat==='social')cat='conversation';renderChoiceGroup('complicationChoices',complicationSets[cat]||complicationSets.conversation)}
 function makeRatings(group,prop,label){for(let i=0;i<=10;i++){const btn=document.createElement('button');btn.type='button';btn.className='rate';btn.dataset.value=String(i);btn.setAttribute('aria-pressed','false');btn.setAttribute('aria-label',i+' out of 10 - '+label);btn.title=btn.getAttribute('aria-label');btn.textContent=String(i);btn.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===state[prop])));saveDraft()};$(group).appendChild(btn)}}
 function toggleOther(){Object.entries(singleGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!needsCustom(state[prop])&&!(prop==='when'&&state[prop]==='At a specific date or time'))});Object.entries(multiGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!state[prop].includes('Something else'))})}
-function saveFromInputs(){['situationOther','whenDetail','specificSituation','hardOther','momentDetail','customCue','responseOther','exactResponse','backupOther','reminderOther','complicationOther','rehearsalScript','resultOther','prepareBefore','breakPlace','supportPerson','rehearseAgainWhen','afterSituation','realOutcomeOther','changeNextOther'].forEach(id=>{if($(id))state[id]=text(id)});if(state.momentDetail==="Example: I'll be nervous and I'll want to avoid it and not say anything.")state.momentDetail='';if(needsCustom(state.response)&&state.responseOther&&!state.exactResponse){state.exactResponse=responseSentence(state.responseOther);if($('exactResponse'))$('exactResponse').value=state.exactResponse}state.includePrivate=!!$('includePrivate')?.checked;toggleOther();updatePreviews();saveDraft()}
+function saveFromInputs(){['situationOther','whenDetail','specificSituation','hardOther','momentDetail','customCue','responseOther','exactResponse','backupOther','reminderOther','complicationOther','rehearsalScript','resultOther'].forEach(id=>{if($(id))state[id]=text(id)});if(state.momentDetail==="Example: I'll be nervous and I'll want to avoid it and not say anything.")state.momentDetail='';if(needsCustom(state.response)&&state.responseOther&&!state.exactResponse){state.exactResponse=responseSentence(state.responseOther);if($('exactResponse'))$('exactResponse').value=state.exactResponse}toggleOther();updatePreviews();saveDraft()}
 function cueText(){return state.customCue||state.warningSentence||state.warningSign}
 function firstMove(){return state.exactResponse||selected('response','responseOther')}
 function backupText(){return selected('backup','backupOther')}
@@ -338,18 +302,15 @@ function addSummary(label,value){const row=document.createElement('div');row.cla
 function renderSummary(){const box=$('summaryBox');box.textContent='';addSummary('Situation',state.specificSituation||selected('situation','situationOther'));addSummary('Difficult moment',selected('hard','hardOther'));addSummary('My signal',cueText());addSummary('My first move',firstMove());addSummary('My reminder',reminderText());addSummary('My backup',backupText());addSummary('Realistic complication',complicationText());addSummary('Before and after preparedness',state.preparedBefore+' to '+state.preparedAfter);addSummary('Rehearsal result',state.results.map(v=>v==='Something else'?state.resultOther:v).join(', '));addSummary('Adaptive next practice',state.recommendation||recommendation());$('recommendation').textContent=state.recommendation||recommendation()}
 function summaryText(){return Array.from($('summaryBox').querySelectorAll('.summary-row')).map(row=>row.innerText.trim()).join('\n\n')}
 async function copySummary(){const btn=$('copyBtn');btn.disabled=true;btn.textContent='Copying...';try{await navigator.clipboard.writeText(summaryText());$('status').textContent='Summary copied.';btn.textContent='Copied'}catch(e){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=getSelection();sel.removeAllRanges();sel.addRange(range);$('status').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}recordEvent('summary-copied');setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}
-function stackPayload(){const stack={skillId:'cope-ahead',skillName:'Cope Ahead',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,practiceStep:'Rehearse',generalNextPractice:state.recommendation||recommendation(),practiceUrl:PRACTICE_URL,id:'cope-ahead',title:'Cope Ahead',source:'cope-ahead',updatedAt:new Date().toISOString()};if(state.includePrivate)stack.privatePracticeSummary={situation:state.specificSituation||selected('situation','situationOther'),hardMoment:selected('hard','hardOther'),warningSign:cueText(),firstMove:firstMove(),backup:backupText(),reminder:reminderText(),complication:complicationText(),nextPractice:state.recommendation||recommendation()};return stack}
+function stackPayload(){return {skillId:'cope-ahead',skillName:'Cope Ahead',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,practiceStep:'Rehearse',generalNextPractice:state.recommendation||recommendation(),practiceUrl:PRACTICE_URL,id:'cope-ahead',title:'Cope Ahead',source:'cope-ahead',updatedAt:new Date().toISOString()}}
 function resetSaveUi(){clearTimeout(saveTimer);if($('saveBtn')){$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack'}if($('status'))$('status').textContent=''}
 function saveStack(){resetSaveUi();$('saveBtn').disabled=true;$('saveBtn').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';recordEvent('skills-stack-save-requested');postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:stackPayload(),updatedAt:new Date().toISOString()}});saveTimer=setTimeout(()=>{if($('saveBtn').textContent==='Saved to Skills Stack')return;$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
-function rehearseAgain(){remaining=60;rehearsalDone=false;state.preparedBefore='';state.preparedAfter='';state.results=[];state.resultOther='';state.challenge='';state.recommendation='';state.includePrivate=false;sessionId=newSessionId();eventFlags={};document.querySelectorAll('#review .choice,#review .rate').forEach(b=>b.setAttribute('aria-pressed','false'));if($('includePrivate'))$('includePrivate').checked=false;stopTimer('Ready to rehearse this plan again.');show('rehearse')}
 function prepareAnother(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
-function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
 function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus()}
 function cancelReset(){$('resetConfirm').classList.add('hidden');announce('Start over canceled.');$('startOverBtn').focus()}
 function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
-function saveRealReview(){saveFromInputs();if(!valid('realOutcome','realOutcomeOther')||!state.usedResponse||!state.effectiveness||!valid('changeNext','changeNextOther')){showError('real-review-error','Complete the real-world review choices.');return}$('real-review-error').textContent='';recordEvent('outcome-reviewed');saveDraft();announce('Real-world review saved.');show('summary')}
 function saveDraft(){sessionStorage.setItem(STORAGE_KEY,JSON.stringify({sessionId,eventFlags,state,rehearsalDone,remaining}))}
-function restoreSelectionUi(){document.querySelectorAll('.choice').forEach(b=>{const group=b.parentElement.id;if(singleGroups[group])b.setAttribute('aria-pressed',String(state[singleGroups[group][0]]===b.dataset.value));if(multiGroups[group])b.setAttribute('aria-pressed',String(state[multiGroups[group][0]].includes(b.dataset.value))) });['preparedBefore','preparedAfter','effectiveness'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(state[group]===b.dataset.value))))}
+function restoreSelectionUi(){document.querySelectorAll('.choice').forEach(b=>{const group=b.parentElement.id;if(singleGroups[group])b.setAttribute('aria-pressed',String(state[singleGroups[group][0]]===b.dataset.value));if(multiGroups[group])b.setAttribute('aria-pressed',String(state[multiGroups[group][0]].includes(b.dataset.value))) });['preparedBefore','preparedAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(state[group]===b.dataset.value))))}
 function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;Object.assign(state,saved.state);sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};rehearsalDone=!!saved.rehearsalDone;remaining=saved.remaining||60;Object.entries(state).forEach(([key,value])=>{if($(key)&&typeof value==='string')$(key).value=value});renderResponses(true);renderBackups();renderReminders();renderComplications();restoreSelectionUi();toggleOther();updatePreviews()}catch(e){}}
 window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('saveBtn').disabled=false;if(msg.ok){recordEvent('save-to-skills-stack');$('saveBtn').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
 Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item)));
@@ -359,7 +320,6 @@ renderReminders();
 renderComplications();
 makeRatings('preparedBefore','preparedBefore','preparedness before rehearsal');
 makeRatings('preparedAfter','preparedAfter','preparedness after rehearsal');
-makeRatings('effectiveness','effectiveness','effectiveness following the plan');
 restoreDraft();
 postToParent({type:'copeAheadReady'});
 </script>

@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recover From Setbacks | What To Do!</title>
+<style>
+:root{--bg:#f7f4ed;--navy:#182047;--blue:#4f5dad;--blue-bg:#edf1f8;--mint:#eaf4f0;--pink:#bd3a59;--orange-bg:#fff0e7;--line:#ded8ce;--text:#27313d;--muted:#667085;--white:#fff;--shadow:0 2px 14px rgba(0,0,0,.07)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
+.wrap{max-width:1060px;margin:auto;padding:22px 14px 70px}
+.hero,.panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow)}
+.ey{font-weight:900;color:var(--pink);letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
+h1,h2,h3{color:var(--navy);line-height:1.18}
+h1{font-size:clamp(2rem,5vw,3rem);margin:.15em 0}
+h2{margin:0 0 8px}
+p{color:var(--muted)}
+.steps{display:flex;gap:7px;overflow:auto;list-style:none;padding:0;margin:0 0 16px}
+.steps li{padding:7px 11px;border-radius:999px;background:#eee;color:var(--muted);font-weight:850;font-size:.86rem;white-space:nowrap}
+.steps [aria-current="step"]{background:var(--navy);color:white}
+.screen{display:none}.screen.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.choices,.rating{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:10px}
+.rating{grid-template-columns:repeat(11,1fr)}
+.choice,.rate,.btn{font:inherit;border:2px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--navy);font-weight:850;text-align:left;cursor:pointer}
+.rate{text-align:center;padding:10px 4px}
+.choice[aria-pressed="true"],.rate[aria-pressed="true"]{background:var(--blue-bg);border-color:var(--blue)}
+.choice span{display:block;margin-top:4px;color:var(--muted);font-size:.9rem;font-weight:600}
+.state{display:block!important;color:var(--blue)!important;font-size:.74rem!important;text-transform:uppercase;letter-spacing:.08em;margin-top:7px!important;font-weight:900!important}
+.choice[aria-pressed="false"] .state,.rate[aria-pressed="false"] .state{display:none!important}
+.btn{display:inline-flex;justify-content:center;text-align:center;text-decoration:none}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:white}
+.btn.warning{background:var(--orange-bg);color:#873a00;border-color:#ffd1b5}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+fieldset{border:0;margin:0;padding:0}
+legend,.label,label{display:block;font-weight:900;color:var(--navy);margin:13px 0 6px}
+input,textarea,select{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;color:var(--text);background:white}
+textarea{min-height:86px;resize:vertical}
+.note,.summary-row,.confirm-reset{border-left:4px solid var(--blue);background:var(--blue-bg);border-radius:12px;padding:13px;margin:12px 0;color:var(--navy);line-height:1.55}
+.note.mint{border-left-color:#79b8a5;background:var(--mint);color:#24554b}
+.note.warn,.confirm-reset{border-left-color:#ff6903;background:var(--orange-bg);color:#663400}
+.summary{display:grid;gap:10px}
+.summary-row strong{display:block;color:var(--blue);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.hidden{display:none!important}
+.error,.status{min-height:1.35em;margin-top:10px;font-weight:850;color:#8f1737}
+.status{color:var(--navy)}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:4px solid #f4c95d;outline-offset:2px}
+@media(max-width:720px){.wrap{padding:18px 10px 60px}.grid,.choices{grid-template-columns:1fr}.rating{grid-template-columns:repeat(6,1fr)}.btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="ey">Coping</div>
+    <h1>Recover From Setbacks</h1>
+    <p>Learn from what happened, decide what comes next, and restart without turning against yourself.</p>
+  </header>
+
+  <ol class="steps" aria-label="Recover From Setbacks steps">
+    <li id="step-learn" aria-current="step">1. Learn</li>
+    <li id="step-rate">2. Rate</li>
+    <li id="step-setback">3. Setback</li>
+    <li id="step-happened">4. What Happened</li>
+    <li id="step-separate">5. Separate</li>
+    <li id="step-notice">6. Notice</li>
+    <li id="step-account">7. Your Part</li>
+    <li id="step-path">8. Path</li>
+    <li id="step-opposite">9. Useful Opposite</li>
+    <li id="step-lesson">10. Lesson</li>
+    <li id="step-restart">11. Restart</li>
+    <li id="step-prepare">12. Prepare</li>
+    <li id="step-review">13. Review</li>
+    <li id="step-summary">14. Summary</li>
+  </ol>
+
+  <section class="screen active" id="learn" aria-labelledby="learn-title">
+    <div class="panel">
+      <h2 id="learn-title" tabindex="-1">A setback is an event, not an identity</h2>
+      <p>Mistakes, rejection, disappointing results, missed goals, criticism, and unexpected obstacles can quickly turn into conclusions such as “I always fail” or “I am not good enough.”</p>
+      <p>This practice helps you describe what happened, decide what still needs attention, and choose a useful next step without using shame as motivation.</p>
+      <div class="note mint">Start with one setback that feels manageable enough to review right now.</div>
+      <h3>Choose Your Skill Practice Version</h3>
+      <div class="choices">
+        <button class="choice" id="modeQuick" type="button" aria-pressed="false" onclick="chooseMode('quick')">Quick Recovery<span>3 to 5 minutes. Choose what happened and restart with one small step.</span></button>
+        <button class="choice" id="modeGuided" type="button" aria-pressed="false" onclick="chooseMode('guided')">Guided Recovery<span>8 to 12 minutes. Add reactions, responsibility, lessons, preparation, and review.</span></button>
+      </div>
+      <div class="btns"><button class="btn primary" type="button" onclick="goRate()">Continue</button></div>
+      <div class="error" id="learn-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="rate" aria-labelledby="rate-title">
+    <div class="panel">
+      <h2 id="rate-title" tabindex="-1">Before you begin</h2>
+      <fieldset><legend>How strongly do you feel like giving up or avoiding the next step?</legend><div class="rating" id="avoidBefore"></div></fieldset>
+      <fieldset><legend>How confident are you that you can take one useful next step?</legend><div class="rating" id="confidenceBefore"></div></fieldset>
+      <div class="btns"><button class="btn" type="button" onclick="show('learn')">Back</button><button class="btn primary" type="button" onclick="goSetback()">Continue</button></div>
+      <div class="error" id="rate-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="setback" aria-labelledby="setback-title">
+    <div class="panel">
+      <h2 id="setback-title" tabindex="-1">Choose one setback</h2>
+      <fieldset><legend>What kind of setback are you working through?</legend><div class="choices" id="setbackChoices"></div></fieldset>
+      <div id="setbackOtherWrap" class="hidden"><label for="setbackOther">Describe the setback in one short phrase.</label><input id="setbackOther" maxlength="160" oninput="saveFromInputs()"></div>
+      <fieldset><legend>Is this specific enough to review?</legend><div class="choices" id="specificChoices"></div></fieldset>
+      <div class="note hidden" id="specificHelp">Choose one event, result, conversation, decision, or missed action, not your entire life, career, or relationship. Instead of “I ruin every opportunity,” try “I was not selected for the position I applied for last week.”</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('rate')">Back</button><button class="btn primary" type="button" onclick="goHappened()">Continue</button></div>
+      <div class="error" id="setback-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="happened" aria-labelledby="happened-title">
+    <div class="panel">
+      <h2 id="happened-title" tabindex="-1">What happened?</h2>
+      <fieldset><legend>I expected</legend><div class="choices" id="expectedChoices"></div></fieldset>
+      <div id="expectedOtherWrap" class="hidden"><label for="expectedOther">Write what you expected.</label><input id="expectedOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>What actually happened?</legend><div class="choices" id="actualChoices"></div></fieldset>
+      <div id="actualOtherWrap" class="hidden"><label for="actualOther">Write what actually happened.</label><input id="actualOther" maxlength="220" oninput="saveFromInputs()"></div>
+      <label for="factStatement">Factual statement</label>
+      <textarea id="factStatement" maxlength="500" oninput="saveFromInputs()" placeholder="Example: I was not selected for the position I applied for last week."></textarea>
+      <fieldset><legend>Could a message, score, result, calendar, document, action, or another person confirm this?</legend><div class="choices" id="certainChoices"></div></fieldset>
+      <div class="note hidden" id="certainHelp">Keep the event in the first box. Move predictions and judgments into the next step.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('setback')">Back</button><button class="btn primary" type="button" onclick="goSeparate()">Continue</button></div>
+      <div class="error" id="happened-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="separate" aria-labelledby="separate-title">
+    <div class="panel">
+      <h2 id="separate-title" tabindex="-1">Separate the setback from the verdict</h2>
+      <fieldset><legend>What are you making this mean?</legend><div class="choices" id="verdictChoices"></div></fieldset>
+      <div id="verdictOtherWrap" class="hidden"><label for="verdictOther">Write the verdict your mind added.</label><input id="verdictOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>What does the event actually support?</legend><div class="choices" id="accurateChoices"></div></fieldset>
+      <div id="accurateOtherWrap" class="hidden"><label for="accurateOther">Write a more accurate description.</label><input id="accurateOther" maxlength="220" oninput="saveFromInputs()"></div>
+      <div class="note mint">Experiencing a failure does not make you a failure.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('happened')">Back</button><button class="btn primary" type="button" onclick="mode==='guided'?goNotice():goPath()">Continue</button></div>
+      <div class="error" id="separate-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="notice" aria-labelledby="notice-title">
+    <div class="panel">
+      <h2 id="notice-title" tabindex="-1">What showed up afterward?</h2>
+      <fieldset><legend>Feelings</legend><div class="choices" id="feelingChoices"></div></fieldset>
+      <div id="feelingOtherWrap" class="hidden"><label for="feelingOther">Another feeling</label><input id="feelingOther" maxlength="120" oninput="saveFromInputs()"></div>
+      <fieldset><legend>What did you feel pulled to do?</legend><div class="choices" id="pullChoices"></div></fieldset>
+      <div id="pullOtherWrap" class="hidden"><label for="pullOther">Another pull</label><input id="pullOther" maxlength="160" oninput="saveFromInputs()"></div>
+      <div class="note">A strong pull is information about your reaction. It is not an instruction you must follow.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('separate')">Back</button><button class="btn primary" type="button" onclick="goAccount()">Continue</button></div>
+      <div class="error" id="notice-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="account" aria-labelledby="account-title">
+    <div class="panel">
+      <h2 id="account-title" tabindex="-1">Acknowledge your part without attacking yourself</h2>
+      <fieldset><legend>What contributed?</legend><div class="choices" id="contribChoices"></div></fieldset>
+      <div id="contribOtherWrap" class="hidden"><label for="contribOther">Another contributor</label><input id="contribOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>Which statement fits best?</legend><div class="choices" id="balancedChoices"></div></fieldset>
+      <div id="balancedOtherWrap" class="hidden"><label for="balancedOther">Write your balanced statement.</label><input id="balancedOther" maxlength="240" oninput="saveFromInputs()" placeholder="I worked with what I knew and had available then. I may still need to learn, repair, or respond differently now."></div>
+      <div class="btns"><button class="btn" type="button" onclick="show('notice')">Back</button><button class="btn primary" type="button" onclick="goPath()">Continue</button></div>
+      <div class="error" id="account-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="path" aria-labelledby="path-title">
+    <div class="panel">
+      <h2 id="path-title" tabindex="-1">What needs to happen now?</h2>
+      <div class="choices" id="pathChoices"></div>
+      <div class="grid">
+        <div><label id="pathOneLabel" for="pathOne">What can still change?</label><input id="pathOne" maxlength="220" oninput="saveFromInputs()"></div>
+        <div><label id="pathTwoLabel" for="pathTwo">What outcome would improve the situation?</label><input id="pathTwo" maxlength="220" oninput="saveFromInputs()"></div>
+      </div>
+      <label id="pathThreeLabel" for="pathThree">What is the first visible step?</label><input id="pathThree" maxlength="220" oninput="saveFromInputs()">
+      <div class="btns"><button class="btn" type="button" onclick="mode==='guided'?show('account'):show('separate')">Back</button><button class="btn primary" type="button" onclick="mode==='guided'?goOpposite():goLesson()">Continue</button></div>
+      <div class="error" id="path-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="opposite" aria-labelledby="opposite-title">
+    <div class="panel">
+      <h2 id="opposite-title" tabindex="-1">Do the useful opposite</h2>
+      <p>Choose a response that supports your longer-term goal.</p>
+      <div class="choices" id="oppositeChoices"></div>
+      <div id="oppositeOtherWrap" class="hidden"><label for="oppositeOther">Write a useful response.</label><input id="oppositeOther" maxlength="220" oninput="saveFromInputs()"></div>
+      <div class="btns"><button class="btn" type="button" onclick="show('path')">Back</button><button class="btn primary" type="button" onclick="goLesson()">Continue</button></div>
+      <div class="error" id="opposite-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="lesson" aria-labelledby="lesson-title">
+    <div class="panel">
+      <h2 id="lesson-title" tabindex="-1">Find the lesson</h2>
+      <p>Choose a lesson about a skill, strategy, preparation, or condition, not a conclusion about your worth.</p>
+      <fieldset><legend>What would help you respond differently next time?</legend><div class="choices" id="lessonChoices"></div></fieldset>
+      <div id="lessonOtherWrap" class="hidden"><label for="lessonOther">Another lesson</label><input id="lessonOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <div class="btns"><button class="btn" type="button" onclick="mode==='guided'?show('opposite'):show('path')">Back</button><button class="btn primary" type="button" onclick="goRestart()">Continue</button></div>
+      <div class="error" id="lesson-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="restart" aria-labelledby="restart-title">
+    <div class="panel">
+      <h2 id="restart-title" tabindex="-1">What is your next move?</h2>
+      <div class="choices" id="restartChoices"></div>
+      <div id="restartOtherWrap" class="hidden"><label for="restartOther">Write your restart step.</label><input id="restartOther" maxlength="220" oninput="saveFromInputs()"></div>
+      <label for="restartAction">What exactly will you do?</label><input id="restartAction" maxlength="240" oninput="saveFromInputs()" placeholder="Describe an observable action.">
+      <label for="restartWhen">When will you do it?</label><select id="restartWhen" onchange="handleTiming()"><option value="">Choose</option><option>Now</option><option>Within 10 minutes</option><option>Later today</option><option>Tomorrow</option><option>At a specific time</option><option>After another activity</option><option>After a short rest</option></select>
+      <div id="timeDetailWrap" class="hidden"><label for="timeDetail">Add the exact time, activity, or rest length.</label><input id="timeDetail" maxlength="180" oninput="saveFromInputs()"></div>
+      <label for="smallest">What could you complete in five minutes or less?</label><input id="smallest" maxlength="220" oninput="saveFromInputs()">
+      <div class="btns"><button class="btn" type="button" onclick="show('lesson')">Back</button><button class="btn primary" type="button" onclick="mode==='guided'?goPrepare():goReview()">Continue</button></div>
+      <div class="error" id="restart-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="prepare" aria-labelledby="prepare-title">
+    <div class="panel">
+      <h2 id="prepare-title" tabindex="-1">Prepare for when the setback hits again</h2>
+      <fieldset><legend>What small action could give you fresh evidence that you can move forward?</legend><div class="choices" id="winChoices"></div></fieldset>
+      <div id="winOtherWrap" class="hidden"><label for="winOther">Choose your own small win.</label><input id="winOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>What is most likely to challenge you?</legend><div class="choices" id="challengeChoices"></div></fieldset>
+      <div id="challengeOtherWrap" class="hidden"><label for="challengeOther">Another challenge</label><input id="challengeOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>When I feel like giving up, I will:</legend><div class="choices" id="planChoices"></div></fieldset>
+      <div id="planOtherWrap" class="hidden"><label for="planOther">Write your plan.</label><input id="planOther" maxlength="180" oninput="saveFromInputs()"></div>
+      <fieldset><legend>Recovery statement</legend><div class="choices" id="statementChoices"></div></fieldset>
+      <div id="statementOtherWrap" class="hidden"><label for="statementOther">Write your recovery statement.</label><input id="statementOther" maxlength="220" oninput="saveFromInputs()"></div>
+      <div class="btns"><button class="btn" type="button" onclick="show('restart')">Back</button><button class="btn primary" type="button" onclick="goReview()">Continue</button></div>
+      <div class="error" id="prepare-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="review" aria-labelledby="review-title">
+    <div class="panel">
+      <h2 id="review-title" tabindex="-1">Review and finish</h2>
+      <fieldset><legend>How strongly do you feel like giving up or avoiding the next step now?</legend><div class="rating" id="avoidAfter"></div></fieldset>
+      <fieldset><legend>How confident are you that you can take one useful next step now?</legend><div class="rating" id="confidenceAfter"></div></fieldset>
+      <fieldset><legend>What changed during the practice?</legend><div class="choices" id="changedChoices"></div></fieldset>
+      <div id="changedOtherWrap" class="hidden"><label for="changedOther">Something else</label><input id="changedOther" maxlength="160" oninput="saveFromInputs()"></div>
+      <fieldset><legend>How challenging was the practice?</legend><div class="choices" id="difficultyChoices"></div></fieldset>
+      <fieldset><legend>Did the practice feel safe enough to continue?</legend><div class="choices" id="feltSafeChoices"></div></fieldset>
+      <fieldset><legend>Later action review</legend><div class="choices" id="laterChoiceChoices"></div></fieldset>
+      <div id="laterReviewWrap" class="hidden">
+        <fieldset><legend>Did you take the step you planned?</legend><div class="choices" id="restartResultChoices"></div></fieldset>
+        <fieldset><legend>What helped or got in the way?</legend><div class="choices" id="helpedChoices"></div></fieldset>
+        <div id="helpedOtherWrap" class="hidden"><label for="helpedOther">Something else</label><input id="helpedOther" maxlength="160" oninput="saveFromInputs()"></div>
+      </div>
+      <div class="btns"><button class="btn" type="button" onclick="mode==='guided'?show('prepare'):show('restart')">Back</button><button class="btn primary" type="button" onclick="goSummary()">Build summary</button></div>
+      <div class="error" id="review-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="summary" aria-labelledby="summary-title">
+    <div class="panel">
+      <h2 id="summary-title" tabindex="-1">You practiced responding to a setback without turning it into a judgment about your worth.</h2>
+      <p>You identified what happened, chose what to solve, repair, or release, and created one workable way to restart.</p>
+      <div class="summary" id="summaryBox" aria-live="polite"></div>
+      <div class="note" id="recommendation"></div>
+      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my private practice summary.</label>
+      <p class="note mint">Your draft is temporarily saved for this browser session.</p>
+      <div class="btns">
+        <a class="btn" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
+        <button class="btn primary" id="copyBtn" type="button" onclick="copySummary()">Copy summary</button>
+        <button class="btn primary" id="saveBtn" type="button" onclick="saveStack()">Save to Skills Stack</button>
+        <button class="btn" type="button" onclick="practiceAgain()">Practice this setback again</button>
+        <button class="btn" type="button" onclick="useAnother()">Use another setback</button>
+        <button class="btn warning" type="button" onclick="clearDraft()">Clear saved draft</button>
+        <button class="btn warning" type="button" aria-controls="resetConfirm" onclick="requestReset()">Start over</button>
+      </div>
+      <div class="confirm-reset hidden" id="resetConfirm" role="group" aria-labelledby="resetTitle"><strong id="resetTitle">Start over and clear this practice?</strong><p>This clears the temporary draft for this browser session.</p><div class="btns"><button class="btn warning" type="button" onclick="confirmReset()">Yes, start over</button><button class="btn" type="button" onclick="cancelReset()">Keep practicing</button></div></div>
+      <div class="status" id="status" aria-live="polite"></div>
+    </div>
+  </section>
+  <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</main>
+
+<script>
+const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
+const PRACTICE_URL='https://whattodo-skills.github.io/skills/recover-from-setbacks.html';
+const STORAGE_KEY='wtd_recover_from_setbacks_v1';
+const $=id=>document.getElementById(id);
+let mode='',sessionId=newSessionId(),saveTimer=null,eventFlags={};
+const state={setback:'',setbackOther:'',specific:'',expected:'',expectedOther:'',actual:'',actualOther:'',fact:'',certain:'',verdict:'',verdictOther:'',accurate:'',accurateOther:'',feelings:[],feelingOther:'',pulls:[],pullOther:'',contrib:[],contribOther:'',balanced:'',balancedOther:'',path:'',pathOne:'',pathTwo:'',pathThree:'',opposite:'',oppositeOther:'',lesson:'',lessonOther:'',restart:'',restartOther:'',restartAction:'',restartWhen:'',timeDetail:'',smallest:'',win:'',winOther:'',challenge:'',challengeOther:'',plan:'',planOther:'',statement:'',statementOther:'',avoidBefore:'',confidenceBefore:'',avoidAfter:'',confidenceAfter:'',changed:'',changedOther:'',difficulty:'',feltSafe:'',laterChoice:'',restartResult:'',helped:'',helpedOther:'',recommendation:'',includePrivate:false};
+const singleGroups={setbackChoices:['setback','setbackOtherWrap'],specificChoices:['specific'],expectedChoices:['expected','expectedOtherWrap'],actualChoices:['actual','actualOtherWrap'],certainChoices:['certain'],verdictChoices:['verdict','verdictOtherWrap'],accurateChoices:['accurate','accurateOtherWrap'],balancedChoices:['balanced','balancedOtherWrap'],pathChoices:['path'],oppositeChoices:['opposite','oppositeOtherWrap'],lessonChoices:['lesson','lessonOtherWrap'],restartChoices:['restart','restartOtherWrap'],winChoices:['win','winOtherWrap'],challengeChoices:['challenge','challengeOtherWrap'],planChoices:['plan','planOtherWrap'],statementChoices:['statement','statementOtherWrap'],changedChoices:['changed','changedOtherWrap'],difficultyChoices:['difficulty'],feltSafeChoices:['feltSafe'],laterChoiceChoices:['laterChoice'],restartResultChoices:['restartResult'],helpedChoices:['helped','helpedOtherWrap']};
+const multiGroups={feelingChoices:['feelings','feelingOtherWrap'],pullChoices:['pulls','pullOtherWrap'],contribChoices:['contrib','contribOtherWrap']};
+const choices={
+setbackChoices:['I made a mistake','Something I tried did not work','I was rejected or not chosen','I lost something important','I did not follow through','I received criticism or disappointing feedback','I ran into an unexpected obstacle','I returned to a behavior I was trying to change','Something else'],
+specificChoices:['Yes','Help me make it smaller'],
+expectedChoices:['I expected to succeed','I expected to be chosen','I expected a different response','I expected myself to follow through','I expected the plan to work','I expected better feedback','I expected the opportunity to remain available','Something else'],
+actualChoices:['I completed part of the task incorrectly','I missed an important detail','I was not selected','The other person declined','The result did not meet the goal','The plan stopped working','I did not finish','The outcome was different from what I expected','Write my own'],
+certainChoices:['Yes','Partly','No'],
+verdictChoices:['I am a failure','I always ruin things','I am not capable','Nobody wants me','I will never succeed','I should have known better','Everyone else is ahead of me','This proves I made the wrong choice','Something else','I am not making a larger judgment'],
+accurateChoices:['This attempt did not work','I made a specific mistake','I was not chosen this time','I did not follow through on this occasion','I need more information or practice','The result depended partly on factors outside my control','I do not know what this means for the future','Write my own accurate description'],
+feelingChoices:['Disappointed','Embarrassed','Sad','Angry','Afraid','Guilty','Ashamed','Jealous or envious','Relieved','Discouraged','Mixed feelings','Not sure yet','Something else'],
+pullChoices:['Hide what happened','Avoid trying again','Withdraw from people','Blame myself','Blame someone else','Defend or overexplain','Quit','Pretend it does not matter','Fix everything immediately','Ask repeatedly for reassurance','Chase approval','Something else'],
+contribChoices:['I was missing information','I needed more practice','I rushed','The goal was too large','The plan was unclear','I did not ask for help','I ignored an early warning sign','I was tired, overloaded, or distracted','Communication was unclear','Another person or circumstance affected the outcome','I made a choice I would change now','I do not know yet','Something else'],
+balancedChoices:['I made a mistake, and I can respond to it','My effort did not produce the result I wanted','I did the best I could with what I knew then','I had a part in this, but I was not the only factor','I need to take responsibility without turning against myself','Write my own balanced statement'],
+pathChoices:[['Solve','Something can still be improved or completed.'],['Repair','Something was damaged and needs a direct response.'],['Release','The outcome cannot be changed, or more effort would become chasing or rumination.']],
+lessonChoices:['More information','More practice','A smaller goal','More time','A different strategy','Clearer communication','Stronger boundaries','More support','Better preparation','A more realistic expectation','More tolerance for uncertainty','Acceptance that effort does not guarantee the result','Another lesson','I do not know yet'],
+restartChoices:['Try again with a smaller step','Ask for feedback','Make a new plan','Practice the missing skill','Complete the repair','Apply for another opportunity','Return to a routine','Ask for support','Gather more information','Rest briefly and set a restart date','Choose a different goal','Accept the loss and invest elsewhere','Write my own step'],
+winChoices:['Send one email','Practice for 10 minutes','Correct one part of the mistake','Complete one application','Attend one activity','Ask one question','Restart one routine','Finish one delayed task','Use the smallest version of my restart','Choose my own small win'],
+challengeChoices:['The embarrassment returns','Someone asks what happened','I receive another rejection','I make another mistake','I feel tempted to quit','The next attempt feels uncomfortable','I compare myself with other people','I lose confidence','Something else'],
+planChoices:['Review the facts','Use my smallest restart step','Contact a trusted person','Pause before responding','Review the lesson','Return to my recovery statement','Write my own plan'],
+statementChoices:['One setback does not determine what happens next.','I can acknowledge what went wrong without turning against myself.','I can be disappointed and still take another step.','I do not have to feel confident before I begin again.','I can learn without using shame as motivation.','Trying again may mean trying differently.','I can repair what I can and release what I cannot.','Progress includes learning how to restart.','Write my own statement'],
+changedChoices:['I separated the event from my self-worth','I understand the facts more clearly','I know what needs to be solved','I identified a repair','I know what I need to release','I found a useful lesson','I chose a restart step','I did not notice a change yet','Something else'],
+difficultyChoices:['Too hard','About right','Too easy'],
+feltSafeChoices:['Yes','Not sure','No'],
+laterChoiceChoices:['Review my restart now','Review this later','Finish for now'],
+restartResultChoices:['Yes','Partly','Not yet','The situation changed','I chose a different step','I realized I need support first'],
+helpedChoices:['The step was small and clear','I remembered my plan','Someone supported me','I still felt embarrassed or discouraged','I was missing information','The step was too large','The timing did not work','I decided to release the goal','Something else']
+};
+function newSessionId(){return 'recover-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
+function text(id){return ($(id)?.value||'').trim()}
+function announce(msg){$('live').textContent=msg}
+function postToParent(message){if(parent!==window)parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function recordEvent(type){const key=sessionId+':'+type;if(eventFlags[key])return;eventFlags[key]=true;postToParent({type:'skillComplete',skillTitle:'Recover From Setbacks',skillSlug:'recover-from-setbacks',completionType:type,sessionId})}
+function showError(id,msg){$(id).textContent=msg;announce(msg)}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.steps li').forEach(li=>li.removeAttribute('aria-current'));$('step-'+id)?.setAttribute('aria-current','step');const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.')}
+function chooseMode(next){mode=next;$('modeQuick').setAttribute('aria-pressed',String(next==='quick'));$('modeGuided').setAttribute('aria-pressed',String(next==='guided'));recordEvent('practice-started');saveDraft()}
+function selected(prop,other){return state[prop]==='Something else'||state[prop]==='Write my own'||state[prop]==='Write my own accurate description'||state[prop]==='Write my own balanced statement'||state[prop]==='Another lesson'||state[prop]==='Write my own step'||state[prop]==='Choose my own small win'||state[prop]==='Write my own plan'||state[prop]==='Write my own statement'?state[other]:state[prop]}
+function makeState(){const span=document.createElement('span');span.className='state';span.textContent='Chosen';return span}
+function makeChoice(group,item){const value=Array.isArray(item)?item[0]:item;const detail=Array.isArray(item)?item[1]:'';const btn=document.createElement('button');btn.type='button';btn.className='choice';btn.dataset.value=value;btn.setAttribute('aria-pressed','false');btn.textContent=value;if(detail){const span=document.createElement('span');span.textContent=detail;btn.appendChild(span)}btn.appendChild(makeState());btn.onclick=()=>selectChoice(group,value);$(group).appendChild(btn)}
+function selectChoice(group,value){if(singleGroups[group]){const [prop]=singleGroups[group];state[prop]=value;document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===value)))}else{const [prop]=multiGroups[group];state[prop]=state[prop].includes(value)?state[prop].filter(x=>x!==value):[...state[prop],value];document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(state[prop].includes(b.dataset.value))))}toggleOther();if(group==='pathChoices')updatePathLabels();saveDraft()}
+function makeRatings(group,prop){for(let i=0;i<=10;i++){const btn=document.createElement('button');btn.type='button';btn.className='rate';btn.dataset.value=String(i);btn.setAttribute('aria-pressed','false');btn.textContent=String(i);btn.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===state[prop])));saveDraft()};$(group).appendChild(btn)}}
+function toggleOther(){Object.entries(singleGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!['Something else','Write my own','Write my own accurate description','Write my own balanced statement','Another lesson','Write my own step','Choose my own small win','Write my own plan','Write my own statement'].includes(state[prop]))});Object.entries(multiGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!state[prop].includes('Something else'))});$('specificHelp').classList.toggle('hidden',state.specific!=='Help me make it smaller');$('certainHelp').classList.toggle('hidden',!['Partly','No'].includes(state.certain));$('laterReviewWrap').classList.toggle('hidden',state.laterChoice!=='Review my restart now')}
+function saveFromInputs(){['setbackOther','expectedOther','actualOther','factStatement','verdictOther','accurateOther','feelingOther','pullOther','contribOther','balancedOther','pathOne','pathTwo','pathThree','oppositeOther','lessonOther','restartOther','restartAction','restartWhen','timeDetail','smallest','winOther','challengeOther','planOther','statementOther','changedOther','helpedOther'].forEach(id=>{if($(id)){const key=id==='factStatement'?'fact':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;handleTiming();saveDraft()}
+function handleTiming(){$('timeDetailWrap').classList.toggle('hidden',!['At a specific time','After another activity','After a short rest'].includes(state.restartWhen))}
+function validCustom(prop,other){return selected(prop,other)&&selected(prop,other).trim().length>1}
+function goRate(){if(!mode){showError('learn-error','Choose Quick Recovery or Guided Recovery.');return}$('learn-error').textContent='';show('rate')}
+function goSetback(){if(!state.avoidBefore||!state.confidenceBefore){showError('rate-error','Choose both ratings before continuing.');return}$('rate-error').textContent='';show('setback')}
+function goHappened(){saveFromInputs();if(!validCustom('setback','setbackOther')||!state.specific){showError('setback-error','Choose a setback and whether it is specific enough to review.');return}$('setback-error').textContent='';show('happened')}
+function goSeparate(){saveFromInputs();if(!validCustom('expected','expectedOther')||!validCustom('actual','actualOther')||!state.fact||!state.certain){showError('happened-error','Choose what you expected, what happened, write the factual statement, and choose how certain it is.');return}$('happened-error').textContent='';recordEvent('setback-described');show('separate')}
+function goNotice(){if(!validCustom('verdict','verdictOther')||!validCustom('accurate','accurateOther')){showError('separate-error','Choose the verdict your mind added and a more accurate description.');return}$('separate-error').textContent='';show('notice')}
+function goAccount(){saveFromInputs();if(!state.feelings.length||!state.pulls.length){showError('notice-error','Choose at least one feeling and one pull.');return}if(state.feelings.includes('Something else')&&!state.feelingOther){showError('notice-error','Write the other feeling.');return}if(state.pulls.includes('Something else')&&!state.pullOther){showError('notice-error','Write the other pull.');return}$('notice-error').textContent='';show('account')}
+function goPath(){if(!validCustom('verdict','verdictOther')||!validCustom('accurate','accurateOther')){showError('separate-error','Choose the verdict your mind added and a more accurate description.');return}if(mode==='guided'&&(!state.contrib.length||!validCustom('balanced','balancedOther'))){showError('account-error','Choose what contributed and a balanced statement.');return}$('separate-error').textContent='';$('account-error').textContent='';show('path')}
+function goOpposite(){saveFromInputs();if(!state.path||!state.pathOne||!state.pathTwo||!state.pathThree){showError('path-error','Choose Solve, Repair, or Release and answer the path prompts.');return}$('path-error').textContent='';renderOpposites();show('opposite')}
+function goLesson(){saveFromInputs();if(!state.path||!state.pathOne||!state.pathTwo||!state.pathThree){showError('path-error','Choose Solve, Repair, or Release and answer the path prompts.');return}if(mode==='guided'&&!validCustom('opposite','oppositeOther')){showError('opposite-error','Choose or write one useful response.');return}$('path-error').textContent='';$('opposite-error').textContent='';show('lesson')}
+function goRestart(){saveFromInputs();if(!validCustom('lesson','lessonOther')){showError('lesson-error','Choose the lesson you want to carry forward.');return}$('lesson-error').textContent='';show('restart')}
+function goPrepare(){saveFromInputs();if(!validCustom('restart','restartOther')||!state.restartAction||!state.restartWhen||!state.smallest){showError('restart-error','Choose a restart step, exact action, timing, and smallest version.');return}if(!$('timeDetailWrap').classList.contains('hidden')&&!state.timeDetail){showError('restart-error','Add the timing detail.');return}$('restart-error').textContent='';show('prepare')}
+function goReview(){saveFromInputs();if(!validCustom('restart','restartOther')||!state.restartAction||!state.restartWhen||!state.smallest){showError('restart-error','Choose a restart step, exact action, timing, and smallest version.');return}if(mode==='guided'&&(!validCustom('win','winOther')||!validCustom('challenge','challengeOther')||!validCustom('plan','planOther')||!validCustom('statement','statementOther'))){showError('prepare-error','Complete the small win, challenge, giving-up plan, and recovery statement.');return}$('restart-error').textContent='';$('prepare-error').textContent='';show('review')}
+function goSummary(){saveFromInputs();if(!state.avoidAfter||!state.confidenceAfter||!validCustom('changed','changedOther')||!state.difficulty||!state.feltSafe||!state.laterChoice){showError('review-error','Complete the after ratings and review choices.');return}if(state.laterChoice==='Review my restart now'&&(!state.restartResult||!validCustom('helped','helpedOther'))){showError('review-error','Complete the restart review or choose Review this later.');return}if(state.feltSafe==='No')state.recommendation='Stop here and choose support before increasing difficulty. Use a smaller setback or practice with a trusted person nearby.';else state.recommendation=recommendation();$('review-error').textContent='';recordEvent('practice-completed');renderSummary();saveDraft();show('summary')}
+function updatePathLabels(){const labels={Solve:['What can still change?','What outcome would improve the situation?','What is the first visible step?'],Repair:['What was actually affected?','What repair would match that effect?','Does the repair require correcting, replacing, completing, acknowledging, or changing future behavior?'],Release:['What are you choosing to stop chasing?','Where will you redirect the effort?','What is the first small redirect step?']};const l=labels[state.path]||labels.Solve;$('pathOneLabel').textContent=l[0];$('pathTwoLabel').textContent=l[1];$('pathThreeLabel').textContent=l[2]}
+function renderOpposites(){const map={'Hide what happened':'Tell one trusted person what happened','Avoid trying again':'Take one manageable attempt','Withdraw from people':'Rejoin one meaningful activity','Defend or overexplain':'State the facts briefly','Blame myself':'Complete a useful repair','Quit':'Take one goal-directed action','Blame someone else':'Pause and address the actual problem','Chase approval':'Respect the result and redirect attention','Fix everything immediately':'Choose one priority and begin there'};const opts=[...new Set(state.pulls.map(p=>map[p]).filter(Boolean).concat(['Write my own']))];$('oppositeChoices').textContent='';opts.forEach(v=>makeChoice('oppositeChoices',v))}
+function recommendation(){const avoidDrop=Number(state.avoidBefore||0)-Number(state.avoidAfter||0);const confGain=Number(state.confidenceAfter||0)-Number(state.confidenceBefore||0);if(state.laterChoice==='Review my restart now'&&state.restartResult==='Not yet')return 'Choose a new time and reduce the restart until it can begin in five minutes or less.';if(state.path==='Solve')return 'Focus on the part that can still change. Complete the smallest visible problem-solving step before reviewing the entire setback again.';if(state.path==='Repair')return 'Match the repair to what was actually affected. A useful repair includes action, not only self-criticism or repeated apologies.';if(state.path==='Release')return 'You identified where additional effort is no longer useful. Redirect that effort toward one relationship, routine, opportunity, or goal that remains available.';if(confGain<=0)return 'Confidence is not required before action. Use the smallest restart step to create new evidence.';if(avoidDrop<=0)return 'Make the restart smaller and schedule it sooner. The goal is one manageable reentry, not proving confidence.';return 'Repeat the same recovery process the next time discouragement appears.'}
+function addSummary(label,value){const row=document.createElement('div');row.className='summary-row';const strong=document.createElement('strong');strong.textContent=label;const body=document.createElement('div');body.textContent=value||'Not answered';row.append(strong,body);$('summaryBox').append(row)}
+function renderSummary(){const box=$('summaryBox');box.textContent='';addSummary('Setback category',selected('setback','setbackOther'));addSummary('Expectation',selected('expected','expectedOther'));addSummary('Actual outcome',selected('actual','actualOther'));addSummary('Fact-based description',state.fact);addSummary('Verdict my mind added',selected('verdict','verdictOther'));addSummary('More accurate description',selected('accurate','accurateOther'));if(mode==='guided'){addSummary('Feelings',state.feelings.map(x=>x==='Something else'?state.feelingOther:x).join(', '));addSummary('Pull to act',state.pulls.map(x=>x==='Something else'?state.pullOther:x).join(', '));addSummary('Balanced accountability',selected('balanced','balancedOther'));addSummary('Useful opposite',selected('opposite','oppositeOther'));addSummary('Small win',selected('win','winOther'));addSummary('Preparation plan',selected('plan','planOther'));addSummary('Recovery statement',selected('statement','statementOther'))}addSummary('Recovery path',state.path);addSummary('Lesson',selected('lesson','lessonOther'));addSummary('Restart',`I will ${state.restartAction} ${state.restartWhen}${state.timeDetail?' ('+state.timeDetail+')':''}. If that feels too large, I will begin with ${state.smallest}.`);addSummary('Before and after avoidance',`${state.avoidBefore} to ${state.avoidAfter}`);addSummary('Before and after confidence',`${state.confidenceBefore} to ${state.confidenceAfter}`);addSummary('Current practice step',practiceStep());$('recommendation').textContent=state.recommendation||recommendation()}
+function practiceStep(){if(!state.fact)return 'Describe';if(!state.accurate)return 'Separate';if(!state.path)return 'Choose';if(!state.lesson)return 'Learn';if(!state.restartAction)return 'Restart';if(mode==='guided'&&!state.plan)return 'Recover';return 'Review'}
+function summaryText(){return Array.from($('summaryBox').querySelectorAll('.summary-row')).map(row=>row.innerText.trim()).join('\n\n')+'\n\nRecommendation\n'+$('recommendation').textContent}
+async function copySummary(){const btn=$('copyBtn');btn.disabled=true;btn.textContent='Copying...';try{await navigator.clipboard.writeText(summaryText());$('status').textContent='Summary copied.';btn.textContent='Copied'}catch(e){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=getSelection();sel.removeAllRanges();sel.addRange(range);$('status').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}recordEvent('summary-copied');setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}
+function stackPayload(){const stack={skillId:'recover-from-setbacks',skillName:'Recover From Setbacks',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,recoveryPath:state.path,practiceStep:practiceStep(),generalNextPractice:state.recommendation||recommendation(),practiceUrl:PRACTICE_URL,id:'recover-from-setbacks',title:'Recover From Setbacks',source:'recover-from-setbacks',updatedAt:new Date().toISOString()};if(state.includePrivate)stack.privatePracticeSummary={setback:selected('setback','setbackOther'),fact:state.fact,verdict:selected('verdict','verdictOther'),accurate:selected('accurate','accurateOther'),path:state.path,lesson:selected('lesson','lessonOther'),restart:state.restartAction,recommendation:state.recommendation||recommendation()};return stack}
+function resetSaveUi(){clearTimeout(saveTimer);if($('saveBtn')){$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack'}if($('status'))$('status').textContent=''}
+function saveStack(){resetSaveUi();$('saveBtn').disabled=true;$('saveBtn').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';recordEvent('save-to-skills-stack');postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:stackPayload(),updatedAt:new Date().toISOString()}});saveTimer=setTimeout(()=>{if($('saveBtn').textContent==='Saved to Skills Stack')return;$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
+function saveDraft(){sessionStorage.setItem(STORAGE_KEY,JSON.stringify({mode,sessionId,eventFlags,state}));resetSaveUi()}
+function restoreSelectionUi(){document.querySelectorAll('.choice').forEach(b=>{const group=b.parentElement.id;if(singleGroups[group])b.setAttribute('aria-pressed',String(state[singleGroups[group][0]]===b.dataset.value));if(multiGroups[group])b.setAttribute('aria-pressed',String(state[multiGroups[group][0]].includes(b.dataset.value))) });['avoidBefore','confidenceBefore','avoidAfter','confidenceAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(state[group]===b.dataset.value))));toggleOther();updatePathLabels();handleTiming()}
+function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);Object.entries(state).forEach(([key,value])=>{const id=key==='fact'?'factStatement':key;if($(id)&&typeof value==='string')$(id).value=value});if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;restoreSelectionUi();if(mode)chooseMode(mode)}catch(e){}}
+function clearSession(keepMode=false,keepSetback=false){const oldMode=mode,oldSetback=state.setback,oldOther=state.setbackOther,oldFact=state.fact;Object.keys(state).forEach(k=>{if(Array.isArray(state[k]))state[k]=[];else if(typeof state[k]==='boolean')state[k]=false;else state[k]=''});state.includePrivate=false;if(keepMode)mode=oldMode;if(keepSetback){state.setback=oldSetback;state.setbackOther=oldOther;state.fact=oldFact}sessionId=newSessionId();eventFlags={};document.querySelectorAll('input,textarea').forEach(el=>{if(el.type!=='checkbox')el.value='';else el.checked=false});document.querySelectorAll('select').forEach(el=>el.value='');if(keepSetback){if($('setbackOther'))$('setbackOther').value=state.setbackOther;if($('factStatement'))$('factStatement').value=state.fact}restoreSelectionUi();if(mode)chooseMode(mode);resetSaveUi();saveDraft()}
+function practiceAgain(){clearSession(true,true);show('rate')}
+function useAnother(){clearSession(true,false);show('rate')}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
+function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus()}
+function cancelReset(){$('resetConfirm').classList.add('hidden');$('saveBtn').focus()}
+function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
+window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('saveBtn').disabled=false;if(msg.ok){$('saveBtn').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
+Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item)));
+makeRatings('avoidBefore','avoidBefore');makeRatings('confidenceBefore','confidenceBefore');makeRatings('avoidAfter','avoidAfter');makeRatings('confidenceAfter','confidenceAfter');
+restoreDraft();
+postToParent({type:'recoverFromSetbacksReady'});
+</script>
+</body>
+</html>

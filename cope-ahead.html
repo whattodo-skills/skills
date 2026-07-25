@@ -89,8 +89,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <fieldset><legend>When will it happen?</legend><div class="choices" id="whenChoices"></div></fieldset>
       <div id="whenDetailWrap" class="hidden"><label for="whenDetail">Add the specific date or time.</label><input id="whenDetail" maxlength="160" oninput="saveFromInputs()"></div>
       <label for="specificSituation">Make it specific enough to picture</label>
-      <input id="specificSituation" maxlength="240" oninput="saveFromInputs()" placeholder="Example: Meeting with my supervisor Tuesday morning.">
-      <div class="note mint">Instead of “Going to work,” use one specific moment you can picture.</div>
+      <input id="specificSituation" maxlength="240" oninput="saveFromInputs()" placeholder="Example: Meeting with my supervisor Tuesday morning, or Breaking up with someone I'm dating">
       <div class="btns"><button class="btn" type="button" onclick="show('learn')">Back</button><button class="btn primary" type="button" onclick="goHard()">Continue</button></div>
       <div class="error" id="situation-error" aria-live="polite"></div>
     </div>
@@ -102,7 +101,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <fieldset><legend>What is most likely to be difficult?</legend><div class="choices" id="hardChoices"></div></fieldset>
       <div id="hardOtherWrap" class="hidden"><label for="hardOther">Write what may be difficult.</label><input id="hardOther" maxlength="180" oninput="saveFromInputs()"></div>
       <label for="momentDetail">What will probably be happening when this moment arrives?</label>
-      <input id="momentDetail" maxlength="240" oninput="saveFromInputs()" placeholder="Use one short, realistic description.">
+      <input id="momentDetail" maxlength="240" oninput="saveFromInputs()" placeholder="Example: I'll be nervous and I'll want to avoid it and not say anything.">
       <div class="btns"><button class="btn" type="button" onclick="show('situation')">Back</button><button class="btn primary" type="button" onclick="goWarning()">Continue</button></div>
       <div class="error" id="hard-error" aria-live="polite"></div>
     </div>

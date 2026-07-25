@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adapting To Change | What To Do!</title>
+<style>
+:root{--navy:#182047;--blue:#4f5dad;--pink:#bd3a59;--mint:#eaf4f0;--blue-bg:#edf1f8;--bg:#f7f4ed;--line:#ded8ce;--text:#28313d;--muted:#667085;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
+.wrap{max-width:980px;margin:auto;padding:24px 16px 70px}
+.hero,.card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px;box-shadow:0 2px 14px rgba(0,0,0,.06)}
+.ey{color:var(--pink);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem}
+h1,h2,h3{color:var(--navy);line-height:1.2}
+h1{font-size:clamp(2rem,5vw,3rem);margin:.2em 0}
+h2{margin:0 0 10px}
+p{color:var(--muted)}
+.steps{display:flex;gap:7px;overflow:auto;padding:0;margin:0 0 16px;list-style:none}
+.steps li{padding:7px 11px;border-radius:20px;background:#eee;white-space:nowrap;color:var(--muted);font-weight:800;font-size:.88rem}
+.steps [aria-current="step"]{background:var(--navy);color:white}
+.screen{display:none}
+.screen.active{display:block}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+.choice,.btn{font:inherit;border:2px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--navy);font-weight:800;text-align:left;cursor:pointer}
+.choice{position:relative}
+.choice[aria-pressed="true"]{background:var(--blue-bg);border-color:var(--blue)}
+.choice .state{display:block;color:var(--blue);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-top:7px;font-weight:900}
+.choice[aria-pressed="false"] .state{display:none}
+.choice span:not(.state){display:block;color:var(--muted);font-size:.9rem;font-weight:600;margin-top:4px}
+.btn{display:inline-flex;justify-content:center;text-align:center;text-decoration:none}
+.btn.primary{background:var(--navy);color:white;border-color:var(--navy)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+fieldset{border:0;margin:0;padding:0}
+legend,.label,label{display:block;font-weight:900;color:var(--navy);margin:14px 0 6px}
+.group-title{margin:18px 0 8px;color:var(--pink);font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;font-weight:900}
+input,textarea,select{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:10px;font:inherit;background:white;color:var(--text)}
+textarea{min-height:84px;resize:vertical}
+.note,.example,.statement{background:var(--mint);padding:14px;border-radius:12px;margin:12px 0;line-height:1.55}
+.example{background:#fff7ef;border-left:4px solid #ff6903}
+.statement{background:var(--blue-bg);border-left:4px solid var(--blue);color:var(--navy)}
+.summary{display:grid;gap:12px}
+.summary-row{background:var(--blue-bg);border-radius:12px;padding:12px}
+.summary-row strong{display:block;color:var(--blue);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.error{color:#8f1737;font-weight:800;min-height:1.4em;margin-top:10px}
+.hidden{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:4px solid #f4c95d;outline-offset:2px}
+@media(max-width:650px){.wrap{padding:18px 10px 60px}.choices{grid-template-columns:1fr}.btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="ey">Coping</div>
+    <h1>Adapting To Change</h1>
+    <p>Recognize what is different, make room for your reaction, and take one workable step forward.</p>
+  </header>
+
+  <ol class="steps" aria-label="Adapting To Change steps">
+    <li id="step-learn" aria-current="step">1. Learn</li>
+    <li id="step-theme">2. What Changed</li>
+    <li id="step-meaning">3. Fact Check</li>
+    <li id="step-next">4. Next Step</li>
+    <li id="step-guided">5. Guided Review</li>
+    <li id="step-summary">6. Summary</li>
+  </ol>
+
+  <section class="screen active" id="learn" aria-labelledby="learn-title">
+    <div class="card">
+      <h2 id="learn-title" tabindex="-1">Change can take time to adjust to</h2>
+      <p>Adapting does not mean liking the change. It means seeing what is true clearly enough to choose a useful response. Start with a manageable change.</p>
+      <div class="note">This is a self-guided practice for manageable changes. Use it only when you are safe enough to pause and reflect.</div>
+      <h3>Choose Your Skill Practice Version</h3>
+      <div class="btns">
+        <button class="btn primary" type="button" onclick="chooseMode('quick')">Quick Adapt</button>
+        <button class="btn primary" type="button" onclick="chooseMode('guided')">Guided Adaptation</button>
+        <a class="btn" href="https://www.whattodo.coach/skills-3/" target="_top">Return to Skills</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="theme" aria-labelledby="theme-title">
+    <div class="card">
+      <h2 id="theme-title" tabindex="-1">What feels most different right now?</h2>
+      <p>Choose the theme that best fits this change. You will get prompts based on what you choose.</p>
+      <fieldset aria-describedby="theme-help">
+        <legend>Change theme</legend>
+        <p id="theme-help">Choose one theme before continuing.</p>
+        <div class="group-title">Predictability and control</div>
+        <div class="choices" id="themes-control" role="group" aria-label="Predictability and control"></div>
+        <div class="group-title">Roles, relationships, and support</div>
+        <div class="choices" id="themes-roles" role="group" aria-label="Roles, relationships, and support"></div>
+        <div class="group-title">How I am responding</div>
+        <div class="choices" id="themes-response" role="group" aria-label="How I am responding"></div>
+      </fieldset>
+      <div id="custom-theme-wrap" class="hidden">
+        <label for="customTheme">What changed?</label>
+        <textarea id="customTheme" maxlength="400" oninput="updateCustomTheme()" placeholder="Write one short description of what changed."></textarea>
+      </div>
+      <div class="btns">
+        <button class="btn" type="button" onclick="show('learn')">Back</button>
+        <button class="btn primary" type="button" onclick="goPrompts()">Continue</button>
+      </div>
+      <div class="error" id="theme-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="prompts" aria-labelledby="prompts-title">
+    <div class="card">
+      <h2 id="prompts-title" tabindex="-1">Describe the change with guidance</h2>
+      <p id="prompt-intro">Answer the prompts using simple, concrete language.</p>
+      <div class="example" id="exampleBox"></div>
+      <div id="standard-prompts">
+        <label id="beforeLabel" for="beforeText">What was true before?</label>
+        <textarea id="beforeText" maxlength="500" oninput="updateGenerated()"></textarea>
+        <label id="nowLabel" for="nowText">What is true now?</label>
+        <textarea id="nowText" maxlength="500" oninput="updateGenerated()"></textarea>
+      </div>
+      <div id="self-prompts" class="hidden">
+        <label for="selfChange">What change are you dealing with?</label>
+        <textarea id="selfChange" maxlength="500" oninput="updateGenerated()"></textarea>
+        <label for="selfJudgment">What are you telling yourself you should already be doing, feeling, or handling better?</label>
+        <textarea id="selfJudgment" maxlength="500" oninput="updateGenerated()"></textarea>
+      </div>
+      <div class="statement" id="generatedStatement" aria-live="polite"></div>
+      <div class="btns">
+        <button class="btn" type="button" onclick="show('theme')">Back</button>
+        <button class="btn primary" type="button" onclick="goMeaning()">Continue</button>
+      </div>
+      <div class="error" id="prompts-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="meaning" aria-labelledby="meaning-title">
+    <div class="card">
+      <h2 id="meaning-title" tabindex="-1">Separate what changed from what your mind is adding</h2>
+      <p>Facts are what happened. Meaning is what you fear, wish, predict, or believe the change means.</p>
+      <label for="factField">What changed:</label>
+      <textarea id="factField" maxlength="500" oninput="handleFactMeaningInput()"></textarea>
+      <label for="meaningField">What I fear, wish, predict, or believe it means:</label>
+      <textarea id="meaningField" maxlength="500" oninput="handleFactMeaningInput()"></textarea>
+      <fieldset>
+        <legend>Could another person confirm the first statement from a calendar, message, document, conversation, event, or visible change?</legend>
+        <div class="choices" id="confirmChoices"></div>
+      </fieldset>
+      <div class="note hidden" id="factHelp">Keep only what happened in the first box. Move predictions, judgments, and meanings into the second box.</div>
+      <div class="btns">
+        <button class="btn" type="button" onclick="show('prompts')">Back</button>
+        <button class="btn primary" type="button" onclick="goNext()">Continue</button>
+      </div>
+      <div class="error" id="meaning-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="next" aria-labelledby="next-title">
+    <div class="card">
+      <h2 id="next-title" tabindex="-1">Choose one workable step</h2>
+      <p>Now that the change is clearer, choose what you can influence next.</p>
+      <label for="influence">What can you influence next?</label>
+      <textarea id="influence" maxlength="500" oninput="handleInput()"></textarea>
+      <label for="action">What exactly will you do?</label>
+      <textarea id="action" maxlength="500" oninput="handleInput()"></textarea>
+      <label for="when">When will you begin?</label>
+      <select id="when" onchange="handleInput()">
+        <option value="">Choose</option>
+        <option>Now</option>
+        <option>Within 10 minutes</option>
+        <option>Later today</option>
+        <option>Tomorrow</option>
+        <option>At a specific time</option>
+        <option>After another activity</option>
+      </select>
+      <div class="btns">
+        <button class="btn" type="button" onclick="show('meaning')">Back</button>
+        <button class="btn primary" type="button" onclick="mode==='guided'?goGuided():goSummary()">Build summary</button>
+      </div>
+      <div class="error" id="next-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="guided" aria-labelledby="guided-title">
+    <div class="card">
+      <h2 id="guided-title" tabindex="-1">Guided adaptation review</h2>
+      <p>Use the fact statement as the foundation for the rest of the practice.</p>
+      <label for="reaction">How are your mind or body responding?</label>
+      <textarea id="reaction" maxlength="500" oninput="handleInput()"></textarea>
+      <label for="feelings">What feelings are present?</label>
+      <textarea id="feelings" maxlength="400" oninput="handleInput()"></textarea>
+      <label for="fixed">What cannot change right now?</label>
+      <textarea id="fixed" maxlength="500" oninput="handleInput()"></textarea>
+      <label for="unknown">What do you not know yet?</label>
+      <textarea id="unknown" maxlength="500" oninput="handleInput()"></textarea>
+      <label for="reality">Reality statement</label>
+      <textarea id="reality" maxlength="500" oninput="handleInput()" placeholder="Example: This changed, and I can choose one workable response today."></textarea>
+      <label for="prepare">When this feels difficult again, I will:</label>
+      <textarea id="prepare" maxlength="500" oninput="handleInput()"></textarea>
+      <label for="flex">Optional flexibility challenge</label>
+      <select id="flex" onchange="handleInput()">
+        <option>Skip this challenge today</option>
+        <option>Take a different route</option>
+        <option>Change part of my routine</option>
+        <option>Complete a routine task differently</option>
+      </select>
+      <div class="btns">
+        <button class="btn" type="button" onclick="show('next')">Back</button>
+        <button class="btn primary" type="button" onclick="goSummary()">Build summary</button>
+      </div>
+      <div class="error" id="guided-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="summary" aria-labelledby="summary-title">
+    <div class="card">
+      <h2 id="summary-title" tabindex="-1">You practiced seeing what changed clearly, making room for your reaction, and taking one workable step in the life you are living now.</h2>
+      <div class="summary" id="out" aria-live="polite"></div>
+      <div class="note" id="rec"></div>
+      <div class="btns">
+        <button class="btn primary" id="save" type="button" onclick="saveStack()">Save to Skills Stack</button>
+        <button class="btn" type="button" onclick="repeat()">Practice this change again</button>
+        <button class="btn" type="button" onclick="location.reload()">Use another change</button>
+        <a class="btn" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
+      </div>
+      <div id="status" aria-live="polite"></div>
+    </div>
+  </section>
+  <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</main>
+
+<script>
+const ORIGIN='https://www.whattodo.coach';
+const URL='https://whattodo-skills.github.io/skills/adapting-to-change.html';
+const $=id=>document.getElementById(id);
+let mode='';
+let saveTimer=null;
+const state={theme:'',customTheme:'',before:'',now:'',selfChange:'',selfJudgment:'',fact:'',meaning:'',confirm:'',influence:'',action:'',when:'',reaction:'',feelings:'',fixed:'',unknown:'',reality:'',prepare:'',flex:'Skip this challenge today',recommendation:'Begin the smallest visible part of your action before trying to solve the entire change.'};
+const themeGroups={
+  'themes-control':[
+    ['uncertainty','I do not know what will happen next'],
+    ['work','Work or school expectations changed'],
+    ['responsibility','I have more responsibility than before'],
+    ['routine','My routine no longer works'],
+    ['health','My health, body, energy, or thinking changed']
+  ],
+  'themes-roles':[
+    ['relationship','A relationship changed'],
+    ['loss','I lost a person, opportunity, or future I expected'],
+    ['identity','My role or sense of identity changed'],
+    ['support','Someone I depended on is less available']
+  ],
+  'themes-response':[
+    ['comparison','I keep comparing now with how things used to be'],
+    ['selfcriticism','I think I should be handling this better'],
+    ['other','Something else changed']
+  ]
+};
+const prompts={
+  uncertainty:{before:'What was known or predictable before?',now:'What is uncertain now?',template:(a,b)=>`Before, I expected ${a}. Now, I do not yet know ${b}.`,example:['Fact: My supervisor used to post the schedule every Friday. This week, the schedule has not been posted yet.','Meaning added: I will not be able to plan anything.']},
+  work:{before:'What role, schedule, workload, supervisor, or expectation changed?',now:'What is expected now?',template:(a,b)=>`Before, I was responsible for ${a}. Now, I am expected to ${b}.`,example:['Fact: My schedule changed from 9:00-5:00 to 7:00-3:00.','Meaning added: I will never be able to manage this job.']},
+  responsibility:{before:'What were you managing before?',now:'What are you also responsible for now?',template:(a,b)=>`Before, I was managing ${a}. Now, I am also responsible for ${b}.`,example:['Fact: I was managing my regular assignments. Now I am also training a new coworker.','Meaning added: I am going to fail at everything.']},
+  routine:{before:'What part of your routine worked differently before?',now:'What is different now?',template:(a,b)=>`Before, my routine included ${a}. Now, ${b} has changed.`,example:['Fact: I used to exercise before work. My start time is now one hour earlier.','Meaning added: My routine is ruined.']},
+  health:{before:'What could you usually do or rely on before?',now:'What are you noticing now?',template:(a,b)=>`Before, I could usually ${a}. Now, I am noticing ${b}.`,example:['Fact: I could usually focus for an hour. Now I am getting tired after about 20 minutes.','Meaning added: I will never feel like myself again.']},
+  relationship:{before:'What communication, closeness, role, availability, or commitment existed before?',now:'What is different now?',template:(a,b)=>`Before, the relationship included ${a}. Now, ${b} is different.`,example:['Fact: We spoke every day before. We have spoken twice this week.','Meaning added: The relationship is definitely ending.']},
+  loss:{before:'What person, opportunity, plan, or future did you expect?',now:'What is no longer happening as expected?',template:(a,b)=>`I expected ${a}. That is no longer happening in the way I imagined because ${b}.`,example:['Fact: I expected to start the program in August. I received a message that I was not accepted.','Meaning added: Nothing good is going to happen for me.']},
+  identity:{before:'What role used to help you understand who you were?',now:'How is that role different now?',template:(a,b)=>`I used to see myself as ${a}. That role now looks different because ${b}.`,example:['Fact: I used to be the person who handled planning. Someone else is leading the project now.','Meaning added: I do not matter anymore.']},
+  support:{before:'Who or what could you depend on before?',now:'How is that support different now?',template:(a,b)=>`Before, I could depend on ${a}. Now, that support is different because ${b}.`,example:['Fact: My sister used to answer most evenings. She is now working nights and replies the next day.','Meaning added: I am completely alone.']},
+  comparison:{before:'What part of the old situation are you still expecting or wishing for?',now:'What is true now?',template:(a,b)=>`I keep wishing ${a} were still true. Right now, ${b} is what is happening.`,example:['Fact: I keep wishing my old team were still together. Right now, I am working with two new people.','Meaning added: Things will never feel comfortable again.']},
+  other:{before:'What was true before?',now:'What is different now?',template:(a,b)=>`Before, ${a}. Now, ${b}.`,example:['Fact: The appointment was scheduled for Tuesday. It has been moved to Friday.','Meaning added: This means no one respects my time.']}
+};
+const selfPrompt={example:['Fact: I started a new role three weeks ago.','Meaning added: I should already know how to do everything.']};
+function text(id){return ($(id)?.value||'').trim()}
+function announce(msg){$('live').textContent=msg}
+function post(msg){if(parent!==window)parent.postMessage(msg,ORIGIN)}
+function setStep(id){const map={prompts:'theme'};const key=map[id]||id;document.querySelectorAll('.steps li').forEach(li=>li.removeAttribute('aria-current'));$('step-'+key)?.setAttribute('aria-current','step')}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));setStep(id);const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.')}
+function chooseMode(nextMode){mode=nextMode;show('theme')}
+function makeChoice(group,value,label){const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.value=value;b.setAttribute('aria-pressed','false');b.textContent=label;const chosen=document.createElement('span');chosen.className='state';chosen.textContent='Chosen';b.appendChild(chosen);b.onclick=()=>selectTheme(value);$(group).appendChild(b)}
+function selectTheme(value){state.theme=value;document.querySelectorAll('[data-value]').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===value)));$('custom-theme-wrap').classList.toggle('hidden',value!=='other');$('theme-error').textContent='';updatePromptText()}
+function updateCustomTheme(){state.customTheme=text('customTheme')}
+function validText(value){return value&&value.trim().length>1}
+function showError(id,msg){$(id).textContent=msg;announce(msg)}
+function selectedThemeLabel(){if(state.theme==='other')return state.customTheme||'Something else changed';for(const list of Object.values(themeGroups)){const found=list.find(item=>item[0]===state.theme);if(found)return found[1]}return ''}
+function goPrompts(){updateCustomTheme();if(!state.theme){showError('theme-error','Choose what feels most different right now.');return}if(state.theme==='other'&&!validText(state.customTheme)){showError('theme-error','Write a short description of what changed.');return}$('theme-error').textContent='';updatePromptText();updateGenerated();show('prompts')}
+function updatePromptText(){const isSelf=state.theme==='selfcriticism';$('standard-prompts').classList.toggle('hidden',isSelf);$('self-prompts').classList.toggle('hidden',!isSelf);if(isSelf){setExample(selfPrompt.example);return}const cfg=prompts[state.theme]||prompts.other;$('beforeLabel').textContent=cfg.before;$('nowLabel').textContent=cfg.now;setExample(cfg.example)}
+function setExample(lines){const box=$('exampleBox');box.textContent='';const title=document.createElement('strong');title.textContent='Example';box.appendChild(title);lines.forEach(line=>{const p=document.createElement('p');p.textContent=line;box.appendChild(p)})}
+function generatedText(){if(state.theme==='selfcriticism'){const a=text('selfChange'),b=text('selfJudgment');return a&&b?`The change is: ${a}\nI am also telling myself that I should: ${b}`:''}const a=text('beforeText'),b=text('nowText');const cfg=prompts[state.theme]||prompts.other;return a&&b?cfg.template(a,b):''}
+function updateGenerated(){state.before=text('beforeText');state.now=text('nowText');state.selfChange=text('selfChange');state.selfJudgment=text('selfJudgment');const out=generatedText();$('generatedStatement').textContent=out||'Your guided statement will appear here.';announce(out?'Generated change statement updated.':'')}
+function goMeaning(){updateGenerated();if(state.theme==='selfcriticism'){if(!validText(state.selfChange)||!validText(state.selfJudgment)){showError('prompts-error','Answer both self-criticism prompts before continuing.');return}state.fact='The change is: '+state.selfChange;state.meaning='I am also telling myself that I should: '+state.selfJudgment}else{if(!validText(state.before)||!validText(state.now)){showError('prompts-error','Answer both guided prompts before continuing.');return}state.fact=generatedText();state.meaning=''}$('prompts-error').textContent='';$('factField').value=state.fact;$('meaningField').value=state.meaning;state.confirm='';renderConfirmChoices();show('meaning')}
+function renderConfirmChoices(){const box=$('confirmChoices');box.textContent='';['Yes','Partly','No'].forEach(value=>{const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.confirm=value;b.setAttribute('aria-pressed',String(state.confirm===value));b.textContent=value;const span=document.createElement('span');span.className='state';span.textContent='Chosen';b.appendChild(span);b.onclick=()=>{state.confirm=value;document.querySelectorAll('[data-confirm]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.confirm===value)));$('factHelp').classList.toggle('hidden',value==='Yes');$('meaning-error').textContent='';handleFactMeaningInput()};box.appendChild(b)})}
+function handleFactMeaningInput(){state.fact=text('factField');state.meaning=text('meaningField')}
+function goNext(){handleFactMeaningInput();if(!validText(state.fact)){showError('meaning-error','Keep a meaningful fact-based description in the first box.');return}if(!state.confirm){showError('meaning-error','Choose whether another person could confirm the first statement.');return}if((state.confirm==='Partly'||state.confirm==='No')&&!validText(state.fact)){showError('meaning-error','Keep only what happened in the first box before continuing.');return}$('meaning-error').textContent='';show('next')}
+function handleInput(){['influence','action','when','reaction','feelings','fixed','unknown','reality','prepare','flex'].forEach(id=>{if($(id))state[id]=text(id)})}
+function goGuided(){if(!nextComplete())return;show('guided')}
+function nextComplete(){handleInput();if(!validText(state.influence)||!validText(state.action)||!state.when){showError('next-error','Write what you can influence, the exact action you will take, and when you will begin.');return false}$('next-error').textContent='';return true}
+function guidedComplete(){handleInput();if(mode!=='guided')return true;if(!validText(state.reaction)||!validText(state.feelings)||!validText(state.fixed)||!validText(state.unknown)||!validText(state.reality)||!validText(state.prepare)){showError('guided-error','Complete each guided reflection before building the summary.');return false}$('guided-error').textContent='';return true}
+function addSummary(label,value){const row=document.createElement('div');row.className='summary-row';const strong=document.createElement('strong');strong.textContent=label;const body=document.createElement('div');body.textContent=value||'Not answered';row.append(strong,body);$('out').append(row)}
+function goSummary(){if(!nextComplete()||!guidedComplete())return;$('out').textContent='';addSummary('Theme',selectedThemeLabel());addSummary('What changed',state.fact);addSummary('What my mind is adding',state.meaning||'Nothing named yet');addSummary('What I can influence',state.influence);addSummary('Action',state.action);addSummary('When I will begin',state.when);if(mode==='guided'){addSummary('Mind or body response',state.reaction);addSummary('Feelings',state.feelings);addSummary('What cannot change right now',state.fixed);addSummary('What I do not know yet',state.unknown);addSummary('Reality statement',state.reality);addSummary('Preparation',state.prepare);addSummary('Flexibility challenge',state.flex)}$('rec').textContent=state.recommendation;show('summary')}
+function saveStack(){clearTimeout(saveTimer);$('save').disabled=true;$('save').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';post({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:{skillId:'adapting-to-change',skillName:'Adapting To Change',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,practiceStep:'Recognize the new reality and begin one workable response.',generalNextPractice:state.recommendation,practiceUrl:URL,id:'adapting-to-change',title:'Adapting To Change',source:'adapting-to-change',updatedAt:new Date().toISOString()}}});saveTimer=setTimeout(()=>{if($('save').textContent==='Saved to Skills Stack')return;$('save').disabled=false;$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
+function repeat(){state.influence='';state.action='';state.when='';['influence','action','when'].forEach(id=>{if($(id))$(id).value=''});$('status').textContent='';$('save').disabled=false;$('save').textContent='Save to Skills Stack';show('next')}
+window.addEventListener('message',event=>{if(event.origin!==ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('save').disabled=false;if(msg.ok){$('save').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
+Object.entries(themeGroups).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item[0],item[1])));
+post({type:'adaptingToChangeReady'});
+</script>
+</body>
+</html>

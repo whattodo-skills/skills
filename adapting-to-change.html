@@ -120,11 +120,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 
   <section class="screen" id="theme" aria-labelledby="theme-title">
     <div class="card">
-      <h2 id="theme-title" tabindex="-1">What feels most different right now?</h2>
-      <p>Choose the theme that best fits this change. You will get prompts based on what you choose.</p>
+      <h2 id="theme-title" tabindex="-1">What changed?</h2>
+      <p>Choose the specific kind of change you are trying to adapt to right now. This might be something that happened, something that did not happen, or something that feels different than it used to.</p>
+      <div class="example">
+        <strong>Examples</strong>
+        <p>My schedule changed. A relationship feels different. I have a new responsibility. Something I expected did not happen. My body, energy, or focus is different.</p>
+      </div>
       <fieldset aria-describedby="theme-help">
-        <legend>Change theme</legend>
-        <p id="theme-help">Choose one theme before continuing.</p>
+        <legend>Choose the closest match</legend>
+        <p id="theme-help">Pick one. If none fit, choose Something else and write the change in one sentence.</p>
         <div class="group-title">Predictability and control</div>
         <div class="choices" id="themes-control" role="group" aria-label="Predictability and control"></div>
         <div class="group-title">Roles, relationships, and support</div>
@@ -133,8 +137,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
         <div class="choices" id="themes-response" role="group" aria-label="How I am responding"></div>
       </fieldset>
       <div id="custom-theme-wrap" class="hidden">
-        <label for="customTheme">What changed?</label>
-        <textarea id="customTheme" maxlength="400" oninput="saveFromInputs()" placeholder="Write one short description of what changed."></textarea>
+        <label for="customTheme">Describe the change in one sentence.</label>
+        <textarea id="customTheme" maxlength="400" oninput="saveFromInputs()" placeholder="Example: My work schedule changed, and I have less time in the morning."></textarea>
       </div>
       <div class="btns">
         <button class="btn" type="button" onclick="show('rate')">Back</button>
@@ -366,16 +370,16 @@ const state={safe:false,theme:'',customTheme:'',before:'',now:'',beforeStarter:'
 const themeGroups={
   'themes-control':[
     ['uncertainty','I do not know what will happen next'],
-    ['work','Work or school expectations changed'],
-    ['responsibility','I have more responsibility than before'],
-    ['routine','My routine no longer works'],
-    ['health','My health, body, energy, or thinking changed']
+    ['work','My work or school expectations changed'],
+    ['responsibility','I have a new or bigger responsibility'],
+    ['routine','My schedule or routine changed'],
+    ['health','My body, energy, or focus changed']
   ],
   'themes-roles':[
     ['relationship','A relationship changed'],
-    ['loss','I lost a person, opportunity, or future I expected'],
-    ['identity','My role or sense of identity changed'],
-    ['support','Someone I depended on is less available']
+    ['loss','Something or someone I expected is no longer available'],
+    ['identity','My role or sense of who I am changed'],
+    ['support','Support I counted on changed']
   ],
   'themes-response':[
     ['comparison','I keep comparing now with how things used to be'],

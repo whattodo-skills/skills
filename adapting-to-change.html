@@ -23,6 +23,8 @@ p{color:var(--muted)}
 .rating{grid-template-columns:repeat(11,1fr)}
 .choice,.rate,.btn{font:inherit;border:2px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--navy);font-weight:800;text-align:left;cursor:pointer}
 .rate{text-align:center;padding:10px 4px}
+.rate .tip{display:none;color:var(--muted);font-size:.72rem;font-weight:700;line-height:1.2;margin-top:4px}
+.rate:hover .tip,.rate:focus-visible .tip{display:block}
 .choice[aria-pressed="true"],.rate[aria-pressed="true"]{background:var(--blue-bg);border-color:var(--blue)}
 .choice .state,.rate .state{display:block;color:var(--blue);font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;margin-top:7px;font-weight:900}
 .choice[aria-pressed="false"] .state,.rate[aria-pressed="false"] .state{display:none}
@@ -101,11 +103,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
     <div class="card">
       <h2 id="rate-title" tabindex="-1">Before you begin</h2>
       <fieldset>
-        <legend>How clear does this change feel right now?</legend>
+        <legend>How clear does this change feel right now? Hover or focus on a number for the meaning.</legend>
         <div class="rating" id="clarityBefore"></div>
       </fieldset>
       <fieldset>
-        <legend>How much energy are you spending wishing this change were different?</legend>
+        <legend>How much energy are you spending wishing this change were different? Hover or focus on a number for the meaning.</legend>
         <div class="rating" id="wishBefore"></div>
       </fieldset>
       <div class="btns">
@@ -184,8 +186,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
         <legend>Could another person confirm the first statement from a calendar, message, document, conversation, event, or visible change?</legend>
         <div class="choices" id="confirmChoices"></div>
       </fieldset>
-      <div class="note hidden" id="factHelp">Keep only what happened in the first box. Move predictions, judgments, and meanings into the second box.</div>
-      <label class="hidden" id="revisionWrap"><input id="factRevised" type="checkbox" onchange="handleFactMeaningInput()"> I revised the first box or moved my interpretation into the second box.</label>
+      <div class="note hidden" id="factHelp">The first box should say only what someone could verify happened. Put fears, predictions, judgments, or guesses in the second box.</div>
+      <label class="hidden" id="revisionWrap"><input id="factRevised" type="checkbox" onchange="handleFactMeaningInput()"> I checked this and separated the facts from the meaning my mind added.</label>
       <div class="btns">
         <button class="btn" type="button" onclick="show('prompts')">Back</button>
         <button class="btn primary" type="button" onclick="goNext()">Continue</button>
@@ -305,43 +307,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 
   <section class="screen" id="challenge" aria-labelledby="challenge-title">
     <div class="card">
-      <h2 id="challenge-title" tabindex="-1">Review what happened</h2>
+      <h2 id="challenge-title" tabindex="-1">After you practice</h2>
       <fieldset>
-        <legend>How clear does this change feel now?</legend>
+        <legend>How clear does this change feel now? Hover or focus on a number for the meaning.</legend>
         <div class="rating" id="clarityAfter"></div>
       </fieldset>
       <fieldset>
-        <legend>How much energy are you spending wishing this change were different now?</legend>
+        <legend>How much energy are you spending wishing this change were different now? Hover or focus on a number for the meaning.</legend>
         <div class="rating" id="wishAfter"></div>
       </fieldset>
-      <fieldset>
-        <legend>How challenging was this practice?</legend>
-        <div class="choices" id="challengeRatingChoices"></div>
-      </fieldset>
-      <fieldset>
-        <legend>Did this action fit the situation well enough?</legend>
-        <div class="choices" id="fitChoices"></div>
-      </fieldset>
-      <fieldset>
-        <legend>What happened when you tried the action or flexibility challenge?</legend>
-        <div class="choices" id="outcomeChoices"></div>
-      </fieldset>
-      <fieldset>
-        <legend>What do you want to remember for next time?</legend>
-        <div class="choices" id="rememberChoices"></div>
-      </fieldset>
-      <div id="rememberOtherWrap" class="hidden">
-        <label for="reviewNote">What else do you want to remember?</label>
-        <input id="reviewNote" maxlength="180" oninput="saveFromInputs()" placeholder="Optional. Write a short phrase.">
-      </div>
-      <label for="laterReview">Later action review</label>
-      <select id="laterReview" onchange="saveFromInputs()">
-        <option value="">Choose one</option>
-        <option>I tried the action</option>
-        <option>I tried part of it</option>
-        <option>I have not tried it yet</option>
-        <option>The situation changed</option>
-      </select>
       <div class="btns">
         <button class="btn" type="button" onclick="mode==='guided'?show('guided'):show('next')">Back</button>
         <button class="btn primary" type="button" onclick="goSummary()">Build summary</button>
@@ -388,7 +362,7 @@ let mode='';
 let saveTimer=null;
 let sessionId=newSessionId();
 let eventFlags={};
-const state={safe:false,theme:'',customTheme:'',before:'',now:'',selfChange:'',selfJudgment:'',fact:'',meaning:'',confirm:'',factRevised:false,clarityBefore:'',wishBefore:'',clarityAfter:'',wishAfter:'',influence:'',influenceOther:'',action:'',actionOther:'',when:'',specificTime:'',afterCue:'',underFive:'',reaction:[],reactionOther:'',feelings:[],fixed:'',fixedOther:'',unknown:'',unknownOther:'',reality:'',prepare:'',prepareOther:'',flex:'Take a different route',challengeRating:'',fit:'',outcome:'',remember:'',reviewNote:'',laterReview:'',recommendation:'Begin the smallest visible part of your action before trying to solve the entire change.',includePrivate:false};
+const state={safe:false,theme:'',customTheme:'',before:'',now:'',beforeStarter:'',nowStarter:'',selfChange:'',selfJudgment:'',selfChangeStarter:'',selfJudgmentStarter:'',fact:'',meaning:'',confirm:'',factRevised:false,clarityBefore:'',wishBefore:'',clarityAfter:'',wishAfter:'',influence:'',influenceOther:'',action:'',actionOther:'',when:'',specificTime:'',afterCue:'',underFive:'',reaction:[],reactionOther:'',feelings:[],fixed:'',fixedOther:'',unknown:'',unknownOther:'',reality:'',prepare:'',prepareOther:'',flex:'Take a different route',recommendation:'Begin the smallest visible part of your action before trying to solve the entire change.',includePrivate:false};
 const themeGroups={
   'themes-control':[
     ['uncertainty','I do not know what will happen next'],
@@ -486,6 +460,8 @@ const statementStarters={
   ]
 };
 function text(id){return ($(id)?.value||'').trim()}
+function setPromptPlaceholder(id,value){const el=$(id);if(el)el.placeholder=value||''}
+function promptValue(id,starterKey){return text(id)||state[starterKey]||''}
 function newSessionId(){return 'adapt-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
 function announce(msg){$('live').textContent=msg}
 function post(msg){if(parent!==window)parent.postMessage(msg,ORIGIN)}
@@ -500,12 +476,14 @@ function makeStateSpan(){const span=document.createElement('span');span.classNam
 function makeChoice(group,value,label,handler){const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.value=value;b.setAttribute('aria-pressed','false');b.textContent=label;b.appendChild(makeStateSpan());b.onclick=()=>handler(value);$(group).appendChild(b)}
 function makeSingle(group,values,prop,after){values.forEach(value=>makeChoice(group,value,value,selected=>{state[prop]=selected;document.querySelectorAll('#'+group+' .choice').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===selected)));if(after)after(selected);saveDraft()}))}
 function makeMulti(group,values,prop){values.forEach(value=>makeChoice(group,value,value,selected=>{const list=state[prop];if(list.includes(selected))state[prop]=list.filter(x=>x!==selected);else state[prop]=[...list,selected];document.querySelectorAll('#'+group+' .choice').forEach(btn=>btn.setAttribute('aria-pressed',String(state[prop].includes(btn.dataset.value))));toggleOtherFields();saveDraft()}))}
-function makeRatings(group,prop){const box=$(group);for(let i=0;i<=10;i++){const b=document.createElement('button');b.type='button';b.className='rate';b.dataset.value=String(i);b.setAttribute('aria-pressed','false');b.textContent=String(i);b.appendChild(makeStateSpan());b.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[prop])));saveDraft()};box.appendChild(b)}}
+function ratingDescription(prop,value){const scale=prop.includes('clarity')?'clarity':'wishing';if(scale==='clarity'){if(value<=2)return 'Not clear yet';if(value<=5)return 'Somewhat clear';if(value<=8)return 'Mostly clear';return 'Very clear'}if(value<=2)return 'Very little energy';if(value<=5)return 'Some energy';if(value<=8)return 'A lot of energy';return 'Almost all my energy'}
+function makeRatings(group,prop){const box=$(group);for(let i=0;i<=10;i++){const b=document.createElement('button');b.type='button';b.className='rate';b.dataset.value=String(i);b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',i+' out of 10, '+ratingDescription(prop,i));b.title=ratingDescription(prop,i);const num=document.createElement('span');num.textContent=String(i);const tip=document.createElement('span');tip.className='tip';tip.textContent=ratingDescription(prop,i);b.append(num,tip,makeStateSpan());b.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[prop])));saveDraft()};box.appendChild(b)}}
 function selectTheme(value){state.theme=value;document.querySelectorAll('[data-value]').forEach(btn=>{if(btn.closest('#themes-control,#themes-roles,#themes-response'))btn.setAttribute('aria-pressed',String(btn.dataset.value===value))});$('custom-theme-wrap').classList.toggle('hidden',value!=='other');$('theme-error').textContent='';updatePromptText();saveDraft()}
 function goTheme(){if(!state.safe){showError('rate-error','Complete the safety acknowledgement first.');show('safety');return}if(!state.clarityBefore||!state.wishBefore){showError('rate-error','Rate clarity and how much energy you are spending wishing the change were different.');return}$('rate-error').textContent='';show('theme')}
 function selectedThemeLabel(){if(state.theme==='other')return state.customTheme||'Something else changed';for(const list of Object.values(themeGroups)){const found=list.find(item=>item[0]===state.theme);if(found)return found[1]}return ''}
 function goPrompts(){saveFromInputs();if(!state.theme){showError('theme-error','Choose what feels most different right now.');return}if(state.theme==='other'&&!validText(state.customTheme)){showError('theme-error','Write a short description of what changed.');return}$('theme-error').textContent='';updatePromptText();updateGenerated();show('prompts')}
 function updatePromptText(){const isSelf=state.theme==='selfcriticism';$('standard-prompts').classList.toggle('hidden',isSelf);$('self-prompts').classList.toggle('hidden',!isSelf);renderStatementChoices();if(isSelf){setExample(selfPrompt.example);return}const cfg=prompts[state.theme]||prompts.other;$('beforeLabel').textContent=cfg.before+' Edit if needed.';$('nowLabel').textContent=cfg.now+' Edit if needed.';setExample(cfg.example)}
+function restorePromptPlaceholders(){setPromptPlaceholder('beforeText',state.beforeStarter);setPromptPlaceholder('nowText',state.nowStarter);setPromptPlaceholder('selfChange',state.selfChangeStarter);setPromptPlaceholder('selfJudgment',state.selfJudgmentStarter)}
 function setExample(lines){const box=$('exampleBox');box.textContent='';const title=document.createElement('strong');title.textContent='Example';box.appendChild(title);lines.forEach(line=>{const p=document.createElement('p');p.textContent=line;box.appendChild(p)})}
 function renderStatementChoices(){
   const box=$('statementChoices');
@@ -525,11 +503,19 @@ function renderStatementChoices(){
     b.onclick=()=>{
       document.querySelectorAll('#statementChoices .choice').forEach(btn=>btn.setAttribute('aria-pressed',String(btn===b)));
       if(state.theme==='selfcriticism'){
-        $('selfChange').value=pair[0];
-        $('selfJudgment').value=pair[1];
+        state.selfChangeStarter=pair[0];
+        state.selfJudgmentStarter=pair[1];
+        setPromptPlaceholder('selfChange',pair[0]);
+        setPromptPlaceholder('selfJudgment',pair[1]);
+        $('selfChange').value='';
+        $('selfJudgment').value='';
       }else{
-        $('beforeText').value=pair[0];
-        $('nowText').value=pair[1];
+        state.beforeStarter=pair[0];
+        state.nowStarter=pair[1];
+        setPromptPlaceholder('beforeText',pair[0]);
+        setPromptPlaceholder('nowText',pair[1]);
+        $('beforeText').value='';
+        $('nowText').value='';
       }
       updateGenerated();
       announce('Starter statement selected. You can edit it if needed.');
@@ -537,40 +523,40 @@ function renderStatementChoices(){
     box.appendChild(b);
   });
 }
-function generatedText(){if(state.theme==='selfcriticism'){const a=text('selfChange'),b=text('selfJudgment');return a&&b?`The change is: ${a}\nI am also telling myself that I should: ${b}`:''}const a=text('beforeText'),b=text('nowText');const cfg=prompts[state.theme]||prompts.other;return a&&b?cfg.template(a,b):''}
+function generatedText(){if(state.theme==='selfcriticism'){const a=promptValue('selfChange','selfChangeStarter'),b=promptValue('selfJudgment','selfJudgmentStarter');return a&&b?`The change is: ${a}\nI am also telling myself that I should: ${b}`:''}const a=promptValue('beforeText','beforeStarter'),b=promptValue('nowText','nowStarter');const cfg=prompts[state.theme]||prompts.other;return a&&b?cfg.template(a,b):''}
 function updateGenerated(){saveFromInputs(false);const out=generatedText();$('generatedStatement').textContent=out||'Your guided statement will appear here.';if(out)announce('Generated change statement updated.');saveDraft()}
-function goMeaning(){updateGenerated();if(state.theme==='selfcriticism'){if(!validText(state.selfChange)||!validText(state.selfJudgment)){showError('prompts-error','Answer both self-criticism prompts before continuing.');return}state.fact='The change is: '+state.selfChange;state.meaning='I am also telling myself that I should: '+state.selfJudgment}else{if(!validText(state.before)||!validText(state.now)){showError('prompts-error','Answer both guided prompts before continuing.');return}state.fact=generatedText();state.meaning=''}$('prompts-error').textContent='';$('factField').value=state.fact;$('meaningField').value=state.meaning;state.confirm='';state.factRevised=false;$('factRevised').checked=false;renderConfirmChoices();recordEvent('change-described');saveDraft();show('meaning')}
+function goMeaning(){updateGenerated();if(state.theme==='selfcriticism'){const change=promptValue('selfChange','selfChangeStarter'),judgment=promptValue('selfJudgment','selfJudgmentStarter');if(!validText(change)||!validText(judgment)){showError('prompts-error','Choose a starter statement or answer both self-criticism prompts before continuing.');return}state.fact='The change is: '+change;state.meaning='I am also telling myself that I should: '+judgment}else{const before=promptValue('beforeText','beforeStarter'),now=promptValue('nowText','nowStarter');if(!validText(before)||!validText(now)){showError('prompts-error','Choose a starter statement or answer both guided prompts before continuing.');return}state.fact=generatedText();state.meaning=''}$('prompts-error').textContent='';$('factField').value=state.fact;$('meaningField').value=state.meaning;state.confirm='';state.factRevised=false;$('factRevised').checked=false;renderConfirmChoices();recordEvent('change-described');saveDraft();show('meaning')}
 function renderConfirmChoices(){const box=$('confirmChoices');box.textContent='';['Yes','Partly','No'].forEach(value=>makeChoice('confirmChoices',value,value,selected=>{state.confirm=selected;document.querySelectorAll('#confirmChoices .choice').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.value===selected)));const needRevision=selected!=='Yes';$('factHelp').classList.toggle('hidden',!needRevision);$('revisionWrap').classList.toggle('hidden',!needRevision);$('meaning-error').textContent='';handleFactMeaningInput()}))}
 function handleFactMeaningInput(){state.fact=text('factField');state.meaning=text('meaningField');state.factRevised=$('factRevised').checked;saveDraft()}
-function goNext(){handleFactMeaningInput();if(!validText(state.fact)){showError('meaning-error','Keep a meaningful fact-based description in the first box.');return}if(!state.confirm){showError('meaning-error','Choose whether another person could confirm the first statement.');return}if((state.confirm==='Partly'||state.confirm==='No')&&!state.factRevised){showError('meaning-error','Confirm that you revised the first box or moved interpretation into the second box.');return}$('meaning-error').textContent='';show('next')}
+function goNext(){handleFactMeaningInput();if(!validText(state.fact)){showError('meaning-error','Keep a meaningful fact-based description in the first box.');return}if(!state.confirm){showError('meaning-error','Choose whether another person could confirm the first statement.');return}if((state.confirm==='Partly'||state.confirm==='No')&&!state.factRevised){showError('meaning-error','Check the box to show you separated what actually happened from what your mind is adding.');return}$('meaning-error').textContent='';show('next')}
 function handleTimingChange(){saveFromInputs();$('specificTimeWrap').classList.toggle('hidden',state.when!=='At a specific time');$('cueWrap').classList.toggle('hidden',state.when!=='After another activity');$('nextContinue').textContent=mode==='guided'?'Continue to guided review':'Continue to review'}
-function toggleOtherFields(){[['influenceOtherWrap','influence'],['actionOtherWrap','action'],['fixedOtherWrap','fixed'],['unknownOtherWrap','unknown'],['prepareOtherWrap','prepare'],['rememberOtherWrap','remember']].forEach(([wrap,prop])=>$(wrap)?.classList.toggle('hidden',state[prop]!=='Something else'));$('reactionOtherWrap')?.classList.toggle('hidden',!state.reaction.includes('Something else'))}
-function saveFromInputs(shouldRender=true){['customTheme','beforeText','nowText','selfChange','selfJudgment','influenceOther','actionOther','when','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther','flex','reviewNote','laterReview'].forEach(id=>{if($(id)){const key=id==='beforeText'?'before':id==='nowText'?'now':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;if(shouldRender)saveDraft()}
+function toggleOtherFields(){[['influenceOtherWrap','influence'],['actionOtherWrap','action'],['fixedOtherWrap','fixed'],['unknownOtherWrap','unknown'],['prepareOtherWrap','prepare']].forEach(([wrap,prop])=>$(wrap)?.classList.toggle('hidden',state[prop]!=='Something else'));$('reactionOtherWrap')?.classList.toggle('hidden',!state.reaction.includes('Something else'))}
+function saveFromInputs(shouldRender=true){['customTheme','beforeText','nowText','selfChange','selfJudgment','influenceOther','actionOther','when','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther','flex'].forEach(id=>{if($(id)){const key=id==='beforeText'?'before':id==='nowText'?'now':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;if(shouldRender)saveDraft()}
 function selectedWithOther(prop,otherProp){return state[prop]==='Something else'?state[otherProp]:state[prop]}
 function nextComplete(){saveFromInputs();if(!state.influence||!state.action||!state.when){showError('next-error','Choose what you can influence, the action you will take, and when you will begin.');return false}if(state.influence==='Something else'&&!validText(state.influenceOther)){showError('next-error','Write the short phrase for what else you can influence.');return false}if(state.action==='Something else'&&!validText(state.actionOther)){showError('next-error','Write the specific action you will take.');return false}if(state.when==='At a specific time'&&!validText(state.specificTime)){showError('next-error','Write the exact time you will begin.');return false}if(state.when==='After another activity'&&!validText(state.afterCue)){showError('next-error','Write the exact activity that will cue the action.');return false}if(!state.underFive){showError('next-error','Choose whether you could begin this action in under five minutes.');return false}$('next-error').textContent='';recordEvent('action-planned');return true}
 function goGuided(){if(!nextComplete())return;show('guided')}
 function guidedComplete(){saveFromInputs();if(mode!=='guided')return true;if(!state.reaction.length&&!validText(state.reactionOther)){showError('guided-error','Choose or write one mind or body response.');return false}if(!state.feelings.length){showError('guided-error','Choose at least one feeling.');return false}if(!state.fixed||!state.unknown||!state.reality||!state.prepare||!state.flex){showError('guided-error','Choose one response for each guided review section.');return false}if(state.fixed==='Something else'&&!validText(state.fixedOther)){showError('guided-error','Write the short phrase for what else cannot change right now.');return false}if(state.unknown==='Something else'&&!validText(state.unknownOther)){showError('guided-error','Write the short phrase for what else is unknown.');return false}if(state.prepare==='Something else'&&!validText(state.prepareOther)){showError('guided-error','Write the first move you will use next time.');return false}$('guided-error').textContent='';return true}
 function goChallenge(){if(!nextComplete()||!guidedComplete())return;show('challenge')}
-function challengeComplete(){saveFromInputs();if(!state.clarityAfter||!state.wishAfter||!state.challengeRating||!state.fit||!state.outcome||!state.laterReview){showError('challenge-error','Complete the ratings, practice review, fit response, outcome, and later action review.');return false}$('challenge-error').textContent='';recordEvent('action-reviewed');return true}
+function challengeComplete(){saveFromInputs();if(!state.clarityAfter||!state.wishAfter){showError('challenge-error','Rate clarity and how much energy you are spending wishing the change were different now.');return false}$('challenge-error').textContent='';recordEvent('action-reviewed');return true}
 function timingText(){if(state.when==='At a specific time')return state.specificTime;if(state.when==='After another activity')return state.afterCue;return state.when}
-function recommendationText(){const clarityGain=Number(state.clarityAfter||0)-Number(state.clarityBefore||0);const wishDrop=Number(state.wishBefore||0)-Number(state.wishAfter||0);if(state.fit==='No')return 'Adjust the next step before repeating. Make it smaller, more specific, or better matched to what is actually in your control.';if(state.outcome==='I got stuck')return 'Keep the fact statement and reduce the action to a two-minute version. Practice returning to what is true before choosing the next response.';if(state.laterReview==='I have not tried it yet')return 'Lower the starting point. Choose one action you can begin in under five minutes and attach it to a clear cue.';if(state.challengeRating==='Hard')return 'Repeat the same skill with a smaller change or add support before trying a harder situation.';if(clarityGain>0||wishDrop>0)return 'Use this again when the change feels loud: name what changed, move meanings into the second box, then choose one workable step.';if(state.underFive==='No')return 'Make the next action smaller. A useful adaptation step should be easy enough to begin even while the change still feels uncomfortable.';return 'Repeat the same sequence with one real change this week: separate fact from meaning, choose what can be influenced, try one step, then review.'}
+function recommendationText(){const clarityGain=Number(state.clarityAfter||0)-Number(state.clarityBefore||0);const wishDrop=Number(state.wishBefore||0)-Number(state.wishAfter||0);if(state.underFive==='No')return 'Make the next action smaller. A useful adaptation step should be easy enough to begin even while the change still feels uncomfortable.';if(clarityGain>0&&wishDrop>0)return 'This helped create more clarity and less wishing energy. Use the same sequence again when a change feels loud: name what changed, separate fact from meaning, then choose one workable step.';if(clarityGain>0)return 'Your clarity improved. Keep practicing by returning to the fact statement before choosing your next response.';if(wishDrop>0)return 'You spent less energy wishing the change were different. Keep using one small action to move with what is true now.';return 'Repeat the same sequence with one real change this week: separate fact from meaning, choose what can be influenced, try one step, then pause and rate again.'}
 function addSummary(label,value){const row=document.createElement('div');row.className='summary-row';const strong=document.createElement('strong');strong.textContent=label;const body=document.createElement('div');body.textContent=value||'Not answered';row.append(strong,body);$('out').append(row)}
-function goSummary(){if(!challengeComplete())return;state.recommendation=recommendationText();$('out').textContent='';addSummary('Theme',selectedThemeLabel());addSummary('What changed',state.fact);addSummary('What my mind is adding',state.meaning||'Nothing named yet');addSummary('Clarity before and after',`${state.clarityBefore} to ${state.clarityAfter}`);addSummary('Wishing energy before and after',`${state.wishBefore} to ${state.wishAfter}`);addSummary('What I can influence',selectedWithOther('influence','influenceOther'));addSummary('Action',selectedWithOther('action','actionOther'));addSummary('When I will begin',timingText());addSummary('Can begin in under five minutes',state.underFive);if(mode==='guided'){addSummary('Mind or body response',[...state.reaction,state.reactionOther].filter(Boolean).join(', '));addSummary('Feelings',state.feelings.join(', '));addSummary('What cannot change right now',selectedWithOther('fixed','fixedOther'));addSummary('What I do not know yet',selectedWithOther('unknown','unknownOther'));addSummary('Reality statement',state.reality);addSummary('Preparation',selectedWithOther('prepare','prepareOther'));addSummary('Flexibility challenge',state.flex)}addSummary('Practice outcome',state.outcome);addSummary('Later action review',state.laterReview);addSummary('What to remember',selectedWithOther('remember','reviewNote'));$('rec').textContent=state.recommendation;recordEvent('practice-completed');saveDraft();show('summary')}
-function privateSummary(){return {theme:selectedThemeLabel(),fact:state.fact,meaning:state.meaning,influence:selectedWithOther('influence','influenceOther'),action:selectedWithOther('action','actionOther'),when:timingText(),outcome:state.outcome,recommendation:state.recommendation}}
+function goSummary(){if(!challengeComplete())return;state.recommendation=recommendationText();$('out').textContent='';addSummary('Theme',selectedThemeLabel());addSummary('What changed',state.fact);addSummary('What my mind is adding',state.meaning||'Nothing named yet');addSummary('Clarity before and after',`${state.clarityBefore} to ${state.clarityAfter}`);addSummary('Wishing energy before and after',`${state.wishBefore} to ${state.wishAfter}`);addSummary('What I can influence',selectedWithOther('influence','influenceOther'));addSummary('Action',selectedWithOther('action','actionOther'));addSummary('When I will begin',timingText());addSummary('Can begin in under five minutes',state.underFive);if(mode==='guided'){addSummary('Mind or body response',[...state.reaction,state.reactionOther].filter(Boolean).join(', '));addSummary('Feelings',state.feelings.join(', '));addSummary('What cannot change right now',selectedWithOther('fixed','fixedOther'));addSummary('What I do not know yet',selectedWithOther('unknown','unknownOther'));addSummary('Reality statement',state.reality);addSummary('Preparation',selectedWithOther('prepare','prepareOther'));addSummary('Flexibility challenge',state.flex)}$('rec').textContent=state.recommendation;recordEvent('practice-completed');saveDraft();show('summary')}
+function privateSummary(){return {theme:selectedThemeLabel(),fact:state.fact,meaning:state.meaning,influence:selectedWithOther('influence','influenceOther'),action:selectedWithOther('action','actionOther'),when:timingText(),recommendation:state.recommendation}}
 function summaryText(){return Array.from($('out').querySelectorAll('.summary-row')).map(row=>row.innerText.trim()).join('\n\n')+'\n\nRecommendation\n'+$('rec').textContent}
 async function copySummary(){const btn=$('copySummaryBtn');btn.disabled=true;btn.textContent='Copying...';try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(summaryText());$('status').textContent='Summary copied.';btn.textContent='Copied'}else{throw new Error('clipboard unavailable')}}catch(e){const range=document.createRange();range.selectNodeContents($('out'));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);$('status').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}recordEvent('summary-copied');setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}
 function buildStack(){const stack={skillId:'adapting-to-change',skillName:'Adapting To Change',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,practiceStep:'Recognize the new reality and begin one workable response.',generalNextPractice:state.recommendation,practiceUrl:URL,id:'adapting-to-change',title:'Adapting To Change',source:'adapting-to-change',updatedAt:new Date().toISOString()};if(state.includePrivate)stack.privatePracticeSummary=privateSummary();return stack}
 function resetSaveUi(){clearTimeout(saveTimer);$('save').disabled=false;$('save').textContent='Save to Skills Stack';$('status').textContent=''}
 function saveStack(){resetSaveUi();$('save').disabled=true;$('save').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';recordEvent('save-to-skills-stack');post({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:buildStack(),updatedAt:new Date().toISOString()}});saveTimer=setTimeout(()=>{if($('save').textContent==='Saved to Skills Stack')return;$('save').disabled=false;$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
 function clearFields(ids){ids.forEach(id=>{if($(id))$(id).value=''})}
-function practiceAgain(){sessionId=newSessionId();eventFlags={};state.clarityBefore='';state.wishBefore='';state.clarityAfter='';state.wishAfter='';state.influence='';state.influenceOther='';state.action='';state.actionOther='';state.when='';state.specificTime='';state.afterCue='';state.underFive='';state.reaction=[];state.reactionOther='';state.feelings=[];state.fixed='';state.fixedOther='';state.unknown='';state.unknownOther='';state.reality='';state.prepare='';state.prepareOther='';state.flex='Take a different route';state.challengeRating='';state.fit='';state.outcome='';state.remember='';state.reviewNote='';state.laterReview='';state.recommendation='';state.includePrivate=false;clearFields(['influenceOther','actionOther','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther','reviewNote']);['when','laterReview','flex'].forEach(id=>{if($(id))$(id).value=id==='flex'?'Take a different route':''});if($('includePrivate'))$('includePrivate').checked=false;document.querySelectorAll('.rate,.choice').forEach(btn=>btn.setAttribute('aria-pressed','false'));selectTheme(state.theme);$('factField').value=state.fact;$('meaningField').value=state.meaning;resetSaveUi();saveDraft();show('rate');announce('New practice session started. The mode, change theme, and fact statement were preserved.')}
+function practiceAgain(){sessionId=newSessionId();eventFlags={};state.clarityBefore='';state.wishBefore='';state.clarityAfter='';state.wishAfter='';state.influence='';state.influenceOther='';state.action='';state.actionOther='';state.when='';state.specificTime='';state.afterCue='';state.underFive='';state.reaction=[];state.reactionOther='';state.feelings=[];state.fixed='';state.fixedOther='';state.unknown='';state.unknownOther='';state.reality='';state.prepare='';state.prepareOther='';state.flex='Take a different route';state.recommendation='';state.includePrivate=false;clearFields(['influenceOther','actionOther','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther']);['when','flex'].forEach(id=>{if($(id))$(id).value=id==='flex'?'Take a different route':''});if($('includePrivate'))$('includePrivate').checked=false;document.querySelectorAll('.rate,.choice').forEach(btn=>btn.setAttribute('aria-pressed','false'));selectTheme(state.theme);$('factField').value=state.fact;$('meaningField').value=state.meaning;resetSaveUi();saveDraft();show('rate');announce('New practice session started. The mode, change theme, and fact statement were preserved.')}
 function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus();announce('Confirm start over before clearing this practice.')}
 function cancelReset(){$('resetConfirm').classList.add('hidden');$('save').focus();announce('Start over canceled.')}
 function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
 function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
 function saveDraft(){saveFromInputs(false);sessionStorage.setItem(STORAGE_KEY,JSON.stringify({mode,sessionId,state,eventFlags}));resetSaveUi()}
-function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);Object.entries(state).forEach(([key,value])=>{const id=key==='before'?'beforeText':key==='now'?'nowText':key;if($(id)&&typeof value==='string')$(id).value=value});if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;if(state.theme){selectTheme(state.theme);updatePromptText();updateGenerated()}if(state.confirm)renderConfirmChoices();['clarityBefore','wishBefore','clarityAfter','wishAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[group]))));restoreChoices();handleTimingChange()}catch(e){}}
-function restoreChoices(){const groups={influenceChoices:'influence',actionStepChoices:'action',underFiveChoices:'underFive',reactionChoices:'reaction',feelingChoices:'feelings',fixedChoices:'fixed',unknownChoices:'unknown',realityChoices:'reality',prepareChoices:'prepare',challengeRatingChoices:'challengeRating',fitChoices:'fit',outcomeChoices:'outcome',rememberChoices:'remember'};Object.entries(groups).forEach(([group,prop])=>{document.querySelectorAll('#'+group+' .choice').forEach(btn=>{const value=btn.dataset.value;const current=state[prop];btn.setAttribute('aria-pressed',String(Array.isArray(current)?current.includes(value):current===value))})});toggleOtherFields()}
+function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);Object.entries(state).forEach(([key,value])=>{const id=key==='before'?'beforeText':key==='now'?'nowText':key;if($(id)&&typeof value==='string')$(id).value=value});restorePromptPlaceholders();if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;if(state.theme){selectTheme(state.theme);updatePromptText();restorePromptPlaceholders();updateGenerated()}if(state.confirm)renderConfirmChoices();['clarityBefore','wishBefore','clarityAfter','wishAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[group]))));restoreChoices();handleTimingChange()}catch(e){}}
+function restoreChoices(){const groups={influenceChoices:'influence',actionStepChoices:'action',underFiveChoices:'underFive',reactionChoices:'reaction',feelingChoices:'feelings',fixedChoices:'fixed',unknownChoices:'unknown',realityChoices:'reality',prepareChoices:'prepare'};Object.entries(groups).forEach(([group,prop])=>{document.querySelectorAll('#'+group+' .choice').forEach(btn=>{const value=btn.dataset.value;const current=state[prop];btn.setAttribute('aria-pressed',String(Array.isArray(current)?current.includes(value):current===value))})});toggleOtherFields()}
 window.addEventListener('message',event=>{if(event.origin!==ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('save').disabled=false;if(msg.ok){$('save').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
 Object.entries(themeGroups).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item[0],item[1],selectTheme)));
 makeRatings('clarityBefore','clarityBefore');makeRatings('wishBefore','wishBefore');makeRatings('clarityAfter','clarityAfter');makeRatings('wishAfter','wishAfter');
@@ -583,10 +569,6 @@ makeSingle('fixedChoices',['What already happened','Another person’s choice','
 makeSingle('unknownChoices',['How long this will last','How someone else will respond','Whether the plan will work','What I will feel later','What information I still need','What support will be available','Something else'],'unknown',toggleOtherFields);
 makeSingle('realityChoices',['This changed, and I can choose one workable response today.','I do not have to like this to respond effectively.','I can separate what happened from what I am afraid it means.','I can take one step before I understand everything.'],'reality');
 makeSingle('prepareChoices',['Read my fact statement again','Take one slow breath before deciding','Ask for one piece of information','Use a two-minute version of the action','Name what is fixed and what is flexible','Contact support before I spiral','Something else'],'prepare',toggleOtherFields);
-makeSingle('challengeRatingChoices',['Easy','Manageable','Hard'],'challengeRating');
-makeSingle('fitChoices',['Yes','Somewhat','No'],'fit');
-makeSingle('outcomeChoices',['I tried the action','I tried part of it','I got stuck','I chose a different workable step','I need more support'],'outcome');
-makeSingle('rememberChoices',['Small steps count','The fact is not the same as the fear','I can adapt without liking the change','I need a clearer cue next time','I need more support','Something else'],'remember',toggleOtherFields);
 restoreDraft();
 post({type:'adaptingToChangeReady'});
 </script>

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ask for Support</title>
+<style>
+:root{--ink:#18213a;--muted:#5f6b82;--line:#d9e1ef;--soft:#f5f7fb;--panel:#fff;--brand:#3556a8;--brand2:#1f3f8f;--warn:#fff3e8;--ok:#eaf7ef;--focus:#ffb703}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef3fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}main{max-width:920px;margin:0 auto;padding:22px 16px 38px}.hero{padding:18px 0}.eyebrow{font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;margin:.2rem 0 .4rem}h2{font-size:1.45rem;line-height:1.2;margin:0 0 14px}h3{font-size:1.05rem;margin:18px 0 8px}p{margin:.55rem 0}.subtitle{font-size:1.08rem;color:var(--muted);max-width:720px}.steps{display:flex;gap:6px;list-style:none;padding:0;margin:16px 0 20px;overflow:auto}.steps li{min-width:34px;height:8px;border-radius:999px;background:#d7deea}.steps li[aria-current=step]{background:var(--brand)}.screen{display:none}.screen.active{display:block}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px;box-shadow:0 12px 30px rgba(27,46,83,.08)}.note{border-left:4px solid var(--brand);background:#eef4ff;border-radius:6px;padding:12px;margin:12px 0;color:#243453}.note.warn{background:var(--warn);border-left-color:#e77925}.note.ok{background:var(--ok);border-left-color:#2f9461}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fff}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0 14px}.choice,.btn{appearance:none;border:1px solid #b8c5dd;background:#fff;color:var(--ink);border-radius:8px;padding:12px 14px;min-height:46px;font:inherit;font-weight:750;text-align:left;cursor:pointer}.choice[aria-pressed=true]{border-color:var(--brand);background:#eaf0ff;color:var(--brand2);box-shadow:inset 0 0 0 2px rgba(53,86,168,.2)}.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none}.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}.btn.warning{background:#fff8f2;border-color:#f0a35e;color:#7b3a00}.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}label,legend{display:block;font-weight:800;margin:12px 0 6px}fieldset{border:0;padding:0;margin:14px 0}input,textarea,select{width:100%;border:1px solid #b8c5dd;border-radius:8px;padding:12px;font:inherit;background:#fff;color:var(--ink)}textarea{min-height:96px;resize:vertical}.hidden{display:none!important}.error{color:#9b1c1c;font-weight:750;margin-top:10px}.status{color:var(--muted);font-weight:750;margin-top:10px}.summary{display:grid;gap:10px}.summary-row{border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px}.summary-row strong{display:block;color:var(--brand2);margin-bottom:4px}.rating{display:grid;grid-template-columns:repeat(11,1fr);gap:6px}.rate{border:1px solid #b8c5dd;background:#fff;border-radius:8px;min-height:42px;font-weight:800;cursor:pointer}.rate[aria-pressed=true]{background:var(--brand);color:#fff}.scale-help{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;gap:10px}.confirm-reset{border:1px solid #f0a35e;background:#fff8f2;border-radius:8px;padding:12px;margin-top:12px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}:focus-visible{outline:4px solid var(--focus);outline-offset:3px}@media(max-width:720px){main{padding:16px 12px 30px}.panel{padding:14px}.choices,.grid{grid-template-columns:1fr}.rating{grid-template-columns:repeat(6,1fr)}.btn,.choice{width:100%}.btns{display:grid;grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">Coping Skill</div>
+    <h1>Ask for Support</h1>
+    <p class="subtitle">Recognize when help would be useful and make one clear request.</p>
+  </header>
+  <ol class="steps" aria-label="Progress">
+    <li id="step-learn" aria-current="step"></li><li id="step-problem"></li><li id="step-kind"></li><li id="step-person"></li><li id="step-request"></li><li id="step-plan"></li><li id="step-response"></li><li id="step-rehearse"></li><li id="step-action"></li><li id="step-summary"></li>
+  </ol>
+
+  <section class="screen active" id="learn" aria-labelledby="learn-title">
+    <div class="panel">
+      <h2 id="learn-title" tabindex="-1">Some problems are easier to handle with support</h2>
+      <p>Support may mean having someone listen, helping with a practical task, sharing useful information, or connecting you with professional or community resources.</p>
+      <p>This practice will help you decide what kind of help you need and turn it into one clear request.</p>
+      <p>Asking does not guarantee that someone can help. It gives them a fair chance to understand the request and answer honestly.</p>
+      <div class="note warn">This skill is for making ordinary requests for emotional, practical, professional, or community support. When there is immediate danger, a medical emergency, or someone cannot remain safe, use appropriate emergency or crisis assistance rather than relying only on this exercise or an informal support person.</div>
+      <div class="btns"><button class="btn primary" type="button" onclick="startPractice()">Build my request</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="problem" aria-labelledby="problem-title">
+    <div class="panel">
+      <h2 id="problem-title" tabindex="-1">Identify what is becoming too difficult</h2>
+      <fieldset><legend>What are you having difficulty managing alone?</legend><div class="choices" id="problemChoices"></div></fieldset>
+      <div id="problemOtherWrap" class="hidden"><label for="problemOther">Write the difficulty.</label><input id="problemOther" maxlength="180" oninput="saveInputs()"></div>
+      <fieldset><legend>What tells you that support may be needed?</legend><div class="choices" id="needChoices"></div></fieldset>
+      <div id="needOtherWrap" class="hidden"><label for="needOther">Write another sign.</label><input id="needOther" maxlength="180" oninput="saveInputs()"></div>
+      <label>How difficult does reaching out feel right now?</label>
+      <div class="scale-help"><span>0 - Not difficult</span><span>10 - Extremely difficult</span></div>
+      <div class="rating" id="difficultyRating"></div>
+      <div class="btns"><button class="btn" type="button" onclick="show('learn')">Back</button><button class="btn primary" type="button" onclick="goKind()">Continue</button></div>
+      <div class="error" id="problem-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="kind" aria-labelledby="kind-title">
+    <div class="panel">
+      <h2 id="kind-title" tabindex="-1">What would be most helpful right now?</h2>
+      <div class="grid">
+        <div class="card"><h3>Emotional support</h3><p>Someone listens, stays connected, encourages you, or helps you feel less alone.</p></div>
+        <div class="card"><h3>Practical support</h3><p>Someone helps with a task, plan, responsibility, transportation, or information.</p></div>
+        <div class="card"><h3>Professional or community support</h3><p>Help from someone with relevant training, authority, experience, or resources.</p></div>
+      </div>
+      <fieldset><legend>Choose the kind of help.</legend><div class="choices" id="supportTypeChoices"></div></fieldset>
+      <fieldset><legend>What exactly do you want the person or resource to do?</legend><div class="choices" id="specificHelpChoices"></div></fieldset>
+      <div id="specificHelpOtherWrap" class="hidden"><label for="specificHelpOther">Write the specific action.</label><input id="specificHelpOther" maxlength="200" oninput="saveInputs()"></div>
+      <div class="btns"><button class="btn" type="button" onclick="show('problem')">Back</button><button class="btn primary" type="button" onclick="goPerson()">Continue</button></div>
+      <div class="error" id="kind-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="person" aria-labelledby="person-title">
+    <div class="panel">
+      <h2 id="person-title" tabindex="-1">Choose who to ask</h2>
+      <fieldset><legend>Who is most appropriate to ask?</legend><div class="choices" id="personChoices"></div></fieldset>
+      <fieldset><legend>Why might this be a good person or resource to ask?</legend><div class="choices" id="fitChoices"></div></fieldset>
+      <div class="note" id="fitGuidance">One person does not need to meet every need. You may ask different people for listening, practical help, expertise, and follow-up.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('kind')">Back</button><button class="btn primary" type="button" onclick="goRequest()">Continue</button></div>
+      <div class="error" id="person-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="request" aria-labelledby="request-title">
+    <div class="panel">
+      <h2 id="request-title" tabindex="-1">Build a clear request</h2>
+      <label for="briefSituation">What does the person need to know?</label>
+      <select id="briefStarter" onchange="starterChanged()"><option value="">Choose a starter</option></select>
+      <textarea id="briefSituation" maxlength="280" oninput="saveInputs();renderRequest()"></textarea>
+      <fieldset><legend>Why would support help?</legend><div class="choices" id="impactChoices"></div></fieldset>
+      <div id="impactOtherWrap" class="hidden"><label for="impactOther">Write your explanation.</label><input id="impactOther" maxlength="180" oninput="saveInputs();renderRequest()"></div>
+      <fieldset><legend>What are you asking the person to do?</legend><div class="choices" id="askChoices"></div></fieldset>
+      <div id="askOtherWrap" class="hidden"><label for="askOther">Write your request.</label><input id="askOther" maxlength="220" oninput="saveInputs();renderRequest()"></div>
+      <fieldset><legend>What would this support make easier?</legend><div class="choices" id="outcomeChoices"></div></fieldset>
+      <div id="outcomeOtherWrap" class="hidden"><label for="outcomeOther">Write your outcome.</label><input id="outcomeOther" maxlength="180" oninput="saveInputs();renderRequest()"></div>
+      <label for="requestMessage">Editable request</label>
+      <textarea id="requestMessage" maxlength="700" oninput="saveInputs()"></textarea>
+      <div class="btns"><button class="btn" type="button" onclick="show('person')">Back</button><button class="btn primary" type="button" onclick="goPlan()">Continue</button></div>
+      <div class="error" id="request-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="plan" aria-labelledby="plan-title">
+    <div class="panel">
+      <h2 id="plan-title" tabindex="-1">Choose how and when to ask</h2>
+      <fieldset><legend>How will you reach out?</legend><div class="choices" id="methodChoices"></div></fieldset>
+      <div id="methodOtherWrap" class="hidden"><label for="methodOther">Write the method.</label><input id="methodOther" maxlength="120" oninput="saveInputs()"></div>
+      <fieldset><legend>When will you make the request?</legend><div class="choices" id="timeChoices"></div></fieldset>
+      <div id="timeDetailWrap" class="hidden"><label for="timeDetail">Add the specific date or time.</label><input id="timeDetail" maxlength="160" oninput="saveInputs()"></div>
+      <div class="note ok" id="commitmentPreview">Choose a method and time.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('request')">Back</button><button class="btn primary" type="button" onclick="goResponse()">Continue</button></div>
+      <div class="error" id="plan-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="response" aria-labelledby="response-title">
+    <div class="panel">
+      <h2 id="response-title" tabindex="-1">Plan for more than one answer</h2>
+      <p>A clear request may receive a yes, no, later, partial offer, request for clarification, or no response. Your next step should not depend on one person giving the exact answer you hoped for.</p>
+      <fieldset><legend>If they say yes, how will you accept and use the help?</legend><div class="choices" id="yesChoices"></div></fieldset>
+      <div id="yesOtherWrap" class="hidden"><label for="yesOther">Write your yes-response plan.</label><input id="yesOther" maxlength="180" oninput="saveInputs()"></div>
+      <fieldset><legend>If they need clarification, what will you do?</legend><div class="choices" id="clarifyChoices"></div></fieldset>
+      <fieldset><legend>If they cannot help, what is your next option?</legend><div class="choices" id="backupChoices"></div></fieldset>
+      <div id="backupOtherWrap" class="hidden"><label for="backupOther">Write your backup.</label><input id="backupOther" maxlength="200" oninput="saveInputs()"></div>
+      <div class="note" id="backupPreview">If they cannot help, I will choose a backup plan.</div>
+      <div class="btns"><button class="btn" type="button" onclick="show('plan')">Back</button><button class="btn primary" type="button" onclick="goRehearse()">Continue</button></div>
+      <div class="error" id="response-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="rehearse" aria-labelledby="rehearse-title">
+    <div class="panel">
+      <h2 id="rehearse-title" tabindex="-1">Practice asking clearly</h2>
+      <fieldset><legend>Choose a rehearsal version.</legend><div class="choices" id="rehearsalChoices"></div></fieldset>
+      <div class="summary" id="rehearsalBox" aria-live="polite"></div>
+      <fieldset><legend>Rehearsal check</legend><div class="choices" id="checkChoices"></div></fieldset>
+      <div class="btns"><button class="btn" type="button" onclick="show('response')">Back</button><button class="btn primary" type="button" onclick="goAction()">Continue</button></div>
+      <div class="error" id="rehearse-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="action" aria-labelledby="action-title">
+    <div class="panel">
+      <h2 id="action-title" tabindex="-1">Take the first step</h2>
+      <fieldset><legend>What is the smallest step you can take now?</legend><div class="choices" id="firstStepChoices"></div></fieldset>
+      <label for="completeBy">I will complete this by:</label><input id="completeBy" maxlength="160" oninput="saveInputs()">
+      <div class="btns"><button class="btn" type="button" onclick="show('rehearse')">Back</button><button class="btn primary" type="button" onclick="goSummary()">Build summary</button></div>
+      <div class="error" id="action-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="summary" aria-labelledby="summary-title">
+    <div class="panel">
+      <h2 id="summary-title" tabindex="-1">You identified a problem that was becoming difficult to manage alone, chose the kind of support you needed, and prepared a clear request for an appropriate person or resource.</h2>
+      <div class="summary" id="summaryBox" aria-live="polite"></div>
+      <div class="note" id="recommendation"></div>
+      <label><input id="includePrivate" type="checkbox" onchange="saveInputs()"> Include my private practice summary.</label>
+      <p class="note ok">Your draft is temporarily saved for this browser session.</p>
+      <div class="btns">
+        <a class="btn" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
+        <button class="btn primary" id="saveBtn" type="button" onclick="saveStack()">Save to Skills Stack</button>
+        <button class="btn primary" id="copyBtn" type="button" onclick="copySummary()">Copy summary</button>
+        <button class="btn" type="button" onclick="practiceAgain()">Practice this request again</button>
+        <button class="btn" type="button" onclick="buildAnother()">Build another request</button>
+        <button class="btn" type="button" onclick="show('later')">Review my request now</button>
+        <button class="btn" type="button" onclick="clearDraft()">Clear saved draft</button>
+        <button class="btn warning" id="startOverBtn" type="button" onclick="requestReset()">Start over</button>
+      </div>
+      <div class="confirm-reset hidden" id="resetConfirm" role="group" aria-labelledby="resetTitle"><strong id="resetTitle">Start over and clear this practice?</strong><p>This clears this practice and starts fresh.</p><div class="btns"><button class="btn warning" type="button" onclick="confirmReset()">Yes, start over</button><button class="btn" type="button" onclick="cancelReset()">Keep my results</button></div></div>
+      <div class="status" id="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="later" aria-labelledby="later-title">
+    <div class="panel">
+      <h2 id="later-title" tabindex="-1">Review what happened</h2>
+      <fieldset><legend>Did you make the request?</legend><div class="choices" id="madeChoices"></div></fieldset>
+      <fieldset><legend>What response did you receive?</legend><div class="choices" id="receivedChoices"></div></fieldset>
+      <div id="receivedOtherWrap" class="hidden"><label for="receivedOther">Write what happened.</label><input id="receivedOther" maxlength="180" oninput="saveInputs()"></div>
+      <fieldset><legend>Did you accept and use the help offered?</legend><div class="choices" id="usedHelpChoices"></div></fieldset>
+      <fieldset><legend>How supported do you feel now?</legend><div class="scale-help"><span>0 - Not supported</span><span>10 - Very supported</span></div><div class="rating" id="supportRating"></div></fieldset>
+      <fieldset><legend>What did you learn?</legend><div class="choices" id="learnedChoices"></div></fieldset>
+      <div id="learnedOtherWrap" class="hidden"><label for="learnedOther">Write what else you learned.</label><input id="learnedOther" maxlength="180" oninput="saveInputs()"></div>
+      <div class="btns"><button class="btn" type="button" onclick="show('summary')">Review this later</button><button class="btn primary" type="button" onclick="saveLaterReview()">Finish for now</button></div>
+      <div class="error" id="later-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</main>
+<script>
+const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
+const PRACTICE_URL='https://whattodo-skills.github.io/skills/ask-for-support.html';
+const STORAGE_KEY='wtd_ask_for_support_v1';
+const $=id=>document.getElementById(id);
+const steps=['learn','problem','kind','person','request','plan','response','rehearse','action','summary','later'];
+let sessionId=newSessionId(),eventFlags={},saveTimer=null;
+const state={problem:'',problemOther:'',needs:[],needOther:'',difficulty:'',supportType:'',specificHelp:'',specificHelpOther:'',person:'',fit:'',briefSituation:'',impact:'',impactOther:'',ask:'',askOther:'',outcome:'',outcomeOther:'',requestMessage:'',method:'',methodOther:'',time:'',timeDetail:'',yesPlan:'',yesOther:'',clarify:'',backup:'',backupOther:'',rehearsal:'',checks:[],firstStep:'',completeBy:'',includePrivate:false,made:'',received:'',receivedOther:'',usedHelp:'',supportRating:'',learned:'',learnedOther:'',recommendation:''};
+const singleGroups={problemChoices:['problem','problemOtherWrap'],supportTypeChoices:['supportType'],specificHelpChoices:['specificHelp','specificHelpOtherWrap'],personChoices:['person'],fitChoices:['fit'],impactChoices:['impact','impactOtherWrap'],askChoices:['ask','askOtherWrap'],outcomeChoices:['outcome','outcomeOtherWrap'],methodChoices:['method','methodOtherWrap'],timeChoices:['time','timeDetailWrap'],yesChoices:['yesPlan','yesOtherWrap'],clarifyChoices:['clarify'],backupChoices:['backup','backupOtherWrap'],rehearsalChoices:['rehearsal'],firstStepChoices:['firstStep'],madeChoices:['made'],receivedChoices:['received','receivedOtherWrap'],usedHelpChoices:['usedHelp'],learnedChoices:['learned','learnedOtherWrap']};
+const multiGroups={needChoices:['needs','needOtherWrap'],checkChoices:['checks']};
+const choices={
+problemChoices:['I feel overwhelmed by a responsibility','I do not know how to solve a problem','I need help completing a task','I need someone to listen','I am struggling to use a skill','I feel isolated','I need professional guidance','I need help finding a resource or service','Something else'],
+needChoices:['I have tried several times without progress','The problem keeps getting worse','I do not have the information or skills I need','My emotions are making it harder to think clearly','I am avoiding the problem','The situation is affecting my work, school, health, or relationships','There is more work than one person can reasonably manage','I need more support than one person can provide','Something else'],
+supportTypeChoices:['Emotional support','Practical support','Professional or community support'],
+personChoices:['Partner or family member','Friend','Coworker or classmate','Supervisor or teacher','Counselor or healthcare professional','Support group or community','Service or organization','Another trusted person','I am not sure yet'],
+fitChoices:['They can provide the type of help I need','They have relevant knowledge or experience','They are responsible for helping with this kind of issue','They usually listen respectfully','They are available for the practical task','They can connect me with another resource','They have supported me with this before','I am not sure'],
+impactChoices:['I am overwhelmed by the amount involved','I do not know the next step','I need information or experience I do not have','I am finding it difficult to do this alone','I need help staying with the plan','I need someone to listen','Write my own explanation'],
+outcomeChoices:['It would help me know what to do next','It would reduce the amount I am handling alone','It would help me follow through','It would help me understand my options','It would help me feel less alone','Write my own outcome'],
+methodChoices:['In person','Phone call','Text message','Email','Appointment','Support group or community post','Another method'],
+timeChoices:['Now','Within 10 minutes','Later today','Tomorrow','At a specific date or time','At the next available appointment'],
+yesChoices:['Say thank you','Confirm the details','Agree on a time','Give them the information they need','Follow through on my part','Allow them to help without immediately taking control back','Write my own response'],
+clarifyChoices:['Repeat the request more simply','Give one concrete example','Explain what I do not need','Make the request smaller','Agree on one part first'],
+backupChoices:['Ask whether another form of help is possible','Contact another person','Contact a professional or community resource','Make the request smaller','Choose the part I can handle independently','Use another coping skill while I look for support','Write my own backup'],
+rehearsalChoices:['Say it aloud','Practice as a text or email','Practice a short conversation'],
+checkChoices:['Is the request clear?','Is it specific?','Is it realistic for this person or resource?','Does it say what action would help?','Can you say it without apologizing for having a need?'],
+firstStepChoices:['Send the message','Make the call','Schedule the appointment','Ask when the person is available','Save the professional or community contact','Join or contact the support group','Prepare the message for the planned time','Revise the request first'],
+madeChoices:['Yes','Partly','Not yet','I changed the request','I asked someone else','I chose a professional or community resource instead'],
+receivedChoices:['They agreed','They agreed to part of it','They needed clarification','They could not help','They referred me elsewhere','They have not responded','I realized another kind of support was needed','Something else'],
+usedHelpChoices:['Yes','Partly','Not yet','The help was not what I needed','No help was offered','The plan changed'],
+learnedChoices:['My request was clear','I need to be more specific','I chose the right person','I need a different person or resource','The request was too large','A written request was easier','Speaking directly was easier','I need professional or community support','I can manage one part independently','Something else']
+};
+const helpByType={
+'Emotional support':['Listen without trying to fix it','Stay with me while I settle down','Encourage me','Check in with me later','Spend some time with me','Help me talk through one decision','Write my own request'],
+'Practical support':['Help me complete one task','Share one responsibility','Help me organize the next steps','Give me a ride','Help me gather information','Practice a difficult conversation with me','Help me make a plan','Write my own request'],
+'Professional or community support':['A counselor or healthcare professional','Workplace or school support','A support group or community','Financial, legal, housing, or caregiving assistance','Help finding the right service','Another professional resource','Write my own request']
+};
+const askByType={
+'Emotional support':['Listen for 10 minutes without giving advice','Stay with me while I talk it through','Check in with me later today','Spend time with me while I complete the next step','Ask me what kind of help I want','Write my own request'],
+'Practical support':['Help me complete one specific task','Take responsibility for one part','Help me organize my next three steps','Give me a ride','Help me make a call or appointment','Practice the conversation with me','Write my own request'],
+'Professional or community support':['Explain the process','Tell me what documents or information I need','Help me schedule the next step','Tell me what services are available','Connect me with the appropriate person','Help me understand my options','Write my own request']
+};
+const starters=['I am having trouble managing...','I have been trying to handle...','I am stuck on...','I need help preparing for...','I could use support with...'];
+function newSessionId(){return 'support-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
+function text(id){return ($(id)?.value||'').trim()}
+function announce(msg){$('live').textContent=msg}
+function postToParent(message){if(parent!==window)parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function recordEvent(type){const key=sessionId+':'+type;if(eventFlags[key])return;eventFlags[key]=true;postToParent({type:'skillComplete',skillTitle:'Ask for Support',skillSlug:'ask-for-support',completionType:type,sessionId})}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.steps li').forEach(li=>li.removeAttribute('aria-current'));$('step-'+id)?.setAttribute('aria-current','step');const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.');saveDraft()}
+function showError(id,msg){$(id).textContent=msg;announce(msg)}
+function needsCustom(v){return ['Something else','Write my own request','Write my own explanation','Write my own outcome','Another method','Write my own response','Write my own backup'].includes(v)}
+function selected(prop,other){return needsCustom(state[prop])?state[other]:state[prop]}
+function valid(prop,other){return !!(selected(prop,other)||'').trim()}
+function makeChoice(group,item){const btn=document.createElement('button');btn.type='button';btn.className='choice';btn.dataset.value=item;btn.setAttribute('aria-pressed','false');btn.textContent=item;btn.onclick=()=>selectChoice(group,item);$(group).appendChild(btn)}
+function renderChoiceGroup(group,items){$(group).replaceChildren();items.forEach(item=>makeChoice(group,item))}
+function selectChoice(group,value){if(singleGroups[group]){const [prop,wrap]=singleGroups[group];state[prop]=value;if(wrap&&!needsCustom(value)){const input=$(wrap)?.querySelector('input');if(input){input.value='';state[input.id]=''}}document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===value)))}else{const [prop,wrap]=multiGroups[group];state[prop]=state[prop].includes(value)?state[prop].filter(v=>v!==value):[...state[prop],value];if(value==='Something else'&&!state[prop].includes(value)&&wrap){const input=$(wrap)?.querySelector('input');if(input){input.value='';state[input.id]=''}}document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(state[prop].includes(b.dataset.value))))}if(group==='supportTypeChoices'){renderHelpChoices(true);renderAskChoices(true);recordEvent('support-type-chosen')}if(['specificHelpChoices','impactChoices','askChoices','outcomeChoices','methodChoices','timeChoices','backupChoices','yesChoices','receivedChoices','learnedChoices'].includes(group))toggleOther();if(group==='fitChoices')renderFitGuidance();if(group==='askChoices'||group==='impactChoices'||group==='outcomeChoices')renderRequest();if(group==='methodChoices'||group==='timeChoices')renderCommitment();if(group==='backupChoices')renderBackup();if(group==='rehearsalChoices')renderRehearsal();saveDraft()}
+function toggleOther(){Object.entries(singleGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!needsCustom(state[prop])&&!(prop==='time'&&state[prop]==='At a specific date or time'))});Object.entries(multiGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!state[prop].includes('Something else'))})}
+function saveInputs(){['problemOther','needOther','specificHelpOther','briefSituation','impactOther','askOther','outcomeOther','requestMessage','methodOther','timeDetail','yesOther','backupOther','completeBy','receivedOther','learnedOther'].forEach(id=>{if($(id))state[id]=text(id)});state.includePrivate=!!$('includePrivate')?.checked;toggleOther();renderCommitment();renderBackup();saveDraft()}
+function renderHelpChoices(clear=false){renderChoiceGroup('specificHelpChoices',helpByType[state.supportType]||[]);if(clear){state.specificHelp='';state.specificHelpOther=''}}
+function renderAskChoices(clear=false){renderChoiceGroup('askChoices',askByType[state.supportType]||[]);if(clear){state.ask='';state.askOther=''}}
+function renderFitGuidance(){let msg='One person does not need to meet every need. You may ask different people for listening, practical help, expertise, and follow-up.';if(state.fit==='I am not sure'){if(state.supportType==='Emotional support')msg='For emotional support, choose someone who usually listens respectfully.';else if(state.supportType==='Practical support')msg='For practical help, choose someone able and available to do the task.';else msg='For professional or community support, choose an appropriate qualified person, service, or group with relevant experience.'}$('fitGuidance').textContent=msg}
+function starterChanged(){const v=$('briefStarter').value;if(v&&!state.briefSituation){$('briefSituation').value=v;state.briefSituation=v;renderRequest();saveDraft()}}
+function renderRequest(){saveInputsNoRender();const brief=state.briefSituation;const impact=selected('impact','impactOther');const ask=selected('ask','askOther')||selected('specificHelp','specificHelpOther');const outcome=selected('outcome','outcomeOther');let msg='';if(brief)msg+=brief.trim();if(impact)msg+=(msg?' ':'')+'It has been difficult because '+lowerFirst(impact)+'.';if(ask)msg+=(msg?' ':'')+'Would you be willing to '+lowerFirst(stripEnd(ask))+'?';if(outcome)msg+=(msg?' ':'')+stripEnd(outcome)+'.';if(!msg&&ask)msg='Would you be willing to '+lowerFirst(stripEnd(ask))+'?';if(!state.requestMessage||document.activeElement?.id!=='requestMessage'){$('requestMessage').value=msg;state.requestMessage=msg}saveDraft()}
+function saveInputsNoRender(){['briefSituation','impactOther','askOther','outcomeOther','requestMessage'].forEach(id=>{if($(id))state[id]=text(id)})}
+function lowerFirst(s){return (s||'').replace(/^([A-Z])/,m=>m.toLowerCase())}
+function stripEnd(s){return (s||'').replace(/[.?!]+$/,'')}
+function renderCommitment(){const method=selected('method','methodOther');const time=state.time==='At a specific date or time'?state.timeDetail:state.time;$('commitmentPreview').textContent=method&&time?'I will make this request by '+method+' '+time+'.':'Choose a method and time.';if(!$('completeBy').value&&time){$('completeBy').value=time;state.completeBy=time}}
+function renderBackup(){const backup=selected('backup','backupOther');$('backupPreview').textContent=backup?'If they cannot help, I will '+lowerFirst(stripEnd(backup))+'.':'If they cannot help, I will choose a backup plan.'}
+function addRow(box,label,value){const row=document.createElement('div');row.className='summary-row';const strong=document.createElement('strong');strong.textContent=label;const body=document.createElement('div');body.textContent=value||'Not answered';row.append(strong,body);box.append(row)}
+function renderRehearsal(){const box=$('rehearsalBox');box.replaceChildren();if(state.rehearsal==='Say it aloud'){addRow(box,'Read aloud once',state.requestMessage)}else if(state.rehearsal==='Practice as a text or email'){addRow(box,'Message draft',state.requestMessage)}else if(state.rehearsal==='Practice a short conversation'){addRow(box,'You',state.requestMessage);addRow(box,'Other person','What kind of help do you need?');addRow(box,'You',selected('ask','askOther'));addRow(box,'Other person','I may not be able to do all of that.');addRow(box,'You',state.clarify||'I can make the request smaller.');addRow(box,'Other person','I cannot help this time.');addRow(box,'You','Thanks for letting me know. I am going to try '+lowerFirst(stripEnd(selected('backup','backupOther')))+'.')}else addRow(box,'Choose a rehearsal version','Your practice script will appear here.')}
+function makeRating(group,prop){for(let i=0;i<=10;i++){const btn=document.createElement('button');btn.type='button';btn.className='rate';btn.dataset.value=String(i);btn.setAttribute('aria-pressed','false');btn.setAttribute('aria-label',i+' out of 10');btn.textContent=String(i);btn.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===state[prop])));saveDraft()};$(group).appendChild(btn)}}
+function startPractice(){recordEvent('practice-started');show('problem')}
+function goKind(){saveInputs();if(!valid('problem','problemOther')||!state.needs.length||!state.difficulty){showError('problem-error','Choose the difficulty, at least one sign support is needed, and the reaching-out rating.');return}if(state.needs.includes('Something else')&&!state.needOther){showError('problem-error','Write the other sign that support may be needed.');return}$('problem-error').textContent='';show('kind')}
+function goPerson(){saveInputs();if(!state.supportType||!valid('specificHelp','specificHelpOther')){showError('kind-error','Choose the kind of support and one specific action.');return}$('kind-error').textContent='';show('person')}
+function goRequest(){if(!state.person||!state.fit){showError('person-error','Choose who to ask and why this person or resource fits.');return}$('person-error').textContent='';show('request')}
+function goPlan(){saveInputs();if(!valid('ask','askOther')||!valid('outcome','outcomeOther')||!state.requestMessage||vague(state.requestMessage)){showError('request-error','Make the request specific. Ask for one action the person can understand and answer.');return}$('request-error').textContent='';recordEvent('request-created');show('plan')}
+function goResponse(){saveInputs();if(!valid('method','methodOther')||!state.time||state.time==='Later'||(state.time==='At a specific date or time'&&!state.timeDetail)){showError('plan-error','Choose a clear method and timeframe. Avoid vague commitments such as later.');return}$('plan-error').textContent='';recordEvent('request-planned');show('response')}
+function goRehearse(){saveInputs();if(!valid('yesPlan','yesOther')||!state.clarify||!valid('backup','backupOther')){showError('response-error','Choose a yes plan, clarification response, and backup option.');return}$('response-error').textContent='';renderRehearsal();show('rehearse')}
+function goAction(){if(!state.rehearsal||state.checks.length<5){showError('rehearse-error','Choose a rehearsal version and check every clarity item before moving on.');return}$('rehearse-error').textContent='';recordEvent('request-rehearsed');show('action')}
+function goSummary(){saveInputs();if(state.firstStep==='Revise the request first'){show('request');return}if(!state.firstStep||!state.completeBy){showError('action-error','Choose the first step and when you will complete it.');return}$('action-error').textContent='';state.recommendation=recommendation();renderSummary();recordEvent('request-planned');show('summary')}
+function saveLaterReview(){saveInputs();if(!state.made||!state.received||!state.usedHelp||!state.supportRating||!state.learned){showError('later-error','Complete the review choices and support rating.');return}if(state.received==='Something else'&&!state.receivedOther){showError('later-error','Write what response you received.');return}if(state.learned==='Something else'&&!state.learnedOther){showError('later-error','Write what you learned.');return}$('later-error').textContent='';state.recommendation=recommendation();renderSummary();if(state.made==='Yes'||state.made==='Partly'||state.made==='I asked someone else'||state.made==='I chose a professional or community resource instead')recordEvent('request-made');recordEvent('request-reviewed');show('summary')}
+function vague(s){return /^(help me|support me|be there|talk|listen|i need help)$/i.test((s||'').trim())}
+function recommendation(){if(state.made==='Not yet')return 'Choose the smallest possible request: one short message, one question, or one brief check-in.';if(state.received==='They agreed')return 'Confirm the details, accept the support that fits, and follow through on your part.';if(state.received==='They agreed to part of it')return 'Use the part that helps, then decide whether the remaining need requires another person, resource, or smaller request.';if(state.received==='They could not help')return 'Respect the answer and use your backup. Their answer may reflect role, time, or capacity, not whether your need matters.';if(state.received==='They needed clarification')return 'Reduce the request to one action, one person, and one timeframe.';if(state.received==='They have not responded')return 'Decide whether one follow-up is appropriate. Then use your backup rather than waiting indefinitely.';if(state.learned==='I need a different person or resource'||state.person==='I am not sure yet')return 'Match the request to someone with the appropriate role, ability, availability, or expertise.';if(state.usedHelp==='Not yet'||state.usedHelp==='The plan changed')return 'Identify what made receiving help difficult. Practice allowing the other person to complete one agreed-upon part.';if(Number(state.supportRating||10)<=3||state.needs.includes('I need more support than one person can provide'))return 'One person may not be able to provide every kind of help. Add professional, community, or practical support where appropriate.';return 'Make the request using the method and time you chose, then use your backup if this person or resource cannot help.'}
+function renderSummary(){const box=$('summaryBox');box.replaceChildren();addRow(box,'Problem category',selected('problem','problemOther'));addRow(box,'Reason support is needed',state.needs.map(v=>v==='Something else'?state.needOther:v).join(', '));addRow(box,'Support type',state.supportType);addRow(box,'Person or resource category',state.person);addRow(box,'Specific request',state.requestMessage);addRow(box,'Contact method',selected('method','methodOther'));addRow(box,'Timing',state.time==='At a specific date or time'?state.timeDetail:state.time);addRow(box,'Yes-response plan',selected('yesPlan','yesOther'));addRow(box,'Backup plan',selected('backup','backupOther'));addRow(box,'First step',state.firstStep+' by '+state.completeBy);if(state.made)addRow(box,'Later result',[state.made,state.received,state.usedHelp].filter(Boolean).join(', '));addRow(box,'Current practice step',state.made?'Review':'Ask');addRow(box,'Adaptive recommendation',state.recommendation||recommendation());$('recommendation').textContent=state.recommendation||recommendation();saveDraft()}
+function summaryText(){return Array.from($('summaryBox').querySelectorAll('.summary-row')).map(row=>row.innerText.trim()).join('\n\n')}
+async function copySummary(){const btn=$('copyBtn');btn.disabled=true;btn.textContent='Copying...';try{await navigator.clipboard.writeText(summaryText());$('status').textContent='Summary copied.';btn.textContent='Copied'}catch(e){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=getSelection();sel.removeAllRanges();sel.addRange(range);$('status').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}recordEvent('summary-copied');setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}
+function stackPayload(){const payload={skillId:'ask-for-support',skillName:'Ask for Support',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,supportType:state.supportType,practiceStep:state.made?'Review':'Ask',generalNextPractice:state.recommendation||recommendation(),practiceUrl:PRACTICE_URL,id:'ask-for-support',title:'Ask for Support',source:'ask-for-support',updatedAt:new Date().toISOString()};if(state.includePrivate)payload.privatePracticeSummary={problem:selected('problem','problemOther'),supportType:state.supportType,person:state.person,request:state.requestMessage,method:selected('method','methodOther'),time:state.time==='At a specific date or time'?state.timeDetail:state.time,backup:selected('backup','backupOther'),laterResult:state.made?[state.made,state.received,state.usedHelp].filter(Boolean).join(', '):'',recommendation:state.recommendation||recommendation()};return payload}
+function resetSaveUi(){clearTimeout(saveTimer);if($('saveBtn')){$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack'}if($('status'))$('status').textContent=''}
+function saveStack(){resetSaveUi();$('saveBtn').disabled=true;$('saveBtn').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';recordEvent('skills-stack-save-requested');postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:stackPayload(),updatedAt:new Date().toISOString()}});saveTimer=setTimeout(()=>{if($('saveBtn').textContent==='Saved to Skills Stack')return;$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
+function practiceAgain(){const keep={supportType:state.supportType,person:state.person,requestMessage:state.requestMessage,ask:state.ask,askOther:state.askOther};beginNewSession();Object.assign(state,keep);renderHelpChoices();renderAskChoices();restoreSelectionUi();resetSaveUi();show('rehearse')}
+function buildAnother(){const keepProblem=state.problem;const keepOther=state.problemOther;beginNewSession();state.problem=keepProblem;state.problemOther=keepOther;restoreSelectionUi();show('problem')}
+function beginNewSession(){sessionId=newSessionId();eventFlags={};Object.keys(state).forEach(k=>{state[k]=Array.isArray(state[k])?[]:''});state.includePrivate=false;document.querySelectorAll('input,textarea').forEach(el=>{if(el.type==='checkbox')el.checked=false;else el.value=''});document.querySelectorAll('.choice,.rate').forEach(b=>b.setAttribute('aria-pressed','false'));$('summaryBox').replaceChildren();$('rehearsalBox').replaceChildren();saveDraft()}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Saved draft cleared.';announce('Saved draft cleared.')}
+function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus()}
+function cancelReset(){$('resetConfirm').classList.add('hidden');announce('Start over canceled.');$('startOverBtn').focus()}
+function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
+function saveDraft(){sessionStorage.setItem(STORAGE_KEY,JSON.stringify({sessionId,eventFlags,state}))}
+function restoreSelectionUi(){document.querySelectorAll('.choice').forEach(b=>{const group=b.parentElement.id;if(singleGroups[group])b.setAttribute('aria-pressed',String(state[singleGroups[group][0]]===b.dataset.value));if(multiGroups[group])b.setAttribute('aria-pressed',String(state[multiGroups[group][0]].includes(b.dataset.value))) });document.querySelectorAll('#difficultyRating .rate').forEach(b=>b.setAttribute('aria-pressed',String(state.difficulty===b.dataset.value)));document.querySelectorAll('#supportRating .rate').forEach(b=>b.setAttribute('aria-pressed',String(state.supportRating===b.dataset.value)))}
+function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;Object.assign(state,saved.state);sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.entries(state).forEach(([key,value])=>{if($(key)&&typeof value==='string')$(key).value=value});renderHelpChoices();renderAskChoices();restoreSelectionUi();toggleOther();renderFitGuidance();renderCommitment();renderBackup();renderRehearsal();if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate}catch(e){}}
+window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('saveBtn').disabled=false;if(msg.ok){recordEvent('save-to-skills-stack');$('saveBtn').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
+Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item)));
+starters.forEach(item=>{const option=document.createElement('option');option.value=item;option.textContent=item;$('briefStarter').append(option)});
+renderHelpChoices();renderAskChoices();makeRating('difficultyRating','difficulty');makeRating('supportRating','supportRating');restoreDraft();postToParent({type:'askForSupportReady'});
+</script>
+</body>
+</html>

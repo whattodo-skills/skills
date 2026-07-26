@@ -107,6 +107,8 @@ input,textarea,select{font:inherit}
 .btn:disabled{opacity:.48;cursor:not-allowed}
 .saved-msg,.save-status{color:#2a6357;font-weight:800;font-size:.88rem;display:none}
 .saved-msg.show,.save-status.show{display:inline}
+.storage-notice{display:none;background:var(--orange-bg);border-left:4px solid var(--orange);border-radius:10px;padding:12px 14px;margin:0 0 14px;color:#6b3a00;font-size:.86rem;line-height:1.5}
+.storage-notice.show{display:block}
 .sr-live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
 @media(max-width:760px){
@@ -157,6 +159,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="custom-value">
         <h3>Do you have a value not listed?</h3>
         <p class="microcopy">Optional: add one personal value if the list is missing something important to you.</p>
+        <div class="storage-notice" id="storageNotice">Your answers are saved only in this browser. Other people using this browser profile may be able to see them. You can clear them at any time.</div>
         <div class="custom-grid">
           <div class="field">
             <label for="customValueName">Short value name</label>
@@ -178,7 +181,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       </div>
       <div class="save-row">
         <button class="btn btn-primary" id="saveValuesBtn" onclick="saveValues()" disabled>Save My Values</button>
-        <span class="saved-msg" id="savedMsg" role="status" aria-live="polite">Saved.</span>
+        <button class="btn btn-secondary" id="clearDeviceBtn" type="button" onclick="clearDeviceProgress()" hidden>Clear this exercise from this device</button>
+        <span class="saved-msg" id="savedMsg" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
       <div class="validation-msg" id="saveHelp">Select at least 2 values before saving.</div>
     </div>
@@ -274,7 +278,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
         <button class="btn btn-mint" onclick="saveAlignment()">Save Today's Check-In</button>
         <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button>
         <a class="btn btn-secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
-        <span class="saved-msg" id="alignSaved" role="status" aria-live="polite">Saved.</span>
+        <span class="saved-msg" id="alignSaved" role="status" aria-live="polite" aria-atomic="true"></span>
         <span class="save-status" id="stackStatus" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
       <div class="history-list" id="historyList"></div>
@@ -308,16 +312,30 @@ const ALL_VALUES = [
 
 const ACTIONS = ['Start for two minutes','Send the message','Ask one clear question','Put the phone away','Take one caring action','Write my own action'];
 const BEGIN_TIMES = ['Now','Within 10 minutes','Later today'];
-const STORAGE_KEY = 'wtd_values_v2';
-const ALIGN_KEY = 'wtd_values_align_history_v2';
 const SAFE_PARENT_ORIGIN = 'https://www.whattodo.coach';
+const SKILL_SLUG = 'values-compass';
+const PROTOCOL_VERSION = 1;
+const SCHEMA_VERSION = 3;
+const LOCAL_RETENTION_DAYS = 90;
+const SAVE_DEBOUNCE_MS = 800;
+const LEGACY_VALUES_KEY = ['wtd','values','v2'].join('_');
+const LEGACY_ALIGN_KEY = ['wtd','values','align','history','v2'].join('_');
 
 let selected = [];
 let customValues = [];
 let alignState = {};
+let alignmentHistory = [];
 let pivotState = {value:'',situation:'',action:'',begin:''};
 let saveTimeout = null;
 let stackSaved = false;
+let initialized = false;
+let storageMode = null;
+let localStorageKey = null;
+let localNamespace = null;
+let cmsSaveTimer = null;
+let cmsSaveInFlight = null;
+let queuedCmsState = null;
+let cmsStatusTarget = 'savedMsg';
 
 function localDateKey(){
   const d = new Date();
@@ -354,29 +372,136 @@ function cleanAction(){
   return pivotState.action || 'one small value-based action';
 }
 
-function load(){
+function blankState(){
+  return {selectedValues:[],customValues:[],pivotQuestion:'',situation:'',chosenAction:'',startingState:null,alignmentHistory:[]};
+}
+
+function completeState(){
+  const currentValue = valueByName(pivotState.value) || {};
+  return {
+    selectedValues:selected.slice(0,3),
+    customValues:customValues.slice(0,3).map(v => ({name:String(v.name||'').slice(0,80),description:String(v.desc||'').slice(0,500),pivotQuestion:String(v.pivot||'').slice(0,1000)})),
+    pivotQuestion:String(currentValue.pivot || '').slice(0,1000),
+    situation:String(pivotState.situation || '').slice(0,2500),
+    chosenAction:String(pivotState.action || '').slice(0,1500),
+    startingState:pivotState.begin || null,
+    pivotValue:pivotState.value || '',
+    alignmentState:Object.assign({},alignState),
+    alignmentHistory:alignmentHistory.slice(0,7)
+  };
+}
+
+function applyState(state){
+  const clean = state && typeof state === 'object' ? state : blankState();
+  customValues = Array.isArray(clean.customValues) ? clean.customValues.slice(0,3).map(v => ({name:String(v.name||'').slice(0,80),desc:String(v.description||v.desc||'').slice(0,500),pivot:String(v.pivotQuestion||v.pivot||'').slice(0,1000)})) : [];
+  selected = Array.isArray(clean.selectedValues) ? clean.selectedValues.map(v => String(v||'')).filter(v => valueByName(v)).slice(0,3) : [];
+  pivotState = {
+    value:String(clean.pivotValue || ''),
+    situation:String(clean.situation || '').slice(0,2500),
+    action:String(clean.chosenAction || '').slice(0,1500),
+    begin:clean.startingState ? String(clean.startingState) : ''
+  };
+  alignmentHistory = Array.isArray(clean.alignmentHistory) ? clean.alignmentHistory.slice(0,7) : [];
+  const today = localDateKey();
+  const todayItem = alignmentHistory.find(item => item && item.date === today);
+  alignState = clean.alignmentState && typeof clean.alignmentState === 'object' ? Object.assign({},clean.alignmentState) : (todayItem && todayItem.state ? Object.assign({},todayItem.state) : {});
+}
+
+function localEnvelope(){
+  const now = new Date();
+  const expires = new Date(now.getTime() + LOCAL_RETENTION_DAYS * 86400000);
+  return {schemaVersion:SCHEMA_VERSION,skillSlug:SKILL_SLUG,savedAt:now.toISOString(),lastUsedAt:now.toISOString(),expiresAt:expires.toISOString(),state:completeState()};
+}
+
+function loadLocalState(){
+  if(storageMode !== 'local' || !localStorageKey) return null;
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      customValues = Array.isArray(data.customValues) ? data.customValues.slice(0,10) : [];
-      selected = Array.isArray(data.selected) ? data.selected.filter(v => valueByName(v)).slice(0,3) : [];
-      pivotState = Object.assign(pivotState, data.pivotState || {});
+    const raw = localStorage.getItem(localStorageKey);
+    if(!raw) return null;
+    const record = JSON.parse(raw);
+    if(!record || record.schemaVersion !== SCHEMA_VERSION || record.skillSlug !== SKILL_SLUG || !record.state) throw new Error('INVALID_LOCAL_STATE');
+    if(record.expiresAt && new Date(record.expiresAt).getTime() <= Date.now()){
+      localStorage.removeItem(localStorageKey);
+      return null;
     }
-  } catch(e){}
+    return record.state;
+  } catch(error){
+    try { localStorage.removeItem(localStorageKey); } catch(ignore){}
+    return null;
+  }
+}
+
+function saveLocal(targetId){
+  if(storageMode !== 'local' || !localStorageKey) return false;
   try {
-    const raw = localStorage.getItem(ALIGN_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      const today = localDateKey();
-      const todayItem = Array.isArray(data.history) ? data.history.find(item => item.date === today) : null;
-      alignState = todayItem && todayItem.state ? todayItem.state : {};
-    }
-  } catch(e){}
+    localStorage.setItem(localStorageKey, JSON.stringify(localEnvelope()));
+    if(targetId) showInlineStatus(targetId, 'Saved on this device');
+    return true;
+  } catch(error){
+    showInlineStatus(targetId || 'savedMsg', 'Not saved on this device. Your browser may be blocking storage.');
+    return false;
+  }
 }
 
 function persist(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({selected, customValues, pivotState}));
+  if(!initialized) return;
+  if(storageMode === 'local'){
+    saveLocal();
+    return;
+  }
+  if(storageMode === 'cms') queueCmsSave(false);
+}
+
+function queueCmsSave(force, targetId){
+  if(storageMode !== 'cms') return;
+  queuedCmsState = completeState();
+  if(targetId) cmsStatusTarget = targetId;
+  if(cmsSaveTimer) clearTimeout(cmsSaveTimer);
+  if(force){
+    showInlineStatus(cmsStatusTarget, 'Saving…', true);
+    flushCmsSave();
+  } else {
+    cmsSaveTimer = setTimeout(flushCmsSave, SAVE_DEBOUNCE_MS);
+  }
+}
+
+function flushCmsSave(){
+  if(cmsSaveInFlight || !queuedCmsState) return;
+  if(cmsSaveTimer) clearTimeout(cmsSaveTimer);
+  cmsSaveTimer = null;
+  const state = queuedCmsState;
+  queuedCmsState = null;
+  const requestId = `values-${Date.now()}-${Math.random().toString(36).slice(2,9)}`;
+  cmsSaveInFlight = requestId;
+  postToParent({type:'SKILL_SAVE_REQUEST',protocolVersion:PROTOCOL_VERSION,requestId,skillSlug:SKILL_SLUG,state});
+}
+
+function migrateLegacyLocal(){
+  if(storageMode !== 'local' || !localStorageKey) return;
+  try {
+    const legacyRaw = localStorage.getItem(LEGACY_VALUES_KEY);
+    const legacyAlignRaw = localStorage.getItem(LEGACY_ALIGN_KEY);
+    if(!legacyRaw && !legacyAlignRaw) return;
+    if(!window.confirm('Progress was found on this device. Use it for this profile?')) return;
+    const legacy = legacyRaw ? JSON.parse(legacyRaw) : {};
+    const legacyAlign = legacyAlignRaw ? JSON.parse(legacyAlignRaw) : {};
+    applyState({selectedValues:legacy.selected || [],customValues:legacy.customValues || [],pivotValue:legacy.pivotState && legacy.pivotState.value,situation:legacy.pivotState && legacy.pivotState.situation,chosenAction:legacy.pivotState && legacy.pivotState.action,startingState:legacy.pivotState && legacy.pivotState.begin,alignmentHistory:legacyAlign.history || []});
+    if(saveLocal()){
+      localStorage.removeItem(LEGACY_VALUES_KEY);
+      localStorage.removeItem(LEGACY_ALIGN_KEY);
+    }
+  } catch(error){}
+}
+
+function clearDeviceProgress(){
+  if(storageMode !== 'local' || !localStorageKey) return;
+  try { localStorage.removeItem(localStorageKey); } catch(error){
+    showInlineStatus('savedMsg','Could not clear this exercise from this device.');
+    return;
+  }
+  applyState(blankState());
+  renderAll();
+  showInlineStatus('savedMsg','Cleared from this device');
 }
 
 function markStackDirty(){
@@ -460,30 +585,8 @@ function addCustomValue(){
 
 function saveValues(){
   if(!canSaveValues()) return;
-  persist();
-  showInlineStatus('savedMsg', 'Saved.');
-  postToParent({type:'saveValues', values:selected});
-}
-
-function applySubscriberValues(values){
-  if(!Array.isArray(values)) return;
-  const incoming = values
-    .map(v => String(v || '').trim())
-    .map(v => v === 'Stability' ? 'Steadiness' : v)
-    .filter(Boolean)
-    .slice(0, 3);
-  incoming.forEach(name => {
-    if(!valueByName(name)){
-      customValues.push({
-        name,
-        desc:`Practicing ${name.toLowerCase()} through one clear action.`,
-        pivot:`What would ${name.toLowerCase()} look like in action right now?`
-      });
-    }
-  });
-  selected = incoming.filter(v => valueByName(v)).slice(0, 3);
-  persist();
-  renderAll();
+  if(storageMode === 'local') saveLocal('savedMsg');
+  if(storageMode === 'cms') queueCmsSave(true,'savedMsg');
 }
 
 function renderCore3(){
@@ -691,14 +794,6 @@ function checkinRecommendation(){
 
 function saveAlignment(){
   const date = localDateKey();
-  let history = [];
-  try {
-    const raw = localStorage.getItem(ALIGN_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      history = Array.isArray(data.history) ? data.history : [];
-    }
-  } catch(e){}
   const entry = {
     date,
     displayDate:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
@@ -706,36 +801,28 @@ function saveAlignment(){
     recommendation:checkinRecommendation(),
     action:pivotState.action || ''
   };
-  history = history.filter(item => item.date !== date);
-  history.unshift(entry);
-  history = history.slice(0,7);
-  localStorage.setItem(ALIGN_KEY, JSON.stringify({history}));
-  showInlineStatus('alignSaved', 'Saved.');
+  alignmentHistory = alignmentHistory.filter(item => item.date !== date);
+  alignmentHistory.unshift(entry);
+  alignmentHistory = alignmentHistory.slice(0,7);
+  if(storageMode === 'local') saveLocal('alignSaved');
+  if(storageMode === 'cms') queueCmsSave(true,'alignSaved');
   renderHistory();
 }
 
 function renderHistory(){
   const el = document.getElementById('historyList');
-  let history = [];
-  try {
-    const raw = localStorage.getItem(ALIGN_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      history = Array.isArray(data.history) ? data.history : [];
-    }
-  } catch(e){}
-  if(!history.length){
+  if(!alignmentHistory.length){
     el.innerHTML = '';
     return;
   }
-  el.innerHTML = history.slice(0,5).map(item => `<div class="history-item"><strong>${escapeHtml(item.displayDate || item.date)}:</strong> ${escapeHtml(item.recommendation || 'Practice one small value-based action.')}</div>`).join('');
+  el.innerHTML = alignmentHistory.slice(0,5).map(item => `<div class="history-item"><strong>${escapeHtml(item.displayDate || item.date)}:</strong> ${escapeHtml(item.recommendation || 'Practice one small value-based action.')}</div>`).join('');
 }
 
-function showInlineStatus(id, text){
+function showInlineStatus(id, text, sticky){
   const el = document.getElementById(id);
   el.textContent = text;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2400);
+  if(!sticky) setTimeout(() => el.classList.remove('show'), 3200);
 }
 
 function buildSkillStack(){
@@ -807,14 +894,37 @@ function renderAll(){
   renderHistory();
 }
 
-load();
+function initializeSkill(message){
+  storageMode = message.storageMode === 'cms' ? 'cms' : 'local';
+  localNamespace = storageMode === 'local' ? String(message.localNamespace || 'guest').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,64) || 'guest' : null;
+  localStorageKey = storageMode === 'local' ? `wtd:skill:v3:${localNamespace}:${SKILL_SLUG}` : null;
+  applyState(storageMode === 'cms' ? message.state : (loadLocalState() || blankState()));
+  if(storageMode === 'local') migrateLegacyLocal();
+  initialized = true;
+  const notice = document.getElementById('storageNotice');
+  const clearButton = document.getElementById('clearDeviceBtn');
+  notice.classList.toggle('show', storageMode === 'local');
+  clearButton.hidden = storageMode !== 'local';
+  renderAll();
+}
+
 renderAll();
 
 window.addEventListener('message', function(event){
   if(event.origin !== SAFE_PARENT_ORIGIN || event.source !== window.parent) return;
   const msg = event.data || {};
-  if(msg.type === 'subscriberValues' || msg.type === 'valuesData'){
-    applySubscriberValues(msg.values || []);
+  if(msg.type === 'SKILL_INIT' && msg.protocolVersion === PROTOCOL_VERSION && msg.skillSlug === SKILL_SLUG){
+    initializeSkill(msg);
+    return;
+  }
+  if(msg.type === 'SKILL_SAVE_RESULT' && msg.requestId === cmsSaveInFlight){
+    cmsSaveInFlight = null;
+    if(msg.ok){
+      showInlineStatus(cmsStatusTarget,'Saved to your account');
+    } else {
+      showInlineStatus(cmsStatusTarget,'Not saved. Keep this page open and try again.');
+    }
+    if(queuedCmsState) flushCmsSave();
     return;
   }
   if(msg.type !== 'dashboardSaveResult' || msg.action !== 'skillStackSaved') return;
@@ -836,7 +946,7 @@ window.addEventListener('message', function(event){
   status.classList.add('show');
 });
 
-try { postToParent({type:'valuesCompassReady'}); } catch(e){}
+try { postToParent({type:'SKILL_READY',protocolVersion:PROTOCOL_VERSION,skillSlug:SKILL_SLUG}); } catch(e){}
 </script>
 </body>
 </html>

@@ -152,6 +152,13 @@ body {
   padding:0;
   margin-bottom:18px;
 }
+.field-label { display:block; color:var(--navy); font-weight:800; margin-bottom:8px; }
+.optional-panel { margin-top:16px; border:1px solid var(--border); border-radius:10px; background:var(--white); }
+.optional-panel summary { cursor:pointer; padding:14px 16px; color:var(--navy); font-weight:800; }
+.optional-content { padding:0 16px 16px; }
+.save-destination { margin-top:16px; }
+.history-clear { margin-top:10px; border:0; background:none; color:var(--blue); text-decoration:underline; font:inherit; font-weight:700; cursor:pointer; }
+.history-line { color:var(--muted); font-size:.88rem; line-height:1.5; margin-top:8px; }
 .progress-wrap { display:flex; justify-content:center; align-items:center; gap:0; margin:0 0 18px; }
 .pdot { width:8px; height:8px; border-radius:50%; background:var(--border); transition:.3s; }
 .pdot[aria-current="step"] { background:var(--blue); transform:scale(1.35); }
@@ -435,22 +442,21 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
   <div class="card">
     <h2>Choose where your attention goes.</h2>
-    <p>Directing your attention means choosing where to place your focus rather than allowing every notification, thought, urge, or demand to pull you in a different direction.</p>
-    <p>This matters because your attention shapes what you feed, what you react to, and what you are able to do next. When attention gets pulled everywhere, you can lose the present moment, scroll longer than you meant to, feed a worry loop, or react before you have a chance to choose.</p>
-    <p>This practice gives your mind one simple job: follow a small stone as it slowly sinks through clear water. Each time your attention wanders and you bring it back, you are practicing how to choose your focus on purpose.</p>
-  </div>
-
-  <div class="notice-box">
-    <strong>Use this when:</strong> notifications, thoughts, urges, worries, headlines, or other people's demands keep pulling your attention away from what matters right now.
-  </div>
-
-  <div class="prompt-box">
-    <strong>What it can feel like:</strong> your body may settle a little, your breathing may slow, and your mind may feel less scattered. You may notice a small pause between the pull and your next choice.
+    <p>Use a slowly sinking stone as one simple place to put your attention.</p>
+    <p>When your focus wanders, notice the pull and return to the stone. Each return practices choosing your focus on purpose.</p>
   </div>
 
   <div class="btn-row">
-    <button class="btn btn-primary btn-full" onclick="goTo('screen-choose')">Begin the practice →</button>
+    <button class="btn btn-primary btn-full" onclick="goTo('screen-choose')">Start Stone Focus →</button>
   </div>
+
+  <details class="optional-panel">
+    <summary>When this practice may help</summary>
+    <div class="optional-content">
+      <div class="notice-box"><strong>Use this when:</strong> notifications, thoughts, urges, worries, headlines, or other people's demands keep pulling your attention away from what matters right now.</div>
+      <div class="prompt-box"><strong>What it can feel like:</strong> your body may settle a little, your breathing may slow, and your mind may feel less scattered.</div>
+    </div>
+  </details>
 </div>
 
 <div class="screen" id="screen-choose">
@@ -506,12 +512,13 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
       <button class="duration-chip selected" aria-pressed="true" onclick="setPracticeDuration(60, this)">60 seconds</button>
       <button class="duration-chip" aria-pressed="false" onclick="setPracticeDuration(90, this)">90 seconds</button>
     </div>
-    <div class="timer" id="timer">60</div>
+    <div class="timer" id="timer" role="timer" aria-live="off">60</div>
     <div class="timer-label" id="timer-label">seconds of steady focus</div>
   </div>
 
   <div class="btn-row">
     <button class="btn btn-primary" id="start-btn" onclick="startPractice()">Start</button>
+    <button class="btn btn-secondary" id="finish-early-btn" onclick="finishPracticeEarly()" disabled>Finish early</button>
     <button class="btn btn-secondary" onclick="resetPractice()">Reset</button>
   </div>
 </div>
@@ -533,8 +540,8 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
   <div class="card">
     <div class="small-label">Quick reflection</div>
-    <h3>Where could you use this today?</h3>
-    <textarea id="reflection" placeholder="Example: When I start scrolling before bed, I can pause, picture the stone sinking, and shift my focus to getting ready for sleep." oninput="postReflectionUpdate()"></textarea>
+    <label class="field-label" for="reflection">Where could you use this today?</label>
+    <textarea id="reflection" placeholder="Example: Before opening email, I can picture the stone sinking and choose what needs my attention first." oninput="postReflectionUpdate()"></textarea>
   </div>
 
   <div class="notice-box">
@@ -589,13 +596,22 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
     <strong>Next challenge:</strong> <span id="next-challenge">Choose how difficult returning felt, then this practice will suggest your next step.</span>
   </div>
 
-  <div class="btn-row">
-    <a class="btn btn-primary" href="https://www.whattodo.coach/terribot-premium" target="_blank" rel="noopener">Ask TerriBot to help you direct your attention</a>
-    <a class="btn btn-secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
-    <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button>
-    <button class="btn btn-secondary" onclick="practiceAgain()">Practice again</button>
-    <button class="btn btn-secondary" onclick="startOver()">Start over</button>
+  <div class="notice-box save-destination" id="practiceSaveStatus" role="status" aria-live="polite" aria-atomic="true">
+    <span><strong>Not saved yet.</strong> Free practice saves on this browser. Signed-in subscribers can save progress, reflection, and survey answers to their What To Do! account.</span>
+    <div class="history-line" id="historyLine">No practice history saved on this browser yet.</div>
+    <button class="history-clear" type="button" onclick="clearPracticeHistory()">Clear practice history</button>
   </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" id="saveDoneBtn" onclick="saveAndFinish()">Save / Done</button>
+    <button class="btn btn-secondary" onclick="practiceAgain()">Practice again</button>
+  </div>
+  <details class="optional-panel">
+    <summary>More support</summary>
+    <div class="optional-content"><div class="btn-row">
+      <a class="btn btn-secondary" href="https://www.whattodo.coach/terribot-premium" target="_blank" rel="noopener">Ask TerriBot for help directing your attention</a>
+      <a class="btn btn-secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Answer ten short feedback questions</a>
+    </div></div>
+  </details>
   <div class="save-status" id="saveStatus" role="status" aria-live="polite" aria-atomic="true"></div>
 </div>
 
@@ -603,10 +619,12 @@ input[type="number"]:focus { outline:none; border-color:var(--blue); }
 
 <script>
 const SAFE_PARENT_ORIGIN = 'https://www.whattodo.coach';
+const HISTORY_KEY = 'stoneFocusPracticeHistory';
 let pullChoice = '';
 let timer = null;
 let seconds = 60;
 let practiceDuration = 60;
+let completedSeconds = 0;
 let wanderCount = '';
 let returnDifficulty = '';
 let realUse = '';
@@ -675,7 +693,7 @@ function postReflectionUpdate(){
       skillTitle:'Direct Your Attention with Stone Focus Practice',
       pullChoice,
       reflection:document.getElementById('reflection')?.value || '',
-      secondsCompleted:practiceDuration,
+      secondsCompleted:completedSeconds || practiceDuration,
       attentionWanderCount:wanderCount,
       returnDifficulty,
       realUse,
@@ -815,30 +833,46 @@ function startPractice(){
   clearInterval(timer);
   sessionId++;
   seconds = practiceDuration;
+  completedSeconds = 0;
   resetSaveUi();
   document.getElementById('timer').textContent = seconds;
   document.querySelectorAll('.duration-chip').forEach(b => b.disabled = true);
   document.getElementById('start-btn').disabled = true;
   document.getElementById('start-btn').textContent = 'Practicing...';
+  document.getElementById('finish-early-btn').disabled = false;
   const stone = document.getElementById('stone');
   stone.style.transition = prefersReducedMotion() ? 'none' : `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
   document.getElementById('stone').classList.add('settle');
   updateSceneText();
   announce(`Timer started for ${practiceDuration} seconds.`);
-  timer = setInterval(() => {
-    seconds--;
-    document.getElementById('timer').textContent = seconds;
-    updateSceneText();
-    if(seconds <= 0){
-      clearInterval(timer);
-      timer = null;
-      document.getElementById('start-btn').disabled = false;
-      document.getElementById('start-btn').textContent = 'Practice again';
-      document.getElementById('complete-title').textContent = `You completed ${practiceDuration} seconds.`;
-      announce(`Timer complete. You completed ${practiceDuration} seconds.`);
-      setTimeout(() => goTo('screen-reflect'), 900);
-    }
-  }, 1000);
+  timer = setInterval(tickPracticeTimer, 1000);
+}
+
+function tickPracticeTimer(){
+  seconds--;
+  document.getElementById('timer').textContent = seconds;
+  updateSceneText();
+  if (seconds > 0) return;
+  clearInterval(timer);
+  timer = null;
+  completedSeconds = practiceDuration;
+  document.getElementById('start-btn').disabled = false;
+  document.getElementById('start-btn').textContent = 'Practice again';
+  document.getElementById('finish-early-btn').disabled = true;
+  document.getElementById('complete-title').textContent = `You completed ${practiceDuration} seconds.`;
+  announce(`Timer complete. You completed ${practiceDuration} seconds.`);
+  setTimeout(() => goTo('screen-reflect'), prefersReducedMotion() ? 0 : 900);
+}
+
+function finishPracticeEarly(){
+  if (!timer) return;
+  clearInterval(timer);
+  timer = null;
+  completedSeconds = Math.max(1, practiceDuration - seconds);
+  document.getElementById('finish-early-btn').disabled = true;
+  document.getElementById('complete-title').textContent = `You practiced for ${completedSeconds} seconds.`;
+  announce(`Practice finished early after ${completedSeconds} seconds. Reflection opened.`);
+  goTo('screen-reflect');
 }
 
 function updateSceneText(){
@@ -854,6 +888,7 @@ function pausePracticeOnExit(){
   document.querySelectorAll('.duration-chip').forEach(b => b.disabled = false);
   document.getElementById('start-btn').disabled = false;
   document.getElementById('start-btn').textContent = 'Start';
+  document.getElementById('finish-early-btn').disabled = true;
   announce('Practice stopped because you left the screen.');
 }
 
@@ -866,6 +901,7 @@ function resetPractice(){
   document.querySelectorAll('.duration-chip').forEach(b => b.disabled = false);
   document.getElementById('start-btn').disabled = false;
   document.getElementById('start-btn').textContent = 'Start';
+  document.getElementById('finish-early-btn').disabled = true;
   const stone = document.getElementById('stone');
   stone.style.transition = 'none';
   stone.classList.remove('settle');
@@ -873,6 +909,83 @@ function resetPractice(){
   stone.style.transition = prefersReducedMotion() ? 'none' : `top ${practiceDuration}s linear, transform ${practiceDuration}s linear`;
   document.getElementById('scene-text').textContent = 'Picture a small stone at the surface of a quiet lake.';
   announce('Practice timer reset.');
+}
+
+function readHistory(){
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+  catch (error) { return []; }
+}
+
+function buildPracticeSession(){
+  const completedAt = new Date().toISOString();
+  const reflection = document.getElementById('reflection')?.value || '';
+  return {
+    sessionKey:`stone-focus-${completedAt}-${sessionId}`,
+    skillSlug:'stone-focus-practice',
+    skillTitle:'Direct Your Attention with Stone Focus Practice',
+    completedAt,
+    durationSeconds:completedSeconds || practiceDuration,
+    secondsCompleted:completedSeconds || practiceDuration,
+    plannedSeconds:practiceDuration,
+    pullChoice,
+    reflection,
+    action:reflection,
+    attentionWanderCount:wanderCount,
+    returnDifficulty,
+    difficulty:returnDifficulty,
+    realUse,
+    environmentalBoundary:`Pull: ${pullChoice || 'Not answered'}; Wandered: ${wanderCount || 'Not answered'}; Real-life use: ${realUse || 'Not answered'}`,
+    nextChallenge,
+    recommendedNextPractice:nextChallenge
+  };
+}
+
+function browserSaveStatus(){
+  return '<span><strong>Saved on this browser.</strong> Progress, reflection, and survey answers are in this browser history only.</span><div class="history-line" id="historyLine"></div><button class="history-clear" type="button" onclick="clearPracticeHistory()">Clear practice history</button>';
+}
+
+function accountSaveStatus(){
+  return '<span><strong>Saved to your What To Do! account.</strong> Progress, reflection, and survey answers are stored in your subscriber practice history. Your browser copy is summarized below.</span><div class="history-line" id="historyLine"></div><button class="history-clear" type="button" onclick="clearPracticeHistory()">Clear browser history</button>';
+}
+
+function renderHistoryLine(){
+  const history = readHistory();
+  const line = document.getElementById('historyLine');
+  if (!line) return;
+  if (!history.length) {
+    line.textContent = 'No practice history saved on this browser yet.';
+    return;
+  }
+  const secondsPracticed = history.reduce((sum, item) => sum + (Number(item.secondsCompleted) || 0), 0);
+  line.textContent = `Recent browser history: ${history.length} practice${history.length === 1 ? '' : 's'}, ${secondsPracticed} seconds total. Your latest reflection is saved with the session.`;
+}
+
+function saveAndFinish(){
+  const session = buildPracticeSession();
+  const history = readHistory();
+  history.push(session);
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(-20))); } catch (error) {}
+  recordSkillComplete('save-done');
+  postToParent({type:'skillPracticeSave', payload:{session}});
+  const status = document.getElementById('practiceSaveStatus');
+  if (status) status.innerHTML = browserSaveStatus();
+  renderHistoryLine();
+  const button = document.getElementById('saveDoneBtn');
+  if (button) {
+    button.textContent = 'Saved / Done';
+    button.disabled = true;
+  }
+  announce('Practice saved. Free practice is stored in this browser. Signed-in subscriber saving is being checked.');
+}
+
+function clearPracticeHistory(){
+  try { localStorage.removeItem(HISTORY_KEY); } catch (error) {}
+  renderHistoryLine();
+  const status = document.getElementById('practiceSaveStatus');
+  if (status) {
+    status.querySelector('span').innerHTML = '<strong>Browser history cleared.</strong> New free practices will save on this browser.';
+  }
+  announce('Stone Focus practice history cleared from this browser.');
 }
 
 function resetSaveUi(){
@@ -887,6 +1000,11 @@ function resetSaveUi(){
   if (status) {
     status.textContent = '';
     status.classList.remove('show');
+  }
+  const doneButton = document.getElementById('saveDoneBtn');
+  if (doneButton) {
+    doneButton.disabled = false;
+    doneButton.textContent = 'Save / Done';
   }
 }
 
@@ -932,6 +1050,13 @@ function startOver(){
 window.addEventListener('message', event => {
   if (event.origin !== SAFE_PARENT_ORIGIN || event.source !== window.parent) return;
   const message = event.data || {};
+  if (message.type === 'skillPracticeSaveResult') {
+    const status = document.getElementById('practiceSaveStatus');
+    if (status && message.ok && message.mode === 'account') status.innerHTML = accountSaveStatus();
+    else if (status && message.mode === 'local') status.innerHTML = browserSaveStatus();
+    renderHistoryLine();
+    return;
+  }
   if (message.type !== 'dashboardSaveResult' || message.action !== 'skillStackSaved') return;
   if (saveTimeout) clearTimeout(saveTimeout);
   saveTimeout = null;
@@ -950,6 +1075,7 @@ window.addEventListener('message', event => {
   status.classList.add('show');
   announce('Save did not finish. Please try again.');
 });
+renderHistoryLine();
 </script>
 </body>
 </html>

@@ -918,6 +918,7 @@ function readHistory(){
 
 function buildPracticeSession(){
   const completedAt = new Date().toISOString();
+  const reflection = document.getElementById('reflection')?.value || '';
   return {
     sessionKey:`stone-focus-${completedAt}-${sessionId}`,
     skillSlug:'stone-focus-practice',
@@ -927,11 +928,15 @@ function buildPracticeSession(){
     secondsCompleted:completedSeconds || practiceDuration,
     plannedSeconds:practiceDuration,
     pullChoice,
-    reflection:document.getElementById('reflection')?.value || '',
+    reflection,
+    action:reflection,
     attentionWanderCount:wanderCount,
     returnDifficulty,
+    difficulty:returnDifficulty,
     realUse,
-    nextChallenge
+    environmentalBoundary:`Pull: ${pullChoice || 'Not answered'}; Wandered: ${wanderCount || 'Not answered'}; Real-life use: ${realUse || 'Not answered'}`,
+    nextChallenge,
+    recommendedNextPractice:nextChallenge
   };
 }
 

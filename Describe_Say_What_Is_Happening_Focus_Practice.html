@@ -245,8 +245,6 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
       <div class="panel">
         <h2 tabindex="-1">Your describe summary</h2>
         <div class="summary" id="summaryBox"></div>
-        <label><input id="includePrivateSummary" type="checkbox" style="width:auto;margin-right:8px" onchange="handleInput()"> Include my private reflection in the Skills Stack save.</label>
-        <p class="note orange">By default, Skills Stack saves only the skill name, category, and next practice. Check the box only if you want this private reflection included.</p>
         <div class="btns">
           <a class="btn btn-secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions <span class="sr-only">(opens in a new tab)</span></a>
           <button class="btn btn-primary" id="copySummaryBtn" onclick="copySummary()">Copy summary</button>
@@ -661,7 +659,6 @@ async function copySummary(){
 }
 
 function buildSkillStack(){
-  const includePrivate = $('includePrivateSummary').checked;
   const stack = {
     id:'notice-your-inner-world',
     title:'Notice Your Inner World',
@@ -681,10 +678,6 @@ function buildSkillStack(){
     skills:[{category:'Focus',id:'notice-your-inner-world',name:'Notice Your Inner World',url:WIX_SKILL_URL}],
     updatedAt:new Date().toISOString()
   };
-  if(includePrivate){
-    renderSummary();
-    stack.privateSummary = $('summaryBox').innerText || '';
-  }
   return stack;
 }
 
@@ -754,7 +747,6 @@ function loadState(){
     Object.keys(data).forEach(id => {
       if($(id) && typeof data[id] === 'string') $(id).value = data[id];
     });
-    if($('includePrivateSummary')) $('includePrivateSummary').checked = false;
     document.querySelectorAll('#urgeChoices .choice').forEach(btn => btn.setAttribute('aria-pressed', btn.dataset.urge === selectedUrge ? 'true' : 'false'));
     document.querySelectorAll('#actionChoices .choice').forEach(btn => btn.setAttribute('aria-pressed', btn.dataset.action === selectedAction ? 'true' : 'false'));
   }catch(e){}
@@ -778,7 +770,6 @@ function clearPracticeFields(){
   document.querySelectorAll('textarea,input').forEach(el=>{ if(el.type!=='checkbox') el.value=''; });
   document.querySelectorAll('select').forEach(el=>el.value='');
   document.querySelectorAll('.choice[aria-pressed="true"]').forEach(btn=>btn.setAttribute('aria-pressed','false'));
-  if($('includePrivateSummary')) $('includePrivateSummary').checked=false;
   resetStackUi(); buildTranslation();
 }
 
@@ -796,7 +787,6 @@ function practiceAgain(){
   });
   document.querySelectorAll('select').forEach(el => el.value = '');
   document.querySelectorAll('.choice[aria-pressed="true"]').forEach(btn => btn.setAttribute('aria-pressed','false'));
-  if($('includePrivateSummary')) $('includePrivateSummary').checked = false;
   $('copyStatus').textContent = '';
   resetStackUi();
   mode = keptMode;
@@ -857,7 +847,6 @@ window.addEventListener('message', event => {
 function localStorageAvailable(key){ try{ return Boolean(localStorage.getItem(key)); }catch(e){ return false; } }
 
 loadState();
-if($('includePrivateSummary')) $('includePrivateSummary').checked = false;
 setMode(mode);
 buildTranslation();
 postToParent({type:'noticeInnerWorldReady'});

@@ -766,6 +766,7 @@ function clearDraft(){
   draftSavingEnabled = false;
   if($('keepDraft')) $('keepDraft').checked = false;
   $('clearDraftConfirm').classList.remove('active');
+  setMode(mode);
   announce('Practice and browser-tab draft cleared.');
   showById('learn');
 }
@@ -820,8 +821,10 @@ function resetAll(){
   safeStorageRemove();
   clearPracticeFields();
   draftSavingEnabled=false;
+  mode='quick';
   if($('keepDraft')) $('keepDraft').checked=false;
   $('resetConfirm').classList.remove('active');
+  setMode(mode);
   showById('learn');
   announce('Practice cleared.');
 }

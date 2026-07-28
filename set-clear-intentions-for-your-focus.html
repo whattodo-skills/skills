@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#F7F4ED;--navy:#182047;--blue:#4F5DAD;--blue-bg:#edf1f8;--blue-lt:#8BA4DC;--mint:#B4DACD;--mint-bg:#eaf4f0;--pink:#BD3A59;--pink-bg:#f7e0e6;--orange:#FF6903;--orange-bg:#fff0e7;--text:#1e1e1e;--muted:#6b7280;--border:#e0ddd6;--white:#fff;--shadow:0 2px 12px rgba(0,0,0,.08);--radius:12px}
+:root{--bg:#F7F4ED;--navy:#182047;--blue:#4F5DAD;--blue-bg:#edf1f8;--blue-lt:#8BA4DC;--mint:#B4DACD;--mint-bg:#eaf4f0;--pink:#BD3A59;--pink-bg:#f7e0e6;--orange:#FF6903;--orange-bg:#fff0e7;--text:#1e1e1e;--muted:#596273;--border:#8b93a3;--white:#fff;--shadow:0 2px 12px rgba(0,0,0,.08);--radius:12px}
 body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .site-header{width:100%;background:var(--navy);color:white;padding:20px 24px;text-align:center;border-bottom:4px solid var(--mint)}
@@ -34,7 +34,7 @@ body{font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif;background:var(
 label,.label{display:block;color:var(--muted);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:12px 0 7px}
 textarea,input,select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 13px;font:inherit;font-size:.95rem;line-height:1.55;background:white}
 textarea{min-height:84px;resize:vertical}
-button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(79,93,173,.42);outline-offset:3px;border-color:var(--blue)}
+button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid rgba(79,93,173,.55);outline-offset:3px;border-color:var(--blue)}
 .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .btn{border:0;border-radius:8px;padding:12px 22px;font:inherit;font-weight:800;cursor:pointer;display:inline-flex;justify-content:center;align-items:center}
 .btn:disabled{opacity:.45;cursor:not-allowed}
@@ -56,6 +56,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
 .status,.validation{color:var(--navy);font-size:.92rem;font-weight:800;line-height:1.45;min-height:1.4em;margin-top:10px}.validation{color:#8f1737}
 .reset-confirm{display:none;border:1.5px solid #ffd1b5;background:var(--orange-bg);border-radius:12px;padding:12px;margin-top:10px;color:#723300;font-weight:800;line-height:1.45}
 .reset-confirm.active{display:block}
+.draft-choice{display:flex;align-items:flex-start;gap:10px;margin:16px 0;color:var(--navy);font-weight:600;line-height:1.45}.draft-choice input{width:auto;margin-top:4px}.draft-choice strong{font-size:1rem;letter-spacing:0;text-transform:none;color:var(--navy)}fieldset{border:0;padding:0;margin:12px 0}legend{font-weight:800;color:var(--navy);margin-bottom:8px}
 .level-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.level-card{border:1.5px solid var(--border);border-radius:12px;padding:12px;background:white}.level-card strong{display:block;color:var(--navy)}.level-card span{display:block;color:var(--muted);font-size:.84rem;line-height:1.35}
 .footer{color:var(--muted);font-size:.75rem;text-align:center;padding:0 16px 24px}
 @media(max-width:640px){.grid,.level-grid{grid-template-columns:1fr}.btn{width:100%}.circle{width:140px;height:140px}}
@@ -81,6 +82,8 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
       <p>You may know what needs to be done and still feel frozen. A clear intention gives your focus a starting cue, a tiny action, and a short time limit.</p>
       <div class="box mint"><strong>The intention formula:</strong> When [cue] happens, I will [tiny first step] for [duration].</div>
       <p>The goal is not to finish everything. The goal is to begin intentionally and learn what helps you return to focused action.</p>
+      <p>This is a self-guided skill-building exercise, not therapy or emergency support.</p>
+      <label class="draft-choice"><input id="keepDraft" type="checkbox" onchange="toggleDraftRetention(this.checked)"><span><strong>Keep an unfinished draft in this browser tab</strong><br>When enabled, your entries remain in this browser tab if the page reloads. This is separate from saving a completed practice and does not sync.</span></label>
       <div class="btns"><button class="btn primary full" onclick="go('name')">Start here</button></div>
     </div>
   </section>
@@ -101,26 +104,26 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     <div class="card">
       <h2 tabindex="-1">Notice what makes starting hard</h2>
       <p>Choose the main barrier. This changes the strategy, because different starting problems need different support.</p>
-      <div class="choices" id="reasonList" role="group" aria-label="Main starting barrier">
+      <fieldset><legend>Main starting barrier</legend><div class="choices" id="reasonList" role="group" aria-label="Main starting barrier">
         <button class="choice" type="button" aria-pressed="false" data-reason="Too big" onclick="pickReason(this)">It feels too big.<span class="desc">Reduce the scope to one visible action.</span></button>
         <button class="choice" type="button" aria-pressed="false" data-reason="Unclear" onclick="pickReason(this)">I do not know where to begin.<span class="desc">Define what finished looks like, then choose the first visible step.</span></button>
         <button class="choice" type="button" aria-pressed="false" data-reason="Fear of failure" onclick="pickReason(this)">I am afraid I will mess it up.<span class="desc">Create a deliberately rough first attempt.</span></button>
         <button class="choice" type="button" aria-pressed="false" data-reason="Boring or unpleasant" onclick="pickReason(this)">It is boring or unpleasant.<span class="desc">Use a short timer, reward, or environmental support.</span></button>
         <button class="choice" type="button" aria-pressed="false" data-reason="Inner critic" onclick="pickReason(this)">My inner critic is loud.<span class="desc">Use a compassionate response and define good enough.</span></button>
         <button class="choice" type="button" aria-pressed="false" data-reason="Other" onclick="pickReason(this)">Something else.<span class="desc">Name your own barrier.</span></button>
-      </div>
+      </div></fieldset>
       <label for="otherReason">Custom barrier</label>
       <input id="otherReason" placeholder="Example: I am tired, distracted, or unsure it matters." oninput="setCustomReason(this.value)">
       <div class="recommendation" id="strategyBox" aria-live="polite"><strong>Barrier strategy</strong>Choose a barrier to get a starting strategy.</div>
       <h3>Notice the avoidance loop</h3>
       <p>Choose any patterns you notice. Avoidance can look active and productive.</p>
-      <div class="choices" id="avoidanceList">
+      <fieldset><legend>Avoidance patterns noticed</legend><div class="choices" id="avoidanceList">
         <button class="choice" type="button" aria-pressed="false" data-loop="scrolling" onclick="toggleLoop(this)">I start scrolling.</button>
         <button class="choice" type="button" aria-pressed="false" data-loop="over-planning" onclick="toggleLoop(this)">I over-plan instead of starting.</button>
         <button class="choice" type="button" aria-pressed="false" data-loop="doing an easier task" onclick="toggleLoop(this)">I do another easier task.</button>
         <button class="choice" type="button" aria-pressed="false" data-loop="rumination" onclick="toggleLoop(this)">I replay thoughts in my head.</button>
         <button class="choice" type="button" aria-pressed="false" data-loop="deadline pressure" onclick="toggleLoop(this)">I wait until pressure forces me.</button>
-      </div>
+      </div></fieldset>
       <div class="validation" id="barrierValidation" aria-live="polite"></div>
       <div class="btns"><button class="btn secondary" onclick="go('name')">Back</button><button class="btn primary" onclick="goIntend()">Set intention</button></div>
     </div>
@@ -132,19 +135,21 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
       <p>This is where the skill becomes specific: choose the cue, tiny step, and duration.</p>
       <label for="stepText">Tiny first step</label>
       <textarea id="stepText" placeholder="Example: open the document, write one rough sentence, put the laundry basket by the washer" oninput="updateState()"></textarea>
+      <label for="whyText">Why does beginning this matter today? (optional)</label>
+      <input id="whyText" placeholder="Example: It reduces tomorrow's pressure or supports something I value." oninput="updateState()">
       <label for="smallEnough">Could you begin this in under one minute?</label>
       <select id="smallEnough" onchange="updateState()"><option value="">Choose one</option><option>Yes</option><option>Not yet - make it smaller</option></select>
       <label for="cueType">When will you begin?</label>
-      <select id="cueType" onchange="updateState()"><option value="">Choose a cue</option><option>Now</option><option>After my next break</option><option>At a specific time</option><option>After another activity</option></select>
+      <select id="cueType" onchange="updateState();cueChanged();renderPlan()"><option value="">Choose a cue</option><option>Now</option><option>After my next break</option><option>At a specific time</option><option>After another activity</option></select>
       <label for="cueDetail">Cue detail</label>
-      <input id="cueDetail" placeholder="Example: after lunch, at 3:00, after I close this tab." oninput="updateState()">
-      <label for="place">Where will you do it?</label>
+      <input id="cueDetail" placeholder="Choose a cue first." oninput="updateState()">
+      <label for="place">Where, if location matters</label>
       <input id="place" placeholder="Example: at my desk, kitchen table, library, laundry room." oninput="updateState()">
       <label for="minutes">Duration</label>
       <select id="minutes" onchange="updateState()"><option value="2">2 minutes</option><option value="5" selected>5 minutes</option><option value="10">10 minutes</option></select>
       <div class="box blue" id="planBox" aria-live="polite"></div>
       <div class="validation" id="intendValidation" aria-live="polite"></div>
-      <div class="btns"><button class="btn secondary" onclick="go('barrier')">Back</button><button class="btn primary" id="startBtn" onclick="startTimer()">Start the intention</button></div>
+      <div class="btns"><button class="btn secondary" onclick="go('barrier')">Back</button><button class="btn primary" id="startBtn" onclick="continueFromIntention()">Continue</button></div>
     </div>
   </section>
 
@@ -154,7 +159,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
       <div class="circle" id="circle"><div class="time" id="time">5:00</div></div>
       <p id="timerText"></p>
       <div class="box blue">If your mind argues, answer with: "I only have to begin the tiny step."</div>
-      <div class="btns"><button class="btn secondary" id="pauseBtn" onclick="pauseResume()">Pause</button><button class="btn primary" onclick="finishTimer()">Finish early</button></div>
+      <div class="btns"><button class="btn secondary" id="pauseBtn" onclick="pauseResume()">Pause</button><button class="btn primary" onclick="endPracticeEarly()">Finish early</button><button class="btn warning" onclick="interruptPractice()">I was interrupted</button></div>
       <div class="status" id="timerStatus" aria-live="polite"></div>
     </div>
   </section>
@@ -178,9 +183,10 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
     <div class="grid">
       <div class="card">
         <h2 tabindex="-1">Your focus intention summary</h2>
-        <div class="summary" id="summaryBox" aria-live="polite"></div>
-        <div class="btns"><a class="btn secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a><button class="btn primary" id="copySummaryBtn" onclick="copySummary()">Copy summary</button><button class="btn secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button><button class="btn secondary" onclick="practiceAgain()">Practice again</button><button class="btn warning" onclick="clearDraft()">Clear saved draft</button><button class="btn secondary" onclick="requestStartOver()">Start over</button></div>
-        <div class="reset-confirm" id="resetConfirm" aria-live="polite">Clear this practice and start over?<div class="btns"><button class="btn warning" onclick="resetAll()">Yes, start over</button><button class="btn secondary" onclick="cancelStartOver()">Keep practicing</button></div></div>
+        <div class="summary" id="summaryBox"></div>
+        <label class="draft-choice"><input id="includeDetailedSummary" type="checkbox" onchange="resetStackUi()"><span><strong>Include my detailed intention and review</strong><br>When selected, the task, starting barrier, avoidance patterns, location, result, and written reflection will be included in the saved practice.</span></label>
+        <div class="btns"><a class="btn secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us improve this skill <span class="sr-only">(opens in a new tab)</span></a><button class="btn primary" id="copySummaryBtn" onclick="copySummary()">Copy summary</button><button class="btn secondary" id="saveStackBtn" onclick="savePractice()">Save practice</button><button class="btn secondary" id="rehearseBtn" onclick="startRehearsal()" hidden>Rehearse the first 20 seconds now</button><button class="btn secondary" onclick="practiceAgain()">Practice again</button><button class="btn warning" id="clearPracticeBtn" onclick="requestClearPractice()">Clear this practice and browser-tab draft</button><button class="btn secondary" id="startOverBtn" onclick="requestStartOver()">Start over</button></div>
+        <div class="reset-confirm" id="resetConfirm" role="group" aria-labelledby="resetTitle"><strong id="resetTitle">Clear this practice and start over?</strong><div class="btns"><button class="btn warning" onclick="resetAll()">Yes, start over</button><button class="btn secondary" onclick="cancelStartOver()">Keep practicing</button></div></div>
         <div class="status" id="copyStatus" aria-live="polite"></div>
         <div class="status" id="stackStatus" aria-live="polite"></div>
       </div>
@@ -201,7 +207,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
 <div class="footer">What To Do! - self-guided skill building for everyday life.</div>
 <div class="sr-only" id="liveRegion" aria-live="polite"></div>
 
-<script>
+<script type="text/plain" id="legacyIntentionsScript">
 const STORAGE_KEY='wtd_set_clear_intentions_focus_v2';
 const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
 const COMPLETE_FLAGS={};
@@ -269,6 +275,82 @@ function cancelStartOver(){$('resetConfirm').classList.remove('active');announce
 function resetAll(){clearDraft()}
 window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==window.parent)return;const msg=event.data||{};if(msg.type!=='dashboardSaveResult'||msg.action!=='skillStackSaved')return;clearTimeout(saveTimeout);const btn=$('saveStackBtn');btn.disabled=false;if(msg.ok){stackSaved=true;recordSkillComplete('skill-saved');btn.textContent='Saved to Skills Stack';$('stackStatus').textContent='Saved to Skills Stack.';announce('Skills Stack saving successful.')}else{stackSaved=false;btn.textContent='Save to Skills Stack';$('stackStatus').textContent='Save did not finish. Please try again.';announce('Skills Stack saving failed.')}})
 hydrateSteppers();loadState();updateState(false);renderPlan();renderRecommendation();draw();try{postToParent({type:'setClearIntentionsReady'})}catch(e){}
+</script>
+<script>
+const STORAGE_KEY_V3='wtd_set_clear_intentions_tab_draft_v3';
+const DRAFT_ENABLED_KEY='wtd_set_clear_intentions_draft_enabled_v1';
+const BROWSER_SAVE_KEY='wtd_set_clear_intentions_saved_v1';
+const SAFE_PARENT_ORIGIN_V3='https://www.whattodo.coach';
+const WIX_SKILL_URL='https://www.whattodo.coach/skills-hub/set-clear-intentions-for-your-focus';
+const st={task:'',reason:'',customReason:'',loops:[],step:'',why:'',smallEnough:'',cueType:'',cueDetail:'',place:'',minutes:5,outcome:'',manageability:'',helped:'',status:'',plannedDurationSeconds:300,activeDurationSeconds:0,timerStarted:false,completionReason:'not-started',completedFullDuration:false,rehearsal:false};
+let sessionIdV3=newSessionIdV3(),runningV3=false,activeStartedAt=0,accumulatedActiveMs=0,timerV3=null,draftEnabled=false,saveTimeoutV3=null,pendingRequestId='',lastResetTrigger=null;
+const $=id=>document.getElementById(id);
+const val=id=>($(id)?.value||'').trim();
+const safeGet=(key,store=sessionStorage)=>{try{return store.getItem(key)}catch(e){return null}};
+const safeSet=(key,value,store=sessionStorage)=>{try{store.setItem(key,value);return true}catch(e){return false}};
+const safeRemove=(key,store=sessionStorage)=>{try{store.removeItem(key)}catch(e){}};
+function newSessionIdV3(){return `clear-intention-${Date.now()}-${Math.random().toString(36).slice(2,9)}`}
+function announce(text){$('liveRegion').textContent='';setTimeout(()=>{$('liveRegion').textContent=text},10)}
+function postToParent(message){if(window.parent!==window)window.parent.postMessage(message,SAFE_PARENT_ORIGIN_V3)}
+function milestone(type){postToParent({type:'skillComplete',skillTitle:'Set Clear Intentions For Your Focus',skillSlug:'set-clear-intentions-for-your-focus',completionType:type,sessionId:sessionIdV3})}
+function motion(){return matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}
+function updateState(resetSave=true){st.task=val('taskText');st.customReason=val('otherReason');st.step=val('stepText');st.why=val('whyText');st.smallEnough=val('smallEnough');st.cueType=val('cueType');st.cueDetail=val('cueDetail');st.place=val('place');st.minutes=Number(val('minutes')||5);st.plannedDurationSeconds=st.rehearsal?20:st.minutes*60;st.outcome=val('outcome');st.manageability=val('manageability');st.helped=val('helped');renderStrategy();renderPlan();renderRecommendation();renderSummary();if(resetSave)resetStackUi();saveDraft()}
+function setInvalid(id,errorId,message){clearInvalid();const field=$(id),error=$(errorId);error.textContent=message;if(field){field.setAttribute('aria-invalid','true');field.setAttribute('aria-describedby',errorId);field.focus()}announce(message)}
+function clearInvalid(){document.querySelectorAll('[aria-invalid="true"]').forEach(el=>el.removeAttribute('aria-invalid'));['nameValidation','barrierValidation','intendValidation','reviewValidation'].forEach(id=>{if($(id))$(id).textContent=''})}
+function taskComplete(){return Boolean(st.task)}
+function barrierComplete(){return Boolean(st.reason||st.customReason)}
+function cueNeedsDetail(){return ['At a specific time','After another activity'].includes(st.cueType)}
+function intentionComplete(){return Boolean(taskComplete()&&barrierComplete()&&st.step&&st.smallEnough==='Yes'&&st.cueType&&(!cueNeedsDetail()||st.cueDetail)&&st.minutes)}
+function practiceOutcomeExists(){return ['timer-ended','user-ended','interrupted'].includes(st.completionReason)}
+function reviewComplete(){return Boolean(practiceOutcomeExists()&&st.outcome&&st.manageability&&(st.outcome!=='Something else'||st.helped))}
+function allowedScreen(id){if(['learn','name'].includes(id))return true;if(id==='barrier')return taskComplete();if(id==='intend')return taskComplete()&&barrierComplete();if(id==='begin')return intentionComplete()&&st.timerStarted;if(id==='review')return practiceOutcomeExists();if(id==='summary')return st.status==='planned'?intentionComplete():reviewComplete();return false}
+function go(id){updateState(false);if(!allowedScreen(id)){if(!taskComplete())return setInvalid('taskText','nameValidation','Name one specific task before continuing.');if(!barrierComplete())return setInvalid('reasonList','barrierValidation','Choose or write the main starting barrier.');if(!intentionComplete())return validateIntention();if(id==='begin')return announce('Use Continue to start the timed attempt.');if(id==='review'||id==='summary')return announce('Complete or end the timed attempt before reviewing it.')}if(document.querySelector('.screen.active')?.id==='begin'&&id!=='begin'&&runningV3)pauseTimer(true);document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.tab').forEach(t=>t.getAttribute('aria-controls')===id?t.setAttribute('aria-current','step'):t.removeAttribute('aria-current'));if(id==='summary'){renderSummary();milestone('summary-viewed')}$('includeDetailedSummary').checked=false;const h=document.querySelector(`#${id} h2`);if(h)h.focus({preventScroll:true});scrollTo({top:0,behavior:motion()})}
+function goBarrier(){updateState();if(!taskComplete())return setInvalid('taskText','nameValidation','Name one specific task before continuing.');clearInvalid();go('barrier')}
+function goIntend(){updateState();if(!barrierComplete())return setInvalid('reasonList','barrierValidation','Choose or write the main starting barrier.');clearInvalid();go('intend')}
+function pickReason(el){document.querySelectorAll('#reasonList .choice').forEach(b=>b.setAttribute('aria-pressed','false'));st.reason=el.dataset.reason;el.setAttribute('aria-pressed','true');$('otherReason').value='';updateState()}
+function setCustomReason(value){if(value.trim()){st.reason='';document.querySelectorAll('#reasonList .choice').forEach(b=>b.setAttribute('aria-pressed','false'))}updateState()}
+function toggleLoop(el){const loop=el.dataset.loop,on=el.getAttribute('aria-pressed')==='true';el.setAttribute('aria-pressed',String(!on));st.loops=on?st.loops.filter(x=>x!==loop):[...new Set([...st.loops,loop])];updateState()}
+function strategyText(){const r=st.customReason||st.reason;if(r==='Too big')return 'Reduce the scope to one visible action you can start immediately.';if(r==='Unclear')return 'Define what finished looks like, then choose the first visible action.';if(r==='Fear of failure')return 'Make the first attempt deliberately rough. Starting messy counts.';if(r==='Boring or unpleasant')return 'Use a short timer and one small reward or environmental support.';if(r==='Inner critic')return 'Define good enough and answer the critic with a compassionate phrase.';if(r)return `Make the first step specific, visible, and small enough to begin despite ${r}.`;return 'Choose a barrier to get a starting strategy.'}
+function renderStrategy(){const box=$('strategyBox');box.textContent='';const strong=document.createElement('strong');strong.textContent='Barrier strategy';box.append(strong,document.createTextNode(strategyText()))}
+function cleanStep(){return (st.step||'do one tiny first step').replace(/^I will\s+/i,'')}
+function cueText(){if(st.cueType==='Now')return 'Now';if(st.cueType==='At a specific time')return st.cueDetail?`At ${st.cueDetail}`:'At the chosen time';if(st.cueType==='After my next break')return st.cueDetail?`When ${st.cueDetail} ends`:'When my next break ends';if(st.cueType==='After another activity')return st.cueDetail?`After ${st.cueDetail}`:'After the other activity';return 'When my cue occurs'}
+function intentionText(){const place=st.place?(/^(at|in|on|near)\s/i.test(st.place)?` ${st.place}`:` at ${st.place}`):'';return `${cueText()}, I will ${cleanStep()} for ${st.minutes} minutes${place}.`}
+function renderPlan(){$('planBox').textContent=intentionText();$('startBtn').textContent=st.cueType==='Now'?'Start my timed attempt':'Build my intention plan'}
+function cueChanged(){const input=$('cueDetail'),label=document.querySelector('label[for="cueDetail"]');input.type=st.cueType==='At a specific time'?'time':'text';if(st.cueType==='After another activity'){label.textContent='Which activity will finish first?';input.placeholder='Example: I close this tab'}else if(st.cueType==='After my next break'){label.textContent='Which break? (optional)';input.placeholder='Example: my lunch break'}else if(st.cueType==='At a specific time'){label.textContent='Specific time';input.placeholder=''}else{label.textContent='Cue detail';input.placeholder='Not needed when starting now.'}}
+function validateIntention(){updateState(false);if(!st.step)return setInvalid('stepText','intendValidation','Write a specific tiny first step.');if(st.smallEnough!=='Yes')return setInvalid('smallEnough','intendValidation','Make the step small enough to begin in under one minute.');if(!st.cueType)return setInvalid('cueType','intendValidation','Choose when this intention will begin.');if(cueNeedsDetail()&&!st.cueDetail)return setInvalid('cueDetail','intendValidation','Add the cue detail so you know exactly when to begin.');return false}
+function continueFromIntention(){updateState();if(!intentionComplete())return validateIntention();clearInvalid();milestone('intention-created');if(st.cueType==='Now')startTimedAttempt(false);else{st.status='planned';st.timerStarted=false;st.completionReason='not-started';$('rehearseBtn').hidden=false;go('summary')}}
+function activeSeconds(){return Math.max(0,Math.round((accumulatedActiveMs+(runningV3?Date.now()-activeStartedAt:0))/1000))}
+function startTimedAttempt(rehearsal){st.rehearsal=Boolean(rehearsal);st.status='practicing';st.plannedDurationSeconds=rehearsal?20:st.minutes*60;st.timerStarted=true;st.completionReason='';st.completedFullDuration=false;st.activeDurationSeconds=0;accumulatedActiveMs=0;runningV3=false;document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id==='begin'));$('timerText').textContent=rehearsal?`Rehearsal only: practice the first 20 seconds of ${cleanStep()}.`:`Work only on: ${cleanStep()}. Starting counts.`;resumeTimer();milestone('timer-started');const h=$('begin').querySelector('h2');h.focus({preventScroll:true});scrollTo({top:0,behavior:motion()})}
+function startRehearsal(){startTimedAttempt(true)}
+function resumeTimer(){if(runningV3)return;runningV3=true;activeStartedAt=Date.now();$('pauseBtn').textContent='Pause';$('timerStatus').textContent='Timer started.';announce('Timer started.');clearInterval(timerV3);timerV3=setInterval(tickTimer,250);tickTimer()}
+function pauseTimer(silent=false){if(runningV3)accumulatedActiveMs+=Date.now()-activeStartedAt;runningV3=false;clearInterval(timerV3);timerV3=null;st.activeDurationSeconds=activeSeconds();$('pauseBtn').textContent='Resume';if(!silent){$('timerStatus').textContent='Timer paused.';announce('Timer paused.')}saveDraft()}
+function pauseResume(){runningV3?pauseTimer():resumeTimer()}
+function tickTimer(){st.activeDurationSeconds=activeSeconds();const left=Math.max(0,st.plannedDurationSeconds-st.activeDurationSeconds);$('time').textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`;const deg=st.plannedDurationSeconds?((st.plannedDurationSeconds-left)/st.plannedDurationSeconds)*360:0;$('circle').style.background=`conic-gradient(var(--mint) ${deg}deg,var(--blue-bg) ${deg}deg)`;if(left<=0)finishFullTimer()}
+function finishFullTimer(){pauseTimer(true);st.activeDurationSeconds=st.plannedDurationSeconds;st.completionReason='timer-ended';st.completedFullDuration=true;st.status='practiced';$('timerStatus').textContent=`Completed the full ${st.rehearsal?'20-second rehearsal':`${st.minutes}-minute attempt`}.`;milestone('timer-ended');announce($('timerStatus').textContent);prepareReview()}
+function endPracticeEarly(){if(!st.timerStarted)return announce('Start the timer before finishing.');pauseTimer(true);st.completionReason='user-ended';st.completedFullDuration=false;st.status='practiced';$('timerStatus').textContent=`Ended early after ${st.activeDurationSeconds} seconds.`;milestone('practice-ended-early');announce($('timerStatus').textContent);prepareReview()}
+function interruptPractice(){if(!st.timerStarted)return announce('Start the timer before recording an interruption.');pauseTimer(true);st.completionReason='interrupted';st.completedFullDuration=false;st.status='practiced';st.outcome='I was interrupted';$('outcome').value=st.outcome;milestone('practice-interrupted');announce(`Attempt was interrupted after ${st.activeDurationSeconds} seconds.`);prepareReview()}
+function prepareReview(){saveDraft();document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id==='review'));$('review').querySelector('h2').focus({preventScroll:true});scrollTo({top:0,behavior:motion()})}
+function recommendationText(){if(st.status==='planned')return 'Return when the cue occurs, complete the tiny step, and then review what helped.';if(!st.outcome||!st.manageability)return 'Complete the review to get a recommendation.';if(st.outcome==='I still felt stuck'||st.manageability==='Too hard')return 'Choose a more visible first step and shorten the timer.';if(st.manageability==='Too easy')return 'Increase the duration slightly or choose the next small step.';if(st.outcome==='I was interrupted')return 'Keep the intention and add one boundary or environmental support.';if(st.outcome==='I started briefly')return 'Repeat the same cue and tiny step once more.';return 'Repeat this structure or choose the next small step.'}
+function renderRecommendation(){const box=$('recommendation');box.textContent='';const strong=document.createElement('strong');strong.textContent='Next practice';box.append(strong,document.createTextNode(recommendationText()))}
+function goSummary(){updateState(false);if(!reviewComplete()){if(!practiceOutcomeExists())return announce('Complete or end the timed attempt before reviewing it.');if(!st.outcome)return setInvalid('outcome','reviewValidation','Choose what happened during the attempt.');if(!st.manageability)return setInvalid('manageability','reviewValidation','Choose how manageable the first step felt.');return setInvalid('helped','reviewValidation','Write what happened when Something else is selected.')}st.status='practiced';milestone('review-completed');go('summary')}
+function addRow(box,label,value){const row=document.createElement('div');row.className='summary-section';const strong=document.createElement('strong');strong.textContent=label;const div=document.createElement('div');div.textContent=value||'Not written yet';row.append(strong,div);box.append(row)}
+function renderSummary(){const box=$('summaryBox');if(!box)return;box.textContent='';[['Status',st.status==='planned'?'Intention created; real attempt not started':st.status==='practiced'?'Practice attempted':'In progress'],['Task',st.task],['Why it matters',st.why],['Barrier',st.customReason||st.reason],['Starting intention',intentionText()],['Planned duration',`${st.plannedDurationSeconds} seconds`],['Active duration',`${st.activeDurationSeconds} seconds`],['Completion',st.completionReason],['Result',st.outcome],['Manageability',st.manageability],['What helped or got in the way',st.helped],['Next practice',recommendationText()]].forEach(([l,v])=>addRow(box,l,v));$('rehearseBtn').hidden=!(st.status==='planned')}
+function selectSummaryText(){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=getSelection();sel.removeAllRanges();sel.addRange(range);milestone('summary-selected-for-manual-copy')}
+async function copySummary(){renderSummary();const btn=$('copySummaryBtn');try{await navigator.clipboard.writeText($('summaryBox').innerText);milestone('summary-copied');$('copyStatus').textContent='Summary copied.';btn.textContent='Copied'}catch(e){selectSummaryText();$('copyStatus').textContent='Automatic copy was blocked. The summary is selected. Press Control+C or Command+C.'}setTimeout(()=>btn.textContent='Copy summary',1800)}
+function buildSession(){const detailed=$('includeDetailedSummary').checked;const session={sessionKey:sessionIdV3,sessionId:sessionIdV3,skillId:'set-clear-intentions-for-your-focus',skillName:'Set Clear Intentions For Your Focus',status:st.status,plannedDurationSeconds:st.plannedDurationSeconds,activeDurationSeconds:st.activeDurationSeconds,completionReason:st.completionReason,completedFullDuration:st.completedFullDuration,tinyStep:st.step,cueType:st.cueType,cueDetail:st.cueDetail,recommendation:recommendationText(),practiceUrl:WIX_SKILL_URL,detailedSummaryIncluded:detailed};if(detailed)session.detailedSummary={task:st.task,why:st.why,barrier:st.customReason||st.reason,avoidancePatterns:st.loops,place:st.place,outcome:st.outcome,manageability:st.manageability,reflection:st.helped,summary:$('summaryBox').innerText};return session}
+function savePractice(){if(st.status==='planned'&&!intentionComplete())return validateIntention();if(st.status!=='planned'&&!reviewComplete())return announce('Complete the timed attempt and review before saving.');pendingRequestId=`save-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;const session=buildSession(),browserSaved=safeSet(BROWSER_SAVE_KEY,JSON.stringify(session),localStorage);$('saveStackBtn').disabled=true;$('saveStackBtn').textContent='Saving...';postToParent({type:'skillPracticeSave',requestId:pendingRequestId,session});clearTimeout(saveTimeoutV3);saveTimeoutV3=setTimeout(()=>showBrowserSave(browserSaved,false),8000)}
+function showBrowserSave(saved,fallback){$('saveStackBtn').disabled=false;$('saveStackBtn').textContent=saved?'Saved in this browser':'Save practice';$('stackStatus').textContent=saved?(fallback?'Saved in this browser only. We could not save this practice to your account, so it was stored in this browser instead.':'Saved in this browser. This practice is not linked to your account and will not sync to another browser or device.'):'This practice could not be saved. Copy the summary before leaving.';if(saved)milestone('skill-saved-browser');announce($('stackStatus').textContent)}
+function resetStackUi(){if(!$('saveStackBtn'))return;$('saveStackBtn').disabled=false;$('saveStackBtn').textContent='Save practice';$('stackStatus').textContent=''}
+function toggleDraftRetention(enabled){draftEnabled=Boolean(enabled);if(draftEnabled){safeSet(DRAFT_ENABLED_KEY,'true');saveDraft();announce('Browser-tab draft retention turned on.')}else{safeRemove(DRAFT_ENABLED_KEY);safeRemove(STORAGE_KEY_V3);announce('Browser-tab draft retention turned off.')}}
+function saveDraft(){if(!draftEnabled)return;safeSet(STORAGE_KEY_V3,JSON.stringify({sessionIdV3,st:{...st}}))}
+function loadDraft(){draftEnabled=safeGet(DRAFT_ENABLED_KEY)==='true';$('keepDraft').checked=draftEnabled;if(!draftEnabled)return;try{const data=JSON.parse(safeGet(STORAGE_KEY_V3)||'{}');if(data.sessionIdV3)sessionIdV3=data.sessionIdV3;if(data.st)Object.assign(st,data.st);const map={taskText:'task',otherReason:'customReason',stepText:'step',whyText:'why',smallEnough:'smallEnough',cueType:'cueType',cueDetail:'cueDetail',place:'place',minutes:'minutes',outcome:'outcome',manageability:'manageability',helped:'helped'};Object.entries(map).forEach(([id,key])=>{if($(id))$(id).value=st[key]||''});document.querySelectorAll('#reasonList .choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.reason===st.reason)));document.querySelectorAll('#avoidanceList .choice').forEach(b=>b.setAttribute('aria-pressed',String(st.loops.includes(b.dataset.loop))))}catch(e){}}
+function practiceAgain(){sessionIdV3=newSessionIdV3();st.status='';st.timerStarted=false;st.completionReason='not-started';st.completedFullDuration=false;st.activeDurationSeconds=0;st.outcome='';st.manageability='';st.helped='';st.rehearsal=false;['outcome','manageability','helped'].forEach(id=>$(id).value='');$('includeDetailedSummary').checked=false;resetStackUi();saveDraft();go('intend')}
+function requestClearPractice(){lastResetTrigger=document.activeElement;requestStartOver()}
+function requestStartOver(){lastResetTrigger=document.activeElement;$('resetConfirm').classList.add('active');$('resetConfirm').querySelector('button').focus();announce('Confirm whether to clear this practice and start over.')}
+function cancelStartOver(){$('resetConfirm').classList.remove('active');(lastResetTrigger||$('startOverBtn')).focus();announce('Start over canceled.')}
+function resetAll(){pauseTimer(true);safeRemove(STORAGE_KEY_V3);safeRemove(DRAFT_ENABLED_KEY);draftEnabled=false;sessionIdV3=newSessionIdV3();Object.assign(st,{task:'',reason:'',customReason:'',loops:[],step:'',why:'',smallEnough:'',cueType:'',cueDetail:'',place:'',minutes:5,outcome:'',manageability:'',helped:'',status:'',plannedDurationSeconds:300,activeDurationSeconds:0,timerStarted:false,completionReason:'not-started',completedFullDuration:false,rehearsal:false});document.querySelectorAll('textarea,input:not([type="checkbox"]),select').forEach(el=>{if(el.id==='minutes')el.value='5';else el.value=''});document.querySelectorAll('.choice').forEach(b=>b.setAttribute('aria-pressed','false'));$('keepDraft').checked=false;$('includeDetailedSummary').checked=false;$('resetConfirm').classList.remove('active');updateState(false);go('learn');announce('Practice and browser-tab draft cleared.')}
+window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN_V3||event.source!==window.parent)return;const msg=event.data||{};if(msg.type!=='skillPracticeSaveResult'||msg.requestId!==pendingRequestId)return;clearTimeout(saveTimeoutV3);if(msg.ok&&msg.mode==='account'){safeRemove(BROWSER_SAVE_KEY,localStorage);$('saveStackBtn').disabled=false;$('saveStackBtn').textContent='Saved to your account';$('stackStatus').textContent='Saved to your account. This practice is available through your What To Do! account.';milestone('skill-saved-account');announce($('stackStatus').textContent)}else showBrowserSave(Boolean(safeGet(BROWSER_SAVE_KEY,localStorage)),msg.fallbackFrom==='account')});
+loadDraft();cueChanged();updateState(false);$('includeDetailedSummary').checked=false;postToParent({type:'setClearIntentionsReady'});if(window.top===window.self)window.location.replace(WIX_SKILL_URL);
 </script>
 </body>
 </html>

@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Adapting To Change | What To Do!</title>
+<meta name="description" content="Adapting To Change is a guided coping practice that helps you pause, name what changed, separate facts from meanings, and choose one workable next step.">
+<link rel="canonical" href="https://www.whattodo.coach/skills-hub/adapting-to-change">
 <style>
 :root{--navy:#182047;--blue:#4f5dad;--pink:#bd3a59;--mint:#eaf4f0;--blue-bg:#edf1f8;--orange-bg:#fff0e7;--bg:#f7f4ed;--line:#ded8ce;--text:#28313d;--muted:#667085;--white:#fff}
 *{box-sizing:border-box}
@@ -80,6 +82,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <h2 id="learn-title" tabindex="-1">Change can take time to adjust to</h2>
       <p>Adapting does not mean liking the change. It means seeing what is true clearly enough to choose a useful response.</p>
       <div class="note">This is a self-guided practice for manageable changes. Use it only when you are safe enough to pause and reflect.</div>
+      <label><input id="saveDraftOptIn" type="checkbox" onchange="setDraftPreference()"> Keep my unfinished answers in this browser tab if I refresh.</label>
       <h3>Choose Your Skill Practice Version</h3>
       <div class="btns">
         <button class="btn primary" type="button" onclick="chooseMode('quick')">Quick Adapt</button>
@@ -331,10 +334,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   <section class="screen" id="summary" aria-labelledby="summary-title">
     <div class="card">
       <h2 id="summary-title" tabindex="-1">You practiced seeing what changed clearly, making room for your reaction, and adjusting one workable step.</h2>
-      <div class="summary" id="out" aria-live="polite"></div>
+      <div class="summary" id="out"></div>
       <div class="note" id="rec"></div>
-      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my private practice summary in the Skills Stack save.</label>
-      <p class="note">Your draft is temporarily saved for this browser session. Skills Stack saves only the skill unless you check the box above.</p>
+      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my detailed practice summary in this Skills Stack save.</label>
+      <p class="note">By default, Skills Stack saves this skill card so you can find it again. Check the box only if you want the details from this practice included.</p>
       <div class="btns">
         <button class="btn primary" id="copySummaryBtn" type="button" onclick="copySummary()">Copy summary</button>
         <button class="btn primary" id="save" type="button" onclick="saveStack()">Save to Skills Stack</button>
@@ -360,13 +363,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 <script>
 const ORIGIN='https://www.whattodo.coach';
 const URL='https://whattodo-skills.github.io/skills/adapting-to-change.html';
-const STORAGE_KEY='wtd_adapting_to_change_v2';
+const STORAGE_KEY='wtd_adapting_to_change_v3';
 const $=id=>document.getElementById(id);
 let mode='';
 let saveTimer=null;
 let sessionId=newSessionId();
 let eventFlags={};
-const state={safe:false,theme:'',customTheme:'',before:'',now:'',beforeStarter:'',nowStarter:'',selfChange:'',selfJudgment:'',selfChangeStarter:'',selfJudgmentStarter:'',fact:'',meaning:'',confirm:'',factRevised:false,clarityBefore:'',wishBefore:'',clarityAfter:'',wishAfter:'',influence:'',influenceOther:'',action:'',actionOther:'',when:'',specificTime:'',afterCue:'',underFive:'',reaction:[],reactionOther:'',feelings:[],fixed:'',fixedOther:'',unknown:'',unknownOther:'',reality:'',prepare:'',prepareOther:'',flex:'Take a different route',recommendation:'Begin the smallest visible part of your action before trying to solve the entire change.',includePrivate:false};
+const state={safe:false,saveDraftOptIn:false,theme:'',customTheme:'',before:'',now:'',beforeStarter:'',nowStarter:'',selfChange:'',selfJudgment:'',selfChangeStarter:'',selfJudgmentStarter:'',fact:'',meaning:'',confirm:'',factRevised:false,clarityBefore:'',wishBefore:'',clarityAfter:'',wishAfter:'',influence:'',influenceOther:'',action:'',actionOther:'',when:'',specificTime:'',afterCue:'',underFive:'',reaction:[],reactionOther:'',feelings:[],fixed:'',fixedOther:'',unknown:'',unknownOther:'',reality:'',prepare:'',prepareOther:'',flex:'Take a different route',recommendation:'Begin the smallest visible part of your action before trying to solve the entire change.',includePrivate:false};
 const themeGroups={
   'themes-control':[
     ['uncertainty','I do not know what will happen next'],
@@ -469,13 +472,15 @@ function promptValue(id,starterKey){return text(id)||state[starterKey]||''}
 function newSessionId(){return 'adapt-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
 function announce(msg){$('live').textContent=msg}
 function post(msg){if(parent!==window)parent.postMessage(msg,ORIGIN)}
+function postHeight(){post({type:'skillFrameHeight',height:Math.ceil(document.documentElement.scrollHeight)})}
 function recordEvent(completionType){const key=sessionId+':'+completionType;if(eventFlags[key])return;eventFlags[key]=true;post({type:'skillComplete',skillTitle:'Adapting To Change',skillSlug:'adapting-to-change',completionType,sessionId})}
 function showError(id,msg){$(id).textContent=msg;announce(msg)}
 function validText(value){return value&&value.trim().length>1}
 function setStep(id){const map={prompts:'theme'};const key=map[id]||id;document.querySelectorAll('.steps li').forEach(li=>li.removeAttribute('aria-current'));$('step-'+key)?.setAttribute('aria-current','step')}
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));setStep(id);const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.')}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));setStep(id);const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.');setTimeout(postHeight,80)}
 function chooseMode(nextMode){mode=nextMode;state.safe=false;recordEvent('practice-started');show('safety')}
 function attestSafety(){state.safe=true;$('safety-error').textContent='';saveDraft();show('rate')}
+function setDraftPreference(){state.saveDraftOptIn=!!$('saveDraftOptIn')?.checked;if(!state.saveDraftOptIn)sessionStorage.removeItem(STORAGE_KEY);else saveDraft()}
 function makeStateSpan(){const span=document.createElement('span');span.className='state';span.textContent='Chosen';return span}
 function makeChoice(group,value,label,handler){const b=document.createElement('button');b.type='button';b.className='choice';b.dataset.value=value;b.setAttribute('aria-pressed','false');b.textContent=label;b.appendChild(makeStateSpan());b.onclick=()=>handler(value);$(group).appendChild(b)}
 function makeSingle(group,values,prop,after){values.forEach(value=>makeChoice(group,value,value,selected=>{state[prop]=selected;document.querySelectorAll('#'+group+' .choice').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===selected)));if(after)after(selected);saveDraft()}))}
@@ -535,7 +540,7 @@ function handleFactMeaningInput(){state.fact=text('factField');state.meaning=tex
 function goNext(){handleFactMeaningInput();if(!validText(state.fact)){showError('meaning-error','Keep a meaningful fact-based description in the first box.');return}if(!state.confirm){showError('meaning-error','Choose whether another person could confirm the first statement.');return}if((state.confirm==='Partly'||state.confirm==='No')&&!state.factRevised){showError('meaning-error','Check the box to show you separated what actually happened from what your mind is adding.');return}$('meaning-error').textContent='';show('next')}
 function handleTimingChange(){saveFromInputs();$('specificTimeWrap').classList.toggle('hidden',state.when!=='At a specific time');$('cueWrap').classList.toggle('hidden',state.when!=='After another activity');$('nextContinue').textContent=mode==='guided'?'Continue to guided review':'Continue to review'}
 function toggleOtherFields(){[['influenceOtherWrap','influence'],['actionOtherWrap','action'],['fixedOtherWrap','fixed'],['unknownOtherWrap','unknown'],['prepareOtherWrap','prepare']].forEach(([wrap,prop])=>$(wrap)?.classList.toggle('hidden',state[prop]!=='Something else'));$('reactionOtherWrap')?.classList.toggle('hidden',!state.reaction.includes('Something else'))}
-function saveFromInputs(shouldRender=true){['customTheme','beforeText','nowText','selfChange','selfJudgment','influenceOther','actionOther','when','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther','flex'].forEach(id=>{if($(id)){const key=id==='beforeText'?'before':id==='nowText'?'now':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;if(shouldRender)saveDraft()}
+function saveFromInputs(shouldRender=true){['customTheme','beforeText','nowText','selfChange','selfJudgment','influenceOther','actionOther','when','specificTime','afterCue','reactionOther','fixedOther','unknownOther','prepareOther','flex'].forEach(id=>{if($(id)){const key=id==='beforeText'?'before':id==='nowText'?'now':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;state.saveDraftOptIn=!!$('saveDraftOptIn')?.checked;if(shouldRender)saveDraft()}
 function selectedWithOther(prop,otherProp){return state[prop]==='Something else'?state[otherProp]:state[prop]}
 function nextComplete(){saveFromInputs();if(!state.influence||!state.action||!state.when){showError('next-error','Choose what you can influence, the action you will take, and when you will begin.');return false}if(state.influence==='Something else'&&!validText(state.influenceOther)){showError('next-error','Write the short phrase for what else you can influence.');return false}if(state.action==='Something else'&&!validText(state.actionOther)){showError('next-error','Write the specific action you will take.');return false}if(state.when==='At a specific time'&&!validText(state.specificTime)){showError('next-error','Write the exact time you will begin.');return false}if(state.when==='After another activity'&&!validText(state.afterCue)){showError('next-error','Write the exact activity that will cue the action.');return false}if(!state.underFive){showError('next-error','Choose whether you could begin this action in under five minutes.');return false}$('next-error').textContent='';recordEvent('action-planned');return true}
 function goGuided(){if(!nextComplete())return;show('guided')}
@@ -557,9 +562,9 @@ function practiceAgain(){sessionId=newSessionId();eventFlags={};state.clarityBef
 function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus();announce('Confirm start over before clearing this practice.')}
 function cancelReset(){$('resetConfirm').classList.add('hidden');$('save').focus();announce('Start over canceled.')}
 function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
-function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
-function saveDraft(){saveFromInputs(false);sessionStorage.setItem(STORAGE_KEY,JSON.stringify({mode,sessionId,state,eventFlags}));resetSaveUi()}
-function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);Object.entries(state).forEach(([key,value])=>{const id=key==='before'?'beforeText':key==='now'?'nowText':key;if($(id)&&typeof value==='string')$(id).value=value});restorePromptPlaceholders();if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;if(state.theme){selectTheme(state.theme);updatePromptText();restorePromptPlaceholders();updateGenerated()}if(state.confirm)renderConfirmChoices();['clarityBefore','wishBefore','clarityAfter','wishAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[group]))));restoreChoices();handleTimingChange()}catch(e){}}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);state.saveDraftOptIn=false;if($('saveDraftOptIn'))$('saveDraftOptIn').checked=false;$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
+function saveDraft(){saveFromInputs(false);if(!state.saveDraftOptIn){sessionStorage.removeItem(STORAGE_KEY);resetSaveUi();return}sessionStorage.setItem(STORAGE_KEY,JSON.stringify({mode,sessionId,state,eventFlags}));resetSaveUi()}
+function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state||!saved.state.saveDraftOptIn)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);Object.entries(state).forEach(([key,value])=>{const id=key==='before'?'beforeText':key==='now'?'nowText':key;if($(id)&&typeof value==='string')$(id).value=value});restorePromptPlaceholders();if($('saveDraftOptIn'))$('saveDraftOptIn').checked=!!state.saveDraftOptIn;if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;if(state.theme){selectTheme(state.theme);updatePromptText();restorePromptPlaceholders();updateGenerated()}if(state.confirm)renderConfirmChoices();['clarityBefore','wishBefore','clarityAfter','wishAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.value===state[group]))));restoreChoices();handleTimingChange()}catch(e){}}
 function restoreChoices(){const groups={influenceChoices:'influence',actionStepChoices:'action',underFiveChoices:'underFive',reactionChoices:'reaction',feelingChoices:'feelings',fixedChoices:'fixed',unknownChoices:'unknown',realityChoices:'reality',prepareChoices:'prepare'};Object.entries(groups).forEach(([group,prop])=>{document.querySelectorAll('#'+group+' .choice').forEach(btn=>{const value=btn.dataset.value;const current=state[prop];btn.setAttribute('aria-pressed',String(Array.isArray(current)?current.includes(value):current===value))})});toggleOtherFields()}
 window.addEventListener('message',event=>{if(event.origin!==ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('save').disabled=false;if(msg.ok){$('save').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('save').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
 Object.entries(themeGroups).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item[0],item[1],selectTheme)));
@@ -575,6 +580,8 @@ makeSingle('realityChoices',['This changed, and I can choose one workable respon
 makeSingle('prepareChoices',['Read my fact statement again','Take one slow breath before deciding','Ask for one piece of information','Use a two-minute version of the action','Name what is fixed and what is flexible','Contact support before I spiral','Something else'],'prepare',toggleOtherFields);
 restoreDraft();
 post({type:'adaptingToChangeReady'});
+postHeight();
+if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);
 </script>
 </body>
 </html>

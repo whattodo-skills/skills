@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Recover From Setbacks | What To Do!</title>
+<meta name="description" content="Recover From Setbacks is a guided coping practice that helps you separate a setback from self-judgment, learn what matters, and choose one workable restart step.">
+<link rel="canonical" href="https://www.whattodo.coach/skills-hub/recover-from-setbacks">
 <style>
 :root{--bg:#f7f4ed;--navy:#182047;--blue:#4f5dad;--blue-bg:#edf1f8;--mint:#eaf4f0;--pink:#bd3a59;--orange-bg:#fff0e7;--line:#ded8ce;--text:#27313d;--muted:#667085;--white:#fff;--shadow:0 2px 14px rgba(0,0,0,.07)}
 *{box-sizing:border-box}
@@ -62,19 +64,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 
   <ol class="steps" aria-label="Recover From Setbacks steps">
     <li id="step-learn" aria-current="step">1. Learn</li>
-    <li id="step-rate">2. Rate</li>
-    <li id="step-setback">3. Setback</li>
-    <li id="step-happened">4. What Happened</li>
-    <li id="step-separate">5. Separate</li>
-    <li id="step-notice">6. Notice</li>
-    <li id="step-account">7. Your Part</li>
-    <li id="step-path">8. Path</li>
-    <li id="step-opposite">9. Useful Opposite</li>
-    <li id="step-lesson">10. Lesson</li>
-    <li id="step-restart">11. Restart</li>
-    <li id="step-prepare">12. Prepare</li>
-    <li id="step-review">13. Review</li>
-    <li id="step-summary">14. Summary</li>
+    <li id="step-safety">2. Safety</li>
+    <li id="step-rate">3. Rate</li>
+    <li id="step-setback">4. Setback</li>
+    <li id="step-happened">5. What Happened</li>
+    <li id="step-separate">6. Separate</li>
+    <li id="step-notice">7. Notice</li>
+    <li id="step-account">8. Your Part</li>
+    <li id="step-path">9. Path</li>
+    <li id="step-opposite">10. Useful Opposite</li>
+    <li id="step-lesson">11. Lesson</li>
+    <li id="step-restart">12. Restart</li>
+    <li id="step-prepare">13. Prepare</li>
+    <li id="step-review">14. Review</li>
+    <li id="step-summary">15. Summary</li>
   </ol>
 
   <section class="screen active" id="learn" aria-labelledby="learn-title">
@@ -83,6 +86,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <p>Mistakes, rejection, disappointing results, missed goals, criticism, and unexpected obstacles can quickly turn into conclusions such as “I always fail” or “I am not good enough.”</p>
       <p>This practice helps you describe what happened, decide what still needs attention, and choose a useful next step without using shame as motivation.</p>
       <div class="note mint">Start with one setback that feels manageable enough to review right now.</div>
+      <label><input id="draftOptIn" type="checkbox" onchange="setDraftPreference()"> Keep my unfinished answers in this browser tab if I refresh.</label>
       <h3>Choose Your Skill Practice Version</h3>
       <div class="choices" role="group" aria-label="Choose Quick Recovery or Guided Recovery">
         <button class="choice" id="modeQuick" type="button" aria-pressed="false" onclick="chooseMode('quick')">Quick Recovery<span>3 to 5 minutes. Choose what happened and restart with one small step.</span></button>
@@ -90,6 +94,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       </div>
       <div class="btns"><button class="btn primary" type="button" onclick="goRate()">Continue</button></div>
       <div class="error" id="learn-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="safety" aria-labelledby="safety-title">
+    <div class="panel">
+      <h2 id="safety-title" tabindex="-1">Safety Check</h2>
+      <p>This exercise is for moments when you are safe enough to pause and review a setback. It is not for immediate danger, coercion, or pressure to return to an unsafe situation.</p>
+      <div class="note warn"><strong>If you are in immediate danger or might hurt yourself or someone else, call 911, call or text 988, or go to your nearest emergency room.</strong><br>Do not use this exercise to delay protective action. If a setback involves harm, coercion, relapse, or an unsafe relationship, your next step may be protection, support, or distance, not retrying or reconnecting.</div>
+      <div class="note mint"><strong>Grounding option:</strong> Put both feet on the floor, look around the room, and name one thing you can see. Take one slow breath before continuing.</div>
+      <div class="btns">
+        <button class="btn" type="button" onclick="show('learn')">Back</button>
+        <button class="btn primary" type="button" onclick="attestSafety()">By continuing, you attest to your safety</button>
+        <a class="btn warning" href="https://www.whattodo.coach/skills-hub">Leave and choose another skill</a>
+      </div>
+      <div class="error" id="safety-error" aria-live="polite"></div>
     </div>
   </section>
 
@@ -270,19 +289,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
     <div class="panel">
       <h2 id="summary-title" tabindex="-1">You practiced responding to a setback without turning it into a judgment about your worth.</h2>
       <p>You identified what happened, chose what to solve, repair, or release, and created one workable way to restart.</p>
-      <div class="summary" id="summaryBox" aria-live="polite"></div>
+      <div class="summary" id="summaryBox"></div>
       <div class="note" id="recommendation"></div>
-      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my private practice summary.</label>
-      <p class="note mint">Your draft is temporarily saved for this browser session.</p>
+      <label><input id="includePrivate" type="checkbox" onchange="saveFromInputs()"> Include my detailed practice summary in this save.</label>
+      <p class="note mint">By default, this saves the skill name, practice path, restart step, and recommendation. Check the box only if you want the details from this practice included.</p>
       <div class="btns">
         <a class="btn" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
         <button class="btn primary" id="copyBtn" type="button" onclick="copySummary()">Copy summary</button>
-        <button class="btn primary" id="saveBtn" type="button" onclick="saveStack()">Save to Skills Stack</button>
+        <button class="btn primary" id="saveBtn" type="button" onclick="savePractice()">Save practice</button>
         <button class="btn" type="button" onclick="practiceAgain()">Practice this setback again</button>
         <button class="btn" type="button" onclick="useAnother()">Use another setback</button>
         <button class="btn warning" type="button" onclick="clearDraft()">Clear saved draft</button>
+        <button class="btn warning" type="button" aria-controls="historyConfirm" onclick="requestHistoryClear()">Clear Practice History</button>
         <button class="btn warning" id="startOverBtn" type="button" aria-controls="resetConfirm" onclick="requestReset()">Start over</button>
       </div>
+      <p class="note">Where saves go: paid members save to their What To Do! account. Everyone else saves in this browser. If an account save fails, a browser copy is kept instead.</p>
+      <div class="confirm-reset hidden" id="historyConfirm" role="group" aria-labelledby="historyTitle"><strong id="historyTitle">Clear saved practice history?</strong><p>This clears Recover From Setbacks history saved in this browser and requests account history removal when available.</p><div class="btns"><button class="btn warning" type="button" onclick="confirmHistoryClear()">Yes, clear history</button><button class="btn" type="button" onclick="cancelHistoryClear()">Keep history</button></div></div>
       <div class="confirm-reset hidden" id="resetConfirm" role="group" aria-labelledby="resetTitle"><strong id="resetTitle">Start over and clear this practice?</strong><p>This clears the temporary draft for this browser session.</p><div class="btns"><button class="btn warning" type="button" onclick="confirmReset()">Yes, start over</button><button class="btn" type="button" onclick="cancelReset()">Keep practicing</button></div></div>
       <div class="status" id="status" aria-live="polite"></div>
     </div>
@@ -294,9 +316,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
 const PRACTICE_URL='https://whattodo-skills.github.io/skills/recover-from-setbacks.html';
 const STORAGE_KEY='wtd_recover_from_setbacks_v1';
+const BROWSER_SAVE_KEY='wtd_recover_from_setbacks_latest';
+const HISTORY_KEY='wtd_recover_from_setbacks_history';
 const $=id=>document.getElementById(id);
-let mode='',sessionId=newSessionId(),saveTimer=null,eventFlags={};
-const state={setback:'',setbackOther:'',specific:'',narrowedSetback:'',specificAgain:'',expected:'',expectedOther:'',actual:'',actualOther:'',fact:'',certain:'',factOnly:'',meaningText:'',factOnlyConfirm:'',verdict:'',verdictOther:'',accurate:'',accurateOther:'',feelings:[],feelingOther:'',pulls:[],pullOther:'',contrib:[],contribOther:'',balanced:'',balancedOther:'',path:'',pathOne:'',pathTwo:'',pathThree:'',opposite:'',oppositeOther:'',lesson:'',lessonOther:'',restart:'',restartOther:'',restartAction:'',restartWhen:'',timeDetail:'',smallest:'',win:'',winOther:'',challenge:'',challengeOther:'',plan:'',planOther:'',statement:'',statementOther:'',avoidBefore:'',confidenceBefore:'',avoidAfter:'',confidenceAfter:'',changed:'',changedOther:'',difficulty:'',laterChoice:'',restartResult:'',helped:'',helpedOther:'',recommendation:'',includePrivate:false};
+let mode='',sessionId=newSessionId(),saveTimer=null,eventFlags={},pendingSaveId='',pendingClearId='';
+const state={safe:false,draftOptIn:false,setback:'',setbackOther:'',specific:'',narrowedSetback:'',specificAgain:'',expected:'',expectedOther:'',actual:'',actualOther:'',fact:'',certain:'',factOnly:'',meaningText:'',factOnlyConfirm:'',verdict:'',verdictOther:'',accurate:'',accurateOther:'',feelings:[],feelingOther:'',pulls:[],pullOther:'',contrib:[],contribOther:'',balanced:'',balancedOther:'',path:'',pathOne:'',pathTwo:'',pathThree:'',opposite:'',oppositeOther:'',lesson:'',lessonOther:'',restart:'',restartOther:'',restartAction:'',restartWhen:'',timeDetail:'',smallest:'',win:'',winOther:'',challenge:'',challengeOther:'',plan:'',planOther:'',statement:'',statementOther:'',avoidBefore:'',confidenceBefore:'',avoidAfter:'',confidenceAfter:'',changed:'',changedOther:'',difficulty:'',laterChoice:'',restartResult:'',helped:'',helpedOther:'',recommendation:'',includePrivate:false};
 const singleGroups={setbackChoices:['setback','setbackOtherWrap'],specificChoices:['specific'],specificAgainChoices:['specificAgain'],expectedChoices:['expected','expectedOtherWrap'],actualChoices:['actual','actualOtherWrap'],certainChoices:['certain'],factOnlyConfirmChoices:['factOnlyConfirm'],verdictChoices:['verdict','verdictOtherWrap'],accurateChoices:['accurate','accurateOtherWrap'],balancedChoices:['balanced','balancedOtherWrap'],pathChoices:['path'],oppositeChoices:['opposite','oppositeOtherWrap'],lessonChoices:['lesson','lessonOtherWrap'],restartChoices:['restart','restartOtherWrap'],winChoices:['win','winOtherWrap'],challengeChoices:['challenge','challengeOtherWrap'],planChoices:['plan','planOtherWrap'],statementChoices:['statement','statementOtherWrap'],changedChoices:['changed','changedOtherWrap'],difficultyChoices:['difficulty'],laterChoiceChoices:['laterChoice'],restartResultChoices:['restartResult'],helpedChoices:['helped','helpedOtherWrap']};
 const multiGroups={feelingChoices:['feelings','feelingOtherWrap'],pullChoices:['pulls','pullOtherWrap'],contribChoices:['contrib','contribOtherWrap']};
 const choices={
@@ -334,18 +358,19 @@ const actualOptionsBySetback={
   'I received criticism or disappointing feedback':['I received feedback that identified a problem','My work did not meet the stated expectation','Someone disagreed with my approach','I learned that a change is needed','Write my own factual description'],
   'I ran into an unexpected obstacle':['A condition changed','A resource became unavailable','A deadline or requirement changed','Something outside my control interrupted the plan','Write my own factual description']
 };
-const quickSteps=['learn','rate','setback','happened','separate','path','lesson','restart','review','summary'];
-const guidedSteps=['learn','rate','setback','happened','separate','notice','account','path','opposite','lesson','restart','prepare','review','summary'];
+const quickSteps=['learn','safety','rate','setback','happened','separate','path','lesson','restart','review','summary'];
+const guidedSteps=['learn','safety','rate','setback','happened','separate','notice','account','path','opposite','lesson','restart','prepare','review','summary'];
 function newSessionId(){return 'recover-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
 function text(id){return ($(id)?.value||'').trim()}
 function announce(msg){$('live').textContent=msg}
 function postToParent(message){if(parent!==window)parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function postHeight(){postToParent({type:'skillFrameHeight',skillSlug:'recover-from-setbacks',height:Math.ceil(document.documentElement.scrollHeight)})}
 function recordEvent(type){const key=sessionId+':'+type;if(eventFlags[key])return;eventFlags[key]=true;postToParent({type:'skillComplete',skillTitle:'Recover From Setbacks',skillSlug:'recover-from-setbacks',completionType:type,sessionId})}
 function showError(id,msg){$(id).textContent=msg;announce(msg)}
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));updateSteps(id);const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.')}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));updateSteps(id);const h=document.querySelector('#'+id+' h2');if(h)h.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+(h?h.textContent:id)+'.');setTimeout(postHeight,80)}
 function updateSteps(current){const visible=mode==='quick'?quickSteps:guidedSteps;let count=0;document.querySelectorAll('.steps li').forEach(li=>{const id=li.id.replace('step-','');const active=visible.includes(id);li.classList.toggle('hidden',!active);li.removeAttribute('aria-current');if(active){count+=1;li.textContent=count+'. '+stepName(id);if(id===current)li.setAttribute('aria-current','step')}})}
 function stepName(id){return({learn:'Learn',rate:'Rate',setback:'Setback',happened:'Facts',separate:'Separate',notice:'Reaction',account:'Accountability',path:'Choose',opposite:'Useful opposite',lesson:'Lesson',restart:'Restart',prepare:'Prepare',review:'Review',summary:'Summary'})[id]||id}
-function chooseMode(next){mode=next;$('modeQuick').setAttribute('aria-pressed',String(next==='quick'));$('modeGuided').setAttribute('aria-pressed',String(next==='guided'));updateSteps(document.querySelector('.screen.active')?.id||'learn');recordEvent('practice-started');saveDraft()}
+function chooseMode(next,resetSafety=true){mode=next;if(resetSafety)state.safe=false;$('modeQuick').setAttribute('aria-pressed',String(next==='quick'));$('modeGuided').setAttribute('aria-pressed',String(next==='guided'));updateSteps(document.querySelector('.screen.active')?.id||'learn');recordEvent('practice-started');saveDraft()}
 function needsCustomValue(value){return ['Something else','Write my own','Write my own factual description','Write my own accurate description','Write my own balanced statement','Another lesson','Write my own step','Choose my own small win','Write my own plan','Write my own statement'].includes(value)}
 function selected(prop,other){return needsCustomValue(state[prop])?state[other]:state[prop]}
 function makeState(){const span=document.createElement('span');span.className='state';span.textContent='Chosen';return span}
@@ -354,15 +379,16 @@ function renderChoiceGroup(group,items){$(group).textContent='';items.forEach(it
 function selectChoice(group,value){if(singleGroups[group]){const [prop,wrap]=singleGroups[group];state[prop]=value;if(wrap&&!needsCustomValue(value)){const input=$(wrap)?.querySelector('input,textarea');if(input){input.value='';state[input.id]=''}}document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===value)))}else{const [prop,wrap]=multiGroups[group];state[prop]=state[prop].includes(value)?state[prop].filter(x=>x!==value):[...state[prop],value];if(value==='Something else'&&!state[prop].includes('Something else')&&wrap){const input=$(wrap)?.querySelector('input,textarea');if(input){input.value='';state[input.id]=''}}document.querySelectorAll('#'+group+' .choice').forEach(b=>b.setAttribute('aria-pressed',String(state[prop].includes(b.dataset.value))))}if(group==='setbackChoices')updateActualChoices();toggleOther();if(group==='pathChoices')updatePathLabels();saveDraft()}
 function makeRatings(group,prop){const label=prop.toLowerCase().includes('confidence')?'confidence in taking one useful next step':'pull to avoid or give up';for(let i=0;i<=10;i++){const btn=document.createElement('button');btn.type='button';btn.className='rate';btn.dataset.value=String(i);btn.setAttribute('aria-pressed','false');btn.setAttribute('aria-label',i+' out of 10 - '+label);btn.title=btn.getAttribute('aria-label');btn.textContent=String(i);btn.onclick=()=>{state[prop]=String(i);document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===state[prop])));saveDraft()};$(group).appendChild(btn)}}
 function toggleOther(){Object.entries(singleGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!needsCustomValue(state[prop]))});Object.entries(multiGroups).forEach(([group,[prop,wrap]])=>{if(wrap&&$(wrap))$(wrap).classList.toggle('hidden',!state[prop].includes('Something else'))});$('specificHelp').classList.toggle('hidden',state.specific!=='Help me make it smaller');$('narrowWrap').classList.toggle('hidden',state.specific!=='Help me make it smaller');$('certainHelp').classList.toggle('hidden',!['Partly','No'].includes(state.certain));$('factFixWrap').classList.toggle('hidden',!['Partly','No'].includes(state.certain));$('laterReviewWrap').classList.toggle('hidden',state.laterChoice!=='Review my restart now')}
-function saveFromInputs(){['setbackOther','narrowedSetback','expectedOther','actualOther','factStatement','factOnly','meaningText','verdictOther','accurateOther','feelingOther','pullOther','contribOther','balancedOther','pathOne','pathTwo','pathThree','oppositeOther','lessonOther','restartOther','restartAction','restartWhen','timeDetail','smallest','winOther','challengeOther','planOther','statementOther','changedOther','helpedOther'].forEach(id=>{if($(id)){const key=id==='factStatement'?'fact':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;handleTiming();saveDraft()}
-function handleTiming(){if($('restartWhen'))state.restartWhen=$('restartWhen').value;$('timeDetailWrap').classList.toggle('hidden',!['At a specific time','After another activity','After a short rest'].includes(state.restartWhen));saveDraft()}
+function saveFromInputs(shouldSave=true){['setbackOther','narrowedSetback','expectedOther','actualOther','factStatement','factOnly','meaningText','verdictOther','accurateOther','feelingOther','pullOther','contribOther','balancedOther','pathOne','pathTwo','pathThree','oppositeOther','lessonOther','restartOther','restartAction','restartWhen','timeDetail','smallest','winOther','challengeOther','planOther','statementOther','changedOther','helpedOther'].forEach(id=>{if($(id)){const key=id==='factStatement'?'fact':id;state[key]=text(id)}});state.includePrivate=!!$('includePrivate')?.checked;state.draftOptIn=!!$('draftOptIn')?.checked;handleTiming(false);if(shouldSave)saveDraft()}
+function handleTiming(shouldSave=true){if($('restartWhen'))state.restartWhen=$('restartWhen').value;$('timeDetailWrap').classList.toggle('hidden',!['At a specific time','After another activity','After a short rest'].includes(state.restartWhen));if(shouldSave)saveDraft()}
 function validCustom(prop,other){return selected(prop,other)&&selected(prop,other).trim().length>1}
 function missingCustom(prop,other){return needsCustomValue(state[prop])&&!text(other)}
 function missingMultiCustom(prop,other){return state[prop].includes('Something else')&&!text(other)}
 function meaningful(value){return (value||'').trim().length>1}
 function updateActualChoices(){const options=actualOptionsBySetback[state.setback]||choices.actualChoices;state.actual='';state.actualOther='';if($('actualOther'))$('actualOther').value='';renderChoiceGroup('actualChoices',options)}
-function goRate(){if(!mode){showError('learn-error','Choose Quick Recovery or Guided Recovery.');return}$('learn-error').textContent='';show('rate')}
-function goSetback(){if(!state.avoidBefore||!state.confidenceBefore){showError('rate-error','Choose both ratings before continuing.');return}$('rate-error').textContent='';show('setback')}
+function goRate(){if(!mode){showError('learn-error','Choose Quick Recovery or Guided Recovery.');return}$('learn-error').textContent='';show('safety')}
+function attestSafety(){state.safe=true;$('safety-error').textContent='';saveDraft();show('rate')}
+function goSetback(){if(!state.safe){showError('rate-error','Complete the safety acknowledgement first.');show('safety');return}if(!state.avoidBefore||!state.confidenceBefore){showError('rate-error','Choose both ratings before continuing.');return}$('rate-error').textContent='';show('setback')}
 function goHappened(){saveFromInputs();if(!validCustom('setback','setbackOther')||!state.specific){showError('setback-error','Choose a setback and whether it is specific enough to review.');return}if(state.specific==='Help me make it smaller'){if(!meaningful(state.narrowedSetback)||state.specificAgain!=='Yes'){showError('setback-error','Rewrite the setback as one specific event, then confirm it is specific enough to review.');return}state.fact=state.narrowedSetback;if($('factStatement'))$('factStatement').value=state.fact}$('setback-error').textContent='';show('happened')}
 function goSeparate(){saveFromInputs();if(!validCustom('expected','expectedOther')||!validCustom('actual','actualOther')||!state.fact||!state.certain){showError('happened-error','Choose what you expected, what happened, write the factual statement, and choose how certain it is.');return}if(['Partly','No'].includes(state.certain)){if(!meaningful(state.factOnly)||!meaningful(state.meaningText)||state.factOnlyConfirm!=='Yes'){showError('happened-error','Revise what happened into a fact-only statement, separate what you fear it means, and confirm the first statement now describes only what happened.');return}state.fact=state.factOnly;if($('factStatement'))$('factStatement').value=state.fact}$('happened-error').textContent='';recordEvent('setback-described');show('separate')}
 function goNotice(){if(!validCustom('verdict','verdictOther')||!validCustom('accurate','accurateOther')){showError('separate-error','Choose the verdict your mind added and a more accurate description.');return}$('separate-error').textContent='';show('notice')}
@@ -382,24 +408,37 @@ function renderSummary(){const box=$('summaryBox');box.textContent='';addSummary
 function practiceStep(){if(!state.fact)return 'Describe';if(!state.accurate)return 'Separate';if(!state.path)return 'Choose';if(!state.lesson)return 'Learn';if(!state.restartAction)return 'Restart';if(mode==='guided'&&!state.plan)return 'Recover';return 'Review'}
 function summaryText(){return Array.from($('summaryBox').querySelectorAll('.summary-row')).map(row=>row.innerText.trim()).join('\n\n')+'\n\nRecommendation\n'+$('recommendation').textContent}
 async function copySummary(){const btn=$('copyBtn');btn.disabled=true;btn.textContent='Copying...';try{await navigator.clipboard.writeText(summaryText());$('status').textContent='Summary copied.';btn.textContent='Copied'}catch(e){const range=document.createRange();range.selectNodeContents($('summaryBox'));const sel=getSelection();sel.removeAllRanges();sel.addRange(range);$('status').textContent='Automatic copy was blocked. The summary is highlighted now. Press Control+C or Command+C to copy it.';btn.textContent='Copy manually'}recordEvent('summary-copied');setTimeout(()=>{btn.disabled=false;btn.textContent='Copy summary'},2200)}
-function stackPayload(){const stack={skillId:'recover-from-setbacks',skillName:'Recover From Setbacks',catKey:'coping',catLabel:'Coping',category:'Coping',stacked:true,recoveryPath:state.path,practiceStep:practiceStep(),generalNextPractice:state.recommendation||recommendation(),practiceUrl:PRACTICE_URL,id:'recover-from-setbacks',title:'Recover From Setbacks',source:'recover-from-setbacks',updatedAt:new Date().toISOString()};if(state.includePrivate)stack.privatePracticeSummary={setback:selected('setback','setbackOther'),fact:state.fact,verdict:selected('verdict','verdictOther'),accurate:selected('accurate','accurateOther'),path:state.path,lesson:selected('lesson','lessonOther'),restart:state.restartAction,restartResult:state.restartResult,recommendation:state.recommendation||recommendation()};return stack}
-function resetSaveUi(){clearTimeout(saveTimer);if($('saveBtn')){$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack'}if($('status'))$('status').textContent=''}
-function saveStack(){resetSaveUi();$('saveBtn').disabled=true;$('saveBtn').textContent='Saving...';$('status').textContent='Saving to Skills Stack...';recordEvent('skills-stack-save-requested');postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:stackPayload(),updatedAt:new Date().toISOString()}});saveTimer=setTimeout(()=>{if($('saveBtn').textContent==='Saved to Skills Stack')return;$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'},8000)}
-function saveDraft(){sessionStorage.setItem(STORAGE_KEY,JSON.stringify({mode,sessionId,eventFlags,state}));resetSaveUi()}
+function detailedSummary(){return {setback:selected('setback','setbackOther'),expectation:selected('expected','expectedOther'),actual:selected('actual','actualOther'),fact:state.fact,verdict:selected('verdict','verdictOther'),accurate:selected('accurate','accurateOther'),feelings:state.feelings.map(x=>x==='Something else'?state.feelingOther:x).filter(Boolean),pulls:state.pulls.map(x=>x==='Something else'?state.pullOther:x).filter(Boolean),balanced:selected('balanced','balancedOther'),path:state.path,lesson:selected('lesson','lessonOther'),restart:state.restartAction,restartWhen:state.restartWhen,timeDetail:state.timeDetail,smallest:state.smallest,restartResult:state.restartResult,recommendation:state.recommendation||recommendation(),summary:summaryText()}}
+function savePayload(){const detailed=state.includePrivate===true;const payload={sessionKey:sessionId,sessionId,skillId:'recover-from-setbacks',skillName:'Recover From Setbacks',skillSlug:'recover-from-setbacks',practiceUrl:'https://www.whattodo.coach/skills-hub/recover-from-setbacks',startedAt:'',completedAt:new Date().toISOString(),updatedAt:new Date().toISOString(),practiceMode:mode,practiceContext:'coping',path:state.path,action:state.restartAction,smallestAction:state.smallest,difficulty:state.difficulty,recommendedNextPractice:state.recommendation||recommendation(),reflection:state.changed==='Something else'?state.changedOther:state.changed,detailedSummaryIncluded:detailed};if(detailed)payload.detailedSummary=detailedSummary();return payload}
+function safeRead(key,store){try{return store.getItem(key)}catch(e){return null}}
+function safeWrite(key,value,store){try{store.setItem(key,value);return true}catch(e){return false}}
+function safeRemove(key,store){try{store.removeItem(key)}catch(e){}}
+function localHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]').filter(Boolean)}catch(e){return []}}
+function saveLocalPractice(session){const history=[session,...localHistory().filter(item=>item.sessionKey!==session.sessionKey)].slice(0,20);const latest=safeWrite(BROWSER_SAVE_KEY,JSON.stringify(session),localStorage);const list=safeWrite(HISTORY_KEY,JSON.stringify(history),localStorage);return latest&&list}
+function showBrowserSave(fallbackFromAccount){$('saveBtn').disabled=false;$('saveBtn').textContent='Saved in this browser';$('status').textContent=fallbackFromAccount?'Account save did not finish, so a browser copy was kept.':'Saved in this browser. Paid members save to their What To Do! account when available.';announce($('status').textContent)}
+function resetSaveUi(){clearTimeout(saveTimer);if($('saveBtn')){$('saveBtn').disabled=false;$('saveBtn').textContent='Save practice'}if($('status'))$('status').textContent=''}
+function savePractice(){renderSummary();pendingSaveId='recover-save-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);const session=savePayload();const localSaved=saveLocalPractice(session);$('saveBtn').disabled=true;$('saveBtn').textContent='Saving...';$('status').textContent=localSaved?'Stored in this browser while account eligibility is checked.':'Checking account eligibility...';recordEvent('practice-save-requested');postToParent({type:'skillPracticeSave',requestId:pendingSaveId,session});clearTimeout(saveTimer);saveTimer=setTimeout(()=>showBrowserSave(false),8000)}
+function setDraftPreference(){state.draftOptIn=!!$('draftOptIn')?.checked;if(!state.draftOptIn)sessionStorage.removeItem(STORAGE_KEY);else saveDraft()}
+function saveDraft(){saveFromInputs(false);if(!state.draftOptIn){sessionStorage.removeItem(STORAGE_KEY);resetSaveUi();return}sessionStorage.setItem(STORAGE_KEY,JSON.stringify({mode,sessionId,eventFlags,state}));resetSaveUi()}
 function restoreSelectionUi(){document.querySelectorAll('.choice').forEach(b=>{const group=b.parentElement.id;if(singleGroups[group])b.setAttribute('aria-pressed',String(state[singleGroups[group][0]]===b.dataset.value));if(multiGroups[group])b.setAttribute('aria-pressed',String(state[multiGroups[group][0]].includes(b.dataset.value))) });['avoidBefore','confidenceBefore','avoidAfter','confidenceAfter'].forEach(group=>document.querySelectorAll('#'+group+' .rate').forEach(b=>b.setAttribute('aria-pressed',String(state[group]===b.dataset.value))));toggleOther();updatePathLabels();handleTiming()}
-function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);if(state.setback&&actualOptionsBySetback[state.setback])renderChoiceGroup('actualChoices',actualOptionsBySetback[state.setback]);Object.entries(state).forEach(([key,value])=>{const id=key==='fact'?'factStatement':key;if($(id)&&typeof value==='string')$(id).value=value});if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;restoreSelectionUi();if(mode)chooseMode(mode)}catch(e){}}
-function clearSession(keepMode=false,keepSetback=false){const oldMode=mode,oldSetback=state.setback,oldOther=state.setbackOther,oldFact=state.fact;Object.keys(state).forEach(k=>{if(Array.isArray(state[k]))state[k]=[];else if(typeof state[k]==='boolean')state[k]=false;else state[k]=''});state.includePrivate=false;if(keepMode)mode=oldMode;if(keepSetback){state.setback=oldSetback;state.setbackOther=oldOther;state.fact=oldFact}sessionId=newSessionId();eventFlags={};document.querySelectorAll('input,textarea').forEach(el=>{if(el.type!=='checkbox')el.value='';else el.checked=false});document.querySelectorAll('select').forEach(el=>el.value='');if(keepSetback){if($('setbackOther'))$('setbackOther').value=state.setbackOther;if($('factStatement'))$('factStatement').value=state.fact}restoreSelectionUi();if(mode)chooseMode(mode);resetSaveUi();saveDraft()}
+function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'{}');if(!saved.state||!saved.state.draftOptIn)return;mode=saved.mode||'';sessionId=saved.sessionId||newSessionId();eventFlags=saved.eventFlags||{};Object.assign(state,saved.state);if(state.setback&&actualOptionsBySetback[state.setback])renderChoiceGroup('actualChoices',actualOptionsBySetback[state.setback]);Object.entries(state).forEach(([key,value])=>{const id=key==='fact'?'factStatement':key;if($(id)&&typeof value==='string')$(id).value=value});if($('includePrivate'))$('includePrivate').checked=!!state.includePrivate;if($('draftOptIn'))$('draftOptIn').checked=!!state.draftOptIn;restoreSelectionUi();if(mode)chooseMode(mode,false)}catch(e){}}
+function clearSession(keepMode=false,keepSetback=false){const oldMode=mode,oldSetback=state.setback,oldOther=state.setbackOther,oldFact=state.fact,oldDraft=state.draftOptIn;Object.keys(state).forEach(k=>{if(Array.isArray(state[k]))state[k]=[];else if(typeof state[k]==='boolean')state[k]=false;else state[k]=''});state.includePrivate=false;state.draftOptIn=oldDraft;if(keepMode)mode=oldMode;if(keepSetback){state.setback=oldSetback;state.setbackOther=oldOther;state.fact=oldFact}sessionId=newSessionId();eventFlags={};document.querySelectorAll('input,textarea').forEach(el=>{if(el.type!=='checkbox')el.value='';else el.checked=false});document.querySelectorAll('select').forEach(el=>el.value='');if($('draftOptIn'))$('draftOptIn').checked=oldDraft;if(keepSetback){if($('setbackOther'))$('setbackOther').value=state.setbackOther;if($('factStatement'))$('factStatement').value=state.fact}restoreSelectionUi();if(mode)chooseMode(mode);resetSaveUi();saveDraft()}
 function practiceAgain(){clearSession(true,true);show('rate')}
 function useAnother(){clearSession(true,false);show('rate')}
-function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
+function clearDraft(){sessionStorage.removeItem(STORAGE_KEY);state.draftOptIn=false;if($('draftOptIn'))$('draftOptIn').checked=false;$('status').textContent='Temporary draft cleared for this browser session.';announce('Temporary draft cleared.')}
+function requestHistoryClear(){$('historyConfirm').classList.remove('hidden');$('historyConfirm').querySelector('button').focus();announce('Confirm before clearing practice history.')}
+function cancelHistoryClear(){$('historyConfirm').classList.add('hidden');$('saveBtn').focus();announce('Practice history kept.')}
+function confirmHistoryClear(){safeRemove(HISTORY_KEY,localStorage);safeRemove(BROWSER_SAVE_KEY,localStorage);pendingClearId='recover-clear-'+Date.now();postToParent({type:'skillPracticeHistoryClearRequest',requestId:pendingClearId,skillId:'recover-from-setbacks'});$('historyConfirm').classList.add('hidden');$('status').textContent='Browser practice history cleared. Account history clear requested if available.';announce($('status').textContent)}
 function requestReset(){$('resetConfirm').classList.remove('hidden');$('resetConfirm').querySelector('button').focus()}
 function cancelReset(){$('resetConfirm').classList.add('hidden');announce('Start over canceled.');$('startOverBtn').focus()}
 function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()}
-window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('saveBtn').disabled=false;if(msg.ok){recordEvent('save-to-skills-stack');$('saveBtn').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
+window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='skillPracticeSaveResult'&&msg.requestId===pendingSaveId){clearTimeout(saveTimer);if(msg.ok&&msg.mode==='account'){safeRemove(BROWSER_SAVE_KEY,localStorage);$('saveBtn').disabled=false;$('saveBtn').textContent='Saved to your account';$('status').textContent='Saved to your account. This practice is available through your What To Do! account.';recordEvent('practice-saved-account');announce($('status').textContent)}else showBrowserSave(msg.fallbackFrom==='account')}else if(msg.type==='skillPracticeHistoryClearResult'&&msg.requestId===pendingClearId){if(msg.ok&&msg.mode==='account'){$('status').textContent='Practice history cleared from your account.';announce($('status').textContent)}}});
 Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item)));
 makeRatings('avoidBefore','avoidBefore');makeRatings('confidenceBefore','confidenceBefore');makeRatings('avoidAfter','avoidAfter');makeRatings('confidenceAfter','confidenceAfter');
 restoreDraft();
 postToParent({type:'recoverFromSetbacksReady'});
+postHeight();
+if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);
 </script>
 </body>
 </html>

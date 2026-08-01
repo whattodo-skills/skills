@@ -18,7 +18,6 @@ The standalone artifact uses the same state IDs requested for the Wix Multi-Stat
 - `respond`
 - `reflection`
 - `complete`
-- `pairPractice`
 
 ## Key Element IDs
 
@@ -116,7 +115,7 @@ Public Wix route:
 
 `https://www.whattodo.coach/skills-hub/name-the-emotion`
 
-The published artifact loads the expected exercise content, including the six-step flow, five-minute framing, privacy statement, emotion naming and intensity controls, worked examples, completion actions, survey link, Skills Stack button, pair practice, and response-clearing controls.
+The published artifact loads the expected exercise content, including the six-step flow, five-minute framing, privacy statement, emotion naming and intensity controls, worked examples, completion actions, survey link, Skills Stack button, and response-clearing controls.
 
 The public Wix route loads successfully with the What To Do! wrapper, attribution, coaching disclaimer, and site navigation. The embedded exercise is iframe-based, so final iframe interaction and sizing still require hands-on browser testing.
 
@@ -133,7 +132,7 @@ Depending on the Studio interface, this may appear as `What's in the embed?`, al
 ### Keyboard-only
 
 - Start and finish the entire exercise without a mouse.
-- Confirm every emotion option, intensity control, suggestion chip, disclosure, clear-response confirmation, and pair-practice control is reachable.
+- Confirm every emotion option, intensity control, suggestion chip, disclosure, and clear-response confirmation is reachable.
 - Confirm visible focus is never lost.
 - Confirm focus moves to each new step heading.
 - Confirm Back returns to a logical location.
@@ -157,7 +156,6 @@ Confirm:
 - Validation messages are announced when displayed.
 - Collapsible examples expose expanded and collapsed states.
 - Hidden steps and optional fields are not read.
-- The pair-practice view does not expose the private situation or reflection.
 
 ### Functional regression
 
@@ -165,7 +163,7 @@ Confirm:
 - Select `Finish`, `Practice again`, and `Clear my responses` separately; confirm each clears the intended session data.
 - Verify no learner-entered text or emotion data appears in network analytics requests.
 - Test locked parent-origin behavior on both the Wix route and direct GitHub Pages URL.
-- Confirm iframe height updates after validation messages, disclosures, examples, the completion summary, and pair practice open or close.
+- Confirm iframe height updates after validation messages, disclosures, examples, and the completion summary.
 - Test at approximately 320, 375, 768, and 1440 pixels wide.
 - Confirm the survey and Skills Stack actions behave correctly when opened, cancelled, repeated, or blocked by the browser.
 
@@ -197,8 +195,6 @@ Direct artifact:
 - Respond step accepted a pointing-toward value and a next-action chip.
 - Reflection accepted optional text.
 - Completion summary rendered primary emotion, intensity, physical clue, pointing-toward text, next helpful action, and reflection without broken optional fields.
-- Pair practice displayed emotion word, intensity, and helpful next action.
-- Pair practice did not expose the private situation or reflection.
 - Refresh on the completion screen restored the same session draft.
 - `Finish` cleared the session draft; after reload, the artifact returned to `intro`.
 - Clear-response confirmation appeared inline.
@@ -229,5 +225,5 @@ Required before production-complete:
 3. Re-run iframe-title verification and confirm production no longer exposes `Embedded Content`.
 4. Complete hands-on keyboard-only testing.
 5. Complete hands-on VoiceOver/Safari and NVDA/Chrome testing.
-6. Re-check iframe height behavior after disclosures, validation messages, completion summary, and pair practice.
+6. Re-check iframe height behavior after disclosures, validation messages, and completion summary.
 7. Verify Skills Stack save result handling through the Wix parent page.

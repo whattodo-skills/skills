@@ -204,28 +204,9 @@ table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border:1px solid
           <button class="btn secondary" type="button" id="copyButton">Copy summary</button>
           <button class="btn secondary" type="button" id="saveStackButton">Save to Skills Stack</button>
           <button class="btn primary" type="button" id="practiceAgainButton">Practice again</button>
-          <button class="btn secondary" type="button" id="pairPracticeButton">Try pair practice</button>
           <button class="btn warning" type="button" id="finishButton">Finish</button>
         </div>
         <div class="status" id="completeStatus" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="screen" id="pairPractice" aria-labelledby="pair-title">
-      <div class="panel stack">
-        <h2 id="pair-title" tabindex="-1">Optional pair practice</h2>
-        <p>Share only what feels appropriate. You do not need to disclose the situation.</p>
-        <div class="summary" id="pairSummary"></div>
-        <label><input type="checkbox" id="revealPhysical"> Include the physical clue in pair practice</label>
-        <div class="note blue"><strong>Listener prompt:</strong> Is there another emotion beside or underneath that one?</div>
-        <fieldset><legend>Pair timer</legend><div class="chips" id="pairTimerChoices"></div></fieldset>
-        <p class="status" id="pairTimerText">No pair timer started.</p>
-        <div class="btns">
-          <button class="btn primary" type="button" id="beginPairTimerButton">Begin</button>
-          <button class="btn secondary" type="button" id="reviseEmotionButton">Add or revise an emotion</button>
-          <button class="btn secondary" type="button" id="keepOriginalButton">Keep my original response</button>
-          <button class="btn warning" type="button" id="finishPairButton">Finish pair practice</button>
-        </div>
       </div>
     </section>
 
@@ -283,7 +264,6 @@ const exerciseDataDefault=()=>({
 let exerciseData=exerciseDataDefault();
 let currentStepIndex=0;
 let timerHandle=null;
-let pairTimerHandle=null;
 let secondsRemaining=0;
 let stepRemaining={};
 let saveTimeout=null;
@@ -323,13 +303,7 @@ function bindControls(){
   $('copyButton').addEventListener('click',copySummary);
   $('saveStackButton').addEventListener('click',saveToSkillStack);
   $('practiceAgainButton').addEventListener('click',()=>resetExercise('notice'));
-  $('pairPracticeButton').addEventListener('click',showPairPractice);
   $('finishButton').addEventListener('click',finishExercise);
-  $('revealPhysical').addEventListener('change',renderPairSummary);
-  $('beginPairTimerButton').addEventListener('click',beginPairTimer);
-  $('reviseEmotionButton').addEventListener('click',()=>showStep(2));
-  $('keepOriginalButton').addEventListener('click',renderPairSummary);
-  $('finishPairButton').addEventListener('click',finishExercise);
   window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==window.parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimeout);const btn=$('saveStackButton');btn.disabled=false;if(msg.ok){stackSaved=true;btn.textContent='Saved to Skills Stack';$('completeStatus').textContent='Saved to Skills Stack.';announce('Skills Stack saving successful.')}else{stackSaved=false;btn.textContent='Save to Skills Stack';$('completeStatus').textContent='Save did not finish. Please try again.';announce('Skills Stack saving failed.')}}});
 }
 function bindIntensity(kind){
@@ -344,8 +318,6 @@ function renderStaticChoices(){
   actionOptions.forEach(opt=>$('actionChips').append(button(opt,clean(exerciseData.nextAction)===opt,()=>{if(opt==='Write my own action'){$('nextActionInput').focus();return}exerciseData.nextAction=opt;$('nextActionInput').value=opt;renderCounts();renderSentencePreview();saveDraft();},'chip')));
   $('reflectionChips').innerHTML='';
   reflectionOptions.forEach(opt=>$('reflectionChips').append(button(opt,false,()=>{$('reflectionInput').value=opt;exerciseData.reflection=opt;renderCounts();saveDraft();},'chip')));
-  $('pairTimerChoices').innerHTML='';
-  [['3 minutes',180],['5 minutes',300],['No timer',0]].forEach(([label,seconds])=>$('pairTimerChoices').append(button(label,Number($('pairTimerChoices').dataset.seconds||0)===seconds,()=>{$('pairTimerChoices').dataset.seconds=seconds;renderPairTimerChoice();},'chip')));
 }
 function renderFamilyChoices(){
   $('familyChoices').innerHTML='';
@@ -380,7 +352,7 @@ function showStep(indexOrId){
   const step=STEPS[currentStepIndex];
   exerciseData.currentState=step.stateId;
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===step.stateId));
-  $('navControls').classList.toggle('hidden',step.stateId==='intro'||step.stateId==='complete'||step.stateId==='pairPractice');
+  $('navControls').classList.toggle('hidden',step.stateId==='intro'||step.stateId==='complete');
   $('backButton').disabled=currentStepIndex<=1;
   $('nextButton').textContent=step.stateId==='reflection'?'Complete exercise':'Continue';
   updateProgress();
@@ -422,7 +394,7 @@ function renderCurrentValues(){
   $('secondOtherInput').value=findEmotion(exerciseData.secondaryEmotion.label)?'':exerciseData.secondaryEmotion.label;
   $('physicalOtherInput').value=exerciseData.customPhysicalClue;
   $('timerToggle').setAttribute('aria-pressed',exerciseData.timerHidden?'true':'false');$('timerToggle').textContent=exerciseData.timerHidden?'Show timer':'Hide timer';
-  renderFamilyChoices();renderPrimaryEmotionChoices();renderSecondEmotionChoices();renderStaticChoices();renderIntensityLabels();renderSentencePreview();renderCounts();renderPairSummary();
+  renderFamilyChoices();renderPrimaryEmotionChoices();renderSecondEmotionChoices();renderStaticChoices();renderIntensityLabels();renderSentencePreview();renderCounts();
 }
 function validateCurrentStep(){
   const id=STEPS[currentStepIndex].stateId;
@@ -463,15 +435,6 @@ function renderSummary(){
   $('successChecks').innerHTML=['Named at least one specific emotion','Rated its intensity','Identified another emotion or a physical signal','Selected one constructive next action'].map(t=>'<div class="check">✓ '+esc(t)+'</div>').join('');
   resetSaveUi(false);
 }
-function renderPairSummary(){
-  const rows=[['Emotion word',exerciseData.primaryEmotion.label],['Intensity',exerciseData.primaryEmotion.intensity+'/10'],['Helpful next action',exerciseData.nextAction]];
-  if($('revealPhysical')?.checked)rows.push(['Physical clue',physicalText()]);
-  $('pairSummary').innerHTML=rows.map(([k,v])=>'<div class="summary-row"><strong>'+esc(k)+'</strong><div>'+esc(v)+'</div></div>').join('');
-}
-function showPairPractice(){stopTimer();document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id==='pairPractice'));$('navControls').classList.add('hidden');$('progressText').textContent='Optional pair practice';$('stepName').textContent='3 to 5 minutes';$('progressBar').style.width='100%';renderPairSummary();$('pair-title').focus({preventScroll:true});recordEvent('emotion_pair_extension_started');postHeight();}
-function renderPairTimerChoice(){document.querySelectorAll('#pairTimerChoices .chip').forEach(btn=>btn.setAttribute('aria-pressed',btn.textContent.startsWith(secondsToPairLabel(Number($('pairTimerChoices').dataset.seconds||0)))?'true':'false'))}
-function secondsToPairLabel(seconds){return seconds===180?'3 minutes':seconds===300?'5 minutes':'No timer'}
-function beginPairTimer(){clearInterval(pairTimerHandle);const seconds=Number($('pairTimerChoices').dataset.seconds||0);if(!seconds){$('pairTimerText').textContent='No pair timer selected. Take the time you need.';return}let left=seconds;$('pairTimerText').textContent=secondsToPairLabel(seconds)+' remaining.';pairTimerHandle=setInterval(()=>{left-=1;if(left<=0){clearInterval(pairTimerHandle);$('pairTimerText').textContent='Pair timer complete. Take the time you need.';announce('Pair timer complete.')}else if(left%60===0||left===10){$('pairTimerText').textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0')+' remaining.'}},1000)}
 function saveDraft(){try{sessionStorage.setItem(STORAGE_KEY,JSON.stringify(exerciseData))}catch(e){}}
 function restoreDraft(){try{const raw=sessionStorage.getItem(STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);exerciseData={...exerciseDataDefault(),...parsed,primaryEmotion:{...exerciseDataDefault().primaryEmotion,...(parsed.primaryEmotion||{})},secondaryEmotion:{...exerciseDataDefault().secondaryEmotion,...(parsed.secondaryEmotion||{})}}}}catch(e){exerciseData=exerciseDataDefault()}}
 function clearDraft(){try{sessionStorage.removeItem(STORAGE_KEY)}catch(e){}}

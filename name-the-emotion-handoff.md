@@ -50,7 +50,7 @@ Copy and option sets are configured near the top of the script:
 - `actionOptions`
 - `reflectionOptions`
 
-No countdown is used. The exercise is self-paced so learners can slow down while noticing, naming, and understanding the emotion.
+No countdown is used. The exercise is self-paced and typically takes about five minutes, so learners can slow down while noticing, naming, and understanding the emotion.
 
 ## Feelings Wheel Source
 
@@ -105,7 +105,7 @@ Public Wix route:
 
 `https://www.whattodo.coach/skills-hub/name-the-emotion`
 
-The published artifact loads the expected exercise content, including the six-step flow, self-paced framing, privacy statement, emotion-versus-feeling education, emotion naming and intensity controls, emotion definitions, worked examples, completion actions, survey link, Skills Stack button, and response-clearing controls.
+The published artifact loads the expected exercise content, including the six-step flow, self-paced framing that typically takes about five minutes, privacy statement, emotion-versus-feeling education, emotion naming and intensity controls, emotion definitions, worked examples, completion actions, survey link, Skills Stack button, and response-clearing controls.
 
 The public Wix route loads successfully with the What To Do! wrapper, attribution, coaching disclaimer, and site navigation. The embedded exercise is iframe-based, so final iframe interaction and sizing still require hands-on browser testing.
 

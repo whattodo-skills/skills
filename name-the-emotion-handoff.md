@@ -170,3 +170,64 @@ Confirm:
 - Confirm the survey and Skills Stack actions behave correctly when opened, cancelled, repeated, or blocked by the browser.
 
 Full production completion can be recorded after the accessible embed name is published and the hands-on QA results are added here.
+
+## QA Run - 2026-07-31
+
+Browser route tested:
+
+`https://www.whattodo.coach/skills-hub/name-the-emotion`
+
+Direct artifact:
+
+`https://whattodo-skills.github.io/skills/name-the-emotion.html?v=7c9788d-1`
+
+### Passed In Chrome Automation
+
+- Public Wix route loaded with page title `Name The Emotion | What To Do!`.
+- Embedded artifact source was `https://whattodo-skills.github.io/skills/name-the-emotion.html?v=7c9788d-1`.
+- Standard flow completed from intro through completion.
+- Situation input accepted text.
+- Situation input was also verified as optional by continuing with it blank.
+- Primary emotion selection worked with broad family plus specific emotion word.
+- Missing primary emotion displayed: `Choose one emotion word before continuing. There is no single correct answer.`
+- `No second emotion right now` allowed the learner to continue without an error.
+- Primary intensity accepted a value of `8`.
+- Physical clue selection worked.
+- Strong-feeling note appeared without blocking the learner.
+- Respond step accepted a pointing-toward value and a next-action chip.
+- Reflection accepted optional text.
+- Completion summary rendered primary emotion, intensity, physical clue, pointing-toward text, next helpful action, and reflection without broken optional fields.
+- Pair practice displayed emotion word, intensity, and helpful next action.
+- Pair practice did not expose the private situation or reflection.
+- Refresh on the completion screen restored the same session draft.
+- `Finish` cleared the session draft; after reload, the artifact returned to `intro`.
+- Clear-response confirmation appeared inline.
+- Cancelling clear-response kept the learner on the current step.
+- Confirming clear-response returned the artifact to `intro`.
+- Responsive checks at approximately 320, 375, 768, and 1440 pixels wide showed no horizontal overflow in the Wix route.
+
+### Still Failing Or Not Fully Verifiable
+
+- The Wix iframe title is still `Embedded Content`.
+- The iframe has no `aria-label`.
+- The required accessible name `Name The Emotion coping practice` has not been verified in production.
+- The iframe container still reported a fixed outer height of about `950px`; dynamic height behavior was not confirmed in production.
+- Keyboard-only testing was partially exercised, but full sign-off is not complete because focus enters a generically named cross-origin iframe and the exact internal focus sequence could not be fully verified through automation.
+- Hands-on VoiceOver with Safari was not completed.
+- Hands-on NVDA with Chrome on Windows was not completed.
+- Network analytics inspection for learner-entered text was not completed through browser devtools; source inspection still shows analytics events do not include learner answers.
+- Skills Stack save was not fully verified end-to-end against the parent Wix save response in this QA pass.
+
+### Current Approval Status
+
+Production deployed, functional smoke QA partially passed, but full accessibility sign-off is still blocked.
+
+Required before production-complete:
+
+1. In Wix Studio, set the embed description/accessibility text to `Name The Emotion coping practice`.
+2. Publish the Wix site.
+3. Re-run iframe-title verification and confirm production no longer exposes `Embedded Content`.
+4. Complete hands-on keyboard-only testing.
+5. Complete hands-on VoiceOver/Safari and NVDA/Chrome testing.
+6. Re-check iframe height behavior after disclosures, validation messages, completion summary, and pair practice.
+7. Verify Skills Stack save result handling through the Wix parent page.

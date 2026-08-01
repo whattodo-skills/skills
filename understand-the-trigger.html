@@ -133,7 +133,7 @@ input[type=number]{max-width:160px}.inline-check{display:flex;gap:8px;align-item
       </div>
       <p>Statements like “They do not care” or “Something terrible will happen” are interpretations. Put those in the next step.</p>
       <label for="startingPoint">Just before the emotion began, I noticed:</label>
-      <textarea id="startingPoint" maxlength="500"></textarea>
+      <textarea id="startingPoint" maxlength="500" placeholder="I saw the Senate hearing" autocomplete="off"></textarea>
       <div class="btns"><button class="btn" type="button" data-go="moment">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
       <div class="error" id="starting-error" aria-live="polite"></div>
     </div>
@@ -156,9 +156,9 @@ input[type=number]{max-width:160px}.inline-check{display:flex;gap:8px;align-item
       <h2 id="separate-title" tabindex="-1">4. Separate the event from the story</h2>
       <p>The interpretation may be accurate, partly accurate, or inaccurate. The event and its meaning are not automatically the same.</p>
       <label for="eventText">What happened:</label>
-      <textarea id="eventText" maxlength="650"></textarea>
+      <textarea id="eventText" maxlength="650" placeholder="I saw the Senate hearing" autocomplete="off"></textarea>
       <label for="storyText">What I told myself it meant:</label>
-      <textarea id="storyText" maxlength="650"></textarea>
+      <textarea id="storyText" maxlength="650" placeholder="What happened to our government?" autocomplete="off"></textarea>
       <div class="btns"><button class="btn" type="button" data-go="type">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
       <div class="error" id="separate-error" aria-live="polite"></div>
     </div>
@@ -173,7 +173,7 @@ input[type=number]{max-width:160px}.inline-check{display:flex;gap:8px;align-item
         <div class="choices" id="vulnerabilityChoices"></div>
       </fieldset>
       <label for="vulnerabilityText">Before this happened, I was already dealing with:</label>
-      <textarea id="vulnerabilityText" maxlength="700"></textarea>
+      <textarea id="vulnerabilityText" maxlength="700" placeholder="Ongoing stress" autocomplete="off"></textarea>
       <div class="note mint">Vulnerability does not mean your emotion is wrong. It helps explain why the trigger may have affected you more strongly at that moment.</div>
       <div class="btns"><button class="btn" type="button" data-go="separate">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
       <div class="error" id="vulnerability-error" aria-live="polite"></div>

@@ -184,12 +184,12 @@ input[type=number]{max-width:160px}.inline-check{display:flex;gap:8px;align-item
     <div class="panel">
       <h2 id="chain-title" tabindex="-1">6. Trace the emotional chain</h2>
       <div class="grid">
-        <div><label for="beforeTrigger">Before the trigger, I was:</label><span class="example-help" id="beforeTriggerHelp">Example: Watching the news</span><textarea id="beforeTrigger" maxlength="400" placeholder="Watching the news" aria-describedby="beforeTriggerHelp"></textarea></div>
-        <div><label for="thenHappened">Then this happened:</label><span class="example-help" id="thenHappenedHelp">Example: I saw the Senate hearing</span><textarea id="thenHappened" maxlength="400" placeholder="I saw the Senate hearing" aria-describedby="thenHappenedHelp"></textarea></div>
-        <div><label for="toldMyself">I told myself:</label><span class="example-help" id="toldMyselfHelp">Example: What happened to our government?</span><textarea id="toldMyself" maxlength="400" placeholder="What happened to our government?" aria-describedby="toldMyselfHelp"></textarea></div>
-        <div><label for="emotionChain">That brought up the emotion:</label><span class="example-help" id="emotionChainHelp">Example: Anger</span><textarea id="emotionChain" maxlength="400" placeholder="Anger" aria-describedby="emotionChainHelp"></textarea></div>
-        <div><label for="bodyResponse">My body responded by:</label><span class="example-help" id="bodyResponseHelp">Example: Feeling tight in my chest</span><textarea id="bodyResponse" maxlength="400" placeholder="Feeling tight in my chest" aria-describedby="bodyResponseHelp"></textarea></div>
-        <div><label for="actionUrge">I felt the urge to:</label><span class="example-help" id="actionUrgeHelp">Example: Cry</span><textarea id="actionUrge" maxlength="400" placeholder="Cry" aria-describedby="actionUrgeHelp"></textarea></div>
+        <div><label for="beforeTrigger">Before the trigger, I was:</label><textarea id="beforeTrigger" maxlength="400" placeholder="Watching the news" autocomplete="off"></textarea></div>
+        <div><label for="thenHappened">Then this happened:</label><textarea id="thenHappened" maxlength="400" placeholder="I saw the Senate hearing" autocomplete="off"></textarea></div>
+        <div><label for="toldMyself">I told myself:</label><textarea id="toldMyself" maxlength="400" placeholder="What happened to our government?" autocomplete="off"></textarea></div>
+        <div><label for="emotionChain">That brought up the emotion:</label><textarea id="emotionChain" maxlength="400" placeholder="Anger" autocomplete="off"></textarea></div>
+        <div><label for="bodyResponse">My body responded by:</label><textarea id="bodyResponse" maxlength="400" placeholder="Feeling tight in my chest" autocomplete="off"></textarea></div>
+        <div><label for="actionUrge">I felt the urge to:</label><textarea id="actionUrge" maxlength="400" placeholder="Cry" autocomplete="off"></textarea></div>
       </div>
       <div class="btns"><button class="btn" type="button" data-go="vulnerability">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
       <div class="error" id="chain-error" aria-live="polite"></div>
@@ -201,9 +201,9 @@ input[type=number]{max-width:160px}.inline-check{display:flex;gap:8px;align-item
       <h2 id="understanding-title" tabindex="-1">7. Check understanding</h2>
       <p>You may find that several triggers were working together. You do not have to force one external event to be the only cause.</p>
       <label for="strongestTrigger">The strongest trigger appears to have been:</label>
-      <span class="example-help" id="strongestTriggerHelp">Example: Hearing the way our elected talk to us and each other.</span><textarea id="strongestTrigger" maxlength="500" placeholder="Hearing the way our elected talk to us and each other." aria-describedby="strongestTriggerHelp"></textarea>
+      <textarea id="strongestTrigger" maxlength="500" placeholder="Hearing the way our elected talk to us and each other." autocomplete="off"></textarea>
       <label for="newUnderstanding">The part I understand more clearly is:</label>
-      <span class="example-help" id="newUnderstandingHelp">Example: Our elected officials have forgotten they work for us; for you and me; and I'm done taking their shit. I'm going to make sure that everyone I know is registered to vote and encourage them to do the same.</span><textarea id="newUnderstanding" maxlength="700" placeholder="Our elected officials have forgotten they work for us; for you and me; and I'm done taking their shit. I'm going to make sure that everyone I know is registered to vote and encourage them to do the same." aria-describedby="newUnderstandingHelp"></textarea>
+      <textarea id="newUnderstanding" maxlength="700" placeholder="Our elected officials have forgotten they work for us; for you and me; and I'm done taking their shit. I'm going to make sure that everyone I know is registered to vote and encourage them to do the same." autocomplete="off"></textarea>
       <div class="btns"><button class="btn" type="button" data-go="chain">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
       <div class="error" id="understanding-error" aria-live="polite"></div>
     </div>
@@ -225,7 +225,7 @@ input[type=number]{max-width:160px}.inline-check{display:flex;gap:8px;align-item
         <div class="choices" id="nextSkillChoices"></div>
       </fieldset>
       <label for="skillReason">I chose it because:</label>
-      <span class="example-help" id="skillReasonHelp">Example: Many Americans before me have faced threats to our democracy and they stepped up and kept our train on the track - now is the time for me to be courageous! Grandpa Bill took two shots in Germany in WW2 and has a purple heart we display proudly. This shit will not be going down on my watch!</span><textarea id="skillReason" maxlength="700" placeholder="Many Americans before me have faced threats to our democracy and they stepped up and kept our train on the track - now is the time for me to be courageous! Grandpa Bill took two shots in Germany in WW2 and has a purple heart we display proudly. This shit will not be going down on my watch!" aria-describedby="skillReasonHelp"></textarea>
+      <textarea id="skillReason" maxlength="700" placeholder="Many Americans before me have faced threats to our democracy and they stepped up and kept our train on the track - now is the time for me to be courageous! Grandpa Bill took two shots in Germany in WW2 and has a purple heart we display proudly. This shit will not be going down on my watch!" autocomplete="off"></textarea>
       <div class="btns"><button class="btn" type="button" data-go="understanding">Back</button><button class="btn primary" type="button" data-next>Build summary</button></div>
       <div class="error" id="skill-error" aria-live="polite"></div>
     </div>

@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Understand the Trigger | What To Do!</title>
+<meta name="description" content="Understand the Trigger is a guided coping practice for identifying emotional triggers, separating facts from interpretations, noticing vulnerability factors, and choosing what may help next.">
+<link rel="canonical" href="https://www.whattodo.coach/skills-hub/understand-the-trigger">
+<style>
+:root{--bg:#f7f4ed;--panel:#fff;--ink:#182047;--text:#27313d;--muted:#667085;--line:#ded8ce;--blue:#4f5dad;--blue-bg:#edf1f8;--mint:#eaf4f0;--pink:#bd3a59;--orange:#fff0e7;--focus:#f4c95d;--shadow:0 2px 14px rgba(0,0,0,.07)}
+*{box-sizing:border-box}
+html,body{min-height:0;background:var(--bg)}
+body{margin:0;color:var(--text);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:980px;margin:0 auto;padding:22px 14px 70px}
+.hero,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.hero{padding:24px;margin-bottom:14px}.panel{padding:22px;margin-bottom:14px}
+.eyebrow{font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+h1,h2,h3{color:var(--ink);line-height:1.18}h1{font-size:clamp(2rem,5vw,3rem);margin:.15em 0}h2{margin:0 0 8px}h3{font-size:1.06rem;margin:18px 0 8px}
+p{margin:.55rem 0;color:var(--muted)}.subtitle{font-size:1.08rem;max-width:760px}
+.steps{display:flex;gap:7px;overflow:auto;list-style:none;padding:0;margin:0 0 14px}
+.steps li{padding:7px 11px;border-radius:999px;background:#eee;color:var(--muted);font-size:.84rem;font-weight:850;white-space:nowrap}
+.steps li[aria-current=step]{background:var(--ink);color:white}
+.screen{display:none}.screen.active{display:block}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.note,.summary-row,.confirm{border-left:4px solid var(--blue);background:var(--blue-bg);border-radius:10px;padding:13px;margin:12px 0;color:var(--ink);line-height:1.55}
+.note.mint{border-left-color:#79b8a5;background:var(--mint);color:#24554b}.note.warn,.confirm{border-left-color:#ff6903;background:var(--orange);color:#663400}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:10px 0 14px}
+.choice{display:block;border:2px solid var(--line);border-radius:10px;padding:12px;background:white;color:var(--ink);font-weight:850;cursor:pointer}
+.choice input{width:auto;margin:0 8px 0 0;vertical-align:middle}.choice span{display:block;margin:5px 0 0 26px;color:var(--muted);font-size:.9rem;font-weight:650}
+.choice:has(input:checked){border-color:var(--blue);background:var(--blue-bg)}
+fieldset{border:0;margin:14px 0;padding:0}legend,label,.label{display:block;font-weight:900;color:var(--ink);margin:13px 0 6px}
+input,textarea,select{width:100%;border:2px solid var(--line);border-radius:10px;background:white;color:var(--text);padding:11px 12px;font:inherit}
+textarea{min-height:88px;resize:vertical}input[type=checkbox],input[type=radio]{accent-color:var(--blue)}
+input[type=number]{max-width:160px}.inline-check{display:flex;gap:8px;align-items:flex-start;font-weight:800;color:var(--ink)}.inline-check input{width:auto;margin-top:4px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.btn{appearance:none;border:2px solid var(--line);border-radius:10px;background:white;color:var(--ink);padding:12px 14px;min-height:46px;font:inherit;font-weight:850;text-align:center;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:white}.btn.warning{background:var(--orange);border-color:#ffd1b5;color:#873a00}.btn.secondary{background:var(--blue-bg);border-color:#cbd4ee;color:var(--blue)}
+.btn:disabled{opacity:.5;cursor:not-allowed}.status{min-height:1.4em;margin-top:10px;color:var(--ink);font-weight:850}.error{min-height:1.4em;margin-top:10px;color:#8f1737;font-weight:850}.hidden{display:none!important}
+.summary{display:grid;gap:9px}.summary-row strong{display:block;color:var(--blue);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}.summary-row div{white-space:pre-wrap}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+@media(max-width:720px){main{padding:16px 10px 50px}.hero,.panel{padding:17px}.grid,.choices{grid-template-columns:1fr}.btn,.choice{width:100%}.btns{display:grid;grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">Coping Skill</div>
+    <h1>Understand the Trigger</h1>
+    <p class="subtitle">Identify what activated a strong emotion, separate what happened from the story your mind added, and choose what may help next.</p>
+  </header>
+
+  <ol class="steps" aria-label="Understand the Trigger steps">
+    <li id="step-start" aria-current="step">Start</li>
+    <li id="step-moment">Moment</li>
+    <li id="step-starting">Starting point</li>
+    <li id="step-type">Trigger type</li>
+    <li id="step-separate">Separate</li>
+    <li id="step-vulnerability">Vulnerability</li>
+    <li id="step-chain">Chain</li>
+    <li id="step-understanding">Understanding</li>
+    <li id="step-skill">Next skill</li>
+    <li id="step-summary">Summary</li>
+  </ol>
+
+  <section class="screen active" id="start" aria-labelledby="start-title">
+    <div class="panel">
+      <h2 id="start-title" tabindex="-1">Choose how to begin</h2>
+      <p>This practice helps you look at a manageable emotional moment without blaming yourself or approving of what happened.</p>
+      <p>You can pause without committing to any future action. Understanding a trigger is information, not a requirement to forgive, re-engage, or act immediately.</p>
+      <label class="inline-check"><input id="draftOptIn" type="checkbox"> Save an in-progress draft in this browser</label>
+      <p class="note mint hidden" id="draftNote">Drafts are stored only in this browser on this device. You can turn this off or clear the draft with Start Over.</p>
+      <div class="btns">
+        <button class="btn primary" type="button" data-start="moment">Continue with a manageable emotional moment</button>
+        <button class="btn secondary" type="button" data-start="ground">Ground first</button>
+        <button class="btn warning" type="button" data-start="pause">Pause or leave the practice</button>
+      </div>
+      <div class="status" id="draftStatus" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="ground" aria-labelledby="ground-title">
+    <div class="panel">
+      <h2 id="ground-title" tabindex="-1">Ground first</h2>
+      <p>Before examining the trigger, orient to the room you are in.</p>
+      <div class="note mint">
+        <strong>Brief sensory grounding:</strong><br>
+        Name 5 things you can see.<br>
+        Name 4 things you can feel or touch.<br>
+        Name 3 things you can hear.<br>
+        Take one slow breath and notice that you are here now.
+      </div>
+      <div class="btns">
+        <button class="btn" type="button" data-go="start">Back</button>
+        <button class="btn primary" type="button" data-go="moment">Continue to the practice</button>
+        <button class="btn warning" type="button" data-go="pause">Pause or leave</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="pause" aria-labelledby="pause-title">
+    <div class="panel">
+      <h2 id="pause-title" tabindex="-1">You can pause here</h2>
+      <p>Stopping now is allowed. Pausing does not commit you to any future action, explanation, conversation, or decision.</p>
+      <p>If you turned on draft saving, your current draft will stay in this browser when storage is available. If draft saving is off, your private answers remain only on this screen until you leave or start over.</p>
+      <div class="note warn">If you may not be safe, might hurt yourself or someone else, or are in immediate danger, call 911, call or text 988, or go to your nearest emergency room. Do not use this exercise to delay protective action.</div>
+      <div class="btns">
+        <button class="btn primary" type="button" data-go="start">Return to start</button>
+        <a class="btn warning" href="https://www.whattodo.coach/skills-hub">Leave and choose another skill</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="moment" aria-labelledby="moment-title">
+    <div class="panel">
+      <h2 id="moment-title" tabindex="-1">1. Choose an emotional moment</h2>
+      <p>Choose one recent moment that feels manageable enough to examine.</p>
+      <label for="emotion">The emotion I noticed was:</label>
+      <input id="emotion" maxlength="80" autocomplete="off">
+      <label for="intensity">Its intensity was:</label>
+      <input id="intensity" type="number" min="0" max="10" inputmode="numeric" aria-describedby="intensityHint">
+      <div class="note" id="intensityHint">Enter a number from 0 through 10.</div>
+      <div class="btns"><button class="btn" type="button" data-go="start">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
+      <div class="error" id="moment-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="starting" aria-labelledby="starting-title">
+    <div class="panel">
+      <h2 id="starting-title" tabindex="-1">2. Find the starting point</h2>
+      <p><strong>What happened just before I noticed the emotion?</strong></p>
+      <p>Describe what you directly observed through your senses, including an internal sensation, thought, image, or memory.</p>
+      <div class="note">
+        Examples: My friend read my message but did not respond. My supervisor asked me to revise part of my work. I noticed tightness in my chest. I remembered something embarrassing. I pictured an upcoming appointment.
+      </div>
+      <p>Statements like “They do not care” or “Something terrible will happen” are interpretations. Put those in the next step.</p>
+      <label for="startingPoint">Just before the emotion began, I noticed:</label>
+      <textarea id="startingPoint" maxlength="500"></textarea>
+      <div class="btns"><button class="btn" type="button" data-go="moment">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
+      <div class="error" id="starting-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="type" aria-labelledby="type-title">
+    <div class="panel">
+      <h2 id="type-title" tabindex="-1">3. Identify the trigger type</h2>
+      <fieldset>
+        <legend>What kind of trigger does this seem closest to?</legend>
+        <div class="choices" id="triggerTypeChoices"></div>
+      </fieldset>
+      <div class="btns"><button class="btn" type="button" data-go="starting">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
+      <div class="error" id="type-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="separate" aria-labelledby="separate-title">
+    <div class="panel">
+      <h2 id="separate-title" tabindex="-1">4. Separate the event from the story</h2>
+      <p>The interpretation may be accurate, partly accurate, or inaccurate. The event and its meaning are not automatically the same.</p>
+      <label for="eventText">What happened:</label>
+      <textarea id="eventText" maxlength="650"></textarea>
+      <label for="storyText">What I told myself it meant:</label>
+      <textarea id="storyText" maxlength="650"></textarea>
+      <div class="btns"><button class="btn" type="button" data-go="type">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
+      <div class="error" id="separate-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="vulnerability" aria-labelledby="vulnerability-title">
+    <div class="panel">
+      <h2 id="vulnerability-title" tabindex="-1">5. Notice vulnerability factors</h2>
+      <p>Before this happened, what conditions may have made the emotion hit harder?</p>
+      <fieldset>
+        <legend>Common vulnerability factors</legend>
+        <div class="choices" id="vulnerabilityChoices"></div>
+      </fieldset>
+      <label for="vulnerabilityText">Before this happened, I was already dealing with:</label>
+      <textarea id="vulnerabilityText" maxlength="700"></textarea>
+      <div class="note mint">Vulnerability does not mean your emotion is wrong. It helps explain why the trigger may have affected you more strongly at that moment.</div>
+      <div class="btns"><button class="btn" type="button" data-go="separate">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
+      <div class="error" id="vulnerability-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="chain" aria-labelledby="chain-title">
+    <div class="panel">
+      <h2 id="chain-title" tabindex="-1">6. Trace the emotional chain</h2>
+      <div class="grid">
+        <div><label for="beforeTrigger">Before the trigger, I was:</label><textarea id="beforeTrigger" maxlength="400"></textarea></div>
+        <div><label for="thenHappened">Then this happened:</label><textarea id="thenHappened" maxlength="400"></textarea></div>
+        <div><label for="toldMyself">I told myself:</label><textarea id="toldMyself" maxlength="400"></textarea></div>
+        <div><label for="emotionChain">That brought up the emotion:</label><textarea id="emotionChain" maxlength="400"></textarea></div>
+        <div><label for="bodyResponse">My body responded by:</label><textarea id="bodyResponse" maxlength="400"></textarea></div>
+        <div><label for="actionUrge">I felt the urge to:</label><textarea id="actionUrge" maxlength="400"></textarea></div>
+      </div>
+      <div class="btns"><button class="btn" type="button" data-go="vulnerability">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
+      <div class="error" id="chain-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="understanding" aria-labelledby="understanding-title">
+    <div class="panel">
+      <h2 id="understanding-title" tabindex="-1">7. Check understanding</h2>
+      <p>You may find that several triggers were working together. You do not have to force one external event to be the only cause.</p>
+      <label for="strongestTrigger">The strongest trigger appears to have been:</label>
+      <textarea id="strongestTrigger" maxlength="500"></textarea>
+      <label for="newUnderstanding">The part I understand more clearly now is:</label>
+      <textarea id="newUnderstanding" maxlength="500"></textarea>
+      <div class="btns"><button class="btn" type="button" data-go="chain">Back</button><button class="btn primary" type="button" data-next>Continue</button></div>
+      <div class="error" id="understanding-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="skill" aria-labelledby="skill-title">
+    <div class="panel">
+      <h2 id="skill-title" tabindex="-1">8. Choose the next skill</h2>
+      <p>Choosing a skill does not automatically redirect you or commit you to an action. It only helps you name what may help next.</p>
+      <div class="note">
+        Interpretation may not fit the facts → Check the Facts<br>
+        Facts are the problem → Problem Solving<br>
+        Body is highly activated → Body-based regulation or distress tolerance<br>
+        Event cannot be changed → Radical Acceptance or Turning the Mind<br>
+        Emotion creates an ineffective urge → Opposite Action
+      </div>
+      <fieldset>
+        <legend>Possible next skill</legend>
+        <div class="choices" id="nextSkillChoices"></div>
+      </fieldset>
+      <label for="skillReason">I chose it because:</label>
+      <textarea id="skillReason" maxlength="500"></textarea>
+      <div class="btns"><button class="btn" type="button" data-go="understanding">Back</button><button class="btn primary" type="button" data-next>Build summary</button></div>
+      <div class="error" id="skill-error" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="summary" aria-labelledby="summary-title">
+    <div class="panel">
+      <h2 id="summary-title" tabindex="-1">You looked for the trigger without blaming yourself</h2>
+      <p>Review what you noticed. You can use this understanding to choose a skill, pause, or wait before deciding what to do next.</p>
+      <div class="summary" id="summaryBox"></div>
+      <label class="inline-check"><input id="includePrivate" type="checkbox"> Include my detailed practice summary</label>
+      <p class="note mint">By default, saving includes only the skill card, completion timestamp, and basic skill information. Detailed trigger content is included only if you check the box.</p>
+      <div class="btns">
+        <a class="btn secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
+        <button class="btn primary" id="saveBtn" type="button">Save to Skills Stack</button>
+        <button class="btn" id="copyBtn" type="button">Copy summary</button>
+        <button class="btn" id="practiceAgainBtn" type="button">Practice again</button>
+        <button class="btn warning" id="historyBtn" type="button" aria-controls="historyConfirm">Clear Practice History</button>
+        <button class="btn warning" id="startOverBtn" type="button" aria-controls="resetConfirm">Start Over</button>
+      </div>
+      <div class="confirm hidden" id="historyConfirm" role="group" aria-labelledby="historyTitle">
+        <strong id="historyTitle">Clear saved practice history?</strong>
+        <p>This clears Understand the Trigger history saved in this browser and requests account history removal when the parent What To Do! page supports it.</p>
+        <div class="btns"><button class="btn warning" id="confirmHistory" type="button">Yes, clear history</button><button class="btn" id="cancelHistory" type="button">Keep history</button></div>
+      </div>
+      <div class="confirm hidden" id="resetConfirm" role="group" aria-labelledby="resetTitle">
+        <strong id="resetTitle">Start over and clear this practice?</strong>
+        <p>This clears the current on-screen practice and this skill's opted-in draft. It does not clear unrelated account history or Skills Stack saves.</p>
+        <div class="btns"><button class="btn warning" id="confirmReset" type="button">Yes, start over</button><button class="btn" id="cancelReset" type="button">Keep practicing</button></div>
+      </div>
+      <div class="status" id="saveStatus" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="sr-only" id="liveRegion" aria-live="polite" aria-atomic="true"></div>
+</main>
+<script>
+const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
+const SKILL_ID='understand-the-trigger';
+const SKILL_TITLE='Understand the Trigger';
+const SKILL_URL='https://www.whattodo.coach/skills-hub/understand-the-trigger';
+const STORAGE_KEY='wtd_understand_trigger_draft_v1';
+const HISTORY_KEY='wtd_understand_trigger_history_v1';
+const BROWSER_SAVE_KEY='wtd_understand_trigger_latest_v1';
+const steps=['start','moment','starting','type','separate','vulnerability','chain','understanding','skill','summary'];
+const labels={start:'Start',ground:'Ground first',pause:'Pause or leave',moment:'Choose an emotional moment',starting:'Find the starting point',type:'Identify the trigger type',separate:'Separate the event from the story',vulnerability:'Notice vulnerability factors',chain:'Trace the emotional chain',understanding:'Check understanding',skill:'Choose the next skill',summary:'Summary'};
+const triggerTypes=['Event','Thought or interpretation','Memory or image','Physical state','A combination'];
+const vulnerabilityOptions=['Tiredness','Hunger','Illness','Pain','Poor sleep','Medication or substance effects','Hormonal changes','Ongoing stress','A similar recent event','Another emotion','A reminder of an earlier painful experience','Feeling unsupported, overwhelmed, or out of control'];
+const nextSkills=['Check the Facts','Problem Solving','Body-based regulation or distress tolerance','Radical Acceptance or Turning the Mind','Opposite Action','I am not sure yet'];
+const textFields=['emotion','startingPoint','eventText','storyText','vulnerabilityText','beforeTrigger','thenHappened','toldMyself','emotionChain','bodyResponse','actionUrge','strongestTrigger','newUnderstanding','skillReason'];
+const stateDefault=()=>({sessionId:newSessionId(),current:'start',draftOptIn:false,includePrivate:false,startedAt:null,completedAt:null,emotion:'',intensity:'',startingPoint:'',triggerType:'',eventText:'',storyText:'',vulnerabilities:[],vulnerabilityText:'',beforeTrigger:'',thenHappened:'',toldMyself:'',emotionChain:'',bodyResponse:'',actionUrge:'',strongestTrigger:'',newUnderstanding:'',nextSkill:'',skillReason:''});
+let state=stateDefault();
+let pendingSaveId='',pendingClearId='',saveTimer=null,lastLocalSaveOk=false;
+const $=id=>document.getElementById(id);
+function newSessionId(){return 'trigger-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)}
+function clean(v,max=900){return String(v||'').replace(/\s+/g,' ').trim().slice(0,max)}
+function esc(v){return clean(v,1500).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function announce(text){$('liveRegion').textContent='';setTimeout(()=>$('liveRegion').textContent=text,25)}
+function postToParent(message){if(parent!==window)parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function recordEvent(event){postToParent({type:'skillEvent',skillSlug:SKILL_ID,event})}
+function postHeight(){postToParent({type:'skillFrameHeight',skillSlug:SKILL_ID,height:Math.ceil(document.documentElement.scrollHeight)})}
+function safeSet(key,value,store=sessionStorage){try{store.setItem(key,value);return true}catch(e){return false}}
+function safeRead(key,store=sessionStorage){try{return store.getItem(key)}catch(e){return null}}
+function safeRemove(key,store=sessionStorage){try{store.removeItem(key);return true}catch(e){return false}}
+function renderRadioGroup(id,name,items,prop){const wrap=$(id);wrap.innerHTML='';items.forEach((item,i)=>{const label=document.createElement('label');label.className='choice';const input=document.createElement('input');input.type='radio';input.name=name;input.value=item;input.checked=state[prop]===item;input.addEventListener('change',()=>{state[prop]=item;saveDraft();postHeight()});label.append(input,document.createTextNode(item));wrap.appendChild(label)})}
+function renderCheckGroup(id,items,prop){const wrap=$(id);wrap.innerHTML='';items.forEach(item=>{const label=document.createElement('label');label.className='choice';const input=document.createElement('input');input.type='checkbox';input.value=item;input.checked=state[prop].includes(item);input.addEventListener('change',()=>{state[prop]=input.checked?[...state[prop],item]:state[prop].filter(x=>x!==item);saveDraft();postHeight()});label.append(input,document.createTextNode(item));wrap.appendChild(label)})}
+function bind(){
+  document.querySelectorAll('[data-start]').forEach(btn=>btn.addEventListener('click',()=>{if(!state.startedAt){state.startedAt=new Date().toISOString();recordEvent('trigger-practice-started')}show(btn.dataset.start)}));
+  document.querySelectorAll('[data-go]').forEach(btn=>btn.addEventListener('click',()=>show(btn.dataset.go)));
+  document.querySelectorAll('[data-next]').forEach(btn=>btn.addEventListener('click',goNext));
+  $('draftOptIn').addEventListener('change',()=>{state.draftOptIn=$('draftOptIn').checked;$('draftNote').classList.toggle('hidden',!state.draftOptIn);if(state.draftOptIn){$('draftStatus').textContent=saveDraft()?'Draft saving is on for this browser.':'Browser storage is not available, so the draft was not saved.'}else{safeRemove(STORAGE_KEY);$('draftStatus').textContent='Draft saving is off.'}postHeight()});
+  textFields.forEach(id=>$(id).addEventListener('input',()=>{state[id]=clean($(id).value);saveDraft()}));
+  $('intensity').addEventListener('input',()=>{state.intensity=$('intensity').value;saveDraft()});
+  $('includePrivate').addEventListener('change',()=>{state.includePrivate=$('includePrivate').checked;saveDraft()});
+  $('saveBtn').addEventListener('click',savePractice);
+  $('copyBtn').addEventListener('click',copySummary);
+  $('practiceAgainBtn').addEventListener('click',()=>{clearCurrentPractice(false);show('moment')});
+  $('historyBtn').addEventListener('click',()=>{$('historyConfirm').classList.remove('hidden');$('confirmHistory').focus();postHeight()});
+  $('cancelHistory').addEventListener('click',()=>{$('historyConfirm').classList.add('hidden');$('historyBtn').focus();postHeight()});
+  $('confirmHistory').addEventListener('click',clearHistory);
+  $('startOverBtn').addEventListener('click',()=>{$('resetConfirm').classList.remove('hidden');$('confirmReset').focus();postHeight()});
+  $('cancelReset').addEventListener('click',()=>{$('resetConfirm').classList.add('hidden');$('startOverBtn').focus();postHeight()});
+  $('confirmReset').addEventListener('click',()=>{safeRemove(STORAGE_KEY);clearCurrentPractice(true);show('moment')});
+  window.addEventListener('message',receiveMessage);
+}
+function collect(){textFields.forEach(id=>state[id]=clean($(id).value));state.intensity=$('intensity').value;state.draftOptIn=$('draftOptIn').checked;state.includePrivate=$('includePrivate').checked}
+function restoreInputs(){textFields.forEach(id=>$(id).value=state[id]||'');$('intensity').value=state.intensity||'';$('draftOptIn').checked=!!state.draftOptIn;$('includePrivate').checked=!!state.includePrivate;$('draftNote').classList.toggle('hidden',!state.draftOptIn);renderRadioGroup('triggerTypeChoices','triggerType',triggerTypes,'triggerType');renderCheckGroup('vulnerabilityChoices',vulnerabilityOptions,'vulnerabilities');renderRadioGroup('nextSkillChoices','nextSkill',nextSkills,'nextSkill')}
+function show(id){collect();if(!labels[id])id='start';state.current=id;document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.steps li').forEach(li=>{li.removeAttribute('aria-current');const stepId=li.id.replace('step-','');if(stepId===id)li.setAttribute('aria-current','step')});if(!steps.includes(id))document.querySelectorAll('.steps li').forEach(li=>li.removeAttribute('aria-current'));restoreInputs();saveDraft();const heading=document.querySelector('#'+id+' h2');if(heading)heading.focus({preventScroll:true});window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});announce('Step changed to '+labels[id]+'.');postHeight();setTimeout(postHeight,120)}
+function goNext(){collect();const id=state.current;const check=validate(id);if(!check.ok){showError(id,check.message,check.focus);return}showError(id,'');if(id==='skill'){state.completedAt=new Date().toISOString();renderSummary();recordEvent('trigger-practice-completed');show('summary');return}show(steps[steps.indexOf(id)+1]||'summary')}
+function showError(screen,message,focusId){const el=$(screen+'-error');if(el){el.textContent=message||'';el.setAttribute('tabindex','-1')}if(message){el?.focus?.();setTimeout(()=>{const target=$(focusId);const focusable=target?.matches?.('input,textarea,select,button,a')?target:target?.querySelector?.('input,textarea,select,button,a');focusable?.focus()},80);announce(message)}postHeight()}
+function validate(id){if(id==='moment'){if(!clean(state.emotion))return{ok:false,message:'Write the emotion you noticed before continuing.',focus:'emotion'};const n=Number(state.intensity);if(state.intensity===''||Number.isNaN(n)||n<0||n>10)return{ok:false,message:'Enter an intensity from 0 through 10.',focus:'intensity'}}if(id==='starting'&&!clean(state.startingPoint))return{ok:false,message:'Write what happened just before the emotion began.',focus:'startingPoint'};if(id==='type'&&!state.triggerType)return{ok:false,message:'Choose one trigger type. A combination is allowed.',focus:'triggerTypeChoices'};if(id==='separate'){if(!clean(state.eventText))return{ok:false,message:'Write what happened as an observable event.',focus:'eventText'};if(!clean(state.storyText))return{ok:false,message:'Write what you told yourself it meant.',focus:'storyText'}}if(id==='vulnerability'&&!clean(state.vulnerabilityText)&&!state.vulnerabilities.length)return{ok:false,message:'Choose or write at least one vulnerability factor, or write that you are not sure.',focus:'vulnerabilityText'};if(id==='chain'){for(const field of ['beforeTrigger','thenHappened','toldMyself','emotionChain','bodyResponse','actionUrge'])if(!clean(state[field]))return{ok:false,message:'Complete each part of the emotional chain before continuing.',focus:field}}if(id==='understanding'){if(!clean(state.strongestTrigger))return{ok:false,message:'Write what the strongest trigger appears to have been. Several triggers together is allowed.',focus:'strongestTrigger'};if(!clean(state.newUnderstanding))return{ok:false,message:'Write the part you understand more clearly now.',focus:'newUnderstanding'}}if(id==='skill'){if(!state.nextSkill)return{ok:false,message:'Choose a possible next skill. I am not sure yet is allowed.',focus:'nextSkillChoices'};if(!clean(state.skillReason))return{ok:false,message:'Write why you chose that next skill.',focus:'skillReason'}}return{ok:true}}
+function saveDraft(){if(!state.draftOptIn)return false;const ok=safeSet(STORAGE_KEY,JSON.stringify({state,current:state.current,sessionId:state.sessionId}),sessionStorage);$('draftStatus').textContent=ok?'Draft saved in this browser.':'Browser storage is not available, so the draft was not saved.';return ok}
+function restoreDraft(){const raw=safeRead(STORAGE_KEY,sessionStorage);if(!raw)return;try{const saved=JSON.parse(raw);if(saved?.state?.draftOptIn){state={...stateDefault(),...saved.state,current:saved.current||saved.state.current||'start',sessionId:saved.sessionId||saved.state.sessionId||newSessionId()};restoreInputs();$('draftStatus').textContent='Draft restored from this browser.';setTimeout(()=>show(state.current),40)}}catch(e){}}
+function clearCurrentPractice(resetDraftPreference){const keepDraft=resetDraftPreference?false:state.draftOptIn;state=stateDefault();state.draftOptIn=keepDraft;document.querySelectorAll('input,textarea').forEach(el=>{if(el.type==='checkbox'||el.type==='radio')el.checked=false;else el.value=''});if(!keepDraft)safeRemove(STORAGE_KEY);restoreInputs();$('saveStatus').textContent='';$('draftStatus').textContent=keepDraft?'Draft saving remains on for the new practice.':'Current practice cleared.';postHeight()}
+function selectedList(list){return list.length?list.join(', '):'Not selected'}
+function summaryRows(){return [['Emotion and intensity',(state.emotion||'Not entered')+' at '+(state.intensity||'not rated')+'/10'],['Starting point',state.startingPoint],['Trigger type',state.triggerType],['Observable event',state.eventText],['Interpretation',state.storyText],['Vulnerability factors',selectedList(state.vulnerabilities)+(state.vulnerabilityText?'\n'+state.vulnerabilityText:'')],['Emotional chain','Before: '+state.beforeTrigger+'\nThen: '+state.thenHappened+'\nI told myself: '+state.toldMyself+'\nEmotion: '+state.emotionChain+'\nBody: '+state.bodyResponse+'\nUrge: '+state.actionUrge],['Strongest trigger',state.strongestTrigger],['New understanding',state.newUnderstanding],['Possible next skill',state.nextSkill],['Reason for choosing it',state.skillReason]]}
+function renderSummary(){$('summaryBox').innerHTML=summaryRows().map(([k,v])=>'<div class="summary-row"><strong>'+esc(k)+'</strong><div>'+esc(v||'Not entered')+'</div></div>').join('');resetSaveUi(false);postHeight()}
+function summaryText(){return summaryRows().map(([k,v])=>k+': '+(v||'Not entered')).join('\n')}
+async function copySummary(){try{await navigator.clipboard.writeText(summaryText());$('saveStatus').textContent='Summary copied.'}catch(e){$('saveStatus').textContent='Summary is ready, but your browser blocked automatic copying. Select the summary text and copy it manually.'}announce($('saveStatus').textContent)}
+function detailedSummary(){return {emotion:state.emotion,intensity:state.intensity,startingPoint:state.startingPoint,triggerType:state.triggerType,eventText:state.eventText,storyText:state.storyText,vulnerabilities:state.vulnerabilities,vulnerabilityText:state.vulnerabilityText,chain:{beforeTrigger:state.beforeTrigger,thenHappened:state.thenHappened,toldMyself:state.toldMyself,emotion:state.emotionChain,bodyResponse:state.bodyResponse,actionUrge:state.actionUrge},strongestTrigger:state.strongestTrigger,newUnderstanding:state.newUnderstanding,nextSkill:state.nextSkill,skillReason:state.skillReason,summary:summaryText()}}
+function savePayload(){const detailed=state.includePrivate===true;const payload={sessionKey:state.sessionId,sessionId:state.sessionId,skillId:SKILL_ID,skillName:SKILL_TITLE,skillSlug:SKILL_ID,practiceUrl:SKILL_URL,category:'Coping',completionState:'complete',startedAt:state.startedAt||'',completedAt:state.completedAt||new Date().toISOString(),updatedAt:new Date().toISOString(),practiceContext:'coping',recommendedNextPractice:state.nextSkill||'I am not sure yet',detailedSummaryIncluded:detailed};if(detailed)payload.detailedSummary=detailedSummary();return payload}
+function saveLocalPractice(session){try{const current=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');current.unshift(session);localStorage.setItem(HISTORY_KEY,JSON.stringify(current.slice(0,10)));localStorage.setItem(BROWSER_SAVE_KEY,JSON.stringify(session));return true}catch(e){return false}}
+function resetSaveUi(clear=true){clearTimeout(saveTimer);$('saveBtn').disabled=false;$('saveBtn').textContent='Save to Skills Stack';if(clear)$('saveStatus').textContent=''}
+function savePractice(){collect();renderSummary();pendingSaveId='trigger-save-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);const session=savePayload();lastLocalSaveOk=saveLocalPractice(session);$('saveBtn').disabled=true;$('saveBtn').textContent='Saving...';$('saveStatus').textContent=lastLocalSaveOk?'Stored in this browser while account eligibility is checked.':'Browser storage is not available. Checking account eligibility...';recordEvent('practice-save-requested');postToParent({type:'skillPracticeSave',requestId:pendingSaveId,session});saveTimer=setTimeout(()=>showBrowserSave(false),8000)}
+function showBrowserSave(fallbackFromAccount){$('saveBtn').disabled=false;if(lastLocalSaveOk){$('saveBtn').textContent='Saved in this browser';$('saveStatus').textContent=fallbackFromAccount?'Account save did not finish, so a browser copy was kept.':'Saved in this browser. Paid members save to their What To Do! account when available.'}else{$('saveBtn').textContent='Save unavailable';$('saveStatus').textContent='Browser storage is not available, and an account save was not confirmed. Your current practice is still on this screen. Copy the summary before leaving or try again.'}announce($('saveStatus').textContent)}
+function clearHistory(){const historyCleared=safeRemove(HISTORY_KEY,localStorage);const latestCleared=safeRemove(BROWSER_SAVE_KEY,localStorage);pendingClearId='trigger-clear-'+Date.now();postToParent({type:'skillPracticeHistoryClearRequest',requestId:pendingClearId,skillId:SKILL_ID});$('historyConfirm').classList.add('hidden');$('saveStatus').textContent=(historyCleared||latestCleared?'Browser practice history cleared.':'Browser storage is not available, so there may not have been browser history to clear.')+' Account history removal was requested. It is not cleared unless What To Do! confirms it.';announce($('saveStatus').textContent);postHeight()}
+function receiveMessage(event){if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='skillPracticeSaveResult'&&msg.requestId===pendingSaveId){clearTimeout(saveTimer);if(msg.ok&&msg.mode==='account'){safeRemove(BROWSER_SAVE_KEY,localStorage);$('saveBtn').disabled=false;$('saveBtn').textContent='Saved to your account';$('saveStatus').textContent='Saved to your account. This practice is available through your What To Do! account.';recordEvent('practice-saved-account');announce($('saveStatus').textContent)}else showBrowserSave(msg.fallbackFrom==='account')}else if(msg.type==='skillPracticeHistoryClearResult'&&msg.requestId===pendingClearId){if(msg.ok&&msg.mode==='account'){$('saveStatus').textContent='Practice history cleared from your account.'}else if(!msg.ok){$('saveStatus').textContent='Browser history was cleared when available, but account history was not confirmed as cleared. Please try again.'}else{$('saveStatus').textContent='Browser history was cleared when available. No account-history deletion was confirmed.'}announce($('saveStatus').textContent);postHeight()}}
+function init(){bind();restoreInputs();restoreDraft();postToParent({type:'skillReady',skillSlug:SKILL_ID});postHeight();setTimeout(postHeight,200);setTimeout(postHeight,900);if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);addEventListener('resize',postHeight)}
+init();
+</script>
+</body>
+</html>

@@ -283,7 +283,7 @@ function restoreDraft(){try{const saved=JSON.parse(sessionStorage.getItem(STORAG
 window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimer);$('saveBtn').disabled=false;if(msg.ok){recordEvent('save-to-skills-stack');$('saveBtn').textContent='Saved to Skills Stack';$('status').textContent='Saved to Skills Stack.'}else{$('saveBtn').textContent='Save to Skills Stack';$('status').textContent='Save did not finish. Please try again.'}}});
 Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item)));
 starters.forEach(item=>{const option=document.createElement('option');option.value=item;option.textContent=item;$('briefStarter').append(option)});
-renderHelpChoices();renderAskChoices();makeRating('difficultyRating','difficulty');makeRating('supportRating','supportRating');restoreDraft();postToParent({type:'askForSupportReady'});postHeight();addEventListener('load',postHeight);addEventListener('resize',postHeight);
+renderHelpChoices();renderAskChoices();makeRating('difficultyRating','difficulty');makeRating('supportRating','supportRating');restoreDraft();postToParent({type:'askForSupportReady'});postHeight();setTimeout(postHeight,250);setTimeout(postHeight,1000);setTimeout(postHeight,2500);addEventListener('load',postHeight);addEventListener('resize',postHeight);
 </script>
 </body>
 </html>

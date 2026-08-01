@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Name The Emotion | What To Do!</title>
+<meta name="description" content="Name The Emotion is a guided skill-building exercise for noticing, naming, measuring, and responding to an emotion with one helpful next action.">
+<link rel="canonical" href="https://www.whattodo.coach/skills-hub/name-the-emotion">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--bg:#f7f4ed;--ink:#182047;--text:#232323;--muted:#667085;--line:#ded8ce;--panel:#fff;--blue:#4f5dad;--blue-bg:#edf1f8;--mint:#b4dacd;--mint-bg:#eaf4f0;--pink:#bd3a59;--pink-bg:#f7e0e6;--orange:#ff6903;--orange-bg:#fff0e7;--focus:#ffbf47;--shadow:0 2px 14px rgba(0,0,0,.08);--radius:14px}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55;min-height:0}
+main{max-width:940px;margin:0 auto;padding:22px 16px 92px}
+.hero{background:var(--ink);color:#fff;border-bottom:4px solid var(--mint);padding:24px 18px;text-align:center}
+.eyebrow{font-size:.76rem;text-transform:uppercase;letter-spacing:.16em;font-weight:900;color:var(--mint);margin-bottom:5px}
+h1{font-size:clamp(2rem,5vw,3.25rem);line-height:1.05;margin:.2rem 0 .5rem}
+h2{font-size:clamp(1.35rem,3vw,1.8rem);line-height:1.18;margin:0 0 10px;color:var(--ink)}
+h3{font-size:1.08rem;line-height:1.25;margin:16px 0 8px;color:var(--ink)}
+p{margin:.55rem 0}.subtitle{max-width:760px;margin:0 auto;color:rgba(255,255,255,.78);font-size:1.05rem}
+.shell{display:grid;gap:14px}.topbar{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.progress-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--ink);font-weight:900}.privacy{color:var(--muted);font-size:.93rem}
+.bar{height:10px;background:#e4ded4;border-radius:999px;overflow:hidden;margin-top:9px}.bar span{display:block;height:100%;width:0;background:var(--blue);border-radius:999px}
+.timer{display:flex;align-items:center;gap:8px;justify-content:flex-end;white-space:nowrap}.timer strong{font-variant-numeric:tabular-nums;color:var(--ink)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+.screen{display:none}.screen.active{display:block}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.stack{display:grid;gap:12px}
+.note{border-left:4px solid var(--mint);background:var(--mint-bg);border-radius:12px;padding:13px;color:#285c51;margin:12px 0;line-height:1.5}
+.note.blue{border-left-color:var(--blue);background:var(--blue-bg);color:var(--ink)}.note.orange{border-left-color:var(--orange);background:var(--orange-bg);color:#683500}.note.red{border-left-color:var(--pink);background:var(--pink-bg);color:#771432}
+label,.label,legend{display:block;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:900;margin:14px 0 7px}
+fieldset{border:0;padding:0;margin:0}input,textarea,select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;background:#fff;color:var(--text)}textarea{min-height:96px;resize:vertical}
+input[type=range]{accent-color:var(--blue);padding:0}input[type=number]{max-width:120px}.hint{color:var(--muted);font-size:.94rem}.count{font-size:.85rem;color:var(--muted);text-align:right;margin-top:3px}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.choice,.chip,.btn{border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit;font-weight:850;line-height:1.3;cursor:pointer;text-align:left;padding:12px;min-height:46px}.choice span{display:block;color:var(--muted);font-size:.86rem;font-weight:650;margin-top:4px}.chip{min-height:40px;padding:9px 12px}
+.choice[aria-pressed=true],.chip[aria-pressed=true]{border-color:var(--blue);background:var(--blue-bg);box-shadow:inset 0 0 0 2px rgba(79,93,173,.16)}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none}.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}.btn.secondary{background:var(--blue-bg);border-color:#cbd4ee;color:var(--blue)}.btn.warning{background:var(--orange-bg);border-color:#ffd1b5;color:#7a3500}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.sticky-actions{position:sticky;bottom:0;background:rgba(247,244,237,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 0 0;margin-top:12px;z-index:3}
+details{border:1px solid var(--line);border-radius:12px;background:#fff;margin:12px 0;padding:10px 12px}summary{cursor:pointer;font-weight:900;color:var(--ink)}
+table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}th{background:var(--blue-bg);color:var(--ink)}
+.summary{display:grid;gap:10px}.summary-row{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}.summary-row strong{display:block;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:4px}.summary-row div{white-space:pre-wrap}
+.checklist{display:grid;gap:8px;margin-top:12px}.check{background:var(--mint-bg);border-left:4px solid var(--mint);border-radius:10px;padding:10px;color:var(--ink);font-weight:800}
+.validation,.status{min-height:1.4em;margin-top:10px;font-weight:850;color:#8f1737}.status{color:var(--ink)}.hidden{display:none!important}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+@media(max-width:760px){main{padding:14px 10px 96px}.hero{padding:20px 12px}.topbar{grid-template-columns:1fr}.timer{justify-content:space-between}.grid,.choices{grid-template-columns:1fr}.btn,.choice{width:100%}.btns{display:grid;grid-template-columns:1fr}.panel{padding:16px}.sticky-actions{padding-bottom:6px}.chips{display:grid;grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="eyebrow">Coping Skill</div>
+  <h1>Name The Emotion</h1>
+  <p class="subtitle">A five-minute exercise for noticing, naming, and responding to an emotion.</p>
+</header>
+<main>
+  <div class="shell">
+    <section class="topbar" aria-label="Exercise progress">
+      <div>
+        <div class="progress-meta"><span id="progressText">Step 1 of 6</span><span id="stepName">Introduction</span></div>
+        <div class="bar" aria-hidden="true"><span id="progressBar"></span></div>
+        <div class="privacy" id="privacyText">Your responses can remain private and are not submitted as part of this exercise.</div>
+      </div>
+      <div class="timer">
+        <span id="timerText">0:20</span>
+        <button class="chip" type="button" id="timerToggle" aria-pressed="false">Hide timer</button>
+      </div>
+    </section>
+
+    <section class="screen active" id="intro" aria-labelledby="intro-title">
+      <div class="panel">
+        <h2 id="intro-title" tabindex="-1">Name The Emotion</h2>
+        <p>Emotions are information. In this exercise, you are not trying to change, fix, or judge what you feel. You are practising how to notice it, name it, and decide what to do next.</p>
+        <div class="note orange">Choose an ordinary, low-to-moderate emotional experience rather than a traumatic or highly distressing event. You may pass, stop, or keep your responses private.</div>
+        <details>
+          <summary>How this exercise works</summary>
+          <ul>
+            <li>Notice what is happening internally.</li>
+            <li>Name one emotion more precisely.</li>
+            <li>Check whether another emotion is also present.</li>
+            <li>Choose one small next action.</li>
+          </ul>
+        </details>
+        <div class="btns"><button class="btn primary" type="button" id="startButton">Start exercise</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="notice" aria-labelledby="notice-title">
+      <div class="panel">
+        <h2 id="notice-title" tabindex="-1">1. Notice</h2>
+        <p>Take one slow breath and briefly notice what is happening internally.</p>
+        <p><strong>What am I feeling right now, or what did I feel during a recent everyday situation?</strong></p>
+        <p class="hint">You might recall a meeting, conversation, delay, mistake, decision, success, or unexpected event.</p>
+        <label for="situationInput">What happened?</label>
+        <textarea id="situationInput" maxlength="200" placeholder="Describe the situation in a few words" aria-describedby="situationNote"></textarea>
+        <div class="count" id="situationCount">0 / 200</div>
+        <p class="hint" id="situationNote">This description is optional. You can complete the exercise without recording the situation.</p>
+      </div>
+    </section>
+
+    <section class="screen" id="nameEmotion" aria-labelledby="name-title">
+      <div class="panel">
+        <h2 id="name-title" tabindex="-1">2. Name the emotion</h2>
+        <p>First choose the broad emotion family that feels closest. Then choose a more precise word.</p>
+        <label for="emotionSearch">Search emotion words</label>
+        <input id="emotionSearch" placeholder="Search emotion words" autocomplete="off">
+        <fieldset><legend>Broad emotion family</legend><div class="choices" id="familyChoices"></div></fieldset>
+        <fieldset><legend>Which word describes the feeling most accurately, not just approximately?</legend><div class="chips" id="emotionChoices"></div></fieldset>
+        <button class="chip" type="button" id="needWordButton" aria-pressed="false">I need another word</button>
+        <div id="primaryOtherWrap" class="hidden">
+          <label for="primaryOtherInput">Other emotion word</label>
+          <input id="primaryOtherInput" maxlength="40" placeholder="Write one emotion word">
+        </div>
+        <details>
+          <summary>Emotion or interpretation?</summary>
+          <p>Try to name an emotion rather than a conclusion about another person’s intentions.</p>
+          <table>
+            <thead><tr><th>Interpretation or judgement</th><th>Emotion</th></tr></thead>
+            <tbody>
+              <tr><td>I feel like nobody respects me.</td><td>I feel hurt and discouraged.</td></tr>
+              <tr><td>I feel that the meeting was pointless.</td><td>I feel frustrated and disappointed.</td></tr>
+              <tr><td>I feel ignored.</td><td>I feel lonely, excluded, or hurt.</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+    </section>
+
+    <section class="screen" id="secondEmotion" aria-labelledby="second-title">
+      <div class="panel">
+        <h2 id="second-title" tabindex="-1">3. Check for another emotion</h2>
+        <p><strong>What else am I feeling?</strong></p>
+        <p>More than one emotion may be present. For example, you might feel nervous and excited, or angry and hurt.</p>
+        <div class="btns"><button class="btn secondary" type="button" id="noSecondButton" aria-pressed="false">No second emotion right now</button></div>
+        <label for="secondSearch">Search emotion words</label>
+        <input id="secondSearch" placeholder="Search another emotion word" autocomplete="off">
+        <fieldset><legend>Select another emotion</legend><div class="chips" id="secondChoices"></div></fieldset>
+        <button class="chip" type="button" id="secondNeedWordButton" aria-pressed="false">I need another word</button>
+        <div id="secondOtherWrap" class="hidden">
+          <label for="secondOtherInput">Other second emotion word</label>
+          <input id="secondOtherInput" maxlength="40" placeholder="Write one emotion word">
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="measure" aria-labelledby="measure-title">
+      <div class="panel stack">
+        <h2 id="measure-title" tabindex="-1">4. Measure</h2>
+        <div>
+          <label for="primaryIntensitySlider" id="primaryIntensityLabel">How strong is this emotion?</label>
+          <input id="primaryIntensitySlider" type="range" min="0" max="10" step="1" value="5">
+          <input id="primaryIntensityNumber" type="number" min="0" max="10" step="1" value="5" aria-label="Primary emotion intensity number">
+          <p class="status" id="primaryIntensityText">5 out of 10</p>
+        </div>
+        <div id="secondaryIntensityWrap" class="hidden">
+          <label for="secondaryIntensitySlider" id="secondaryIntensityLabel">How strong is the second emotion?</label>
+          <input id="secondaryIntensitySlider" type="range" min="0" max="10" step="1" value="5">
+          <input id="secondaryIntensityNumber" type="number" min="0" max="10" step="1" value="5" aria-label="Secondary emotion intensity number">
+          <p class="status" id="secondaryIntensityText">5 out of 10</p>
+        </div>
+        <div class="note orange hidden" id="strongFeelingNote">This feeling sounds strong. You can pause, stop the exercise, or seek support from someone you trust if continuing does not feel helpful.</div>
+        <fieldset><legend>What physical clue do you notice?</legend><div class="choices" id="physicalChoices"></div></fieldset>
+        <div id="physicalOtherWrap" class="hidden">
+          <label for="physicalOtherInput">Another physical clue</label>
+          <input id="physicalOtherInput" maxlength="80" placeholder="Write a few words">
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="respond" aria-labelledby="respond-title">
+      <div class="panel stack">
+        <h2 id="respond-title" tabindex="-1">5. Respond</h2>
+        <p>Use what you noticed to choose one small, realistic next action.</p>
+        <div class="note blue" id="sentencePreview"></div>
+        <label for="pointingTowardInput">What might the emotion be pointing you toward?</label>
+        <input id="pointingTowardInput" maxlength="120" placeholder="A need, goal, concern, or priority">
+        <div class="btns"><button class="chip" type="button" id="unsureNeedButton" aria-pressed="false">I am not sure yet</button></div>
+        <fieldset><legend>Helpful action ideas</legend><div class="chips" id="actionChips"></div></fieldset>
+        <label for="nextActionInput">What is one small, helpful next action?</label>
+        <textarea id="nextActionInput" maxlength="160" placeholder="Choose an idea above or write your own action"></textarea>
+        <div class="count" id="actionCount">0 / 160</div>
+        <details>
+          <summary>See an example</summary>
+          <p>When the deadline was moved forward,<br>I felt frustrated at 6/10.<br>I also felt worried at 4/10.<br>This may be pointing me toward a need for clarity and support.<br>My next helpful action is to confirm the priorities with my manager.</p>
+          <p>When I was invited to present my idea,<br>I felt apprehensive at 5/10.<br>I also felt excited at 6/10.<br>This may be pointing me toward something important that I want to do well.<br>My next helpful action is to rehearse my opening once.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="screen" id="reflection" aria-labelledby="reflection-title">
+      <div class="panel">
+        <h2 id="reflection-title" tabindex="-1">6. Quick reflection</h2>
+        <p><strong>Did naming the emotion more precisely change how you understood the situation?</strong></p>
+        <fieldset><legend>Optional reflection starters</legend><div class="chips" id="reflectionChips"></div></fieldset>
+        <label for="reflectionInput">Reflection</label>
+        <textarea id="reflectionInput" maxlength="300" placeholder="Write one sentence, or leave this private and continue"></textarea>
+        <div class="count" id="reflectionCount">0 / 300</div>
+      </div>
+    </section>
+
+    <section class="screen" id="complete" aria-labelledby="complete-title">
+      <div class="panel stack">
+        <h2 id="complete-title" tabindex="-1">Exercise complete</h2>
+        <p>You paused, named an emotion, measured its intensity, noticed a signal, and selected a helpful next action.</p>
+        <div class="summary" id="summaryBox"></div>
+        <div class="checklist" id="successChecks"></div>
+        <div class="btns">
+          <a class="btn secondary" href="https://forms.gle/92UqRjmoWx4VRELc8" target="_blank" rel="noopener">Help us design skill-building that works in real life by answering ten short questions</a>
+          <button class="btn secondary" type="button" id="copyButton">Copy summary</button>
+          <button class="btn secondary" type="button" id="saveStackButton">Save to Skills Stack</button>
+          <button class="btn primary" type="button" id="practiceAgainButton">Practice again</button>
+          <button class="btn secondary" type="button" id="pairPracticeButton">Try pair practice</button>
+          <button class="btn warning" type="button" id="finishButton">Finish</button>
+        </div>
+        <div class="status" id="completeStatus" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="pairPractice" aria-labelledby="pair-title">
+      <div class="panel stack">
+        <h2 id="pair-title" tabindex="-1">Optional pair practice</h2>
+        <p>Share only what feels appropriate. You do not need to disclose the situation.</p>
+        <div class="summary" id="pairSummary"></div>
+        <label><input type="checkbox" id="revealPhysical"> Include the physical clue in pair practice</label>
+        <div class="note blue"><strong>Listener prompt:</strong> Is there another emotion beside or underneath that one?</div>
+        <fieldset><legend>Pair timer</legend><div class="chips" id="pairTimerChoices"></div></fieldset>
+        <p class="status" id="pairTimerText">No pair timer started.</p>
+        <div class="btns">
+          <button class="btn primary" type="button" id="beginPairTimerButton">Begin</button>
+          <button class="btn secondary" type="button" id="reviseEmotionButton">Add or revise an emotion</button>
+          <button class="btn secondary" type="button" id="keepOriginalButton">Keep my original response</button>
+          <button class="btn warning" type="button" id="finishPairButton">Finish pair practice</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="sticky-actions" id="navControls">
+      <div class="btns">
+        <button class="btn secondary" type="button" id="backButton">Back</button>
+        <button class="btn primary" type="button" id="nextButton">Continue</button>
+        <button class="btn warning" type="button" id="exitButton">Clear my responses</button>
+      </div>
+      <div class="note orange hidden" id="clearConfirm" role="group" aria-labelledby="clearConfirmTitle">
+        <strong id="clearConfirmTitle">Clear this practice?</strong>
+        <p>This clears the temporary responses stored for this browser session.</p>
+        <div class="btns">
+          <button class="btn warning" type="button" id="confirmClearButton">Yes, clear my responses</button>
+          <button class="btn secondary" type="button" id="cancelClearButton">Keep practicing</button>
+        </div>
+      </div>
+      <div class="validation" id="validationText" tabindex="-1" aria-live="polite"></div>
+    </div>
+  </div>
+</main>
+<div class="sr-only" id="liveRegion" aria-live="polite" aria-atomic="true"></div>
+<script>
+const SAFE_PARENT_ORIGIN='https://www.whattodo.coach';
+const STORAGE_KEY='wtd_name_the_emotion_v1';
+const STEPS=[
+  {stateId:'intro',seconds:20,label:'Introduction'},
+  {stateId:'notice',seconds:40,label:'Notice'},
+  {stateId:'nameEmotion',seconds:60,label:'Name the emotion'},
+  {stateId:'secondEmotion',seconds:40,label:'Check for another emotion'},
+  {stateId:'measure',seconds:40,label:'Measure'},
+  {stateId:'respond',seconds:60,label:'Respond'},
+  {stateId:'reflection',seconds:40,label:'Quick reflection'},
+  {stateId:'complete',seconds:0,label:'Complete'}
+];
+const emotionFamilies=[
+  {id:'angry',label:'Angry',emotions:['Annoyed','Frustrated','Resentful','Irritated','Hurt','Impatient']},
+  {id:'afraid',label:'Afraid',emotions:['Worried','Apprehensive','Insecure','Nervous','Overwhelmed','Uneasy']},
+  {id:'sad',label:'Sad',emotions:['Disappointed','Lonely','Discouraged','Grieving','Rejected','Defeated']},
+  {id:'happy',label:'Happy',emotions:['Relieved','Hopeful','Proud','Grateful','Excited','Content']},
+  {id:'surprised',label:'Surprised',emotions:['Startled','Confused','Amazed','Caught off guard']},
+  {id:'ashamed',label:'Ashamed',emotions:['Embarrassed','Guilty','Exposed','Regretful']},
+  {id:'calm',label:'Calm',emotions:['Settled','Safe','Patient','Steady']}
+];
+const physicalOptions=['Tight shoulders','Warm face','Fast heartbeat','Heavy chest','Restless energy','Relaxed breathing','Another physical clue','I am not sure'];
+const actionOptions=['Ask a question','Take a pause','Clarify expectations','Prepare','Set a boundary','Request support','Acknowledge a success','Write my own action'];
+const reflectionOptions=['I understand the situation differently because...','I noticed that...','The second emotion helped me see...','My next action feels...','I am still unsure, and that is okay.'];
+const exerciseDataDefault=()=>({
+  version:1,startedAt:null,currentState:'intro',situation:'',
+  primaryEmotion:{family:'',label:'',intensity:5},
+  secondaryEmotion:{family:'',label:'',intensity:null},
+  physicalClue:'',customPhysicalClue:'',pointingToward:'',nextAction:'',reflection:'',
+  timerHidden:false,completedAt:null
+});
+let exerciseData=exerciseDataDefault();
+let currentStepIndex=0;
+let timerHandle=null;
+let pairTimerHandle=null;
+let secondsRemaining=0;
+let stepRemaining={};
+let saveTimeout=null;
+let stackSaved=false;
+const $=id=>document.getElementById(id);
+function clean(value,max=400){return String(value||'').replace(/\s+/g,' ').trim().slice(0,max)}
+function esc(value){return clean(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function announce(text){$('liveRegion').textContent='';setTimeout(()=>$('liveRegion').textContent=text,30)}
+function postToParent(message){if(window.parent!==window)window.parent.postMessage(message,SAFE_PARENT_ORIGIN)}
+function postHeight(){postToParent({type:'skillFrameHeight',skillSlug:'name-the-emotion',height:Math.ceil(document.documentElement.scrollHeight)})}
+function recordEvent(name){postToParent({type:'skillEvent',skillSlug:'name-the-emotion',event:name})}
+function allEmotionWords(){return emotionFamilies.flatMap(f=>f.emotions.map(label=>({family:f.id,familyLabel:f.label,label})))}
+function findEmotion(label){const normalized=clean(label).toLowerCase();return allEmotionWords().find(e=>e.label.toLowerCase()===normalized)}
+function button(text,pressed,onClick,extra='choice'){const b=document.createElement('button');b.type='button';b.className=extra;b.textContent=text;b.setAttribute('aria-pressed',pressed?'true':'false');b.addEventListener('click',onClick);return b}
+function bindControls(){
+  $('startButton').addEventListener('click',()=>{if(!exerciseData.startedAt){exerciseData.startedAt=new Date().toISOString();recordEvent('emotion_exercise_started')}showStep(1)});
+  $('backButton').addEventListener('click',goBack);
+  $('nextButton').addEventListener('click',goNext);
+  $('exitButton').addEventListener('click',()=>{$('clearConfirm').classList.remove('hidden');$('confirmClearButton').focus();postHeight();});
+  $('confirmClearButton').addEventListener('click',()=>{resetExercise('intro');$('clearConfirm').classList.add('hidden');});
+  $('cancelClearButton').addEventListener('click',()=>{$('clearConfirm').classList.add('hidden');$('exitButton').focus();postHeight();});
+  $('timerToggle').addEventListener('click',toggleTimer);
+  $('situationInput').addEventListener('input',()=>{exerciseData.situation=clean($('situationInput').value,200);renderCounts();saveDraft();});
+  $('emotionSearch').addEventListener('input',renderPrimaryEmotionChoices);
+  $('secondSearch').addEventListener('input',renderSecondEmotionChoices);
+  $('needWordButton').addEventListener('click',()=>toggleOther('primary'));
+  $('secondNeedWordButton').addEventListener('click',()=>toggleOther('secondary'));
+  $('primaryOtherInput').addEventListener('input',()=>{const v=clean($('primaryOtherInput').value,40);if(v)selectPrimaryEmotion('',v);saveDraft();});
+  $('secondOtherInput').addEventListener('input',()=>{const v=clean($('secondOtherInput').value,40);if(v){exerciseData.secondaryEmotion={family:'',label:v,intensity:exerciseData.secondaryEmotion.intensity??5};$('noSecondButton').setAttribute('aria-pressed','false')}saveDraft();});
+  $('noSecondButton').addEventListener('click',()=>{exerciseData.secondaryEmotion={family:'',label:'',intensity:null};$('noSecondButton').setAttribute('aria-pressed','true');renderSecondEmotionChoices();saveDraft();});
+  bindIntensity('primary');bindIntensity('secondary');
+  $('physicalOtherInput').addEventListener('input',()=>{exerciseData.customPhysicalClue=clean($('physicalOtherInput').value,80);if(exerciseData.physicalClue==='Another physical clue')saveDraft();});
+  $('pointingTowardInput').addEventListener('input',()=>{exerciseData.pointingToward=clean($('pointingTowardInput').value,120);$('unsureNeedButton').setAttribute('aria-pressed',exerciseData.pointingToward==='I am not sure yet'?'true':'false');renderSentencePreview();saveDraft();});
+  $('unsureNeedButton').addEventListener('click',()=>{exerciseData.pointingToward='I am not sure yet';$('pointingTowardInput').value=exerciseData.pointingToward;$('unsureNeedButton').setAttribute('aria-pressed','true');renderSentencePreview();saveDraft();});
+  $('nextActionInput').addEventListener('input',()=>{exerciseData.nextAction=clean($('nextActionInput').value,160);renderCounts();renderSentencePreview();saveDraft();});
+  $('reflectionInput').addEventListener('input',()=>{exerciseData.reflection=clean($('reflectionInput').value,300);renderCounts();saveDraft();});
+  $('copyButton').addEventListener('click',copySummary);
+  $('saveStackButton').addEventListener('click',saveToSkillStack);
+  $('practiceAgainButton').addEventListener('click',()=>resetExercise('notice'));
+  $('pairPracticeButton').addEventListener('click',showPairPractice);
+  $('finishButton').addEventListener('click',finishExercise);
+  $('revealPhysical').addEventListener('change',renderPairSummary);
+  $('beginPairTimerButton').addEventListener('click',beginPairTimer);
+  $('reviseEmotionButton').addEventListener('click',()=>showStep(2));
+  $('keepOriginalButton').addEventListener('click',renderPairSummary);
+  $('finishPairButton').addEventListener('click',finishExercise);
+  window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==window.parent)return;const msg=event.data||{};if(msg.type==='dashboardSaveResult'&&msg.action==='skillStackSaved'){clearTimeout(saveTimeout);const btn=$('saveStackButton');btn.disabled=false;if(msg.ok){stackSaved=true;btn.textContent='Saved to Skills Stack';$('completeStatus').textContent='Saved to Skills Stack.';announce('Skills Stack saving successful.')}else{stackSaved=false;btn.textContent='Save to Skills Stack';$('completeStatus').textContent='Save did not finish. Please try again.';announce('Skills Stack saving failed.')}}});
+}
+function bindIntensity(kind){
+  const slider=$(kind+'IntensitySlider'), number=$(kind+'IntensityNumber');
+  const update=()=>{let value=Math.max(0,Math.min(10,Number(slider.value||number.value||5)));slider.value=value;number.value=value;if(kind==='primary')exerciseData.primaryEmotion.intensity=value;else exerciseData.secondaryEmotion.intensity=value;renderIntensityLabels();saveDraft();};
+  slider.addEventListener('input',update);number.addEventListener('input',()=>{slider.value=number.value;update()});
+}
+function renderStaticChoices(){
+  $('physicalChoices').innerHTML='';
+  physicalOptions.forEach(opt=>$('physicalChoices').append(button(opt,exerciseData.physicalClue===opt,()=>{exerciseData.physicalClue=opt;if(opt!=='Another physical clue')exerciseData.customPhysicalClue='';$('physicalOtherWrap').classList.toggle('hidden',opt!=='Another physical clue');renderStaticChoices();saveDraft();})));
+  $('actionChips').innerHTML='';
+  actionOptions.forEach(opt=>$('actionChips').append(button(opt,clean(exerciseData.nextAction)===opt,()=>{if(opt==='Write my own action'){$('nextActionInput').focus();return}exerciseData.nextAction=opt;$('nextActionInput').value=opt;renderCounts();renderSentencePreview();saveDraft();},'chip')));
+  $('reflectionChips').innerHTML='';
+  reflectionOptions.forEach(opt=>$('reflectionChips').append(button(opt,false,()=>{$('reflectionInput').value=opt;exerciseData.reflection=opt;renderCounts();saveDraft();},'chip')));
+  $('pairTimerChoices').innerHTML='';
+  [['3 minutes',180],['5 minutes',300],['No timer',0]].forEach(([label,seconds])=>$('pairTimerChoices').append(button(label,Number($('pairTimerChoices').dataset.seconds||0)===seconds,()=>{$('pairTimerChoices').dataset.seconds=seconds;renderPairTimerChoice();},'chip')));
+}
+function renderFamilyChoices(){
+  $('familyChoices').innerHTML='';
+  emotionFamilies.forEach(f=>$('familyChoices').append(button(f.label,exerciseData.primaryEmotion.family===f.id,()=>{exerciseData.primaryEmotion.family=f.id;exerciseData.primaryEmotion.label='';$('primaryOtherInput').value='';renderFamilyChoices();renderPrimaryEmotionChoices();saveDraft();})));
+}
+function renderPrimaryEmotionChoices(){
+  const q=clean($('emotionSearch').value).toLowerCase();
+  let items=allEmotionWords();
+  if(exerciseData.primaryEmotion.family&&!q)items=items.filter(e=>e.family===exerciseData.primaryEmotion.family);
+  if(q)items=items.filter(e=>e.label.toLowerCase().includes(q)||e.familyLabel.toLowerCase().includes(q));
+  $('emotionChoices').innerHTML='';
+  items.forEach(e=>$('emotionChoices').append(button(e.label,exerciseData.primaryEmotion.label===e.label,()=>selectPrimaryEmotion(e.family,e.label),'chip')));
+}
+function selectPrimaryEmotion(family,label){exerciseData.primaryEmotion.family=family;exerciseData.primaryEmotion.label=clean(label,40);const found=findEmotion(label);if(found)exerciseData.primaryEmotion.family=found.family;renderFamilyChoices();renderPrimaryEmotionChoices();renderSecondEmotionChoices();renderIntensityLabels();saveDraft();}
+function renderSecondEmotionChoices(){
+  const q=clean($('secondSearch').value).toLowerCase();
+  let items=allEmotionWords().filter(e=>e.label!==exerciseData.primaryEmotion.label);
+  if(q)items=items.filter(e=>e.label.toLowerCase().includes(q)||e.familyLabel.toLowerCase().includes(q));
+  $('secondChoices').innerHTML='';
+  items.forEach(e=>$('secondChoices').append(button(e.label,exerciseData.secondaryEmotion.label===e.label,()=>{exerciseData.secondaryEmotion={family:e.family,label:e.label,intensity:exerciseData.secondaryEmotion.intensity??5};$('noSecondButton').setAttribute('aria-pressed','false');renderSecondEmotionChoices();renderIntensityLabels();saveDraft();},'chip')));
+}
+function toggleOther(kind){
+  const isPrimary=kind==='primary';
+  const wrap=$(isPrimary?'primaryOtherWrap':'secondOtherWrap'), btn=$(isPrimary?'needWordButton':'secondNeedWordButton');
+  const show=wrap.classList.contains('hidden');wrap.classList.toggle('hidden',!show);btn.setAttribute('aria-pressed',show?'true':'false');if(show)$(isPrimary?'primaryOtherInput':'secondOtherInput').focus();
+}
+function showStep(indexOrId){
+  stopTimer();
+  collectCurrentValues();
+  if(typeof indexOrId==='string')currentStepIndex=STEPS.findIndex(s=>s.stateId===indexOrId);else currentStepIndex=Math.max(0,Math.min(indexOrId,STEPS.length-1));
+  if(currentStepIndex<0)currentStepIndex=0;
+  const step=STEPS[currentStepIndex];
+  exerciseData.currentState=step.stateId;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===step.stateId));
+  $('navControls').classList.toggle('hidden',step.stateId==='intro'||step.stateId==='complete'||step.stateId==='pairPractice');
+  $('backButton').disabled=currentStepIndex<=1;
+  $('nextButton').textContent=step.stateId==='reflection'?'Complete exercise':'Continue';
+  updateProgress();
+  renderCurrentValues();
+  saveDraft();
+  if(step.seconds>0&&!exerciseData.timerHidden)startTimer(stepRemaining[step.stateId]??step.seconds);else renderTimer(step.seconds);
+  const h=document.querySelector('#'+step.stateId+' h2');if(h)h.focus({preventScroll:true});
+  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  announce('Step changed to '+step.label+'.');
+  recordEvent('emotion_exercise_step_viewed');
+  setTimeout(postHeight,80);
+}
+function updateProgress(){
+  const step=STEPS[currentStepIndex];const denominator=6;const shown=Math.min(Math.max(currentStepIndex,1),6);
+  $('progressText').textContent=step.stateId==='intro'?'Step 1 of 6':step.stateId==='complete'?'Complete':'Step '+shown+' of '+denominator;
+  $('stepName').textContent=step.label;
+  $('progressBar').style.width=(step.stateId==='complete'?100:Math.max(8,(shown-1)/(denominator-1)*100))+'%';
+}
+function startTimer(seconds){secondsRemaining=seconds;renderTimer(seconds);timerHandle=setInterval(()=>{secondsRemaining-=1;stepRemaining[STEPS[currentStepIndex].stateId]=secondsRemaining;if(secondsRemaining===10)announce('Ten seconds remaining.');if(secondsRemaining<=0){stopTimer(false);$('timerText').textContent='Take the time you need, or continue when you are ready.';announce('Time completed. Take the time you need, or continue when you are ready.');}else renderTimer(secondsRemaining);},1000)}
+function stopTimer(save=true){if(timerHandle){clearInterval(timerHandle);timerHandle=null}if(save&&STEPS[currentStepIndex])stepRemaining[STEPS[currentStepIndex].stateId]=secondsRemaining}
+function renderTimer(seconds){if(exerciseData.timerHidden){$('timerText').textContent='Timer hidden';return}const m=Math.floor(Math.max(0,seconds)/60),s=Math.max(0,seconds)%60;$('timerText').textContent=m+':'+String(s).padStart(2,'0')}
+function toggleTimer(){exerciseData.timerHidden=!exerciseData.timerHidden;$('timerToggle').setAttribute('aria-pressed',exerciseData.timerHidden?'true':'false');$('timerToggle').textContent=exerciseData.timerHidden?'Show timer':'Hide timer';if(exerciseData.timerHidden){stopTimer();renderTimer(0)}else showStep(currentStepIndex);saveDraft();}
+function goNext(){const result=validateCurrentStep();if(!result.valid){showValidation(result.message,result.target);return}showValidation('');if(STEPS[currentStepIndex].stateId==='reflection'){exerciseData.completedAt=new Date().toISOString();recordEvent('emotion_exercise_completed');renderSummary();showStep('complete');return}showStep(currentStepIndex+1)}
+function goBack(){showValidation('');showStep(Math.max(1,currentStepIndex-1))}
+function showValidation(message,target){$('validationText').textContent=message||'';if(message){$('validationText').focus();if(target)setTimeout(()=>$(target)?.focus(),180)}}
+function collectCurrentValues(){
+  exerciseData.situation=clean($('situationInput').value,200);
+  exerciseData.pointingToward=clean($('pointingTowardInput').value,120);
+  exerciseData.nextAction=clean($('nextActionInput').value,160);
+  exerciseData.reflection=clean($('reflectionInput').value,300);
+  exerciseData.customPhysicalClue=clean($('physicalOtherInput').value,80);
+}
+function renderCurrentValues(){
+  $('situationInput').value=exerciseData.situation;
+  $('pointingTowardInput').value=exerciseData.pointingToward;
+  $('nextActionInput').value=exerciseData.nextAction;
+  $('reflectionInput').value=exerciseData.reflection;
+  $('primaryOtherInput').value=findEmotion(exerciseData.primaryEmotion.label)?'':exerciseData.primaryEmotion.label;
+  $('secondOtherInput').value=findEmotion(exerciseData.secondaryEmotion.label)?'':exerciseData.secondaryEmotion.label;
+  $('physicalOtherInput').value=exerciseData.customPhysicalClue;
+  $('timerToggle').setAttribute('aria-pressed',exerciseData.timerHidden?'true':'false');$('timerToggle').textContent=exerciseData.timerHidden?'Show timer':'Hide timer';
+  renderFamilyChoices();renderPrimaryEmotionChoices();renderSecondEmotionChoices();renderStaticChoices();renderIntensityLabels();renderSentencePreview();renderCounts();renderPairSummary();
+}
+function validateCurrentStep(){
+  const id=STEPS[currentStepIndex].stateId;
+  if(id==='nameEmotion'&&!clean(exerciseData.primaryEmotion.label))return{valid:false,message:'Choose one emotion word before continuing. There is no single correct answer.',target:'emotionSearch'};
+  if(id==='measure'&&!clean(exerciseData.physicalClue))return{valid:false,message:'Choose one physical clue before continuing. I am not sure is an option.',target:'physicalChoices'};
+  if(id==='respond'&&!clean(exerciseData.nextAction))return{valid:false,message:'Choose or write one small next action before continuing.',target:'nextActionInput'};
+  return{valid:true};
+}
+function renderIntensityLabels(){
+  const primary=exerciseData.primaryEmotion.label||'this emotion';
+  $('primaryIntensityLabel').textContent='How strong is '+primary+'?';
+  $('primaryIntensitySlider').value=exerciseData.primaryEmotion.intensity;$('primaryIntensityNumber').value=exerciseData.primaryEmotion.intensity;$('primaryIntensityText').textContent=exerciseData.primaryEmotion.intensity+' out of 10';
+  const hasSecond=!!clean(exerciseData.secondaryEmotion.label);$('secondaryIntensityWrap').classList.toggle('hidden',!hasSecond);
+  if(hasSecond){const val=exerciseData.secondaryEmotion.intensity??5;exerciseData.secondaryEmotion.intensity=val;$('secondaryIntensityLabel').textContent='How strong is '+exerciseData.secondaryEmotion.label+'?';$('secondaryIntensitySlider').value=val;$('secondaryIntensityNumber').value=val;$('secondaryIntensityText').textContent=val+' out of 10';}
+  $('strongFeelingNote').classList.toggle('hidden',Number(exerciseData.primaryEmotion.intensity)<8);
+}
+function renderSentencePreview(){
+  const situation=exerciseData.situation?'When '+exerciseData.situation+' happened,':'In the situation I considered,';
+  const lines=[situation,'I felt '+(exerciseData.primaryEmotion.label||'[emotion]')+' at '+exerciseData.primaryEmotion.intensity+'/10.'];
+  if(exerciseData.secondaryEmotion.label)lines.push('I also felt '+exerciseData.secondaryEmotion.label+' at '+(exerciseData.secondaryEmotion.intensity??5)+'/10.');
+  lines.push('This may be pointing me toward '+(exerciseData.pointingToward||'[meaning or need]')+'.');
+  lines.push('My next helpful action is '+(exerciseData.nextAction||'[action]')+'.');
+  $('sentencePreview').textContent=lines.join('\n');
+}
+function renderCounts(){$('situationCount').textContent=exerciseData.situation.length+' / 200';$('actionCount').textContent=exerciseData.nextAction.length+' / 160';$('reflectionCount').textContent=exerciseData.reflection.length+' / 300'}
+function physicalText(){return exerciseData.physicalClue==='Another physical clue'?(exerciseData.customPhysicalClue||'Another physical clue'):exerciseData.physicalClue}
+function buildSummaryText(includePrivate=true){const rows=['Name The Emotion practice summary'];rows.push('Primary emotion: '+exerciseData.primaryEmotion.label+' at '+exerciseData.primaryEmotion.intensity+'/10');if(exerciseData.secondaryEmotion.label)rows.push('Second emotion: '+exerciseData.secondaryEmotion.label+' at '+(exerciseData.secondaryEmotion.intensity??5)+'/10');rows.push('Physical clue: '+physicalText());if(exerciseData.pointingToward)rows.push('Pointing toward: '+exerciseData.pointingToward);rows.push('Next helpful action: '+exerciseData.nextAction);if(includePrivate&&exerciseData.reflection)rows.push('Reflection: '+exerciseData.reflection);return rows.join('\n')}
+function renderSummary(){
+  const rows=[
+    ['Primary emotion',exerciseData.primaryEmotion.label+' at '+exerciseData.primaryEmotion.intensity+'/10'],
+    ['Physical clue',physicalText()],
+    ['What the emotion may be pointing toward',exerciseData.pointingToward||'I am not sure yet'],
+    ['Next helpful action',exerciseData.nextAction]
+  ];
+  if(exerciseData.secondaryEmotion.label)rows.splice(1,0,['Second emotion',exerciseData.secondaryEmotion.label+' at '+(exerciseData.secondaryEmotion.intensity??5)+'/10']);
+  if(exerciseData.reflection)rows.push(['Reflection',exerciseData.reflection]);
+  $('summaryBox').innerHTML=rows.map(([k,v])=>'<div class="summary-row"><strong>'+esc(k)+'</strong><div>'+esc(v)+'</div></div>').join('');
+  $('successChecks').innerHTML=['Named at least one specific emotion','Rated its intensity','Identified another emotion or a physical signal','Selected one constructive next action'].map(t=>'<div class="check">✓ '+esc(t)+'</div>').join('');
+  resetSaveUi(false);
+}
+function renderPairSummary(){
+  const rows=[['Emotion word',exerciseData.primaryEmotion.label],['Intensity',exerciseData.primaryEmotion.intensity+'/10'],['Helpful next action',exerciseData.nextAction]];
+  if($('revealPhysical')?.checked)rows.push(['Physical clue',physicalText()]);
+  $('pairSummary').innerHTML=rows.map(([k,v])=>'<div class="summary-row"><strong>'+esc(k)+'</strong><div>'+esc(v)+'</div></div>').join('');
+}
+function showPairPractice(){stopTimer();document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id==='pairPractice'));$('navControls').classList.add('hidden');$('progressText').textContent='Optional pair practice';$('stepName').textContent='3 to 5 minutes';$('progressBar').style.width='100%';renderPairSummary();$('pair-title').focus({preventScroll:true});recordEvent('emotion_pair_extension_started');postHeight();}
+function renderPairTimerChoice(){document.querySelectorAll('#pairTimerChoices .chip').forEach(btn=>btn.setAttribute('aria-pressed',btn.textContent.startsWith(secondsToPairLabel(Number($('pairTimerChoices').dataset.seconds||0)))?'true':'false'))}
+function secondsToPairLabel(seconds){return seconds===180?'3 minutes':seconds===300?'5 minutes':'No timer'}
+function beginPairTimer(){clearInterval(pairTimerHandle);const seconds=Number($('pairTimerChoices').dataset.seconds||0);if(!seconds){$('pairTimerText').textContent='No pair timer selected. Take the time you need.';return}let left=seconds;$('pairTimerText').textContent=secondsToPairLabel(seconds)+' remaining.';pairTimerHandle=setInterval(()=>{left-=1;if(left<=0){clearInterval(pairTimerHandle);$('pairTimerText').textContent='Pair timer complete. Take the time you need.';announce('Pair timer complete.')}else if(left%60===0||left===10){$('pairTimerText').textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0')+' remaining.'}},1000)}
+function saveDraft(){try{sessionStorage.setItem(STORAGE_KEY,JSON.stringify(exerciseData))}catch(e){}}
+function restoreDraft(){try{const raw=sessionStorage.getItem(STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);exerciseData={...exerciseDataDefault(),...parsed,primaryEmotion:{...exerciseDataDefault().primaryEmotion,...(parsed.primaryEmotion||{})},secondaryEmotion:{...exerciseDataDefault().secondaryEmotion,...(parsed.secondaryEmotion||{})}}}}catch(e){exerciseData=exerciseDataDefault()}}
+function clearDraft(){try{sessionStorage.removeItem(STORAGE_KEY)}catch(e){}}
+function resetExercise(target='intro'){stopTimer();clearDraft();exerciseData=exerciseDataDefault();stepRemaining={};stackSaved=false;showValidation('');renderCurrentValues();recordEvent('emotion_exercise_restarted');showStep(target)}
+function finishExercise(){clearDraft();$('completeStatus').textContent='Finished. Your temporary session responses were cleared from this browser session.';announce($('completeStatus').textContent);postHeight();}
+async function copySummary(){const text=buildSummaryText(true);try{await navigator.clipboard.writeText(text);$('completeStatus').textContent='Summary copied.'}catch(e){$('completeStatus').textContent='Summary is ready, but your browser blocked automatic copying. Select the summary text and copy it manually.'}announce($('completeStatus').textContent)}
+function resetSaveUi(clear=true){clearTimeout(saveTimeout);if(clear)$('completeStatus').textContent='';stackSaved=false;$('saveStackButton').disabled=false;$('saveStackButton').textContent='Save to Skills Stack'}
+function saveToSkillStack(){resetSaveUi();$('saveStackButton').disabled=true;$('saveStackButton').textContent='Saving...';$('completeStatus').textContent='Saving to Skills Stack...';postToParent({type:'dashboardStateSave',action:'skillStackSaved',payload:{stack:{id:'name-the-emotion',title:'Name The Emotion',category:'Coping',description:'Notice, name, and respond to an emotion with one helpful next action.',url:'https://www.whattodo.coach/skills-hub/name-the-emotion'},updatedAt:new Date().toISOString()}});saveTimeout=setTimeout(()=>{if(stackSaved)return;$('saveStackButton').disabled=false;$('saveStackButton').textContent='Save to Skills Stack';$('completeStatus').textContent='Save did not finish. Please try again.'},8000)}
+renderStaticChoices();
+bindControls();
+restoreDraft();
+currentStepIndex=Math.max(0,STEPS.findIndex(s=>s.stateId===exerciseData.currentState));
+if(exerciseData.currentState==='complete')renderSummary();
+showStep(currentStepIndex);
+postToParent({type:'nameTheEmotionReady'});
+postHeight();setTimeout(postHeight,250);setTimeout(postHeight,1000);setTimeout(postHeight,2500);
+if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);
+addEventListener('resize',postHeight);
+</script>
+</body>
+</html>

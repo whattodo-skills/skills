@@ -23,7 +23,6 @@ The standalone artifact uses the same state IDs requested for the Wix Multi-Stat
 
 - `progressText`
 - `progressBar`
-- `timerText`
 - `backButton`
 - `nextButton`
 - `exitButton`
@@ -46,25 +45,16 @@ Copy and option sets are configured near the top of the script:
 
 - `STEPS`
 - `emotionFamilies`
+- `emotionDefinitions`
 - `physicalOptions`
 - `actionOptions`
 - `reflectionOptions`
 
-The guided standard-flow times are:
-
-- Introduction: 20 seconds
-- Notice: 40 seconds
-- Name: 60 seconds
-- Second emotion: 40 seconds
-- Measure: 40 seconds
-- Respond: 60 seconds
-- Reflection: 40 seconds
-
-Total guided time: 300 seconds.
+No countdown is used. The exercise is self-paced so learners can slow down while noticing, naming, and understanding the emotion.
 
 ## Feelings Wheel Source
 
-No third-party Feelings Wheel image is used. The build uses an original text-based selector with selectable families and emotion words.
+No third-party Feelings Wheel image is used. The build uses an original text-based selector with selectable families and emotion words. Each family and emotion word has a short definition exposed through the chip text, hover title, and accessible label.
 
 ## Session Data
 
@@ -115,7 +105,7 @@ Public Wix route:
 
 `https://www.whattodo.coach/skills-hub/name-the-emotion`
 
-The published artifact loads the expected exercise content, including the six-step flow, five-minute framing, privacy statement, emotion naming and intensity controls, worked examples, completion actions, survey link, Skills Stack button, and response-clearing controls.
+The published artifact loads the expected exercise content, including the six-step flow, self-paced framing, privacy statement, emotion-versus-feeling education, emotion naming and intensity controls, emotion definitions, worked examples, completion actions, survey link, Skills Stack button, and response-clearing controls.
 
 The public Wix route loads successfully with the What To Do! wrapper, attribution, coaching disclaimer, and site navigation. The embedded exercise is iframe-based, so final iframe interaction and sizing still require hands-on browser testing.
 
@@ -152,7 +142,6 @@ Confirm:
 - Step headings and progress are announced clearly.
 - Selected emotion families and words expose their selected state.
 - Intensity controls announce the emotion, value, minimum, and maximum.
-- The timer does not announce every second.
 - Validation messages are announced when displayed.
 - Collapsible examples expose expanded and collapsed states.
 - Hidden steps and optional fields are not read.

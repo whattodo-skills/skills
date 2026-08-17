@@ -51,7 +51,8 @@ const FALLBACK_SKILLS=[
 {id:'boundaries',name:'Healthy Boundaries',category:'Connecting',htmlUrl:SKILL_BASE_URL+'Healthy_Boundaries_Connecting_Practice.html',description:'Your time, energy, or values need protection.',desiredOutcome:'Set a respectful limit without disconnecting from yourself.',practice:'Build one clear boundary statement for a real situation.',displayOrder:200},
 {id:'say-no',name:'Say No Without Guilt',category:'Connecting',htmlUrl:SKILL_BASE_URL+'Say_No_Without_Guilt_Connecting_Practice.html',description:'You need a limit but feel pulled to over-explain or people-please.',desiredOutcome:'Set a respectful limit while staying connected to your own needs and values.',practice:'Say the no clearly, kindly, and without adding extra arguments.',displayOrder:210}
 ];
-let skills=FALLBACK_SKILLS.map(cleanSkill),activeCat='All';
+function initialCategory(){const requested=(new URLSearchParams(location.search).get('category')||'').trim().toLowerCase();const aliases={focus:'Focus',cope:'Coping',coping:'Coping',feeling:'Feelings',feelings:'Feelings',connect:'Connecting',connecting:'Connecting'};return aliases[requested]||'All'}
+let skills=FALLBACK_SKILLS.map(cleanSkill),activeCat=initialCategory();
 const cats=[{label:'All',value:'All'},{label:'Focus',value:'Focus'},{label:'Coping',value:'Coping'},{label:'Feeling',value:'Feelings'},{label:'Connecting',value:'Connecting'}];
 function normalizeCat(c){return (c||'Focus').replace(/\s+/g,'')}
 function displayCat(c){return c==='Feelings'?'Feeling':c}

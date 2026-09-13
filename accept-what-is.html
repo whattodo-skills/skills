@@ -39,7 +39,6 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
 .choice{border:2px solid var(--border);background:white;border-radius:14px;padding:13px;text-align:left;font:inherit;cursor:pointer;line-height:1.35;color:var(--navy);font-weight:800}
 .choice span{display:block;color:var(--muted);font-size:.82rem;font-weight:600;margin-top:3px}
 .choice:hover,.choice[aria-checked="true"]{border-color:var(--blue);background:var(--blue-bg)}
-.choice[aria-checked="true"]::after{content:"Selected";display:inline-block;margin-top:8px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:900}
 .rating-grid{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;margin-top:8px}
 .rating{border:1.5px solid var(--border);background:white;border-radius:9px;padding:9px 5px;font:inherit;font-weight:900;color:var(--navy);cursor:pointer;position:relative}
 .rating::after{content:attr(data-tooltip);position:absolute;z-index:20;left:50%;bottom:calc(100% + 10px);width:210px;transform:translateX(-50%) translateY(4px);padding:9px 10px;border-radius:9px;background:var(--navy);color:white;font-size:.78rem;font-weight:600;line-height:1.35;text-align:left;box-shadow:0 6px 18px rgba(0,0,0,.18);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease,transform .15s ease}

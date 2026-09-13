@@ -61,4 +61,5 @@ async function copy(text){try{await navigator.clipboard.writeText(text);$('statu
 $('copyRequest').onclick=()=>copy($('finalRequest').value);$('copyBoth').onclick=()=>copy(`${$('finalRequest').value}\n\nLikely challenge: ${$('challenge').value}\nPlanned response: ${$('response').value}`);$('save').onclick=()=>{saveDraft();$('status').textContent='Progress saved in this browser.'};$('restart').onclick=()=>{if(confirm('Start a new practice and clear these answers?')){localStorage.removeItem('askNeedDraft');location.reload()}};$('later').onclick=()=>{saveDraft();$('status').textContent='Your progress is saved in this browser. You can close this page and return later.'};
 restore();show(0);new ResizeObserver(postHeight).observe(document.body);addEventListener('load',postHeight);
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body></html>

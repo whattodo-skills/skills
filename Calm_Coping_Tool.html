@@ -89,4 +89,5 @@ window.addEventListener('message',e=>{if(e.origin!==SAFE_PARENT_ORIGIN||e.source
 if('ResizeObserver' in window)new ResizeObserver(postFrameHeight).observe(document.querySelector('.wrap'));
 window.addEventListener('load',postFrameHeight);window.addEventListener('resize',postFrameHeight);setTimeout(postFrameHeight,250);
 if(window.top===window.self&&location.hostname==='whattodo-skills.github.io')window.location.replace(PRACTICE_URL);
-</script></body></html>
+</script><script src="remove-optional-save-controls.js"></script>
+</body></html>

@@ -73,5 +73,6 @@ function closePractice(){document.getElementById('drawer').classList.remove('ope
 window.addEventListener('message',e=>{const msg=e.data||{};if(msg.type==='skillsHubInit'&&Array.isArray(msg.skills)){skills=mergeSkills(msg.skills);render();document.getElementById('loading').classList.add('hidden')}});
 (function(){renderChips();render();window.parent&&window.parent.postMessage({type:'skillsHubReady'},'*');setTimeout(()=>document.getElementById('loading').classList.add('hidden'),1800)})();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

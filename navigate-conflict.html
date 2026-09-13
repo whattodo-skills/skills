@@ -83,5 +83,6 @@ window.addEventListener('resize',height);if('ResizeObserver'in window)new Resize
 document.querySelector('.scale').innerHTML=[0,1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="choice" type="button">${n}</button>`).join('');document.querySelectorAll('.scale .choice').forEach(button=>{button.setAttribute('aria-pressed','false');button.onclick=()=>choose(button.parentElement,button)});
 restore();if(state.step===7)renderPlan();show(0);post({type:'skillPracticeReady',skillSlug:ID,skillTitle:TITLE,category:'Connecting'});height();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

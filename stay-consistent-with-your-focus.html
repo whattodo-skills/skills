@@ -98,5 +98,6 @@ window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||
 document.addEventListener('input',event=>{if(fields.includes(event.target.id))sync()});document.addEventListener('change',event=>{if(fields.includes(event.target.id))sync()});
 safeRemove(DRAFT_KEY,sessionStorage);sync(false);resetTimer();renderSummary();requestHistory();post({type:'stayConsistentReady'});
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

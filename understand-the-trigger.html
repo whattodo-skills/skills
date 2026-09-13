@@ -318,5 +318,6 @@ function receiveMessage(event){if(event.origin!==SAFE_PARENT_ORIGIN||event.sourc
 function init(){safeRemove(STORAGE_KEY);bind();restoreInputs();postToParent({type:'skillReady',skillSlug:SKILL_ID});postHeight();setTimeout(postHeight,200);setTimeout(postHeight,900);if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);addEventListener('resize',postHeight)}
 init();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

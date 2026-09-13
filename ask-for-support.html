@@ -285,5 +285,6 @@ Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(
 starters.forEach(item=>{const option=document.createElement('option');option.value=item;option.textContent=item;$('briefStarter').append(option)});
 renderHelpChoices();renderAskChoices();makeRating('difficultyRating','difficulty');makeRating('supportRating','supportRating');restoreDraft();postToParent({type:'askForSupportReady'});postHeight();setTimeout(postHeight,250);setTimeout(postHeight,1000);setTimeout(postHeight,2500);addEventListener('load',postHeight);addEventListener('resize',postHeight);
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

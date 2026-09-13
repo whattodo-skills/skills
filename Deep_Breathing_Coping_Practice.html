@@ -71,5 +71,6 @@ function renderSummary(){let before=+$('before').value,after=+$('after').value;l
 function copySummary(){recordSkillComplete('copy-summary');navigator.clipboard.writeText($('summaryBox').innerText).then(()=>alert('Copied.'))}
 loadState();renderSymptoms();updateRange('before');updateRange('after');resetPractice();renderSummary();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

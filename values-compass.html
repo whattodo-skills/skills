@@ -95,5 +95,6 @@ askTerri.onclick=()=>{if(isPaid)postToParent({type:'OPEN_TERRIBOT',skillSlug:SKI
 window.addEventListener('message',event=>{if(!SAFE_PARENT_ORIGINS.has(event.origin)||event.source!==window.parent)return;const msg=event.data||{};if(msg.type==='SKILL_INIT'&&msg.protocolVersion===PROTOCOL_VERSION&&msg.skillSlug===SKILL_SLUG){initialize(msg);return}if(msg.type==='SKILL_SAVE_RESULT'&&msg.requestId===cmsSaveInFlight){cmsSaveInFlight=null;saveStatus.textContent=msg.ok?'Your core values are saved to your account.':'Your values could not be saved. Please try again.';if(queuedCmsState)flushCmsSave()}});
 renderStart();postToParent({type:'SKILL_READY',protocolVersion:PROTOCOL_VERSION,skillSlug:SKILL_SLUG});setTimeout(()=>{if(!initialized)initialize({storageMode:'local',localNamespace:'guest'})},700);
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

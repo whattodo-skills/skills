@@ -246,5 +246,6 @@ let gBT=null;
 function startGuidedBreath(){const circ=document.getElementById('guided-breath-circle'),num=document.getElementById('guided-breath-num'),cue=document.getElementById('guided-breath-cue'),btn=document.getElementById('guided-breath-btn');btn.disabled=true;btn.textContent='...';let c=4,ph='in';cue.textContent='Breathe in...';circ.style.transform='scale(1.4)';num.textContent=c;gBT=setInterval(()=>{c--;if(c<=0){if(ph==='in'){ph='out';c=6;cue.textContent='Breathe out...';circ.style.transform='scale(1.0)';}else{clearInterval(gBT);cue.textContent='Good. Notice how that feels.';circ.style.transform='scale(1.0)';num.textContent='✓';btn.textContent='Again';btn.disabled=false;btn.onclick=startGuidedBreath;const nb=document.getElementById('guided-t-next');nb.style.opacity='1';nb.style.pointerEvents='auto';return;}}else{num.textContent=c;}},1000);}
 function guidedNext(step){const map={s:1,t:2,o:3,p:4};for(let i=1;i<=4;i++){const dot=document.getElementById('dot-'+i);dot.className=i<map[step]?'p-dot done':i===map[step]?'p-dot active':'p-dot';}document.querySelectorAll('.guided-step').forEach(s=>s.style.display='none');document.getElementById('guided-'+step).style.display='block';window.scrollTo(0,0);}
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

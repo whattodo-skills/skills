@@ -56,4 +56,5 @@ $('begin').onclick=()=>{post('show-appreciation-start');show(state.currentStep||
 window.addEventListener('message',event=>{if(event.origin!==ORIGIN)return;const d=event.data||{};if(d.type==='skillAccessState'){state.paid=d.isPaid===true;$('saveStack').disabled=!state.paid;$('askTerri').disabled=!state.paid}if(d.type==='skillActionResult')$('status').textContent=d.message||''});window.addEventListener('resize',height);if('ResizeObserver'in window)new ResizeObserver(height).observe(document.body);
 let resumed=false;try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved){state={...state,...saved};resumed=true}}catch(e){}restore();if(state.completedAt){render();show(8)}else if(state.persist&&state.updatedAt)show(state.currentStep||1);else show(0);if(resumed)post('show-appreciation-resumed',{analytics:analytics()});post('skillPracticeReady',{category:'Connecting'});height();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body></html>

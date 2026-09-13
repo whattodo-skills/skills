@@ -238,5 +238,6 @@ function copyScript(){ if(!finalText) buildFinal(); const done=()=>{ const b=doc
 function startOver(){ criticType=''; finalText=''; ['critic','body','facts','assumption','alternate','fair','action'].forEach(id=>{ if(document.getElementById(id)) document.getElementById(id).value=''; }); document.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected')); document.getElementById('catch-next').disabled=true; updatePreview(); goTo('screen-home'); }
 updatePreview();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

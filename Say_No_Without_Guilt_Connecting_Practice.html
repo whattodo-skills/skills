@@ -233,5 +233,6 @@ function copyScript(){ if(!finalText) buildFinal(); const done=()=>{ const b=doc
 function startOver(){ pressure='the pressure to say yes automatically'; style=''; finalText=''; ['request','ack','no-line','extra'].forEach(id=>document.getElementById(id).value=''); document.querySelectorAll('.choice,.check-chip').forEach(b=>b.classList.remove('selected')); document.getElementById('style-next').disabled=true; updatePreview(); goTo('screen-home'); }
 updatePreview();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

@@ -80,4 +80,5 @@ function setPaid(ok){$('saveStack').disabled=!ok;$('terriBot').disabled=!ok}$('s
 window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='skillEntitlement'||d.type==='skillAccess')setPaid(d.paid===true||d.isPaid===true||d.status==='paid'||(d.canSaveToSkillsStack===true&&d.canAskTerriBot===true));if(d.type==='skillActionResult')$('actionStatus').textContent=d.message||''});
 function sendHeight(){requestAnimationFrame(()=>window.parent.postMessage({type:'skillFrameHeight',skillSlug:'check-the-story',height:Math.ceil(document.documentElement.scrollHeight)},'*'))}new ResizeObserver(sendHeight).observe(document.body);window.addEventListener('load',()=>{sendHeight();window.parent.postMessage({type:'skillReady',skillSlug:'check-the-story'},'*')});
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body></html>

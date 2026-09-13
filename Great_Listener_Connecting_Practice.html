@@ -230,5 +230,6 @@ function copyScript(){ if(!finalText) buildFinal(); const done=()=>{ const b=doc
 function startOver(){ chosenQuestion=''; warm='You’re making sense to me.'; finalText=''; ['heard','makes-sense'].forEach(id=>document.getElementById(id).value=''); document.querySelectorAll('.choice,.check-chip').forEach(b=>b.classList.remove('selected')); document.getElementById('chosen-question').textContent='Choose a question above.'; document.getElementById('topic-next').disabled=true; resetTimer(); updateScript(); goTo('screen-home'); }
 updateScript();
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

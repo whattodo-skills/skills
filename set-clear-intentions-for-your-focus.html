@@ -282,5 +282,6 @@ function resetAll(){pauseTimer(true);safeRemove(STORAGE_KEY_V3);safeRemove(DRAFT
 window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN_V3||event.source!==window.parent)return;const msg=event.data||{};if(msg.type!=='skillPracticeSaveResult'||msg.requestId!==pendingRequestId)return;clearTimeout(saveTimeoutV3);if(msg.ok&&msg.mode==='account'){safeRemove(BROWSER_SAVE_KEY,localStorage);$('saveStackBtn').disabled=false;$('saveStackBtn').textContent='Saved to your account';$('stackStatus').textContent='Saved to your account. This practice is available through your What To Do! account.';milestone('skill-saved-account');announce($('stackStatus').textContent)}else showBrowserSave(Boolean(safeGet(BROWSER_SAVE_KEY,localStorage)),msg.fallbackFrom==='account')});
 safeRemove(STORAGE_KEY_V3);safeRemove(DRAFT_ENABLED_KEY);cueChanged();updateState(false);$('includeDetailedSummary').checked=false;postToParent({type:'setClearIntentionsReady'});if(window.top===window.self)window.location.replace(WIX_SKILL_URL);
 </script>
+<script src="remove-optional-save-controls.js"></script>
 </body>
 </html>

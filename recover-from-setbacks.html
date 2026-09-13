@@ -86,7 +86,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <p>Mistakes, rejection, disappointing results, missed goals, criticism, and unexpected obstacles can quickly turn into conclusions such as “I always fail” or “I am not good enough.”</p>
       <p>This practice helps you describe what happened, decide what still needs attention, and choose a useful next step without using shame as motivation.</p>
       <div class="note mint">Start with one setback that feels manageable enough to review right now.</div>
-      <label><input id="draftOptIn" type="checkbox" onchange="setDraftPreference()"> Keep my unfinished answers in this browser tab if I refresh.</label>
       <h3>Choose Your Skill Practice Version</h3>
       <div class="choices" role="group" aria-label="Choose Quick Recovery or Guided Recovery">
         <button class="choice" id="modeQuick" type="button" aria-pressed="false" onclick="chooseMode('quick')">Quick Recovery<span>3 to 5 minutes. Choose what happened and restart with one small step.</span></button>
@@ -435,7 +434,7 @@ function confirmReset(){sessionStorage.removeItem(STORAGE_KEY);location.reload()
 window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||event.source!==parent)return;const msg=event.data||{};if(msg.type==='skillPracticeSaveResult'&&msg.requestId===pendingSaveId){clearTimeout(saveTimer);if(msg.ok&&msg.mode==='account'){safeRemove(BROWSER_SAVE_KEY,localStorage);$('saveBtn').disabled=false;$('saveBtn').textContent='Saved to your account';$('status').textContent='Saved to your account. This practice is available through your What To Do! account.';recordEvent('practice-saved-account');announce($('status').textContent)}else showBrowserSave(msg.fallbackFrom==='account')}else if(msg.type==='skillPracticeHistoryClearResult'&&msg.requestId===pendingClearId){if(msg.ok&&msg.mode==='account'){$('status').textContent='Practice history cleared from your account.';announce($('status').textContent)}}});
 Object.entries(choices).forEach(([group,items])=>items.forEach(item=>makeChoice(group,item)));
 makeRatings('avoidBefore','avoidBefore');makeRatings('confidenceBefore','confidenceBefore');makeRatings('avoidAfter','avoidAfter');makeRatings('confidenceAfter','confidenceAfter');
-restoreDraft();
+sessionStorage.removeItem(STORAGE_KEY);
 postToParent({type:'recoverFromSetbacksReady'});
 postHeight();
 if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);

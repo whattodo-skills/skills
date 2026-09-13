@@ -109,7 +109,6 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
         <button class="choice" id="modeQuick" type="button" aria-pressed="true" onclick="setMode('quick')">Quick Describe<span>About one minute. Facts, one inner signal, urge, and what you do not know yet.</span></button>
         <button class="choice" id="modeDeep" type="button" aria-pressed="false" onclick="setMode('deep')">Deep Describe<span>A fuller worksheet with thought, emotion, body sensation, urge, assumption, and behavior pull.</span></button>
       </div>
-      <label class="draft-choice"><input id="keepDraft" type="checkbox" onchange="toggleDraftSaving(this.checked)"><span>Keep an unfinished draft in this browser tab<br><small>When enabled, entries stay in this tab so a reload does not erase them. They are not added to your Skills Stack unless you explicitly save.</small></span></label>
       <div class="btns"><button class="btn btn-primary btn-full" onclick="showById('describe')">Start describing</button></div>
     </div>
   </section>
@@ -250,11 +249,11 @@ button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-vis
           <button class="btn btn-primary" id="copySummaryBtn" onclick="copySummary()">Copy summary</button>
           <button class="btn btn-secondary" id="saveStackBtn" onclick="saveToSkillStack()">Save to Skills Stack</button>
           <button class="btn btn-secondary" onclick="practiceAgain()">Practice again</button>
-          <button class="btn btn-warning" onclick="requestClearDraft()">Clear this practice and browser-tab draft</button>
+          <button class="btn btn-warning" onclick="requestClearDraft()">Clear this practice</button>
           <button class="btn btn-secondary" onclick="requestStartOver()">Start over</button>
         </div>
         <div class="reset-confirm" id="clearDraftConfirm" role="alert">
-          Clear the visible practice and its browser-tab draft?
+          Clear this practice?
           <div class="btns"><button class="btn btn-warning" onclick="clearDraft()">Yes, clear it</button><button class="btn btn-secondary" onclick="cancelClearDraft()">Keep practicing</button></div>
         </div>
         <div class="reset-confirm" id="resetConfirm">
@@ -763,7 +762,7 @@ function clearDraft(){
   showById('learn');
 }
 
-function requestClearDraft(){ $('clearDraftConfirm').classList.add('active'); $('clearDraftConfirm').querySelector('button').focus(); announce('Confirm whether to clear this practice and browser-tab draft.'); }
+function requestClearDraft(){ $('clearDraftConfirm').classList.add('active'); $('clearDraftConfirm').querySelector('button').focus(); announce('Confirm whether to clear this practice.'); }
 function cancelClearDraft(){ $('clearDraftConfirm').classList.remove('active'); announce('Clear draft canceled.'); }
 function clearPracticeFields(){
   selectedUrge=''; selectedAction=''; stackSaved=false; sessionId=newSessionId();
@@ -846,7 +845,7 @@ window.addEventListener('message', event => {
 
 function localStorageAvailable(key){ try{ return Boolean(localStorage.getItem(key)); }catch(e){ return false; } }
 
-loadState();
+safeStorageRemove();
 setMode(mode);
 buildTranslation();
 postToParent({type:'noticeInnerWorldReady'});

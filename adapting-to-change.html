@@ -82,7 +82,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <h2 id="learn-title" tabindex="-1">Change can take time to adjust to</h2>
       <p>Adapting does not mean liking the change. It means seeing what is true clearly enough to choose a useful response.</p>
       <div class="note">This is a self-guided practice for manageable changes. Use it only when you are safe enough to pause and reflect.</div>
-      <label><input id="saveDraftOptIn" type="checkbox" onchange="setDraftPreference()"> Keep my unfinished answers in this browser tab if I refresh.</label>
       <h3>Choose Your Skill Practice Version</h3>
       <div class="btns">
         <button class="btn primary" type="button" onclick="chooseMode('quick')">Quick Adapt</button>
@@ -578,7 +577,7 @@ makeSingle('fixedChoices',['What already happened','Another person’s choice','
 makeSingle('unknownChoices',['How long this will last','How someone else will respond','Whether the plan will work','What I will feel later','What information I still need','What support will be available','Something else'],'unknown',toggleOtherFields);
 makeSingle('realityChoices',['This changed, and I can choose one workable response today.','I do not have to like this to respond effectively.','I can separate what happened from what I am afraid it means.','I can take one step before I understand everything.'],'reality');
 makeSingle('prepareChoices',['Read my fact statement again','Take one slow breath before deciding','Ask for one piece of information','Use a two-minute version of the action','Name what is fixed and what is flexible','Contact support before I spiral','Something else'],'prepare',toggleOtherFields);
-restoreDraft();
+sessionStorage.removeItem(STORAGE_KEY);
 post({type:'adaptingToChangeReady'});
 postHeight();
 if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);

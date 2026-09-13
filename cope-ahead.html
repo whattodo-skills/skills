@@ -81,7 +81,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
       <p>Choose one upcoming situation, identify the most likely difficult moment, and rehearse a simple response before it happens.</p>
       <p>The goal is not to feel perfectly calm or guarantee a good outcome. The goal is to make your next useful action easier to remember.</p>
       <p class="note mint">Preparation does not mean the situation will definitely happen, and it does not require you to enter a situation that is unsafe, coercive, abusive, or likely to lead to harm.</p>
-      <label><input id="draftOptIn" type="checkbox" onchange="setDraftPreference()"> Keep my unfinished answers in this browser tab if I refresh.</label>
       <div class="status" id="draftStatus" aria-live="polite"></div>
       <div class="btns"><button class="btn primary" type="button" onclick="show('safety')">Build my plan</button></div>
     </div>
@@ -364,7 +363,7 @@ renderReminders();
 renderComplications();
 makeRatings('preparedBefore','preparedBefore','preparedness before rehearsal');
 makeRatings('preparedAfter','preparedAfter','preparedness after rehearsal');
-restoreDraft();
+safeRemove(STORAGE_KEY,sessionStorage);
 postToParent({type:'copeAheadReady'});
 postHeight();
 if('ResizeObserver' in window)new ResizeObserver(postHeight).observe(document.documentElement);

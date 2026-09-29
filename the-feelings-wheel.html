@@ -27,6 +27,17 @@
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     color: var(--text);
     min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  html {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
   }
 
   /* HEADER */
@@ -37,7 +48,7 @@
     text-align: center;
   }
   .eyebrow {
-    font-size: 12px;
+    font-size: 14px !important;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -52,7 +63,7 @@
     margin-bottom: 10px;
   }
   .subtitle {
-    font-size: 15px;
+    font-size: 18px !important;
     color: rgba(255,255,255,0.75);
     max-width: 480px;
     margin: 0 auto;
@@ -78,6 +89,7 @@
     height: auto;
     display: block;
     cursor: pointer;
+    touch-action: pan-y;
   }
 
   .segment {
@@ -112,7 +124,8 @@
     justify-content: center;
     min-height: 120px;
     color: var(--muted);
-    font-size: 15px;
+    font-size: 18px;
+    line-height: 1.55;
     gap: 8px;
     padding: 32px;
     text-align: center;
@@ -136,19 +149,19 @@
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
     flex-shrink: 0;
   }
   .info-emoji { font-size: 26px; line-height: 1; }
   .info-name {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.01em;
     flex: 1;
   }
   .cat-badge {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -182,7 +195,7 @@
     flex: 1;
   }
   .section-title {
-    font-size: 10.5px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -190,8 +203,8 @@
     margin-bottom: 5px;
   }
   .section-body {
-    font-size: 14px;
-    line-height: 1.65;
+    font-size: 17px;
+    line-height: 1.7;
     color: var(--text);
   }
 
@@ -206,7 +219,7 @@
     overflow: hidden;
   }
   .legend-title {
-    font-size: 13px;
+    font-size: 17px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--navy);
@@ -223,7 +236,7 @@
   .legend-col:not(:last-child) { border-right: 1px solid var(--border); }
 
   .legend-col-header {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
@@ -245,6 +258,7 @@
     cursor: pointer;
     transition: background 0.12s;
     margin-bottom: 2px;
+    touch-action: pan-y;
   }
   .legend-item:hover  { background: #f0ede7; }
   .legend-item.active { background: #f0ede7; box-shadow: inset 0 0 0 1.5px #d0cdc6; }
@@ -256,14 +270,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     color: #fff;
     flex-shrink: 0;
   }
-  .leg-emoji { font-size: 14px; line-height: 1; }
+  .leg-emoji { font-size: 17px; line-height: 1; }
   .leg-name {
-    font-size: 12.5px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text);
     line-height: 1.2;
@@ -294,9 +308,9 @@
       <!-- center circle -->
       <circle id="centerCircle" cx="0" cy="0" r="74" fill="#fff" />
       <text x="0" y="-7" text-anchor="middle" dominant-baseline="central"
-            font-size="11" fill="#9ca3af" font-family="'Segoe UI',system-ui,sans-serif" font-weight="500">How are you</text>
+            font-size="14" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-weight="600">How are you</text>
       <text x="0" y="9" text-anchor="middle" dominant-baseline="central"
-            font-size="11" fill="#9ca3af" font-family="'Segoe UI',system-ui,sans-serif" font-weight="500">feeling?</text>
+            font-size="14" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-weight="600">feeling?</text>
     </svg>
   </div>
 
@@ -579,7 +593,7 @@ function recordSkillComplete(completionType='finish') {
     txt.setAttribute('y', lp[1].toFixed(3));
     txt.setAttribute('text-anchor', 'middle');
     txt.setAttribute('dominant-baseline', 'central');
-    txt.setAttribute('font-size', '11');
+    txt.setAttribute('font-size', '13');
     txt.setAttribute('font-weight', '700');
     txt.setAttribute('fill', '#fff');
     txt.setAttribute('font-family', "'Segoe UI',system-ui,sans-serif");
@@ -677,15 +691,14 @@ function recordSkillComplete(completionType='finish') {
     }
   });
 
-  svgEl.addEventListener('touchstart', function (e) {
-    var t = e.touches[0];
-    var el = document.elementFromPoint(t.clientX, t.clientY);
+  svgEl.addEventListener('click', function (e) {
+    var el = e.target;
     while (el && el !== svgEl) {
       var di = el.getAttribute('data-index');
-      if (di !== null) { e.preventDefault(); showFeeling(parseInt(di)); return; }
+      if (di !== null) { showFeeling(parseInt(di)); return; }
       el = el.parentNode;
     }
-  }, { passive: false });
+  });
 
   // ── BUILD LEGEND ──────────────────────────────────────────────────────────
   var legendCols = document.getElementById('legendCols');
@@ -717,10 +730,6 @@ function recordSkillComplete(completionType='finish') {
 
       (function (idx) {
         item.addEventListener('click', function () { showFeeling(idx); });
-        item.addEventListener('touchstart', function (e) {
-          e.preventDefault();
-          showFeeling(idx);
-        }, { passive: false });
       })(i);
 
       col.appendChild(item);

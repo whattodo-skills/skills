@@ -51,7 +51,7 @@
     if (message.type === 'skillEntitlement') {
       button.disabled = message.canSaveToSkillsStack !== true;
       status.textContent = message.canSaveToSkillsStack === true
-        ? 'Your paid subscription is confirmed.'
+        ? ''
         : (message.message || 'A currently confirmed paid subscription is required.');
     }
     if (message.type === 'skillActionResult' && message.action === 'saveToSkillsStack' && message.requestId === requestId) {

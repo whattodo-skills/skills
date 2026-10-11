@@ -49,6 +49,6 @@ addEventListener('message',e=>{const d=e.data||{};if(d.type==='skillEntitlement'
 addEventListener('load',()=>{parent.postMessage({type:'skillReady',skillSlug:BRIDGE_SLUG,skillId:SLUG},'*');try{const raw=localStorage.getItem(KEY);if(raw){const d=JSON.parse(raw);if(d?.schema===1&&confirm('Restore your saved Choose an Effective Response practice?')){Object.entries(d.fields||{}).forEach(([id,v])=>{if($(id))$(id).value=v});Object.entries(d.checked||{}).forEach(([name,vals])=>vals.forEach(v=>{const el=qa(`[name="${name}"]`).find(x=>x.value===v);if(el)el.checked=true}));if(d.fields?.response1)renderShortlist();summaryData=d.summaryData||{};if(d.phase==='summary')renderSummary();show(phases.includes(d.phase)||d.phase==='summary'?d.phase:'pause');$('browserSave').checked=true;$('saveStatus').textContent='Saved practice restored.'}}}catch(e){$('saveStatus').textContent='Saved browser data could not be restored.'}refreshHeight()});
 </script>
 <script src="remove-optional-save-controls.js"></script>
-<script src="skills-stack-ending.js?v=20261011c"></script>
+<script src="skills-stack-ending.js?v=20261011d"></script>
 </body>
 </html>

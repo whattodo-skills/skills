@@ -57,7 +57,9 @@
     if (message.type === 'skillActionResult' && message.action === 'saveToSkillsStack' && message.requestId === requestId) {
       button.disabled = !message.ok;
       button.textContent = message.ok ? 'Saved to my Skills Stack' : LABEL;
-      status.textContent = message.message || (message.ok ? 'Saved.' : 'Unable to save. Please try again.');
+      status.textContent = message.ok
+        ? ''
+        : (message.message || 'Unable to save. Please try again.');
     }
   });
 

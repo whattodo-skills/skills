@@ -74,6 +74,6 @@ function restoreDraft(){try{const raw=sessionStorage.getItem(KEY);if(!raw)return
 function sendHeight(){if(heightPending)return;heightPending=true;requestAnimationFrame(()=>{heightPending=false;const height=Math.ceil(Math.max(document.documentElement.scrollHeight,document.body.scrollHeight,document.body.offsetHeight));if(Math.abs(height-lastHeight)<2)return;lastHeight=height;parent.postMessage({type:'skillFrameHeight',skillSlug:SLUG,skillId:SLUG,height},'*');parent.postMessage({type:'skillPracticeResize',skillSlug:SLUG,height},'*')})}function refreshHeight(){sendHeight();setTimeout(sendHeight,80);setTimeout(sendHeight,250)}new ResizeObserver(refreshHeight).observe(document.body);addEventListener('load',()=>{$('loadingStatus').hidden=true;restoreDraft();setPaid(false);parent.postMessage({type:'skillReady',skillSlug:BRIDGE_SLUG,skillId:SLUG},'*');refreshHeight()});addEventListener('resize',refreshHeight);if(document.fonts?.ready)document.fonts.ready.then(refreshHeight);
 </script>
 <script src="remove-optional-save-controls.js"></script>
-<script src="skills-stack-ending.js?v=20261011"></script>
+<script src="skills-stack-ending.js?v=20261011b"></script>
 </body>
 </html>

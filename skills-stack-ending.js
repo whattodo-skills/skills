@@ -19,18 +19,26 @@
     return;
   }
 
-  const style = document.createElement('style');
-  style.textContent = '.skills-stack-ending{width:min(920px,calc(100% - 28px));margin:18px auto 28px;padding:18px;text-align:center;background:#fff;border:1px solid #d8e2e8;border-radius:16px;box-shadow:0 12px 34px rgba(23,50,77,.1)}.skills-stack-ending__button{width:100%;min-height:48px;padding:12px 18px;border:0;border-radius:10px;background:#17324d;color:#fff;font:700 16px/1.3 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer}.skills-stack-ending__button:disabled{cursor:not-allowed;opacity:.55}.skills-stack-ending__status{min-height:1.4em;margin:9px 0 0;color:#397aa8;font:600 14px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}';
-  document.head.appendChild(style);
+  const groups = Array.from(document.querySelectorAll(
+    '.conclusion, .finish-actions, .btn-row, .btns, .actions, .action-row, .button-row'
+  )).filter((group) => group.querySelector('button, a'));
+  const lastControl = Array.from(document.querySelectorAll('button, a')).pop();
+  const actionGroup = groups.pop() || lastControl?.parentElement || document.body;
+  const referenceControl = Array.from(actionGroup.querySelectorAll('button, a')).pop();
 
-  const region = document.createElement('section');
-  region.className = 'skills-stack-ending';
-  region.setAttribute('aria-label', 'Skills Stack');
-  region.innerHTML = '<button class="skills-stack-ending__button" type="button" disabled>Save to my Skills Stack</button><p class="skills-stack-ending__status" aria-live="polite">Checking your subscription…</p>';
-  document.body.appendChild(region);
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.disabled = true;
+  button.textContent = LABEL;
+  button.className = referenceControl?.className || 'button';
+  button.classList.add('skills-stack-ending-button');
+  actionGroup.appendChild(button);
 
-  const button = region.querySelector('button');
-  const status = region.querySelector('p');
+  const status = document.createElement('p');
+  status.className = 'skills-stack-ending-status status';
+  status.setAttribute('aria-live', 'polite');
+  status.textContent = 'Checking your subscription…';
+  actionGroup.insertAdjacentElement('afterend', status);
   let requestId = '';
 
   function post(message) {

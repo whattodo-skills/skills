@@ -330,6 +330,6 @@ window.addEventListener('message',event=>{if(event.origin!==SAFE_PARENT_ORIGIN||
 renderDurationOptions();safeRemove(STORAGE_KEY);safeRemove(DRAFT_OPT_IN_KEY);makeRatingGrid('urgeBeforeGrid','urgeBeforeLabel','urgeBefore','Urge intensity');makeRatingGrid('urgeAfterGrid','urgeAfterLabel','urgeAfter','Urge intensity');$('includePrivateSummary').checked=false;$('modeQuick').setAttribute('aria-pressed',String(mode==='quick'));$('modeRehearsal').setAttribute('aria-pressed',String(mode==='rehearsal'));preparePractice();$('timeLeft').textContent=fmt(Math.max(0,plannedDurationSeconds-activeDurationSeconds));$('repCount').textContent=String(pauseReps);renderCommitment();renderRecommendation();renderSummary();postToParent({type:'pauseBeforeActingReady'});if(window.top===window.self)window.location.replace(WIX_SKILL_URL);
 </script>
 <script src="remove-optional-save-controls.js"></script>
-<script src="skills-stack-ending.js?v=20261011"></script>
+<script src="skills-stack-ending.js?v=20261011b"></script>
 </body>
 </html>

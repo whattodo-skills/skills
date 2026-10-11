@@ -81,4 +81,5 @@ window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='skillEntit
 function sendHeight(){requestAnimationFrame(()=>window.parent.postMessage({type:'skillFrameHeight',skillSlug:'check-the-story',height:Math.ceil(document.documentElement.scrollHeight)},'*'))}new ResizeObserver(sendHeight).observe(document.body);window.addEventListener('load',()=>{sendHeight();window.parent.postMessage({type:'skillReady',skillSlug:'check-the-story'},'*')});
 </script>
 <script src="remove-optional-save-controls.js"></script>
+<script src="skills-stack-ending.js?v=20261011"></script>
 </body></html>

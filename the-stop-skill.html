@@ -247,5 +247,6 @@ function startGuidedBreath(){const circ=document.getElementById('guided-breath-c
 function guidedNext(step){const map={s:1,t:2,o:3,p:4};for(let i=1;i<=4;i++){const dot=document.getElementById('dot-'+i);dot.className=i<map[step]?'p-dot done':i===map[step]?'p-dot active':'p-dot';}document.querySelectorAll('.guided-step').forEach(s=>s.style.display='none');document.getElementById('guided-'+step).style.display='block';window.scrollTo(0,0);}
 </script>
 <script src="remove-optional-save-controls.js"></script>
+<script src="skills-stack-ending.js?v=20261011"></script>
 </body>
 </html>

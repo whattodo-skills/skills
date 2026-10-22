@@ -1,21 +1,37 @@
 (function () {
   'use strict';
 
-  const LABEL = 'Save to my Skills Stack';
+  const LABEL = 'Save To My Dashboard';
   const SAFE_PARENT_ORIGIN = 'https://www.whattodo.coach';
   const existing = Array.from(document.querySelectorAll('button, a')).filter((element) =>
-    /^save to (?:my )?skills stack$/i.test((element.textContent || '').trim())
+    /^(?:save to (?:my )?skills stack|save to my dashboard)$/i.test((element.textContent || '').trim())
   );
 
   if (existing.length) {
-    existing.forEach((element) => { element.textContent = LABEL; });
+    const setDisabled = (element, disabled) => {
+      element.textContent = LABEL;
+      if ('disabled' in element) element.disabled = disabled;
+      element.setAttribute('aria-disabled', String(disabled));
+      element.style.opacity = disabled ? '0.45' : '';
+      element.style.cursor = disabled ? 'not-allowed' : '';
+      element.style.pointerEvents = disabled ? 'none' : '';
+      if (disabled) element.setAttribute('tabindex', '-1');
+      else element.removeAttribute('tabindex');
+    };
+    existing.forEach((element) => { setDisabled(element, true); });
     new MutationObserver(() => {
       existing.forEach((element) => {
-        if ((element.textContent || '').trim() !== LABEL && /^save to (?:my )?skills stack$/i.test((element.textContent || '').trim())) {
+        if ((element.textContent || '').trim() !== LABEL && /^(?:save to (?:my )?skills stack|save to my dashboard)$/i.test((element.textContent || '').trim())) {
           element.textContent = LABEL;
         }
       });
     }).observe(document.body, { childList: true, characterData: true, subtree: true });
+    window.addEventListener('message', (event) => {
+      if (event.origin !== SAFE_PARENT_ORIGIN || event.source !== window.parent) return;
+      const message = event.data || {};
+      if (message.type !== 'skillEntitlement') return;
+      existing.forEach((element) => setDisabled(element, message.canSaveToSkillsStack !== true));
+    });
     return;
   }
 
@@ -56,7 +72,7 @@
     }
     if (message.type === 'skillActionResult' && message.action === 'saveToSkillsStack' && message.requestId === requestId) {
       button.disabled = !message.ok;
-      button.textContent = message.ok ? 'Saved to my Skills Stack' : LABEL;
+      button.textContent = message.ok ? 'Saved To My Dashboard' : LABEL;
       status.textContent = message.ok
         ? ''
         : (message.message || 'Unable to save. Please try again.');

@@ -122,18 +122,21 @@
 
   .wheel-key {
     margin: 0;
-    padding: 14px 18px;
+    padding: 18px 22px 19px;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 8px 16px;
-    color: var(--muted);
-    font-size: 15px;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--navy);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
     border-bottom: 1px solid var(--border);
     background: #faf9f6;
   }
-  .wheel-key span { display: inline-flex; align-items: center; gap: 6px; }
-  .wheel-key i { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(18,35,62,.14); }
+  .wheel-key span { display: inline-flex; align-items: center; gap: 10px; }
+  .wheel-key i { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(18,35,62,.16); flex-shrink: 0; }
 
   /* INFO PANEL */
   .info-panel {

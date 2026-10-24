@@ -122,21 +122,46 @@
 
   .wheel-key {
     margin: 0;
-    padding: 18px 22px 19px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 8px;
+    gap: 12px;
     color: var(--navy);
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.25;
+    font-size: 16px;
+    line-height: 1.45;
     border-bottom: 1px solid var(--border);
     background: #faf9f6;
   }
-  .wheel-key span { display: inline-flex; align-items: center; gap: 10px; }
-  .wheel-key i { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(18,35,62,.16); flex-shrink: 0; }
+  .key-block {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border-left: 5px solid var(--teal);
+    background: #eef6f3;
+  }
+  .key-block.outer {
+    border-left-color: var(--purple);
+    background: #f0f1fa;
+  }
+  .key-heading { font-size: 17px; line-height: 1.4; }
+  .key-heading strong { font-weight: 800; }
+  .key-example {
+    margin-top: 7px;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .key-example strong { color: var(--navy); }
+  .key-result {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 4px 9px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.8);
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 700;
+  }
 
   /* INFO PANEL */
   .info-panel {
@@ -181,22 +206,29 @@
   }
   .mood-title {
     color: var(--navy);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    margin-bottom: 9px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: none;
+    margin-bottom: 10px;
   }
-  .mood-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .mood-chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .mood-chip {
-    padding: 5px 10px;
+    appearance: none;
+    padding: 8px 12px;
     border-radius: 999px;
-    background: #fff;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(18,35,62,.14);
     color: var(--navy);
-    font-size: 14px;
-    font-weight: 600;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.1;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
   }
+  .mood-chip:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(18,35,62,.14); }
+  .mood-chip:focus-visible { outline: 3px solid rgba(18,35,62,.3); outline-offset: 2px; }
+  .mood-chip[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--navy), 0 3px 8px rgba(18,35,62,.16); }
 
   .info-header {
     display: flex;
@@ -417,8 +449,15 @@
   <!-- INFO PANEL -->
   <div class="info-panel" id="infoPanel">
     <div class="wheel-key" aria-label="Wheel legend">
-      <span><i style="background:#d9e8e4"></i>Inner: core emotion</span>
-      <span><i style="background:#edf3f1"></i>Outer: feelings</span>
+      <div class="key-block">
+        <div class="key-heading"><strong>Inner Circle: Emotion:</strong> your immediate response to something</div>
+        <div class="key-example"><strong>Example:</strong> You see a recent gathering of a group of friends that you weren't invited to.</div>
+        <div class="key-result">Emotion: Sadness</div>
+      </div>
+      <div class="key-block outer">
+        <div class="key-heading"><strong>Outer Circle: Feelings:</strong> the meaning you assign to your emotional response</div>
+        <div class="key-example"><strong>Example:</strong> Seeing the pic on social media &gt; Emotion: Sadness &gt; Feeling: Rejection</div>
+      </div>
     </div>
     <div class="info-empty" id="infoEmpty">
       <span>&#128070;</span>
@@ -882,12 +921,22 @@ function recordSkillComplete(completionType='finish') {
 
     var family = wheelData[f.familyIndex];
     moodChips.innerHTML = family.moods.map(function (mood) {
-      return '<span class="mood-chip">' + esc(mood.charAt(0).toUpperCase() + mood.slice(1)) + '</span>';
+      return '<button type="button" class="mood-chip" aria-pressed="false" style="background:' + family.color + '">' +
+        esc(mood.charAt(0).toUpperCase() + mood.slice(1)) + '</button>';
     }).join('');
 
     infoEmpty.style.display = 'none';
     infoContent.classList.add('visible');
   }
+
+  moodChips.addEventListener('click', function (e) {
+    var button = e.target.closest('.mood-chip');
+    if (!button) return;
+    var buttons = moodChips.querySelectorAll('.mood-chip');
+    for (var i = 0; i < buttons.length; i++) buttons[i].setAttribute('aria-pressed', 'false');
+    button.setAttribute('aria-pressed', 'true');
+    window.parent.postMessage({ type: 'moodSelected', mood: button.textContent }, '*');
+  });
 
   function keyFromTarget(target) {
     var el = target;

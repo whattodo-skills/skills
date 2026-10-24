@@ -381,7 +381,7 @@
     .legend-col, .legend-col:nth-child(odd), .legend-col:nth-last-child(-n + 2) { border-right: none; border-bottom: 1px solid var(--border); }
     .legend-col:last-child { border-bottom: none; }
     .info-header { flex-wrap: wrap; }
-    .wheel-wrap svg { width: 112%; max-width: none; margin-left: -6%; }
+    .wheel-wrap svg { width: 100%; max-width: none; margin-left: 0; }
   }
 </style>
 <style data-skill-layout-standard>html{font-size:16px!important}html,body{background:#F7F4ED}body{font-size:17px!important;line-height:1.55!important}body>main,body>.wrap,body>.container,body>.app,body>.shell,body>main>.shell,body>.intro{width:min(100%,1180px)!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(14px,2.5vw,24px)!important;padding-right:clamp(14px,2.5vw,24px)!important}body>main>.screen,body>.screen{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important}h1{font-size:clamp(1.8rem,3.2vw,2.6rem)!important;line-height:1.12!important}h2{font-size:clamp(1.35rem,2.4vw,1.85rem)!important;line-height:1.2!important}h3{font-size:clamp(1.08rem,1.8vw,1.3rem)!important;line-height:1.25!important}p,li,label,input,textarea,select,button{font-size:1rem!important}.hero{padding:clamp(20px,3vw,30px)!important}.card,.panel,.practice{padding:clamp(18px,2.7vw,28px)!important}.btns,.actions,.row,.button-row,.conclusion{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important}.btns>button,.btns>a,.actions>button,.actions>a,.row>button,.row>a,.button-row>button,.button-row>a,.conclusion>button,.conclusion>a{width:auto!important;min-height:46px!important;flex:0 1 auto!important;padding:11px 18px!important}@media(max-width:640px){body{font-size:16px!important}.btns>button,.btns>a,.actions>button,.actions>a,.row>button,.row>a,.button-row>button,.button-row>a,.conclusion>button,.conclusion>a{width:100%!important;flex:1 1 100%!important}}</style></head>
@@ -788,6 +788,8 @@ function recordSkillComplete(completionType='finish') {
 
   // ── INFO PANEL ────────────────────────────────────────────────────────────
   var activeIndex = null;
+  var selectionPinned = false;
+  var usesTouchSelection = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   var infoEmpty    = document.getElementById('infoEmpty');
   var infoContent  = document.getElementById('infoContent');
   var infoHeader   = document.getElementById('infoHeader');
@@ -810,8 +812,12 @@ function recordSkillComplete(completionType='finish') {
       .replace(/"/g, '&quot;');
   }
 
-  function showFeeling(itemKey) {
-    recordSkillComplete('select-feeling');
+  if (usesTouchSelection) {
+    document.getElementById('centerLine1').textContent = 'TAP TO';
+  }
+
+  function showFeeling(itemKey, committed) {
+    if (committed) recordSkillComplete('select-feeling');
     var item = itemMap[itemKey];
     if (!item) return;
 
@@ -880,22 +886,35 @@ function recordSkillComplete(completionType='finish') {
     infoContent.classList.add('visible');
   }
 
-  // wheel hover / touch
-  svgEl.addEventListener('mousemove', function (e) {
-    var el = e.target;
+  function keyFromTarget(target) {
+    var el = target;
     while (el && el !== svgEl) {
       var key = el.getAttribute('data-key');
-      if (key !== null) { showFeeling(key); return; }
+      if (key !== null) return key;
       el = el.parentNode;
     }
+    return null;
+  }
+
+  // Hover previews until the user deliberately pins a choice.
+  svgEl.addEventListener('mousemove', function (e) {
+    if (usesTouchSelection || selectionPinned) return;
+    var key = keyFromTarget(e.target);
+    if (key !== null) showFeeling(key, false);
   });
 
-  svgEl.addEventListener('click', function (e) {
-    var el = e.target;
-    while (el && el !== svgEl) {
-      var key = el.getAttribute('data-key');
-      if (key !== null) { showFeeling(key); return; }
-      el = el.parentNode;
+  // Pointer events work consistently for mouse, touch, and stylus input.
+  svgEl.addEventListener('pointerup', function (e) {
+    var key = keyFromTarget(e.target);
+    if (key === null) return;
+    var selectedItem = itemMap[key];
+    selectionPinned = true;
+    showFeeling(key, true);
+
+    if (usesTouchSelection && selectedItem && selectedItem.layer === 'Feeling') {
+      window.setTimeout(function () {
+        document.getElementById('infoPanel').scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 60);
     }
   });
 
@@ -928,7 +947,8 @@ function recordSkillComplete(completionType='finish') {
 
       item.addEventListener('click', function () {
         if (focusedFamily !== familyIndex) { focusedFamily = familyIndex; buildWheel(); }
-        showFeeling(key);
+        selectionPinned = true;
+        showFeeling(key, true);
         document.getElementById('infoPanel').scrollIntoView({ behavior:'smooth', block:'start' });
       });
 
@@ -942,7 +962,7 @@ function recordSkillComplete(completionType='finish') {
   });
 
   buildWheel();
-  showFeeling('Emotion:Happiness:Happiness');
+  showFeeling('Emotion:Happiness:Happiness', false);
 
 })();
 </script>

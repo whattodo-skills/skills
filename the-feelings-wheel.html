@@ -71,20 +71,28 @@
 
   /* MAIN LAYOUT */
   .main {
-    max-width: 800px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 32px 16px 48px;
+  }
+
+  .explore-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 28px;
   }
 
   /* WHEEL CONTAINER */
   .wheel-wrap {
     display: flex;
     justify-content: center;
-    margin-bottom: 28px;
+    margin-bottom: 0;
     position: relative;
   }
   .wheel-wrap svg {
-    max-width: 680px;
+    max-width: 560px;
     width: 100%;
     height: auto;
     display: block;
@@ -113,22 +121,24 @@
   }
 
   .wheel-key {
-    max-width: 680px;
-    margin: -14px auto 24px;
+    margin: 0;
+    padding: 14px 18px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 8px 16px;
     color: var(--muted);
     font-size: 15px;
+    border-bottom: 1px solid var(--border);
+    background: #faf9f6;
   }
   .wheel-key span { display: inline-flex; align-items: center; gap: 6px; }
   .wheel-key i { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(18,35,62,.14); }
 
   /* INFO PANEL */
   .info-panel {
-    max-width: 640px;
-    margin: 0 auto 28px;
+    width: 100%;
+    margin: 0;
     background: #fff;
     border-radius: 16px;
     box-shadow: 0 2px 16px rgba(18,35,62,0.10);
@@ -153,9 +163,34 @@
   .info-content { display: none; }
   .info-content.visible { display: block; }
 
+  .mood-box {
+    padding: 16px 18px 18px;
+    border-top: 1px solid var(--border);
+    background: #faf9f6;
+  }
+  .mood-title {
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 9px;
+  }
+  .mood-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .mood-chip {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
   .info-header {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 12px;
     padding: 18px 20px 16px;
     border-bottom: 1px solid var(--border);
@@ -177,7 +212,8 @@
     font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    flex: 1;
+    flex: 1 1 150px;
+    min-width: 0;
   }
   .cat-badge {
     font-size: 15px;
@@ -319,6 +355,11 @@
     line-height: 1.2;
   }
 
+  @media (max-width: 820px) {
+    .explore-layout { grid-template-columns: 1fr; }
+    .info-panel { max-width: 680px; margin: 0 auto; }
+  }
+
   @media (max-width: 520px) {
     .legend-cols { grid-template-columns: 1fr; }
     .legend-col, .legend-col:nth-child(odd), .legend-col:nth-last-child(-n + 2) { border-right: none; border-bottom: 1px solid var(--border); }
@@ -333,33 +374,33 @@
 <header class="site-header">
   <p class="eyebrow">What To Do! with Terri Kern</p>
   <h1>The Feelings Wheel</h1>
-  <p class="subtitle">Choose a core emotion, then explore its feelings and moods in depth</p>
+  <p class="subtitle">Choose a core emotion, then explore its feelings in depth</p>
 </header>
 
 <main class="main">
 
+  <div class="explore-layout">
   <!-- WHEEL -->
   <div class="wheel-wrap">
     <svg id="wheel" viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg"
-         aria-label="Interactive feelings wheel with core emotions, feelings, and moods">
+         aria-label="Interactive feelings wheel with core emotions and feelings">
       <!-- segments and labels injected by JS -->
       <!-- center circle -->
       <g id="wheelLayers"></g>
       <circle id="centerCircle" cx="0" cy="0" r="48" fill="#fff" stroke="#e0ddd6" />
       <text id="centerLine1" x="0" y="-7" text-anchor="middle" dominant-baseline="central"
-            font-size="13" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-weight="700">CHOOSE A</text>
+            font-size="13" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-weight="700">HOVER TO</text>
       <text id="centerLine2" x="0" y="10" text-anchor="middle" dominant-baseline="central"
-            font-size="13" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-weight="700">CORE EMOTION</text>
+            font-size="13" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-weight="700">CHOOSE</text>
     </svg>
-  </div>
-  <div class="wheel-key" aria-hidden="true">
-    <span><i style="background:#d9e8e4"></i>Inner: core emotion</span>
-    <span><i style="background:#edf3f1"></i>Middle: feelings</span>
-    <span><i style="background:#f7faf9"></i>Outer: moods</span>
   </div>
 
   <!-- INFO PANEL -->
   <div class="info-panel" id="infoPanel">
+    <div class="wheel-key" aria-label="Wheel legend">
+      <span><i style="background:#d9e8e4"></i>Inner: core emotion</span>
+      <span><i style="background:#edf3f1"></i>Outer: feelings</span>
+    </div>
     <div class="info-empty" id="infoEmpty">
       <span>&#128070;</span>
       <span>Hover over a segment or tap a feeling in the legend below to explore it in depth</span>
@@ -368,6 +409,11 @@
       <div class="info-header" id="infoHeader"></div>
       <div class="info-sections" id="infoSections"></div>
     </div>
+    <div class="mood-box" id="moodBox">
+      <div class="mood-title">Possible overall mood</div>
+      <div class="mood-chips" id="moodChips"></div>
+    </div>
+  </div>
   </div>
 
   <!-- LEGEND -->
@@ -719,21 +765,9 @@ function recordSkillComplete(completionType='finish') {
       var s = START_DEG + i * feelingSweep;
       var item = { name:name, family:family.name, familyIndex:focusedFamily, layer:'Feeling', cat:family.cat, color:family.color, emoji:'◌' };
       var key = registerItem(item);
-      addSegment(s, s + feelingSweep, 108, 190, family.color, key, 'feeling-segment');
-      addLabel(name, s + feelingSweep / 2, 149, family.feelings.length > 20 ? 6.6 : 7.4, 600, key);
+      addSegment(s, s + feelingSweep, 108, 238, family.color, key, 'feeling-segment');
+      addLabel(name, s + feelingSweep / 2, 173, family.feelings.length > 20 ? 6.6 : 7.4, 600, key);
     });
-
-    var moodSweep = 360 / family.moods.length;
-    family.moods.forEach(function (name, i) {
-      var s = START_DEG + i * moodSweep;
-      var item = { name:name, family:family.name, familyIndex:focusedFamily, layer:'Mood', cat:family.cat, color:family.color, emoji:'○' };
-      var key = registerItem(item);
-      addSegment(s, s + moodSweep, 194, 238, family.color, key, 'mood-segment');
-      addLabel(name, s + moodSweep / 2, 216, 8, 600, key);
-    });
-
-    document.getElementById('centerLine1').textContent = family.name.toUpperCase();
-    document.getElementById('centerLine2').textContent = 'FAMILY';
   }
 
   // ── INFO PANEL ────────────────────────────────────────────────────────────
@@ -742,6 +776,7 @@ function recordSkillComplete(completionType='finish') {
   var infoContent  = document.getElementById('infoContent');
   var infoHeader   = document.getElementById('infoHeader');
   var infoSections = document.getElementById('infoSections');
+  var moodChips    = document.getElementById('moodChips');
 
   var sectionDefs = [
     { key:'what',          icon:'💭', label:'What this feeling is' },
@@ -820,6 +855,11 @@ function recordSkillComplete(completionType='finish') {
     }
     infoSections.innerHTML = secHTML;
 
+    var family = wheelData[f.familyIndex];
+    moodChips.innerHTML = family.moods.map(function (mood) {
+      return '<span class="mood-chip">' + esc(mood.charAt(0).toUpperCase() + mood.slice(1)) + '</span>';
+    }).join('');
+
     infoEmpty.style.display = 'none';
     infoContent.classList.add('visible');
   }
@@ -855,19 +895,19 @@ function recordSkillComplete(completionType='finish') {
     hdr.textContent = (familyIndex + 1) + ' · ' + g.name;
     col.appendChild(hdr);
 
-    function appendLegendItems(layer, names) {
+    function appendLegendItems(names) {
       var layerLabel = document.createElement('div');
       layerLabel.className = 'legend-layer-label';
-      layerLabel.textContent = layer + (layer === 'Feeling' ? 's' : 's');
+      layerLabel.textContent = 'Feelings';
       col.appendChild(layerLabel);
 
       names.forEach(function (name) {
-      var key = layer + ':' + g.name + ':' + name;
+      var key = 'Feeling:' + g.name + ':' + name;
       var item = document.createElement('div');
       item.className = 'legend-item';
       item.setAttribute('data-key', key);
       item.innerHTML =
-        '<div class="leg-num" style="background:' + g.color + '">' + (layer === 'Feeling' ? 'F' : 'M') + '</div>' +
+        '<div class="leg-num" style="background:' + g.color + '">F</div>' +
         '<span class="leg-name">' + esc(name.charAt(0).toUpperCase() + name.slice(1)) + '</span>';
 
       item.addEventListener('click', function () {
@@ -880,8 +920,7 @@ function recordSkillComplete(completionType='finish') {
       });
     }
 
-    appendLegendItems('Feeling', g.feelings);
-    appendLegendItems('Mood', g.moods);
+    appendLegendItems(g.feelings);
 
     legendCols.appendChild(col);
   });
@@ -891,7 +930,5 @@ function recordSkillComplete(completionType='finish') {
 
 })();
 </script>
-<script src="remove-optional-save-controls.js"></script>
-<script src="skills-stack-ending.js?v=20261022a"></script>
 </body>
 </html>
